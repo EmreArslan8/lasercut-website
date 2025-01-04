@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import {
-  Box,
-  Button,
   Container,
   TextField,
   Typography,
   Paper,
   CircularProgress,
   Alert,
+  Button,
 } from '@mui/material';
+import { FirebaseError } from 'firebase/app';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -22,18 +22,25 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null); // Hata mesajı için state
   const router = useRouter();
 
+
+
   const handleLogin = async () => {
     setLoading(true);
     setError(null); // Hata mesajını temizle
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/admin'); // Başarılı girişte admin sayfasına yönlendir
-    } catch (error: any) {
-      setError('Giriş başarısız: ' + error.message);
+      router.push("/admin"); // Başarılı girişte admin sayfasına yönlendir
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setError("Giriş başarısız: " + error.message);
+      } else {
+        setError("Bilinmeyen bir hata oluştu.");
+      }
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Container
@@ -49,7 +56,7 @@ const LoginPage = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: '2rem',
+          padding: '32px',
           width: '100%',
           textAlign: 'center',
           borderRadius: '16px',
@@ -70,7 +77,7 @@ const LoginPage = () => {
           Giriş Yap
         </Typography>
         {error && (
-          <Alert severity="error" sx={{ marginBottom: '1rem' }}>
+          <Alert severity="error" sx={{ marginBottom: '16px' }}>
             {error}
           </Alert>
         )}
@@ -81,7 +88,7 @@ const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           sx={{
-            marginBottom: '1rem',
+            marginBottom: '16px',
             '& .MuiOutlinedInput-root': {
               borderRadius: '12px',
             },
@@ -110,7 +117,7 @@ const LoginPage = () => {
           sx={{
             padding: '0.8rem',
             fontWeight: 'bold',
-            fontSize: '1rem',
+            fontSize: '16px',
             borderRadius: '12px',
             background: 'linear-gradient(to right, #1976d2, #42a5f5)',
             '&:hover': {
@@ -122,7 +129,7 @@ const LoginPage = () => {
         </Button>
         <Typography
           variant="body2"
-          sx={{ marginTop: '1rem', color: '#666' }}
+          sx={{ marginTop: '16px', color: '#666' }}
         >
           Henüz bir hesabınız yok mu?{' '}
           <a

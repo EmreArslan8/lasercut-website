@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import Header from "./components/Header/page";
-import Footer from "./components/Footer/page";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import theme from "@/theme/theme";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 export default function RootLayout({
@@ -18,8 +19,8 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Header />
-          {children}
-       <Footer />
+          <main style={{ minHeight: "calc(100vh - 200px)" }}>{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

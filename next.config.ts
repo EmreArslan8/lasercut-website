@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true, // React Strict Mode'u etkinleştirir
-  swcMinify: true, // SWC ile hızlı minifikasyon sağlar
+  //swcMinify: true, // SWC ile hızlı minifikasyon sağlar
   i18n: {
     locales: ["tr", "en"], // Desteklenen diller
     defaultLocale: "tr", // Varsayılan dil

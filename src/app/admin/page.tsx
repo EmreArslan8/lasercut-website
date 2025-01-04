@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase.js";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,130 +9,97 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CircularProgress,
-  Box,
-  Stack,
-  Typography,
+  Button,
 } from "@mui/material";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/lib/firebase.js"; // Firebase Auth eklendi
-import { useRouter } from "next/navigation"; // Yönlendirme için Next.js router
+import { supabase } from "@/lib/api/supabaseClient";
 
-interface Data {
-  id: string;
-  name?: string; // Opsiyonel hale getirildi
-  email?: string;
-  phone?: string;
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
 }
 
-const Dashboard = () => {
-  const [data, setData] = useState<Data[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); // Hata durumunu tutar
-  const [isAuthorized, setIsAuthorized] = useState(false); // Yetki durumu
-  const router = useRouter();
+interface FileData {
+  id: number;
+  file_name: string;
+  form_data: FormData; // JSON formatındaki form verisi
+}
 
-  const allowedEmails = ["admin@example.com", "another@example.com"]; // Yalnızca izin verilen e-posta adresleri
+const FilesTable = () => {
+  const [files, setFiles] = useState<FileData[]>([]);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      onAuthStateChanged(auth, (user) => {
-        if (user && allowedEmails.includes(user.email || "")) {
-          setIsAuthorized(true);
-        } else {
-          router.push("/login"); // Yetkisiz kullanıcılar giriş sayfasına yönlendirilir
-        }
-      });
+    const fetchFiles = async () => {
+      const { data, error } = await supabase
+        .from("files") // Tablonun adı
+        .select("id, file_name, form_data");
+
+      if (error) {
+        console.error("Veri çekme hatası:", error.message);
+      } else {
+        setFiles(data || []);
+      }
     };
 
-    checkAuth();
-  }, [router]);
+    fetchFiles();
+  }, []);
 
-  useEffect(() => {
-    if (isAuthorized) {
-      const fetchData = async () => {
-        try {
-          const querySnapshot = await getDocs(collection(db, "teklifler"));
-          const documents = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setData(documents as Data[]);
-        } catch (err) {
-          console.error("Veri çekme hatası:", err);
-          setError("Veriler alınırken bir hata oluştu.");
-        } finally {
-          setLoading(false);
-        }
-      };
+  const getFileUrl = (fileName: string) => {
+    const { data } = supabase.storage
+      .from("uploaded-files") // Bucket adı
+      .getPublicUrl(fileName);
 
-      fetchData();
+    if (!data || !data.publicUrl) {
+      console.error("Public URL alınamadı.");
+      return null;
     }
-  }, [isAuthorized]);
 
-  if (loading) {
-    return (
-      <Box sx={{ textAlign: "center", padding: "2rem" }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box sx={{ textAlign: "center", padding: "2rem" }}>
-        <Typography color="error">{error}</Typography>
-      </Box>
-    );
-  }
-
-  if (!isAuthorized) {
-    return null; // Yüklenirken ya da yetkisizse hiçbir şey render edilmez
-  }
+    return data.publicUrl; // Public URL döner
+  };
 
   return (
-    <Stack sx={{ minHeight: "100vh", padding: "1rem" }}>
-      <Typography
-        variant="h4"
-        sx={{ marginBottom: "1rem", textAlign: "center" }}
-      >
-        Kullanıcı Listesi
-      </Typography>
-      <TableContainer
-        component={Paper}
-        sx={{ borderRadius: "8px", overflow: "hidden" }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell><strong>ID</strong></TableCell>
+            <TableCell><strong>Dosya Adı</strong></TableCell>
+            <TableCell><strong>Ad Soyad</strong></TableCell>
+            <TableCell><strong>Email</strong></TableCell>
+            <TableCell><strong>Telefon</strong></TableCell>
+            <TableCell><strong>Dosya URL&#39;si</strong></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {files.map((file) => (
+            <TableRow key={file.id}>
+              <TableCell>{file.id}</TableCell>
+              <TableCell>{file.file_name}</TableCell>
+              <TableCell>{file.form_data?.name || "Belirtilmedi"}</TableCell>
+              <TableCell>{file.form_data?.email || "Belirtilmedi"}</TableCell>
+              <TableCell>{file.form_data?.phone || "Belirtilmedi"}</TableCell>
               <TableCell>
-                <strong>ID</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Ad</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Email</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Telefon</strong>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    const url = getFileUrl(file.file_name);
+                    if (url) {
+                      window.open(url, "_blank"); // Yeni sekmede dosyayı aç
+                    } else {
+                      alert("Dosya URL'si alınamadı.");
+                    }
+                  }}
+                >
+                  Görüntüle
+                </Button>
               </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.name || "Belirtilmemiş"}</TableCell>
-                <TableCell>{row.email || "Belirtilmemiş"}</TableCell>
-                <TableCell>{row.phone || "Belirtilmemiş"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Stack>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
-export default Dashboard;
+export default FilesTable;

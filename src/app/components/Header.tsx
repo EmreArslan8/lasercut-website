@@ -13,7 +13,7 @@ const Header = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0.5rem 1rem',
+        padding: '0.5rem 16px',
         borderBottom: (theme) => `1px solid ${theme.palette.divider}`, // Tema tabanlı renk
         maxWidth: '1536px',
         margin: '0 auto',
@@ -29,10 +29,11 @@ const Header = () => {
         }}
       >
         <Image
-          src="/static/images/logo.png"
+          src="/static/images/logo.webp"
           alt="Logo"
           width={120}
           height={60}
+          color= 'linear-gradient(135deg, #f5f7fa, #c3cfe2)'
           style={{
             objectFit: 'contain',
             maxWidth: '100%',
@@ -46,21 +47,11 @@ const Header = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '1rem',
+          gap: '16px',
         }}
       >
-        {/* Teklif Butonu */}
-        <Button
-          variant="contained"
-          color="primary" // Temadaki primary rengi kullanır
-          sx={{
-            fontSize: '0.9rem',
-            textTransform: 'none', // Temadaki typography'den gelir
-          }}
-          onClick={() => router.push('/teklif')} // Yönlendirme
-        >
-          Online Teklif Oluştur
-        </Button>
+    
+       
 
         {/* Admin Panel Butonu */}
         <Button

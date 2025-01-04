@@ -1,89 +1,175 @@
-'use client';
+"use client";
 
-import { Stack, Container } from "@mui/material";
-import AdvantageSection from "./components/HomePage/AdvantageSection/page";
-import FreeText from "./components/HomePage/FreeText/page";
-import HeroSection from "./components/HomePage/HeroSection/page";
-import LaserCuttingHero from "./components/HomePage/LaserCuttingHero/page";
-import ProductionCapabilities from "./components/HomePage/ProductionCapabilities/page";
-import ProductionSteps from "./components/HomePage/ProductionSteps/page";
-import MaterialsTable from "./components/HomePage/MaterialsCard/page";
-import SwiperCardGrid from "./components/HomePage/SurfaceOptions/page";
-import IconCardGrid from "./components/HomePage/IconCard/page";
-
+import React, { useState } from "react";
+import { Box, Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
+import { supabase } from "@/lib/api/supabaseClient";
+import AdvantageSection from "./components/Advantage";
+import FileUpload from "./components/FileUpload";
+import ModalForm from "./components/Form";
+import ProcessSteps from "./components/Process";
 
 const HomePage = () => {
+  const [isFormVisible, setIsFormVisible] = useState(false); // Formun görünürlüğü
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]); // Yüklenen dosyalar
+  const [isSubmissionComplete, setIsSubmissionComplete] = useState(false); // Gönderim durumu
+  const [isSubmitting, setIsSubmitting] = useState(false); // Form gönderim durumu
+  const [loadingMessage, setLoadingMessage] = useState(""); // Yükleme mesajı
+
+  const handleFileUpload = (files: File[]) => {
+    setUploadedFiles(files); // Yüklenen dosyaları kaydet
+  };
+
+  const handleOpenForm = () => {
+    setIsFormVisible(true); // Formu göster
+  };
+
+  const handleCloseForm = () => {
+    setIsFormVisible(false); // Formu gizle
+  };
+
+  const handleSubmit = async (formData: { name: string; email: string; phone: string }) => {
+    setIsSubmitting(true); // Gönderim başladığında loading durumuna geç
+    setLoadingMessage("Değerli müşterimiz, modeliniz ve bilgileriniz sisteme yükleniyor. Lütfen sayfayı kapatmayın.");
+
+    try {
+      for (const file of uploadedFiles) {
+        const { data: existingFiles, error: checkError } = await supabase
+          .from("files")
+          .select("id")
+          .eq("file_name", file.name)
+          .eq("form_data->>email", formData.email);
+
+        if (checkError) {
+          console.error("Kontrol sırasında hata oluştu:", checkError.message);
+          continue;
+        }
+
+        if (existingFiles && existingFiles.length > 0) {
+          console.warn(`Bu dosya zaten yüklendi: ${file.name}`);
+          continue;
+        }
+
+        const uniqueFileName = `uploads/${Date.now()}_${file.name}`;
+        const { error } = await supabase.storage
+          .from("uploaded-files")
+          .upload(uniqueFileName, file);
+
+        if (error) {
+          console.error("Dosya yükleme hatası:", error.message);
+          continue;
+        }
+
+        const { error: dbError } = await supabase.from("files").insert([
+          {
+            file_name: uniqueFileName,
+            form_data: formData,
+          },
+        ]);
+
+        if (dbError) {
+          console.error("Veritabanına ekleme hatası:", dbError.message);
+          continue;
+        }
+      }
+
+      setUploadedFiles([]);
+      setIsFormVisible(false);
+      setIsSubmissionComplete(true); // Gönderim tamamlandı
+      setLoadingMessage("");
+    } catch (error) {
+      console.error("Hata oluştu:", error);
+      setLoadingMessage("Bir hata oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setIsSubmitting(false); // Gönderim tamamlandıktan sonra loading durumundan çık
+    }
+  };
+
+  const handleGoBack = () => {
+    setIsSubmissionComplete(false); // Gönderim durumunu sıfırla
+  };
+
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        padding: '2rem 0'
-      }}
-    >
-      <Stack spacing={4}>
-        <HeroSection />
-        <FreeText
-          title={"Lazer Kesim Hizmetleri"}
-          sections={[
-            {
-              type: 'text',
-              content:
-                'Sac metal şekillendirme talepleriniz için CNC lazer kesim hizmetleri sunuyoruz: alüminyum, çelik ve paslanmaz çelik gibi malzemelerle yüksek hassasiyette kesme, delme ve kazıma işlemlerini hızla gerçekleştirin. CO2 ve Fiber lazer kesim makineleriyle üretilen parçalara talep üzerine kaplama, ısıl işlem ve diğer ardıl işlemler uygulanabilir.Ayrıca Xometry, talep üzerine sertifikalar (uygunluk sertifikası, malzeme sertifikası, vb.) ve denetim raporları (CMM, FAIR, ölçüm raporu) sağlayabilir.',
-            },
-          ]}
-        />
-        <ProductionSteps />
-        <AdvantageSection />
-        <MaterialsTable/>
-        <SwiperCardGrid />
-        <ProductionCapabilities />
-        <FreeText
-          title="Genel Bakış: Lazer Kesim Nedir?"
-          sections={[
-            {
-              type: 'heading',
-              content: 'Lazer Kesimin Temelleri',
-            },
-            {
-              type: 'text',
-              content:
-                'CNC lazer kesim teknolojisi, yüksek güçlü ışın üreten bir kaynaktan çıkan lazer ışınının, eksenler arasında yönlendirilerek sac metal malzemeyi kesip şekillendirdiği bilgisayar kontrollü bir üretim sürecidir. Endüstriyel lazer kesim makineleri, desenli metal levhaların yanı sıra profil ve boru malzemeleri kesmek için en çok kullanılan bir teknolojidir. Bu imalat süreci, maliyet verimliliği ve hassas toleransları ile bilinir.',
-            },
-            {
-              type: 'heading',
-              content: 'Lazer Kesim Makineleri',
-            },
-            {
-              type: 'list',
-              content: [
-                'CO2 lazer kesim makineleri genellikle standart üretim amaçları için kullanılır.',
-                'Fiber lazer kesim makineleri daha güçlüdür ve daha kalın sac metalleri kesmek için uygundur.',
-              ],
-            },
-            {
-              type: 'heading',
-              content: 'Tolerans',
-            },
-            {
-              type: 'text',
-              content:
-                'CNC lazer kesim tezgahlarının çoğu için standart tolerans seviyesi, boyuta ve gereksinimlere bağlı olarak 0,1 ila 0,2 mm arasında değişir.',
-            },
-            {
-              type: 'heading',
-              content: 'Boyut Sınırlamaları'
-            },
-            {
-              type: 'text',
-              content:
-                'Herhangi bir boyut için, maksimum çelik sac kalınlığı 20 mm ve alüminyum sac kalınlığı 6 mm’ye kadar.',
-            },
-          ]}
-        />
-
-
-        <LaserCuttingHero />
+    <Container maxWidth="xl">
+      <Stack spacing={4} sx={{ m: 4 }}>
+        {isSubmissionComplete ? (
+          <Box
+            sx={{
+              textAlign: "center",
+              padding: "32px",
+              background: "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+              borderRadius: "8px",
+            }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "16px" }}>
+              Tebrikler! Modeliniz başarıyla yüklendi.
+            </Typography>
+            <Typography variant="body1" sx={{ marginBottom: "1.5rem", color: "#555" }}>
+              Teklifiniz için sizinle en kısa sürede iletişime geçilecektir.
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleGoBack}
+              sx={{
+                backgroundColor: "#1976d2",
+                "&:hover": {
+                  backgroundColor: "#145ca8",
+                },
+              }}
+            >
+              Ana Sayfaya Dön
+            </Button>
+          </Box>
+        ) : (
+          <>
+            {uploadedFiles.length === 0 && (
+              <>
+                <FileUpload onFileUpload={handleFileUpload} />
+                <ProcessSteps />
+                <AdvantageSection />
+              </>
+            )}
+            {uploadedFiles.length > 0 && (
+              <FileUpload
+                onFileUpload={handleFileUpload}
+                files={uploadedFiles}
+                onOpenForm={handleOpenForm}
+              />
+            )}
+          </>
+        )}
       </Stack>
+      {isFormVisible && (
+        <ModalForm
+          onClose={handleCloseForm}
+          onSubmit={handleSubmit}
+          disabled={isSubmitting} // Gönderim sırasında form devre dışı
+          loading={isSubmitting} // Gönderim sırasında yükleme göstergesi
+        />
+      )}
+      {isSubmitting && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            textAlign: "center",
+          }}
+        >
+          <CircularProgress />
+          <Typography variant="body1" sx={{ marginTop: "16px", color: "#555" }}>
+            {loadingMessage}
+          </Typography>
+        </Box>
+      )}
     </Container>
   );
 };
