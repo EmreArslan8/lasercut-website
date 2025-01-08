@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useEffect, useState } from "react";
 import {
@@ -11,10 +11,18 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TextField,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Avatar,
+  Tooltip,
   Button,
 } from "@mui/material";
 import { supabase } from "@/lib/api/supabaseClient";
 import { useRouter } from "next/navigation";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SearchIcon from "@mui/icons-material/Search";
 
 interface FormData {
   name: string;
@@ -25,17 +33,18 @@ interface FormData {
 interface FileData {
   id: number;
   file_name: string;
-  form_data: FormData; // JSON formatındaki form verisi
+  form_data: FormData | null;
 }
 
-const AdminPage = () => {
+const AdminPanel = () => {
   const [files, setFiles] = useState<FileData[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
     const fetchFiles = async () => {
       const { data, error } = await supabase
-        .from("files") // Tablonun adı
+        .from("files")
         .select("id, file_name, form_data");
 
       if (error) {
@@ -48,9 +57,19 @@ const AdminPage = () => {
     fetchFiles();
   }, []);
 
+  const handleLogout = () => {
+    // Çıkış yapma logic'i
+    document.cookie = "is_admin=false; path=/;"; // Cookie'den admin yetkisini kaldır
+    router.push("/login"); // Login sayfasına yönlendir
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
   const getFileUrl = (fileName: string) => {
     const { data } = supabase.storage
-      .from("uploaded-files") // Bucket adı
+      .from("uploaded-files")
       .getPublicUrl(fileName);
 
     if (!data || !data.publicUrl) {
@@ -58,125 +77,148 @@ const AdminPage = () => {
       return null;
     }
 
-    return data.publicUrl; // Public URL döner
+    return data.publicUrl;
   };
+
+  const filteredFiles = files.filter(
+    (file) =>
+      file.file_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      file.form_data?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      file.form_data?.email?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     const cookies = document.cookie.split("; ");
     const isAdmin = cookies.find((row) => row.startsWith("is_admin="));
 
     if (!isAdmin || isAdmin.split("=")[1] !== "true") {
-      router.push("/"); // Admin değilse ana sayfaya yönlendir
+      router.push("/login");
     }
   }, [router]);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "24px",
-        backgroundColor: "#f7f7f7",
-      }}
-    >
-      {/* Admin Paneli Başlığı */}
-      <Typography
-        variant="h4"
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f9f9f9" }}>
+      {/* Header */}
+      <AppBar
+        position="static"
         sx={{
-          fontWeight: "bold",
-          marginBottom: "16px",
-          background: "linear-gradient(90deg, #6a11cb, #2575fc)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          background: "linear-gradient(90deg, #4b6cb7, #182848)",
+          paddingX: "16px",
         }}
       >
-        Admin Paneli
-      </Typography>
-      <Typography
-        variant="body1"
-        sx={{
-          marginBottom: "24px",
-          color: "#555",
-        }}
-      >
-        Dosya yönetimi ve kullanıcı bilgilerini buradan görüntüleyebilirsiniz.
-      </Typography>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", color: "#fff" }}>
+            Admin Panel
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            <Avatar
+              alt="Admin User"
+              src="/static/images/avatar/1.jpg"
+              sx={{ width: 40, height: 40 }}
+            />
+            <Tooltip title="Çıkış Yap">
+              <IconButton
+                color="inherit"
+                onClick={handleLogout}
+              >
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Toolbar>
+      </AppBar>
 
-      {/* Dosya Tablosu */}
-      <TableContainer
-        component={Paper}
-        sx={{
-          width: "100%",
-          maxWidth: "1200px",
-          borderRadius: "12px",
-          overflow: "hidden",
-          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
-              <TableCell>
-                <strong>ID</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Dosya Adı</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Ad Soyad</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Email</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Telefon</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Dosya URL&#39;si</strong>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {files.map((file) => (
-              <TableRow key={file.id}>
-                <TableCell>{file.id}</TableCell>
-                <TableCell>{file.file_name}</TableCell>
-                <TableCell>{file.form_data?.name || "Belirtilmedi"}</TableCell>
-                <TableCell>{file.form_data?.email || "Belirtilmedi"}</TableCell>
-                <TableCell>{file.form_data?.phone || "Belirtilmedi"}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      const url = getFileUrl(file.file_name);
-                      if (url) {
-                        window.open(url, "_blank"); // Yeni sekmede dosyayı aç
-                      } else {
-                        alert("Dosya URL'si alınamadı.");
-                      }
-                    }}
-                    sx={{
-                      textTransform: "none",
-                      background: "linear-gradient(90deg, #6a11cb, #2575fc)",
-                      "&:hover": {
-                        background: "linear-gradient(90deg, #4b0fb4, #1f5fd9)",
-                      },
-                    }}
-                  >
-                    Görüntüle
-                  </Button>
-                </TableCell>
+      {/* Content */}
+      <Box sx={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Search Bar */}
+        <Box sx={{ marginBottom: "24px", position: "relative" }}>
+          <TextField
+            fullWidth
+            placeholder="Dosya adı, kullanıcı adı veya e-posta ara..."
+            variant="outlined"
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <SearchIcon
+                  sx={{
+                    marginLeft: "8px",
+                    marginRight: "-4px",
+                    color: "#757575",
+                  }}
+                />
+              ),
+            }}
+            sx={{
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          />
+        </Box>
+
+        {/* Table */}
+        <TableContainer component={Paper} sx={{ borderRadius: "8px", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)" }}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
+                <TableCell><strong>ID</strong></TableCell>
+                <TableCell><strong>Dosya Adı</strong></TableCell>
+                <TableCell><strong>Ad Soyad</strong></TableCell>
+                <TableCell><strong>Email</strong></TableCell>
+                <TableCell><strong>Dosya</strong></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {filteredFiles.map((file) => (
+                <TableRow key={file.id} sx={{ "&:nth-of-type(odd)": { backgroundColor: "#fafafa" } }}>
+                  <TableCell>{file.id}</TableCell>
+                  <TableCell
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxWidth: "200px",
+                    }}
+                    title={file.file_name} // Uzun dosya adını hover ile göster
+                  >
+                    {file.file_name}
+                  </TableCell>
+                  <TableCell>{file.form_data?.name || "Belirtilmedi"}</TableCell>
+                  <TableCell>{file.form_data?.email || "Belirtilmedi"}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        const url = getFileUrl(file.file_name);
+                        if (url) {
+                          window.open(url, "_blank");
+                        } else {
+                          alert("Dosya URL'si alınamadı.");
+                        }
+                      }}
+                      sx={{
+                        textTransform: "none",
+                        fontSize: "0.9rem",
+                        padding: "6px 12px",
+                        background: "linear-gradient(90deg, #6a11cb, #2575fc)",
+                        "&:hover": {
+                          background: "linear-gradient(90deg, #4b0fb4, #1f5fd9)",
+                        },
+                      }}
+                    >
+                      Görüntüle
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Box>
   );
 };
 
-export default AdminPage;
+export default AdminPanel;
