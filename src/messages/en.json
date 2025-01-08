@@ -1,0 +1,91 @@
+{
+  "Header": {
+    "logoAlt": "Company logo",
+    "adminPanelButton": "Admin Panel"
+  },
+  "Footer": {
+    "brand": "Brand",
+    "copyright": "© 2017-2024, Brand TR Technology Inc.",
+    "contact": "Contact",
+    "phoneNumber": "+90 (212) 221 06 35",
+    "email": "help@xometry.com.tr",
+    "address": "Adress",
+    "invoice": "Invoice",
+    "payWithIyzico": "Pay with iyzico"
+  },
+  "File": {
+    "congratulations": "Congratulations!",
+    "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
+    "returnToHome": "Return to Home Page",
+    "uploadPrompt": "Upload your models",
+    "uploadDescription": "Uploading your CAD file is the best way to get a quote.",
+    "uploadedFiles": "Uploaded Files",
+    "addFile": "Add File",
+    "getQuote": "Get Quote",
+    "secureUploads": "All uploads are secure and confidential."
+  },
+  "ProcessSteps": {
+    "step1": {
+      "title": "Get Instant Quote",
+      "description": "To get an instant quote: After uploading your 3D model, simply select the manufacturing technology and material."
+    },
+    "step2": {
+      "title": "Place Order",
+      "description": "After placing your order, the manufacturing process begins. You will receive regular updates."
+    },
+    "step3": {
+      "title": "Receive Parts",
+      "description": "We provide quality assurance, inspection reports, and delivery tracking."
+    }
+  },
+  "Advantages": {
+    "sectionTitle": "Advantages of Xometry Laser Cutting Service",
+    "highSpeed": {
+      "title": "High-Speed Manufacturing",
+      "description": "Using state-of-the-art laser cutting machines, Xometry enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
+    },
+    "highPrecision": {
+      "title": "High Precision",
+      "description": "Xometry offers a range of tolerance options according to ISO 2768 (standard, fine)."
+    },
+    "advancedSurface": {
+      "title": "Advanced Surface Options",
+      "description": "Manufacture with advanced surface options like anodizing, powder coating, and painting."
+    },
+    "materialSelection": {
+      "title": "Material Selection",
+      "description": "Choose from metal materials with high strength, corrosion resistance, and various conductivity and weight properties."
+    },
+    "qualityControl": {
+      "title": "Quality Control",
+      "description": "Our Quality Control department provides strong quality assurance. Xometry is ISO 9001 certified."
+    },
+    "certificatesReports": {
+      "title": "Certificates and Measurement Reports",
+      "description": "Xometry can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
+    }
+  },
+  "Success": {
+    "successTitle": "Congratulations!",
+    "successMessage": "Your model has been successfully uploaded. We will get back to you shortly.",
+    "backButton": "Return to Home",
+    "supportButton": "Get Support"
+  },
+  "Form": {
+    "title": "Fill in your contact information to receive a quote",
+    "allFieldsRequired": "All fields are required",
+    "nameLabel": "Full Name *",
+    "emailLabel": "Corporate Email *",
+    "phoneLabel": "Contact Number *",
+    "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
+    "submitButton": "Submit",
+    "cancelButton": "Cancel",
+    "errors": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email address.",
+      "invalidEmail": "Invalid email address.",
+      "phone": "Please enter a valid phone number.",
+      "policy": "Please accept the privacy policy."
+    }
+  }
+}

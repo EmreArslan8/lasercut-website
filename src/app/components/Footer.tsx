@@ -1,105 +1,114 @@
-'use client';
+"use client";
 
-import { Box, Typography, Grid2, Link, Divider, Container } from '@mui/material';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Box, Typography, Link, Divider, Container, Grid2 } from "@mui/material";
+
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useTranslations } from "next-intl";
+import useScreen from "@/lib/hooks/useScreen";
 
 const Footer = () => {
+  const t = useTranslations("Footer");
+const isMobile = useScreen();
   return (
     <Box
+      component="footer"
       sx={{
-        backgroundColor: '#0a2940',
-        color: '#ffffff',
-        padding: '3rem 16px',
+        borderTop: "1px solid #e0e0e0",
+        padding: "32px 0",
+        backgroundColor: "#fff",
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Grid2 container spacing={4}>
-          {/* Logo ve Telif */}
           <Grid2 size={{ xs: 12, sm: 4 }}>
             <Typography
-              variant="h5"
+              variant={isMobile ? "subtitle1" : "h6"}
               sx={{
-                fontWeight: 'bold',
-                marginBottom: '16px',
-                color: '#ffffff',
+                fontWeight: "bold",
+                marginBottom: "16px",
+                color: "#333",
               }}
             >
-              Marka
+              {t("brand")}
             </Typography>
-            <Typography variant="body2" sx={{ color: '#b0bec5' }}>
-              &copy; 2017-2024, Marka TR Teknoloji A.Ş.
+            <Typography variant="body2" sx={{ color: "#757575" }}>
+              {t("copyright")}
             </Typography>
           </Grid2>
 
-          {/* İletişim */}
-          <Grid2 size={{ xs: 6, md: 3 }}>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 'bold',
-                marginBottom: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: '#ffffff', // Yeni ikon rengi
-              }}
-            >
-              <PhoneIcon fontSize="small" />
-              İletişim
-            </Typography>
-            <Typography variant="body2" sx={{ marginBottom: '0.5rem' ,  color: '#b0bec5' }}>
-              +90 (212) 221 06 35
-            </Typography>
-            <Link
-              href="mailto:help@xometry.com.tr"
-              underline="none"
-              sx={{ color: '#b0bec5' }}
-            >
-              help@xometry.com.tr
-            </Link>
-          </Grid2>
+          {/* Contact and Address sections in a nested grid for mobile */}
+          <Grid2 size= {{xs: 12, sm: 8}}>
+            <Grid2 container spacing={2}>
+              {/* İletişim */}
+              <Grid2 size= {{xs: 6, sm: 6}}>
+                <Typography
+                  variant={isMobile ? "subtitle1" : "h6"}
+                  sx={{
+                    fontWeight: "bold",
+                    marginBottom: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#333",
+                  }}
+                >
+                  <PhoneIcon fontSize="small" />
+                  {t("contact")}
+                </Typography>
+                <Typography variant="body2" sx={{ marginBottom: "8px", color: "#757575" }}>
+                  {t("phoneNumber")}
+                </Typography>
+                <Link
+                  href="mailto:help@xometry.com.tr"
+                  underline="hover"
+                  sx={{
+                    color: "#0073e6",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                >
+                  {t("email")}
+                </Link>
+              </Grid2>
 
-          {/* Adres */}
-          <Grid2 size={{ xs: 12, md: 3 }}>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 'bold',
-                marginBottom: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: '#ffffff', // Yeni ikon rengi
-              }}
-            >
-              <LocationOnIcon fontSize="small" />
-              Adres
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#b0bec5' }}>
-              Yeşilbağlar, Pendik Pera Residence, D100 A Blok No: 20B,
-              34893 Pendik/İstanbul
-            </Typography>
+              {/* Adres */}
+              <Grid2 size= {{xs: 6, sm: 6}}>
+                <Typography
+                  variant={isMobile ? "subtitle1" : "h6"}
+                  sx={{
+                    fontWeight: "bold",
+                    marginBottom: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#333",
+                  }}
+                >
+                  <LocationOnIcon fontSize="small" />
+                  {t("address")}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "#757575" }}>
+                  Yeşilbağlar, Pendik Pera Residence, D100 A Blok No: 20B, 34893 Pendik/İstanbul
+                </Typography>
+              </Grid2>
+            </Grid2>
           </Grid2>
         </Grid2>
-
-        <Divider sx={{ backgroundColor: '#ffffff', margin: '32px 0' }} />
-
-        {/* Ödeme Yöntemleri */}
+        <Divider sx={{ margin: "32px 0", backgroundColor: "#e0e0e0" }} />
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '16px',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "16px",
           }}
         >
-          <Typography variant="body2" sx={{ color: '#b0bec5' }}>
-            Invoice
+          <Typography variant="body2" sx={{ color: "#757575" }}>
+            {t("invoice")}
           </Typography>
-          <Typography variant="body2" sx={{ color: '#b0bec5' }}>
-            iyzico ile Öde
+          <Typography variant="body2" sx={{ color: "#757575" }}>
+            {t("payWithIyzico")}
           </Typography>
         </Box>
       </Container>

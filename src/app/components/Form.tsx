@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { CountryCode, parsePhoneNumberFromString } from "libphonenumber-js";
+import { useTranslations } from "next-intl";
 
 interface ModalFormProps {
   onClose: () => void;
@@ -22,18 +24,29 @@ interface ModalFormProps {
 }
 
 const ModalForm: React.FC<ModalFormProps> = ({ onClose, onSubmit, disabled, loading }) => {
+  const t = useTranslations("Form");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
   const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
+  const [policyError, setPolicyError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "", // Kullanıcı yazmaya başladığında hatayı temizle
     }));
   };
 
@@ -42,22 +55,64 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, onSubmit, disabled, load
       ...prevData,
       phone: value,
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      phone: "", // Kullanıcı yazmaya başladığında hatayı temizle
+    }));
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsPolicyAccepted(e.target.checked);
+    setPolicyError(""); // Kullanıcı tıkladığında hatayı temizle
   };
 
-  const handleSubmit = () => {
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert("Lütfen tüm alanları doldurun!");
-      return;
+  const validatePhoneNumber = (phone: string, country: string = "TR") => {
+    try {
+      const phoneNumber = parsePhoneNumberFromString(phone, country as CountryCode);
+      return phoneNumber?.isValid() || false; // Geçerliyse true döner
+    } catch {
+      return false; // Geçerli değilse false döner
     }
+  };
+  
+
+  const validateForm = () => {
+    let hasError = false;
+    const newErrors = { name: "", email: "", phone: "" };
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Adınızı giriniz.";
+      hasError = true;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Geçerli bir e-posta adresi giriniz.";
+      hasError = true;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "E-posta adresi geçersiz.";
+      hasError = true;
+    }
+
+    if (!formData.phone.trim() || !validatePhoneNumber(formData.phone, "TR")) {
+      newErrors.phone = "Geçerli bir telefon numarası giriniz.";
+      hasError = true;
+    }
+
+    setErrors(newErrors);
+
     if (!isPolicyAccepted) {
-      alert("Lütfen gizlilik politikasını kabul edin!");
-      return;
+      setPolicyError("Lütfen gizlilik politikasını kabul edin.");
+      hasError = true;
     }
-    onSubmit(formData); // Form verisini üst bileşene gönder
+
+    return !hasError;
+  };
+
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      onSubmit(formData); // Form verisini üst bileşene gönder
+    }
   };
 
   return (
@@ -71,55 +126,65 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, onSubmit, disabled, load
         borderRadius: "8px",
         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         padding: "24px",
-        width: "400px",
+        width: { xs: "70%", sm: "400px" }, 
         zIndex: 1000,
       }}
     >
       <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "16px" }}>
-      Teklif almak için iletişim bilgilerini doldurun
+      {t("title")}
       </Typography>
       <Typography variant="body2" sx={{ color: "#555", marginBottom: "16px" }}>
-        Tüm alanlar gerekli
+      {t("allFieldsRequired")}
       </Typography>
       <Stack spacing={2}>
         <TextField
-          label="Tam Ad *"
+       label={t("nameLabel")}
           name="name"
           value={formData.name}
           onChange={handleChange}
           fullWidth
           disabled={disabled}
+          error={Boolean(errors.name)}
+          helperText={errors.name}
         />
         <TextField
-          label="Kurumsal E-mail *"
+   label={t("emailLabel")}
           name="email"
           type="email"
           value={formData.email}
           onChange={handleChange}
           fullWidth
           disabled={disabled}
+          error={Boolean(errors.email)}
+          helperText={errors.email}
         />
         <Box>
           <Typography variant="body1" sx={{ marginBottom: "8px", fontWeight: "bold" }}>
-            İletişim Numarası *
+          {t("phoneLabel")}
           </Typography>
           <PhoneInput
-    country={"tr"}
-    value={formData.phone}
-    onChange={handlePhoneChange}
-    disabled={disabled}
-    inputStyle={{
-      width: "100%",
-      height: "52px", // TextField'in varsayılan yüksekliği ile eşleştirmek için 56px
-      fontSize: "16px",
-      borderRadius: "4px", // Köşeleri uyumlu hale getirme
-      border: "1px solid #ccc",
-      paddingLeft: "48px", // Ülke bayrağı ve kodu için boşluk
-    }}
-    buttonStyle={{
-      borderRadius: "4px",
-    }}
-  />
+            country={"tr"}
+            value={formData.phone}
+            onChange={handlePhoneChange}
+            disabled={disabled}
+            inputStyle={{
+              width: "100%",
+              height: "52px",
+              fontSize: "16px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              paddingLeft: "48px",
+            }}
+            buttonStyle={{
+              borderRadius: "4px",
+            }}
+          />
+          {errors.phone && (
+            <Typography variant="caption" color="error">
+              {errors.phone}
+            </Typography>
+          )}
+
         </Box>
         <FormControlLabel
           control={
@@ -129,14 +194,15 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, onSubmit, disabled, load
               disabled={disabled}
             />
           }
-          label={
-            <Typography variant="body2" sx={{m:1}}>
-                <strong>{"Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum."}</strong> 
-            </Typography>
-          }
+          label={<Typography variant="body2">{t("policyText")}</Typography>}
         />
+        {policyError && (
+          <Typography variant="caption" color="error">
+            {policyError}
+          </Typography>
+        )}
       </Stack>
-      <Stack  spacing={2} justifyContent="center" mt={3}>
+      <Stack spacing={2} justifyContent="center" mt={3}>
         <Button
           variant="contained"
           color="primary"
@@ -158,10 +224,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ onClose, onSubmit, disabled, load
               }}
             />
           )}
-          Teklif Al
+             {t("submitButton")}
         </Button>
         <Button variant="outlined" color="secondary" onClick={onClose} disabled={disabled}>
-          İptal
+        {t("cancelButton")}
         </Button>
       </Stack>
     </Box>

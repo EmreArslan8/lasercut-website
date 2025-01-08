@@ -1,105 +1,105 @@
 "use client";
 
-import { Box, Grid2, Typography, useTheme } from "@mui/material";
-
-
-const advantages = [
-  {
-    icon: "🚀",
-    title: "Yüksek Hızda Üretim",
-    description:
-      "Son teknoloji lazer kesim makineleri kullanan Xometry, anında sac metal fiyat teklifi ve 7 iş gününden başlayan teslim süreleriyle tamamlanmış parçalar üretmenizi sağlar.",
-  },
-  {
-    icon: "🎯",
-    title: "Yüksek Hassasiyet",
-    description:
-      "Xometry, ISO 2768 (standard, fine) standartları uyarınca çeşitli tolerans seçenekleri sunar.",
-  },
-  {
-    icon: "✨",
-    title: "Gelişmiş Yüzey Opsiyonları",
-    description:
-      "Eloksal kaplama, elektrostatik toz boya ve boyama gibi gelişmiş yüzey opsiyonları ile üretim yapın.",
-  },
-  {
-    icon: "🛠️",
-    title: "Malzeme Seçimi",
-    description:
-      "Yüksek mukavemet ve korozyon direncine, çeşitli iletkenlik ve ağırlıklara sahip metal malzemeler arasından seçim yapın.",
-  },
-  {
-    icon: "✔️",
-    title: "Kalite Kontrol",
-    description:
-      "Kalite Kontrol departmanımız güçlü bir kalite güvencesi sağlar. Xometry ISO 9001 sertifikasına sahiptir.",
-  },
-  {
-    icon: "📜",
-    title: "Sertifikalar ve Ölçüm Raporları",
-    description:
-      "Xometry, talebe özel parçalarınız için sertifikalar (örn. malzeme sertifikası) ve kalite kontrol raporları sağlayabilir (CMM, FAIR, vb.).",
-  },
-];
+import useScreen from "@/lib/hooks/useScreen";
+import { Box, Typography, useTheme, Grid2 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 const AdvantageSection = () => {
   const theme = useTheme();
+  const t = useTranslations("Advantages");
+  const isMobile = useScreen();
+
+  const advantages = [
+    {
+      icon: "🚀",
+      title: t("highSpeed.title"),
+      description: t("highSpeed.description"),
+    },
+    {
+      icon: "🎯",
+      title: t("highPrecision.title"),
+      description: t("highPrecision.description"),
+    },
+    {
+      icon: "✨",
+      title: t("advancedSurface.title"),
+      description: t("advancedSurface.description"),
+    },
+    {
+      icon: "🛠️",
+      title: t("materialSelection.title"),
+      description: t("materialSelection.description"),
+    },
+    {
+      icon: "✔️",
+      title: t("qualityControl.title"),
+      description: t("qualityControl.description"),
+    },
+    {
+      icon: "📜",
+      title: t("certificatesReports.title"),
+      description: t("certificatesReports.description"),
+    },
+  ];
 
   return (
-    <Box>
+    <Box sx={{ p: "16px", pb: "56px"}}>
       <Typography
-        variant="h4"
         sx={{
+          fontSize: isMobile ? "20px" : "28px",
           fontWeight: "bold",
           textAlign: "center",
-          marginBottom: 2,
+          marginBottom: "24px",
           color: theme.palette.text.primary,
         }}
       >
-        Xometry Lazer Kesim Hizmetinin Avantajları
+        {t("sectionTitle")}
       </Typography>
 
       <Grid2 container spacing={4}>
         {advantages.map((adv, index) => (
           <Grid2
-            size={{ xs: 12, sm: 6 }}
+          
+          size={{ xs: 12, sm: 6 }}
             key={index}
             sx={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
+              alignItems: "flex-start",
+              textAlign: "left",
+              gap: "12px",
             }}
           >
             <Box
               sx={{
-                color: theme.palette.primary.contrastText,
-                width: 80,
-                height: 80,
-                display: { xs: "none", sm: "flex" }, // Mobilde gizle
+                fontSize: isMobile ? "28px" : "32px",
+                color: theme.palette.primary.main,
+                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 1,
               }}
             >
-              <Typography sx={{ fontSize: "32px" }}>{adv.icon}</Typography>
+              {adv.icon}
             </Box>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "8px",
-                color: theme.palette.text.primary,
-              }}
-            >
-              {adv.title}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ color: theme.palette.text.secondary }}
-            >
-              {adv.description}
-            </Typography>
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: isMobile ? "16px" : "18px",
+                  fontWeight: "bold",
+                  color: theme.palette.text.primary,
+                  marginBottom: "4px",
+                }}
+              >
+                {adv.title}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: theme.palette.text.secondary,
+                }}
+              >
+                {adv.description}
+              </Typography>
+            </Box>
           </Grid2>
         ))}
       </Grid2>

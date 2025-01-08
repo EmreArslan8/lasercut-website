@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useRef } from "react";
 import {
@@ -10,170 +10,169 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import { useTranslations } from "next-intl";
 
 interface FileUploadProps {
-  onFileUpload: (files: File[]) => void; // Zorunlu: Dosya yükleme işlevi
-  files?: File[]; // Opsiyonel: Yüklenen dosyaların dizisi
-  onOpenForm?: () => void; // Opsiyonel: Formu açma işlevi
-  isSubmitted?: boolean; // Opsiyonel: Gönderim durumu
+  onFileUpload: (files: File[]) => void;
+  files?: File[];
+  onOpenForm?: () => void;
+  isSubmitted?: boolean;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({
   onFileUpload,
   files = [],
   onOpenForm = () => { },
-  isSubmitted = false, // Default olarak gönderim yapılmadı
 }) => {
+  const t = useTranslations("File");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = event.target.files;
-    if (selectedFiles) {
-      const fileArray = Array.from(selectedFiles);
-      onFileUpload([...files, ...fileArray]); // Mevcut dosyaları koruyarak yeni dosyaları ekler
-    }
-  };
 
   const handleAddFile = () => {
+    console.log("handleAddFile triggered");
     if (fileInputRef.current) {
+      console.log("File input exists. Current value:", fileInputRef.current.value);
+      fileInputRef.current.value = ""; // Dosya seçimini sıfırlayın
       fileInputRef.current.click();
+      console.log("File input clicked.");
+    } else {
+      console.log("File input ref is null.");
     }
   };
 
-  if (isSubmitted) {
-    // Başarı mesajı gösterilecek alan
-    return (
-      <Box
-        sx={{
-          textAlign: "center",
-          padding: "40px",
-          background: "linear-gradient(135deg, #e3f2fd, #bbdefb)",
-          borderRadius: "8px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-          marginTop: "30px",
-        }}
-      >
-        <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
-          Tebrikler!
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: "30px", color: "#555" }}>
-          Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.
-        </Typography>
-        <Button variant="contained" color="primary" href="/">
-          Ana Sayfaya Dön
-        </Button>
-      </Box>
-    );
-  }
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleFileSelect triggered");
+    const selectedFiles = event.target.files;
+    if (selectedFiles) {
+      console.log("Files selected:", selectedFiles);
+      const fileArray = Array.from(selectedFiles);
+      onFileUpload([...files, ...fileArray]);
+      event.target.value = ""; // Seçim sonrası sıfırla
+    } else {
+      console.log("No files selected.");
+    }
+  };
 
-  // Normal FileUpload içeriği
+
   return (
     <Box
-      onClick={handleAddFile}
       sx={{
         textAlign: "center",
-        p: { xs: "16px", sm: "32px", md: '50px' },
+        p: isMobile ? "16px" : "32px",
         background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
         border: "1px dashed #ccc",
         borderRadius: "12px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         cursor: "pointer",
         marginTop: "30px",
         "&:hover": {
           borderColor: "#1976d2",
         },
       }}
+      onClick={handleAddFile}
     >
-      <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
-        {files.length === 0 ? "Modellerinizi yükleyin" : "Yüklenen Dosyalar"}
-      </Typography>
-      {files.length === 0 && (
-        <Typography variant="body2" sx={{ marginBottom: "25px", color: "#555", fontSize: { xs: "15px", sm: "16px" } }} >
-          CAD dosyanızı yüklemek teklif almanın en iyi yoludur.
-        </Typography>
-      )}
-
-      {files.length > 0 && (
-        <List>
-          {files.map((file, index) => (
-            <ListItem key={index}>
-              <ListItemIcon>
-                <InsertDriveFileIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText
-                primary={file.name}
-                slotProps={{
-                  primary: {
-                    style: {
-                      fontSize: "15px", // Font boyutunu 15px olarak ayarlar
-                    },
-                  },
-                }}
-              />
-
-            </ListItem>
-          ))}
-        </List>
-      )}
-
-      <Stack
-        direction="row"
-        spacing={{ xs: 0, sm: 4 }}
-        justifyContent="center"
-        mt={4}
-        onClick={(e) => e.stopPropagation()}
-        sx={{
-          flexDirection: { xs: "column", sm: "row" }, // Mobilde düğmeler alt alta
-          alignItems: "center",
-          gap: { xs: "8px", sm: "16px" },
-        }}
-      >
-        <Button
-          variant="outlined"
-          onClick={handleAddFile}
+      <Stack spacing={isMobile ? 1 : 2} alignItems="center">
+        <UploadFileIcon
+          sx={{ fontSize: isMobile ? "36px" : "67px", color: "#1976d2" }}
+        />
+        <Typography
+          variant="subtitle1"
           sx={{
-            width: { xs: "100%", sm: "auto" }, // xs: tam genişlik, sm ve üstü: esnek genişlik
-            flex: { xs: "none", sm: 1 },
-            borderColor: "#1976d2",
-            color: "#1976d2",
-            "&:hover": {
-              borderColor: "#145ca8",
-              color: "#145ca8",
-            },
+            fontWeight: "bold",
+            fontSize: isMobile ? "16px" : "18px",
           }}
         >
-          Dosya Ekle
-        </Button>
-        {files.length > 0 && onOpenForm && (
-          <Button
-
-            variant="contained"
-            color="primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              onOpenForm();
-            }}
+          {files.length === 0 ? t("uploadPrompt") : t("uploadedFiles")}
+        </Typography>
+        {files.length === 0 && (
+          <Typography
+            variant="body2"
             sx={{
-              width: { xs: "100%", sm: "auto" }, // xs: tam genişlik, sm ve üstü: esnek genişlik
-              flex: { xs: "none", sm: 1 },
-              backgroundColor: "#1976d2",
-              "&:hover": {
-                backgroundColor: "#145ca8",
-              },
+              color: "#555",
+              fontSize: "14px",
+              maxWidth: "320px",
             }}
           >
-            Teklif Al
-          </Button>
+            {t("uploadDescription")}
+          </Typography>
         )}
+        {files.length > 0 && (
+          <List sx={{ width: "100%", maxWidth: 320, margin: "0 auto" }}>
+            {files.map((file, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  padding: "4px 0",
+                  borderBottom: "1px solid #e0e0e0",
+                }}
+              >
+                <ListItemIcon>
+                  <InsertDriveFileIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={file.name}
+                  primaryTypographyProps={{
+                    fontSize: isMobile ? "12px" : "14px",
+                  }}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
+        <Stack direction="row" spacing={1} justifyContent="center">
+          <Button
+            variant="outlined"
+            sx={{
+              borderColor: "#1976d2",
+              color: "#1976d2",
+              "&:hover": {
+                borderColor: "#145ca8",
+                color: "#145ca8",
+              },
+              fontSize: isMobile ? "12px" : "14px",
+              padding: isMobile ? "6px 12px" : "8px 16px",
+            }}
+          >
+            {t("addFile")}
+          </Button>
+          {files.length > 0 && onOpenForm && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenForm();
+              }}
+              sx={{
+                backgroundColor: "#1976d2",
+                "&:hover": {
+                  backgroundColor: "#145ca8",
+                },
+                fontSize: "14px",
+                padding: "6px 12px",
+              }}
+            >
+              {t("getQuote")}
+            </Button>
+          )}
+        </Stack>
       </Stack>
-
       <input
         type="file"
         ref={fileInputRef}
         style={{ display: "none" }}
         multiple
-        onChange={handleFileSelect}
+        onChange={(e) => {
+          handleFileSelect(e);
+          e.target.value = ""; // Seçim sonrasında sıfırla
+        }}
       />
 
       {files.length === 0 && (
@@ -181,11 +180,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
           variant="caption"
           sx={{
             display: "block",
-            marginTop: "20px",
+            marginTop: isMobile ? "8px" : "12px",
             color: "#777",
+            fontSize: isMobile ? "10px" : "12px",
           }}
         >
-          Tüm yüklemeler güvenli ve gizlidir.
+          {t("secureUploads")}
         </Typography>
       )}
     </Box>

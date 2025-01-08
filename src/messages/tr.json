@@ -1,0 +1,91 @@
+{
+  "Header": {
+    "logoAlt": "Şirket logosu",
+    "adminPanelButton": "Yönetici Paneli"
+  },
+  "Footer": {
+    "brand": "Marka",
+    "copyright": "© 2017-2024, Marka TR Teknoloji A.Ş.",
+    "contact": "İletişim",
+    "phoneNumber": "+90 (212) 221 06 35",
+    "email": "help@xometry.com.tr",
+    "address": "Adres",
+    "invoice": "Fatura",
+    "payWithIyzico": "iyzico ile Öde"
+  },
+  "File": {
+    "congratulations": "Tebrikler!",
+    "submissionSuccess": "Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.",
+    "returnToHome": "Ana Sayfaya Dön",
+    "uploadPrompt": "Modellerinizi Yükleyin",
+    "uploadDescription": "CAD dosyanızı yüklemek teklif almanın en iyi yoludur.",
+    "uploadedFiles": "Yüklenen Dosyalar",
+    "addFile": "Dosya Ekle",
+    "getQuote": "Teklif Al",
+    "secureUploads": "Tüm yüklemeler güvenli ve gizlidir."
+  },
+  "ProcessSteps": {
+    "step1": {
+      "title": "Teklif alın",
+      "description": "Teklif almak için: 3D modelinizi yükleyip iletşim bilgilerinizi girmeniz yeterlidir."
+    },
+    "step2": {
+      "title": "Sipariş ver",
+      "description": "Siparişinizi verdikten sonra üretim süreci başlar. Düzenli geri bildirimler alırsınız."
+    },
+    "step3": {
+      "title": "Parçaları Teslim Alın",
+      "description": "Kalite güvencesi, kalite kontrol raporları ve teslimat takibi sağlıyoruz."
+    }
+  },
+  "Advantages": {
+    "sectionTitle": "Xometry Lazer Kesim Hizmetinin Avantajları",
+  "highSpeed": {
+    "title": "Yüksek Hızda Üretim",
+    "description": "Son teknoloji lazer kesim makineleri kullanarak Xometry, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
+  },
+  "highPrecision": {
+    "title": "Yüksek Hassasiyet",
+    "description": "Xometry, ISO 2768'e (standart, ince) göre çeşitli tolerans seçenekleri sunar."
+  },
+  "advancedSurface": {
+    "title": "Gelişmiş Yüzey Seçenekleri",
+    "description": "Anodize, toz boya ve boyama gibi gelişmiş yüzey seçenekleriyle üretim yapın."
+  },
+  "materialSelection": {
+    "title": "Malzeme Seçimi",
+    "description": "Yüksek mukavemet, korozyon direnci ve çeşitli iletkenlik ve ağırlık özelliklerine sahip metal malzemeler arasından seçim yapın."
+  },
+  "qualityControl": {
+    "title": "Kalite Kontrol",
+    "description": "Kalite Kontrol departmanımız güçlü bir kalite güvencesi sağlar. Xometry, ISO 9001 sertifikasına sahiptir."
+  },
+  "certificatesReports": {
+    "title": "Sertifikalar ve Ölçüm Raporları",
+    "description": "Xometry, özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
+  }
+  },
+"Success": {
+    "successTitle": "Tebrikler!",
+    "successMessage": "Modeliniz başarıyla yüklendi. Size en kısa sürede geri dönüş yapılacaktır.",
+    "backButton": "Ana Sayfaya Dön",
+    "supportButton": "Destek Al"
+  },
+  "Form": {
+    "title": "Teklif almak için iletişim bilgilerini doldurun",
+    "allFieldsRequired": "Tüm alanlar gerekli",
+    "nameLabel": "Tam Ad *",
+    "emailLabel": "Kurumsal E-mail *",
+    "phoneLabel": "İletişim Numarası *",
+    "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum.",
+    "submitButton": "Teklif Al",
+    "cancelButton": "İptal",
+    "errors": {
+      "name": "Adınızı giriniz.",
+      "email": "Geçerli bir e-posta adresi giriniz.",
+      "invalidEmail": "E-posta adresi geçersiz.",
+      "phone": "Geçerli bir telefon numarası giriniz.",
+      "policy": "Lütfen gizlilik politikasını kabul edin."
+    }
+  }
+}
