@@ -7,7 +7,7 @@ import SubmissionSuccess from "../components/SubmissionSuccess";
 import AdvantageSection from "../components/Advantage";
 import FileUpload from "../components/FileUpload";
 import ProcessSteps from "../components/Process";
-import DisplayFiles from "../components/Drawer";
+import DisplayFiles from "../components/MaterialSelectionDrawer";
 import { useCart } from "@/app/context/CartContext";
 import ExampleSlider from "../components/ExampleWorks";
 import WhatsAppButton from "../components/WpButton";

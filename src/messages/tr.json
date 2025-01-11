@@ -26,11 +26,11 @@
     "getQuote": "Teklif Al",
     "secureUploads": "Tüm yüklemeler güvenli ve gizlidir.",
     "uploadedPrompt": "Dosyalarınızı yükleyin",
-  "dropFiles": "Yüklenen Dosyalar",
-  "uploadedDescription": "Dosyalarınızı buraya sürükleyebilir veya tıklayarak yükleyebilirsiniz.",
-  "dropFilesHere": "Dosyaları buraya bırakın",
-  "dragAndDropDescription": "Sürükle ve bırak ile hızlı yükleme yapabilirsiniz.",
-   "invalidFileFormat": "Geçersiz dosya formatı: {fileName}"
+    "dropFiles": "Yüklenen Dosyalar",
+    "uploadedDescription": "Dosyalarınızı buraya sürükleyebilir veya tıklayarak yükleyebilirsiniz.",
+    "dropFilesHere": "Dosyaları buraya bırakın",
+    "dragAndDropDescription": "Sürükle ve bırak ile hızlı yükleme yapabilirsiniz.",
+    "invalidFileFormat": "Geçersiz dosya formatı: {fileName}"
   },
   "ProcessSteps": {
     "step1": {
@@ -94,14 +94,25 @@
       "invalidEmail": "E-posta adresi geçersiz.",
       "phone": "Geçerli bir telefon numarası giriniz.",
       "policy": "Lütfen gizlilik politikasını kabul edin."
-    },
-    "Drawer": {
-      "fileDetails": "Lütfen ürün detaylarını doldurun:",
-      "materialSelection": "Materyal Seçimi",
-      "thickness": "Kalınlık",
-      "quantity": "Adet",
-      "noteOptional": "Not (Opsiyonel)",
-      "addToCart": "Sepete Ekle"
+    }
+  },
+  "OrderDetails": {
+    "fileDetails": "Lütfen dosya detaylarını doldurun:",
+    "materialSelection": "Materyal Seçimi",
+    "thickness": "Kalınlık",
+    "quantity": "Adet",
+    "noteOptional": "Not (Opsiyonel)",
+    "addToCart": "Sepete Ekle",
+    "requiredField": "Boş Bırakılamaz",
+    "materials": {
+      "1050": "Aluminum 1050",
+      "5754": "Aluminum 5754 / 3.3535 / AlMg3",
+      "GalvanizliSac": "Steel Galvanized Sheet",
+      "SiyahSac": "Steel Black Sheet",
+      "DC01": "Steel DC01 / 6112 / C (DKP)",
+      "ST37": "Steel ST37-K / S235JR / 1.0038",
+      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
     }
   }
 }

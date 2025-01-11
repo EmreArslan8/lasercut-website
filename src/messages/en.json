@@ -89,24 +89,26 @@
       "invalidEmail": "Invalid email address.",
       "phone": "Please enter a valid phone number.",
       "policy": "Please accept the privacy policy."
-    },
-    "Drawer": {
-      "fileDetails": "Please fill in the file details:",
-      "materialSelection": "Material Selection",
-      "thickness": "Thickness",
-      "quantity": "Quantity",
-      "noteOptional": "Note (Optional)",
-      "addToCart": "Add to Cart",
-        "materials": {
-          "1050": "Aluminum 1050",
-          "5754": "Aluminum 5754 / 3.3535 / AlMg3",
-          "GalvanizliSac": "Steel Galvanized Sheet",
-          "SiyahSac": "Steel Black Sheet",
-          "DC01": "Steel DC01 / 6112 / C (DKP)",
-          "ST37": "Steel ST37-K / S235JR / 1.0038",
-          "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-          "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
-      }
     }
+  },
+  "OrderDetails": {
+  "fileDetails": "Please fill in the file details:",
+  "materialSelection": "Material Selection",
+  "thickness": "Thickness",
+  "quantity": "Quantity",
+  "noteOptional": "Note (Optional)",
+  "addToCart": "Add to Cart",
+  "requiredField": "Required Field",
+  "materials": {
+    "1050": "Aluminum 1050",
+    "5754": "Aluminum 5754 / 3.3535 / AlMg3",
+    "GalvanizliSac": "Steel Galvanized Sheet",
+    "SiyahSac": "Steel Black Sheet",
+    "DC01": "Steel DC01 / 6112 / C (DKP)",
+    "ST37": "Steel ST37-K / S235JR / 1.0038",
+    "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+    "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
   }
+}
+
 }

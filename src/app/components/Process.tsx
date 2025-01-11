@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, Stack, } from "@mui/material";
 import ComputerIcon from "@mui/icons-material/Computer";
 import FactoryIcon from "@mui/icons-material/Factory";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { useTranslations } from "next-intl";
+import useScreen from "@/lib/hooks/useScreen";
 
 const ProcessSteps = () => {
   const t = useTranslations("ProcessSteps");
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Mobil ekran kontrolü
+  const isMobile = useScreen(); // Mobil ekran kontrolü
 
   const steps = [
     {

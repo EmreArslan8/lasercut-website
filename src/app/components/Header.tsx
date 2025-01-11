@@ -125,7 +125,7 @@ const Header = () => {
         {/* Admin Paneli Butonu */}
         <Button
           variant="outlined"
-          color="secondary"
+          color="primary"
           onClick={() => router.push(`/login`)}
           sx={{
             fontSize: "13px",
