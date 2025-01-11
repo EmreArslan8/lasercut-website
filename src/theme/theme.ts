@@ -37,7 +37,7 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: '2.5rem',
+      fontSize: '40px',
       fontWeight: 700,
     },
     h2: {
@@ -45,7 +45,7 @@ const theme = createTheme({
       fontWeight: 600,
     },
     h3: {
-      fontSize: '1.75rem',
+      fontSize: '28px',
       fontWeight: 600,
     },
     body1: {
@@ -54,7 +54,7 @@ const theme = createTheme({
       color: '#333333',
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: '14px',
       lineHeight: 1.5,
       color: '#555555',
     },
@@ -68,7 +68,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '8px', // Daha modern bir görünüm için
-          padding: '0.5rem 1.5rem',
+          padding: '8px 20px',
           textTransform: 'none', // Buton metni büyük harf olmaz
         },
         containedPrimary: {

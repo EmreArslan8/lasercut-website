@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Typography,
@@ -10,12 +10,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { useTranslations } from "next-intl";
+import useScreen from "@/lib/hooks/useScreen";
 
 interface FileUploadProps {
   onFileUpload: (files: File[]) => void;
@@ -31,15 +30,35 @@ const FileUpload: React.FC<FileUploadProps> = ({
 }) => {
   const t = useTranslations("File");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useScreen();
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const droppedFiles = event.dataTransfer.files;
+    if (droppedFiles) {
+      const fileArray = Array.from(droppedFiles);
+      onFileUpload([...files, ...fileArray]);
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
 
 
   const handleAddFile = () => {
     console.log("handleAddFile triggered");
     if (fileInputRef.current) {
       console.log("File input exists. Current value:", fileInputRef.current.value);
-      fileInputRef.current.value = ""; // Dosya seçimini sıfırlayın
+      fileInputRef.current.value = "";
       fileInputRef.current.click();
       console.log("File input clicked.");
     } else {
@@ -53,12 +72,15 @@ const FileUpload: React.FC<FileUploadProps> = ({
     if (selectedFiles) {
       console.log("Files selected:", selectedFiles);
       const fileArray = Array.from(selectedFiles);
+      console.log("File array before updating state:", fileArray);
       onFileUpload([...files, ...fileArray]);
-      event.target.value = ""; // Seçim sonrası sıfırla
+      console.log("Updated files state:", [...files, ...fileArray]);
+      event.target.value = "";
     } else {
       console.log("No files selected.");
     }
   };
+
 
 
   return (
@@ -66,7 +88,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
       sx={{
         textAlign: "center",
         p: isMobile ? "16px" : "32px",
-        background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
         border: "1px dashed #ccc",
         borderRadius: "12px",
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
@@ -75,8 +96,15 @@ const FileUpload: React.FC<FileUploadProps> = ({
         "&:hover": {
           borderColor: "#1976d2",
         },
+        background: isDragging
+          ? "linear-gradient(135deg, #e3f2fd, #bbdefb)"
+          : "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
+
       }}
       onClick={handleAddFile}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onDragLeave={handleDragLeave}
     >
       <Stack spacing={isMobile ? 1 : 2} alignItems="center">
         <UploadFileIcon

@@ -1,81 +1,65 @@
 "use client";
 
 import React, { useState } from "react";
-import { Container, Stack } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import useFileUpload from "@/lib/hooks/useFileUpload";
 import SubmissionSuccess from "../components/SubmissionSuccess";
 import AdvantageSection from "../components/Advantage";
 import FileUpload from "../components/FileUpload";
-import ModalForm from "../components/Form";
 import ProcessSteps from "../components/Process";
+import DisplayFiles from "../components/Drawer";
+import { useCart } from "@/app/context/CartContext";
+import ExampleSlider from "../components/ExampleWorks";
+import WhatsAppButton from "../components/WpButton";
 
 const HomePage = () => {
-  const {
-    uploadedFiles,
-    setUploadedFiles,
-    uploadFiles,
-    clearFiles,
-  } = useFileUpload();
+  const { uploadedFiles, setUploadedFiles } = useFileUpload();
+  const { addToCart } = useCart(); 
 
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [isSubmissionComplete, setIsSubmissionComplete] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleOpenForm = () => setIsFormVisible(true);
-  const handleCloseForm = () => setIsFormVisible(false);
-
-  const handleSubmit = async (formData: { name: string; email: string; phone: string }) => {
-    setIsSubmitting(true); // Gönderim işlemi başlıyor
-    const results = await uploadFiles(formData);
-
-    // Eğer tüm dosyalar başarıyla yüklendiyse
-    const allSuccess = results.every((result) => result.success);
-    if (allSuccess) {
-      setIsSubmissionComplete(true); // Başarılı ekranını göster
-      clearFiles(); // Yüklenen dosyaları temizle
-    } else {
-      console.error("Bazı dosyalar yüklenirken hata oluştu:", results);
-      alert("Bazı dosyalar yüklenirken hata oluştu. Lütfen tekrar deneyin.");
-    }
-
-    setIsSubmitting(false); // Gönderim işlemi tamamlandı
-    setIsFormVisible(false); // Formu kapat
+  const handleAddToCart = (file: File, productDetails: { material: string; thickness: string; quantity: number; note?: string }) => {
+    const cartItem = {
+      fileName: file.name,
+      file,
+      ...productDetails,
+    };
+    addToCart(cartItem); 
   };
 
-  const handleGoBack = () => setIsSubmissionComplete(false);
+  const handleClearFiles = () => {
+    setUploadedFiles([]); 
+  };
 
   return (
     <Container maxWidth="xl">
       <Stack spacing={4} sx={{ mt: 4 }}>
         {isSubmissionComplete ? (
-          <SubmissionSuccess onGoBack={handleGoBack} />
+          <SubmissionSuccess onGoBack={function (): void {
+            throw new Error("Function not implemented.");
+          }} />
         ) : (
           <>
             {uploadedFiles.length === 0 ? (
               <>
-                <FileUpload onFileUpload={setUploadedFiles} />
+                <FileUpload
+                  onFileUpload={(files) => {
+                    setUploadedFiles(files);
+
+                  }}
+                />
                 <ProcessSteps />
+                <ExampleSlider />
                 <AdvantageSection />
+                <WhatsAppButton />
+
               </>
             ) : (
-              <FileUpload
-                onFileUpload={setUploadedFiles}
-                files={uploadedFiles}
-                onOpenForm={handleOpenForm}
-              />
+              <DisplayFiles files={uploadedFiles} onAddToCart={handleAddToCart} onClose={handleClearFiles} />
             )}
           </>
         )}
       </Stack>
-
-      {isFormVisible && (
-        <ModalForm
-          onClose={handleCloseForm}
-          onSubmit={handleSubmit}
-          disabled={isSubmitting}
-          loading={isSubmitting}
-        />
-      )}
     </Container>
   );
 };

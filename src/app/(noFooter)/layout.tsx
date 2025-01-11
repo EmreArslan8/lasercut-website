@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { CartProvider } from "../context/CartContext";
 
 export default async function RootLayout({
   children,
@@ -14,7 +15,9 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body style={{ margin: 0}}>
+   <CartProvider >
           {children}
+          </CartProvider>
       </body>
     </html>
   );

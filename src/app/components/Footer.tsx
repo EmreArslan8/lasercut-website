@@ -88,7 +88,7 @@ const isMobile = useScreen();
                   {t("address")}
                 </Typography>
                 <Typography variant="body2" sx={{ color: "#757575" }}>
-                  Yeşilbağlar, Pendik Pera Residence, D100 A Blok No: 20B, 34893 Pendik/İstanbul
+                Uludağ üniversitesi, Ulutek No:Z12 Nilüfer / Bursa
                 </Typography>
               </Grid2>
             </Grid2>

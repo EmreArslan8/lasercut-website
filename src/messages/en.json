@@ -1,14 +1,16 @@
 {
   "Header": {
     "logoAlt": "Company logo",
-    "adminPanelButton": "Admin Panel"
+    "adminPanelButton": "Admin Panel",
+    "about": "About",
+    "contact": "Contact"
   },
   "Footer": {
-    "brand": "Brand",
-    "copyright": "© 2017-2024, Brand TR Technology Inc.",
+    "brand": "D2C",
+    "copyright": "© 2017-2024, Draw to Cut TR Technology Inc.",
     "contact": "Contact",
-    "phoneNumber": "+90 (212) 221 06 35",
-    "email": "help@xometry.com.tr",
+    "phoneNumber": "90 505 520 75 11",
+    "email": "help@drawtocut.com.tr",
     "address": "Adress",
     "invoice": "Invoice",
     "payWithIyzico": "Pay with iyzico"
@@ -17,12 +19,13 @@
     "congratulations": "Congratulations!",
     "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
     "returnToHome": "Return to Home Page",
-    "uploadPrompt": "Upload your models",
-    "uploadDescription": "Uploading your CAD file is the best way to get a quote.",
+    "uploadPrompt": "Get an instant quote with STP | DXF | JPEG | JPG | PNG | PDF files",
+    "uploadDescription": "Drag and drop",
     "uploadedFiles": "Uploaded Files",
-    "addFile": "Add File",
+    "addFile": "Upload File",
     "getQuote": "Get Quote",
-    "secureUploads": "All uploads are secure and confidential."
+    "secureUploads": "All uploads are secure and confidential.",
+    "invalidFileFormat": "Invalid file format: {fileName}"
   },
   "ProcessSteps": {
     "step1": {
@@ -86,6 +89,24 @@
       "invalidEmail": "Invalid email address.",
       "phone": "Please enter a valid phone number.",
       "policy": "Please accept the privacy policy."
+    },
+    "Drawer": {
+      "fileDetails": "Please fill in the file details:",
+      "materialSelection": "Material Selection",
+      "thickness": "Thickness",
+      "quantity": "Quantity",
+      "noteOptional": "Note (Optional)",
+      "addToCart": "Add to Cart",
+        "materials": {
+          "1050": "Aluminum 1050",
+          "5754": "Aluminum 5754 / 3.3535 / AlMg3",
+          "GalvanizliSac": "Steel Galvanized Sheet",
+          "SiyahSac": "Steel Black Sheet",
+          "DC01": "Steel DC01 / 6112 / C (DKP)",
+          "ST37": "Steel ST37-K / S235JR / 1.0038",
+          "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+          "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
+      }
     }
   }
 }

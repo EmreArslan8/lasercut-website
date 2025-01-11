@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import useScreen from "@/lib/hooks/useScreen";
-// Kendi useScreen hook'unuzu buradan import edin.
 
 const Header = () => {
   const router = useRouter();
@@ -54,14 +53,14 @@ const Header = () => {
       >
         <Image
           src="/static/images/logo.png"
-          alt={t('logoAlt')}
+          alt={t("logoAlt")}
           width={120}
           height={60}
           style={{
-            objectFit: 'contain',
-            maxWidth: '100%',
-            height: 'auto',
-            width: 'auto',
+            objectFit: "contain",
+            maxWidth: "100%",
+            height: "auto",
+            width: "auto",
           }}
         />
       </IconButton>

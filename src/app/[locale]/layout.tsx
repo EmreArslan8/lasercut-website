@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
+import { CartProvider } from "../context/CartContext";
 
 export default async function RootLayout({
   children,
@@ -20,9 +21,11 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
+          <CartProvider>
           <Header />
           <main style={{ minHeight: "calc(100vh - 200px)" }}>{children}</main>
           <Footer />
+          </CartProvider>
         </NextIntlClientProvider>
       </body>
     </html>

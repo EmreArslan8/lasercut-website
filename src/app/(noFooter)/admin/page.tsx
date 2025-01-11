@@ -18,11 +18,13 @@ import {
   Avatar,
   Tooltip,
   Button,
+  MenuItem,
+  Select,
 } from "@mui/material";
-import { supabase } from "@/lib/api/supabaseClient";
-import { useRouter } from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
+import { supabase } from "@/lib/api/supabaseClient";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   name: string;
@@ -34,6 +36,7 @@ interface FileData {
   id: number;
   file_name: string;
   form_data: FormData | null;
+  status: string; // Statü yönetimi için eklendi
 }
 
 const AdminPanel = () => {
@@ -41,6 +44,15 @@ const AdminPanel = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
 
+  const statuses = [
+    "İletişim Bekleniyor",
+    "İletişim Kuruldu",
+    "Üretimde",
+    "Kargoda",
+    "Teslim Edildi",
+  ];
+
+  // Veritabanından dosyaları çek
   useEffect(() => {
     const fetchFiles = async () => {
       const { data, error } = await supabase
@@ -50,7 +62,12 @@ const AdminPanel = () => {
       if (error) {
         console.error("Veri çekme hatası:", error.message);
       } else {
-        setFiles(data || []);
+        // Her dosyaya varsayılan statü ekle
+        const filesWithStatus = data?.map((file) => ({
+          ...file,
+          status: "İletişim Bekleniyor", // Varsayılan statü
+        }));
+        setFiles(filesWithStatus || []);
       }
     };
 
@@ -78,6 +95,15 @@ const AdminPanel = () => {
     }
 
     return data.publicUrl;
+  };
+
+  // Statü güncelleme (sadece state içinde yönetiliyor)
+  const updateStatus = (id: number, newStatus: string) => {
+    setFiles((prevFiles) =>
+      prevFiles.map((file) =>
+        file.id === id ? { ...file, status: newStatus } : file
+      )
+    );
   };
 
   const filteredFiles = files.filter(
@@ -166,6 +192,7 @@ const AdminPanel = () => {
                 <TableCell><strong>Dosya Adı</strong></TableCell>
                 <TableCell><strong>Ad Soyad</strong></TableCell>
                 <TableCell><strong>Email</strong></TableCell>
+                <TableCell><strong>Durum</strong></TableCell>
                 <TableCell><strong>Dosya</strong></TableCell>
               </TableRow>
             </TableHead>
@@ -186,6 +213,20 @@ const AdminPanel = () => {
                   </TableCell>
                   <TableCell>{file.form_data?.name || "Belirtilmedi"}</TableCell>
                   <TableCell>{file.form_data?.email || "Belirtilmedi"}</TableCell>
+                  <TableCell>
+                    <Select
+                      value={file.status}
+                      onChange={(e) => updateStatus(file.id, e.target.value)}
+                      variant="outlined"
+                      sx={{ width: "150px" }}
+                    >
+                      {statuses.map((status) => (
+                        <MenuItem key={status} value={status}>
+                          {status}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </TableCell>
                   <TableCell>
                     <Button
                       variant="contained"

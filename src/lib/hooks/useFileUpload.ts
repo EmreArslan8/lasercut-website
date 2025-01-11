@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/api/supabaseClient";
+import { useCart } from "@/app/context/CartContext";
+
 
 interface UploadResult {
   success: boolean;
@@ -22,6 +24,7 @@ const sanitizeFileName = (fileName: string) => {
 
 const useFileUpload = (): UseFileUploadReturn => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const { cartItems } = useCart(); // Sepet bilgilerini al
 
   const uploadFiles = async (formData: { name: string; email: string; phone: string }) => {
     const results: UploadResult[] = [];
@@ -30,26 +33,7 @@ const useFileUpload = (): UseFileUploadReturn => {
       try {
         const sanitizedFileName = sanitizeFileName(file.name);
         const uniqueFileName = `uploads/${Date.now()}_${sanitizedFileName}`;
-
-        // Check if the file already exists
-        const { data: existingFiles, error: checkError } = await supabase
-          .from("files")
-          .select("id")
-          .eq("file_name", uniqueFileName)
-          .eq("form_data->>email", formData.email);
-
-        if (checkError) {
-          console.error("Kontrol sırasında hata oluştu:", checkError.message);
-          results.push({ success: false, message: `Hata: ${checkError.message}` });
-          continue;
-        }
-
-        if (existingFiles && existingFiles.length > 0) {
-          console.warn(`Bu dosya zaten yüklendi: ${sanitizedFileName}`);
-          results.push({ success: false, message: `Dosya zaten yüklendi: ${sanitizedFileName}` });
-          continue;
-        }
-
+        console.log("Yüklenen dosyalar:", uploadedFiles);
         // Upload file to Supabase storage
         const { error: uploadError } = await supabase.storage
           .from("uploaded-files")
@@ -61,11 +45,12 @@ const useFileUpload = (): UseFileUploadReturn => {
           continue;
         }
 
-        // Insert file metadata into the database
+        // Insert form and cart data into Supabase
         const { error: dbError } = await supabase.from("files").insert([
           {
             file_name: uniqueFileName,
-            form_data: formData,
+            form_data: formData, // Form bilgileri
+            cart_items: cartItems, // Sepet bilgileri
           },
         ]);
 
@@ -81,7 +66,10 @@ const useFileUpload = (): UseFileUploadReturn => {
         results.push({ success: false, message: `Hata: ${error}` });
       }
     }
-
+    console.log("Yüklenen dosyalar:", uploadedFiles);
+    console.log("Sepet bilgileri:", cartItems);
+    console.log("Form bilgileri:", formData);
+    
     return results;
   };
 
