@@ -109,6 +109,12 @@
     "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
     "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
   }
+}, 
+"CartPage": {
+  "title" : "Your Cart",
+  "cartInfo": "Your cart is empty. To create an order back to home page",
+  "button": "Back To Home"
+
 }
 
 }

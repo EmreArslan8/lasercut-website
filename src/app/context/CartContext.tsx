@@ -17,6 +17,7 @@ interface CartContextProps {
   setCartItems: (callback: (prevItems: CartItem[]) => CartItem[]) => void;
   addToCart: (item: CartItem) => void;
   clearCart: () => void;
+  updateCart: (updatedItems: CartItem[]) => void; // Yeni eklenen işlev
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -49,17 +50,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  // Sepet öğesi ekle
   const addToCart = (item: CartItem) => {
     setCartItems((prevItems) => [...prevItems, item]);
   };
 
+  // Sepeti temizle
   const clearCart = () => {
     setCartItemsState([]);
     localStorage.removeItem("cart");
   };
 
+  // Yeni: Sepet öğelerini güncelle
+  const updateCart = (updatedItems: CartItem[]) => {
+    setCartItemsState(updatedItems);
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, addToCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, addToCart, clearCart, updateCart }}>
       {children}
     </CartContext.Provider>
   );

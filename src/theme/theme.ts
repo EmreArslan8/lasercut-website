@@ -106,6 +106,7 @@ export const palette = {
     900: '#362F3D',
   },
   neutral: {
+    main: '#006FBF',
     dark: '#260F33',
     white: '#FFFFFF',
     white90: '#FFFFFFE6',
@@ -202,7 +203,7 @@ const theme = createTheme(
           {
             props: { color: 'primary', variant: 'contained' },
             style: {
-              background: palette.neutral.dark,
+              background: palette.neutral.main,
               color: palette.neutral.white, 
               '&:hover': {
                 background: palette.primary[600],
@@ -215,7 +216,7 @@ const theme = createTheme(
           {
             props: { color: 'primary', variant: 'outlined' },
             style: {
-              borderColor: palette.neutral.dark,
+              borderColor: palette.neutral.main,
               color: palette.neutral.dark,
               '&:hover': {
                 borderColor: palette.neutral.dark,

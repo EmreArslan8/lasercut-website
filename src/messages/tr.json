@@ -19,10 +19,10 @@
     "congratulations": "Tebrikler!",
     "submissionSuccess": "Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.",
     "returnToHome": "Ana Sayfaya Dön",
-    "uploadPrompt": " STP | DXF | JPEG | JPG | PNG | PDF dosyalarıyla anında teklif alın ",
-    "uploadDescription": "Sürükle ve Bırak veya",
+    "uploadPrompt": " STP | DXF | JPEG | JPG | PNG | PDF dosyalarıyla teklif alın ",
+    "uploadDescription": "Sürükle Bırak veya",
     "uploadedFiles": "Yüklenen Dosyalar",
-    "addFile": "Dosya Ekle",
+    "addFile": "Dosya Yükle",
     "getQuote": "Teklif Al",
     "secureUploads": "Tüm yüklemeler güvenli ve gizlidir.",
     "uploadedPrompt": "Dosyalarınızı yükleyin",
@@ -114,5 +114,10 @@
       "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
       "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
     }
-  }
+  },
+  "CartPage": {
+  "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
+  "button": "Ana Sayfa'ya dönün"
+}
+
 }

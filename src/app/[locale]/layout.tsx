@@ -30,6 +30,12 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+      <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL@400..700,0..1&display=block"
+          rel="stylesheet"
+        />
+      </head>
      <body className={Plus_Jakarta_Sans.className}>
         <NextIntlClientProvider messages={messages}>
           <CartProvider>
