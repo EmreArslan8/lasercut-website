@@ -3,7 +3,8 @@
     "logoAlt": "Şirket logosu",
     "adminPanelButton": "Yönetici Paneli",
     "about": "Hakkımızda",
-    "contact": "İletişim"
+    "contact": "İletişim",
+    "language": "Türkçe"
   },
   "Footer": {
     "brand": "D2C",
@@ -73,23 +74,23 @@
       "description": "Xometry, özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
     }
   },
-  "Success": {
+  "OrderSuccessFeedback": {
     "successTitle": "Tebrikler!",
-    "successMessage": "Modeliniz başarıyla yüklendi. Size en kısa sürede geri dönüş yapılacaktır.",
-    "backButton": "Ana Sayfaya Dön",
-    "supportButton": "Destek Al"
+    "successMessage": "Siparişiniz başarıyla alındı. En kısa sürede işleme alınacaktır. Teşekkür ederiz!",
+    "backButton": "Ana Sayfaya Dön"
+   
   },
   "Form": {
     "title": "Teklif almak için iletişim bilgilerini doldurun",
     "allFieldsRequired": "Tüm alanlar gerekli",
-    "nameLabel": "Tam Ad *",
-    "emailLabel": "Kurumsal E-mail *",
+    "nameLabel": "Ad Soyad *",
+    "emailLabel": "E-mail *",
     "phoneLabel": "İletişim Numarası *",
     "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum.",
     "submitButton": "Teklif Al",
     "cancelButton": "İptal",
     "errors": {
-      "name": "Adınızı giriniz.",
+      "name": "Adınızı soyadınızı giriniz.",
       "email": "Geçerli bir e-posta adresi giriniz.",
       "invalidEmail": "E-posta adresi geçersiz.",
       "phone": "Geçerli bir telefon numarası giriniz.",
@@ -101,6 +102,9 @@
     "materialSelection": "Materyal Seçimi",
     "thickness": "Kalınlık",
     "quantity": "Adet",
+    "coating": "Boya",
+    "painted": "Boyalı",
+    "unpainted": "Boyasız",
     "noteOptional": "Not (Opsiyonel)",
     "addToCart": "Sepete Ekle",
     "requiredField": "Boş Bırakılamaz",
@@ -116,8 +120,21 @@
     }
   },
   "CartPage": {
-  "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
-  "button": "Ana Sayfa'ya dönün"
-}
-
+    "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
+    "button": "Ana Sayfa'ya dönün",
+    "cartTitle1": "Sepet",
+    "cartTitle2" : "Ürün",
+    "selectProducts": "Lütfen sipariş edeceğiniz ürün veya ürünleri seçin",
+    "material": "Materyal",
+    "thickness": "Kalınlık",
+    "quantity": "Adet",
+    "note": "Not",
+    "placeOrder": "Sipariş Ver"
+  },
+  "WpButton": {
+    "buttonText": " WhatsApp Destek"
+  },
+  "ExampleWorks": {
+    "title": "Çalışmalarımız"
+  }
 }

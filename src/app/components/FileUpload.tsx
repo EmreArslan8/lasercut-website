@@ -13,6 +13,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslations } from "next-intl";
 import useScreen from "@/lib/hooks/useScreen";
+import Image from "next/image";
 import Icon from "./Icon";
 
 interface FileUploadProps {
@@ -20,12 +21,9 @@ interface FileUploadProps {
   files?: File[];
 }
 
-const allowedExtensions = [".jpg", ".jpeg", ".png", ".pdf", ".sxf", ".stp"]; // İzin verilen dosya türleri
+const allowedExtensions = [".jpg", ".jpeg", ".png", ".pdf", ".dxf", ".stp"];
 
-const FileUpload: React.FC<FileUploadProps> = ({
-  onFileUpload,
-  files = [],
-}) => {
+const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, files = [] }) => {
   const t = useTranslations("File");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const isMobile = useScreen();
@@ -34,32 +32,23 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const isValidFile = (fileName: string) => {
-    const isValid = allowedExtensions.some((ext) =>
-      fileName.toLowerCase().endsWith(ext)
-    );
-    console.log(`${fileName} geçerli mi: ${isValid}`); // Log ekle
-    return isValid;
+    return allowedExtensions.some((ext) => fileName.toLowerCase().endsWith(ext));
   };
 
   const filterValidFiles = (fileArray: File[]) => {
     const validFiles = fileArray.filter((file) => isValidFile(file.name));
     const invalidFiles = fileArray.filter((file) => !isValidFile(file.name));
 
-    console.log("Geçersiz dosyalar:", invalidFiles); // Log ekle
-
     if (invalidFiles.length > 0) {
       const invalidFileNames = invalidFiles.map((file) => file.name).join(", ");
       setSnackbarMessage(
-        `Şu dosyalar desteklenmiyor: ${invalidFileNames}. Lütfen yalnızca izin verilen türleri yükleyin: ${allowedExtensions.join(
-          ", "
-        )}`
+        `Şu dosyalar desteklenmiyor: ${invalidFileNames}. Lütfen yalnızca izin verilen türleri yükleyin: ${allowedExtensions.join(", ")}`
       );
       setSnackbarOpen(true);
     }
 
     return validFiles;
   };
-
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -109,6 +98,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <>
+      {/* Görseller */}
+
+
       <Box
         sx={{
           textAlign: "center",
@@ -131,6 +123,31 @@ const FileUpload: React.FC<FileUploadProps> = ({
         onDragLeave={handleDragLeave}
       >
         <Stack spacing={isMobile ? 1 : 2} alignItems="center" gap={2}>
+        <Stack
+          direction="row"
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Image
+          src="/static/images/dropzone1.png"
+          alt="Dropzone Illustration 1"
+          width={isMobile ? 80 : 120}
+          height={isMobile ? 80 : 120}
+        />
+        <Image
+          src="/static/images/dropzone2.png"
+          alt="Dropzone Illustration 2"
+          width={isMobile ? 80 : 120}
+          height={isMobile ? 80 : 120}
+        />
+        <Image
+          src="/static/images/dropzone3.png"
+          alt="Dropzone Illustration 3"
+          width={isMobile ? 80 : 120}
+          height={isMobile ? 80 : 120}
+        />
+      </Stack>
           <Typography
             variant="h3"
             sx={{
@@ -172,6 +189,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           </Typography>
         </Stack>
       </Box>
+
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}

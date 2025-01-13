@@ -3,9 +3,11 @@ import { Link, Typography } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import useScreen from "@/lib/hooks/useScreen";
 import theme from "@/theme/theme";
+import { useTranslations } from "next-intl";
 
 const WhatsAppButton = () => {
   const { mdUp } = useScreen();
+  const t = useTranslations("WpButton");
   const whatsappUrl = "https://wa.me/905555555555"; 
 
   return (
@@ -37,7 +39,7 @@ const WhatsAppButton = () => {
       <WhatsAppIcon sx={{ fontSize: 41, marginRight: mdUp ? 1 : 0 }} />
       {mdUp && (
         <Typography variant="body2" sx={{ whiteSpace: "nowrap" }}>
-          WhatsApp Destek
+        {t("buttonText")}
         </Typography>
       )}
     </Link>

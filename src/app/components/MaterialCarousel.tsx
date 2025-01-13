@@ -7,10 +7,17 @@ interface MaterialCardListProps {
 }
 
 const materials = [
-  { value: "1050", label: "Alüminyum 1050", description: "Dayanıklı ve hafif.", image: "/static/images/sac-karbon-celik.png" },
-  { value: "5754", label: "Alüminyum 5754", description: "Korozyona dayanıklı.", image: "/static/images/sac-karbon-celik.png" },
-  { value: "GalvanizliSac", label: "Çelik Galvanizli Sac", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/materials/galvanizlisac.png" },
+  { value: "1050", label: "Alüminyum 1050", description: "Dayanıklı ve hafif.", image: "/static/images/aluminyum.png" },
+  { value: "5754", label: "Alüminyum 5754", description: "Dayanıklı ve hafif.",  image: "/static/images/aluminyum.png" },
+  { value: "GalvanizliSac", label: "Çelik Galvanizli Sac", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/galvaniz.png" },
+  { value: "SiyahSac", label: "SiyahSac", description: "Dayanıklı ve hafif.",  image: "/static/images/galvaniz.png"},
+  { value: "DC01", label: "Çelik DC01 / 6112 / C (DKP", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/sac-karbon-celik.png" },
+  { value: "ST37", label:  "Çelik ST37-K / S235JR / 1.0038", description: "Dayanıklı ve hafif.", image: "/static/images/st37.png" },
+  { value: "Paslanmaz304", label: "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/paslanmaz-sac.png" },
+  { value: "Paslanmaz316L", label: "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/paslanmaz-sac.png" },
 ];
+
+
 
 const MaterialCardList: React.FC<MaterialCardListProps> = ({
   selectedMaterial,

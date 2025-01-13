@@ -26,7 +26,7 @@ interface DisplayFilesProps {
   onClose: () => void;
   onAddToCart?: (
     file: File,
-    productDetails: { material: string; thickness: string; quantity: number; note?: string }
+    productDetails: { material: string; thickness: string; quantity: number; coating: string; note?: string }
   ) => void;
 }
 
@@ -36,9 +36,10 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [thickness, setThickness] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [coating, setCoating] = useState("");
   const [note, setNote] = useState("");
-  const [errors, setErrors] = useState({ material: false, thickness: false, quantity: false });
-  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
+  const [errors, setErrors] = useState({ material: false, thickness: false, quantity: false, coating: false });
+  const [selectedFileIndex] = useState(0);
   const router = useRouter();
   const t = useTranslations("OrderDetails");
   const { isMobile, isTablet } = useScreen();
@@ -63,6 +64,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
       material: !selectedMaterial.trim(),
       thickness: !thickness.trim(),
       quantity: !quantity.trim(),
+      coating: !coating.trim(),
     };
     setErrors(newErrors);
     return !Object.values(newErrors).some(Boolean);
@@ -73,6 +75,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
     if (field === "selectedMaterial") setSelectedMaterial(value);
     if (field === "thickness") setThickness(value);
     if (field === "quantity") setQuantity(value);
+    if (field === "coating") setCoating(value);
   };
 
   const handleAddToCart = () => {
@@ -84,6 +87,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
       material: selectedMaterial,
       thickness,
       quantity: parseInt(quantity, 10),
+      coating,
       note,
     };
 
@@ -115,7 +119,18 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
     >
       <Box sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 4 }}>
-          <Image src="/static/images/logo.png" alt="Logo" width={100} height={70} />
+          <Image
+            src="/static/images/logo.png"
+            alt="logo"
+            width={120}
+            height={60}
+            style={{
+              objectFit: "contain",
+              maxWidth: "100%",
+              height: "auto",
+              width: "auto",
+            }}
+          />
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
@@ -184,6 +199,28 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
                 helperText={errors.quantity ? t("requiredField") : ""}
               />
             </Box>
+
+            {/* Boyalı/Boyasız Section */}
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
+                {t("coating")}
+              </Typography>
+              <Select
+                value={coating}
+                onChange={(e) => handleFieldChange("coating", e.target.value)}
+                fullWidth
+                displayEmpty
+                error={errors.coating}
+              >
+                <MenuItem value="painted">{t("painted")}</MenuItem>
+                <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
+              </Select>
+              {errors.coating && (
+                <Typography variant="caption" color="error">
+                  {t("requiredField")}
+                </Typography>
+              )}
+            </Box>
           </Box>
           <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 2 }}>
             {t("noteOptional")}
@@ -200,8 +237,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
         <Button
           variant="contained"
           color="primary"
-          
-        size="large"
+          size="large"
           sx={{ mt: 3 }}
           onClick={handleAddToCart}
         >
@@ -224,7 +260,6 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
           />
         </Box>
       )}
-
     </Drawer>
   );
 };

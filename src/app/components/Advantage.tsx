@@ -1,4 +1,4 @@
-import { Typography, useTheme, Grid, Grid2 } from "@mui/material";
+import { Typography, useTheme, Grid2 } from "@mui/material";
 import useScreen from "@/lib/hooks/useScreen";
 import { useTranslations } from "next-intl";
 

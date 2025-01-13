@@ -3,7 +3,8 @@
     "logoAlt": "Company logo",
     "adminPanelButton": "Admin Panel",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "language": "English"
   },
   "Footer": {
     "brand": "D2C",
@@ -68,17 +69,16 @@
       "description": "Xometry can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
     }
   },
-  "Success": {
+  "OrderSuccessFeedback": {
     "successTitle": "Congratulations!",
-    "successMessage": "Your model has been successfully uploaded. We will get back to you shortly.",
-    "backButton": "Return to Home",
-    "supportButton": "Get Support"
+    "successMessage": " Your order has been successfully received. It will be processed as soon as possible. Thank you!",
+    "backButton": "Return to Home"
   },
   "Form": {
     "title": "Fill in your contact information to receive a quote",
     "allFieldsRequired": "All fields are required",
     "nameLabel": "Full Name *",
-    "emailLabel": "Corporate Email *",
+    "emailLabel": "Email *",
     "phoneLabel": "Contact Number *",
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "submitButton": "Submit",
@@ -92,29 +92,44 @@
     }
   },
   "OrderDetails": {
-  "fileDetails": "Please fill in the file details:",
-  "materialSelection": "Material Selection",
-  "thickness": "Thickness",
-  "quantity": "Quantity",
-  "noteOptional": "Note (Optional)",
-  "addToCart": "Add to Cart",
-  "requiredField": "Required Field",
-  "materials": {
-    "1050": "Aluminum 1050",
-    "5754": "Aluminum 5754 / 3.3535 / AlMg3",
-    "GalvanizliSac": "Steel Galvanized Sheet",
-    "SiyahSac": "Steel Black Sheet",
-    "DC01": "Steel DC01 / 6112 / C (DKP)",
-    "ST37": "Steel ST37-K / S235JR / 1.0038",
-    "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-    "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
+    "fileDetails": "Please fill in the file details:",
+    "materialSelection": "Material Selection",
+    "thickness": "Thickness",
+    "quantity": "Quantity",
+   "coating": "Coating",
+   "painted": "Painted",
+   "unpainted": "Unpainted",
+    "noteOptional": "Note (Optional)",
+    "addToCart": "Add to Cart",
+    "requiredField": "Required Field",
+    "materials": {
+      "1050": "Aluminum 1050",
+      "5754": "Aluminum 5754 / 3.3535 / AlMg3",
+      "GalvanizliSac": "Steel Galvanized Sheet",
+      "SiyahSac": "Steel Black Sheet",
+      "DC01": "Steel DC01 / 6112 / C (DKP)",
+      "ST37": "Steel ST37-K / S235JR / 1.0038",
+      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
+    }
+  },
+  "CartPage": {
+    "title": "Your Cart",
+    "cartInfo": "Your cart is empty. To create an order back to home page",
+    "button": "Back To Home",
+    "cartTitle1": "Cart",
+    "cartTitle2" : "Order",
+    "selectProducts": "Please select the product(s) you want to order",
+    "material": "Material",
+    "thickness": "Thickness",
+    "quantity": "Quantity",
+    "note": "Note",
+    "placeOrder": "Place Order"
+  },
+  "WpButton": {
+    "buttonText": "WhatsApp Support"
+  },
+  "ExampleWorks": {
+    "title": " Example Works"
   }
-}, 
-"CartPage": {
-  "title" : "Your Cart",
-  "cartInfo": "Your cart is empty. To create an order back to home page",
-  "button": "Back To Home"
-
-}
-
 }

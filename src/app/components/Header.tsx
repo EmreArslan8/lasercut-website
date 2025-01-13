@@ -1,25 +1,30 @@
-"use client";
+'use client';
 
 import { useState } from "react";
-import { Box, Button, IconButton, Menu, MenuItem, Select, FormControl } from "@mui/material";
+import { Box, Button, IconButton, Menu, MenuItem, Select, FormControl, Badge } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import useScreen from "@/lib/hooks/useScreen";
+import Icon from "./Icon";
+import { useCart } from "../context/CartContext";
+import theme from "@/theme/theme";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("Header");
   const locale = pathname.split("/")[1];
-  const { isMobile } = useScreen(); // useScreen hook'unu çağırıyoruz
+  const { isMobile } = useScreen();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { cartItems } = useCart(); 
+
 
   const handleLocaleChange = (newLocale: string) => {
     const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
     router.push(newPathname);
-    setAnchorEl(null); // Menü kapansın
+    setAnchorEl(null);
   };
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,7 +47,6 @@ const Header = () => {
         gap: "16px",
       }}
     >
-      {/* Logo */}
       <IconButton
         onClick={() => router.push(`/${locale}`)}
         sx={{
@@ -73,6 +77,21 @@ const Header = () => {
           gap: "16px",
         }}
       >
+        {/* Sepet */}
+        <Badge
+        badgeContent={cartItems.length} 
+        
+          sx={{
+            "& .MuiBadge-badge": {
+              fontSize: "14px",
+              fontWeight: "bold",
+              color: theme.palette.primary.dark
+            },
+          }}
+        >
+        <Icon name= "shopping_bag"  onClick={() => router.push(`/${locale}/cart`)} fontSize={32}/>
+        </Badge>
+
         {/* Dil Değiştirme */}
         {isMobile ? (
           <IconButton
@@ -91,7 +110,6 @@ const Header = () => {
           </IconButton>
         ) : (
           <FormControl size="small" sx={{ minWidth: 120 }}>
-
             <Select
               labelId="locale-select-label"
               value={locale}

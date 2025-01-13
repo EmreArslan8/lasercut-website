@@ -3,6 +3,7 @@
 import React from "react";
 import { Box, Typography, Button, Modal } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface OrderSuccessFeedbackProps {
   open: boolean;
@@ -11,6 +12,7 @@ interface OrderSuccessFeedbackProps {
 
 const OrderSuccessFeedback: React.FC<OrderSuccessFeedbackProps> = ({ open, onClose }) => {
     const router = useRouter();
+    const t = useTranslations("OrderSuccessFeedback");
     const handleRedirect = () => {
         onClose(); // Modal'ı kapat
         router.push("/"); // Ana sayfaya yönlendir
@@ -37,18 +39,17 @@ const OrderSuccessFeedback: React.FC<OrderSuccessFeedbackProps> = ({ open, onClo
         }}
       >
         <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
-          Sipariş Başarıyla Verildi!
+        {t("successTitle")}
         </Typography>
         <Typography variant="body1" sx={{ mb: 3 }}>
-          Siparişiniz başarıyla alındı. En kısa sürede işleme alınacaktır. Teşekkür ederiz!
+        {t("successMessage")}
         </Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={handleRedirect}
-        
         >
-          Tamam
+         {t("backButton")}
         </Button>
       </Box>
     </Modal>

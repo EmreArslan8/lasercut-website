@@ -60,8 +60,32 @@ declare module '@mui/material/Button' {
 }
 
 
+declare module "@mui/material/styles" {
+  interface Palette {
+  customPrimary: {
+      100: string;
+      300: string;
+      400: string;
+      500: string;
+      600: string;
+      700: string;
+    };
+  }
+  interface PaletteOptions {
+    customPrimary?: {
+      100?: string;
+      300?: string;
+      400?: string;
+      500?: string;
+      600?: string;
+      700?: string;
+    };
+  }
+}
+
+
 export const palette = {
-  primary: {
+  customPrimary: {
     main: '#4AC6FF',
     100: '#D9F4FF',
     300: '#8ED9FF',
@@ -206,10 +230,10 @@ const theme = createTheme(
               background: palette.neutral.main,
               color: palette.neutral.white, 
               '&:hover': {
-                background: palette.primary[600],
+                background: palette.customPrimary[600],
               },
               '&:active': {
-                background: palette.primary[500],
+                background: palette.customPrimary[500],
               },
             },
           },
@@ -220,12 +244,12 @@ const theme = createTheme(
               color: palette.neutral.dark,
               '&:hover': {
                 borderColor: palette.neutral.dark,
-                background: palette.primary[600],
+                background: palette.customPrimary[600],
                 color: palette.neutral.white,
               },
               '&:active': {
                 borderColor: palette.neutral.dark,
-                background: palette.primary[500],
+                background: palette.customPrimary[500],
                 color: palette.neutral.white,
               },
             },
@@ -233,7 +257,7 @@ const theme = createTheme(
           {
             props: { color: 'primary', variant: 'text' },
             style: {
-              color: palette.primary[500],
+              color: palette.customPrimary[500],
               '&:hover': {
                 background: 'transparent',
               },
@@ -246,11 +270,11 @@ const theme = createTheme(
               color: palette.neutral.dark,
               backdropFilter: 'blur(5px)',
               '&:hover': {
-                background: palette.primary[600],
+                background: palette.customPrimary[600],
                 color: palette.neutral.white,
               },
               '&:active': {
-                background: palette.primary[500],
+                background: palette.customPrimary[500],
                 color: palette.neutral.white,
               },
             },
@@ -260,13 +284,13 @@ const theme = createTheme(
             style: {
               color: palette.neutral.white90,
               '&:hover': {
-                borderColor: palette.primary[600],
-                background: palette.primary[600],
+                borderColor: palette.customPrimary[600],
+                background: palette.customPrimary[600],
                 color: palette.neutral.white,
               },
               '&:active': {
-                borderColor: palette.primary[500],
-                background: palette.primary[500],
+                borderColor: palette.customPrimary[500],
+                background: palette.customPrimary[500],
                 color: palette.neutral.white,
               },
             },
@@ -313,7 +337,7 @@ const theme = createTheme(
             padding: '0 16px !important',
             transition: 'all 0.2s',
             '&.Mui-selected': {
-              background: palette.primary[700],
+              background: palette.customPrimary[700],
               color: palette.tertiary[100],
             },
           },
