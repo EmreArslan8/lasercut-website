@@ -13,17 +13,17 @@ import { useTranslations } from 'next-intl';
 
 // Görseller
 const exampleData = [
-  { id: 1, title: 'çalışma 1', image: '/static/images/çalışma1.jpeg' },
-  { id: 2, title: 'çalışma 2', image: '/static/images/çalışma2.jpeg' },
-  { id: 3, title: 'çalışma 3', image: '/static/images/çalışma3.jpeg' },
-  { id: 4, title: 'çalışma 4', image: '/static/images/çalışma4.jpeg' },
-  { id: 5, title: 'çalışma 5', image: '/static/images/çalışma5.jpeg' },
-  { id: 6, title: 'çalışma 6', image: '/static/images/çalışma6.jpeg' },
-  { id: 2, title: 'çalışma 7', image: '/static/images/çalışma7.jpeg' },
-  { id: 3, title: 'çalışma 8', image: '/static/images/çalışma8.jpeg' },
-  { id: 4, title: 'çalışma 9', image: '/static/images/çalışma9.jpeg' },
-  { id: 5, title: 'çalışma 10', image: '/static/images/çalışma10.jpeg' },
-  { id: 6, title: 'çalışma 11', image: '/static/images/çalışma11.jpeg' },
+  { id: 1, title: 'example 1', image: '/static/images/example1.jpeg' },
+  { id: 2, title: 'example 2', image: '/static/images/example2.jpeg' },
+  { id: 3, title: 'example 3', image: '/static/images/example3.jpeg' },
+  { id: 4, title: 'example 4', image: '/static/images/example4.jpeg' },
+  { id: 5, title: 'example 5', image: '/static/images/example5.jpeg' },
+  { id: 6, title: 'example 6', image: '/static/images/example6.jpeg' },
+  { id: 2, title: 'example 7', image: '/static/images/example7.jpeg' },
+  { id: 3, title: 'example 8', image: '/static/images/example8.jpeg' },
+  { id: 4, title: 'example 9', image: '/static/images/example9.jpeg' },
+  { id: 5, title: 'example 10', image: '/static/images/example10.jpeg' },
+  { id: 6, title: 'example 11', image: '/static/images/example11.jpeg' },
 ];
 
 
