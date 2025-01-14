@@ -6,6 +6,10 @@
     "contact": "Contact",
     "language": "English"
   },
+  "Banner": {
+    "title": "Custom Metal Laser Cutting Services",
+    "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs"
+  },
   "Footer": {
     "brand": "D2C",
     "copyright": "© 2017-2024, Draw to Cut TR Technology Inc.",
@@ -96,12 +100,13 @@
     "materialSelection": "Material Selection",
     "thickness": "Thickness",
     "quantity": "Quantity",
-   "coating": "Coating",
-   "painted": "Painted",
-   "unpainted": "Unpainted",
+    "coating": "Coating",
+    "painted": "Painted",
+    "unpainted": "Unpainted",
     "noteOptional": "Note (Optional)",
     "addToCart": "Add to Cart",
     "requiredField": "Required Field",
+    "enterColor": "Color..",
     "materials": {
       "1050": "Aluminum 1050",
       "5754": "Aluminum 5754 / 3.3535 / AlMg3",
@@ -118,11 +123,14 @@
     "cartInfo": "Your cart is empty. To create an order back to home page",
     "button": "Back To Home",
     "cartTitle1": "Cart",
-    "cartTitle2" : "Order",
+    "cartTitle2": "Order",
     "selectProducts": "Please select the product(s) you want to order",
     "material": "Material",
     "thickness": "Thickness",
     "quantity": "Quantity",
+    "coating": "Coating",
+    "painted": "Painted",
+    "unpainted": "Unpainted",
     "note": "Note",
     "placeOrder": "Place Order"
   },

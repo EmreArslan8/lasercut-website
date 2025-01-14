@@ -22,7 +22,7 @@ import OrderSuccessFeedback from "@/app/components/OrderSuccessFeedback";
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import theme from "@/theme/theme";
 
-const Cart: React.FC = () => {
+const Cart = () => {
   const { cartItems, clearCart, addToCart } = useCart();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -89,9 +89,12 @@ const Cart: React.FC = () => {
         material: item.material,
         thickness: item.thickness,
         quantity: item.quantity,
+        coating: item.coating,
         note: item.note,
         file_url: "fileUrl" in item ? item.fileUrl : null,
       }));
+ 
+
 
       const { error: cartError } = await supabase.from("cart_items").insert(itemsToSave);
       if (cartError) throw new Error(cartError.message);
@@ -112,6 +115,8 @@ const Cart: React.FC = () => {
     setModalOpen(false);
   };
 
+
+ 
 
   return (
     <Stack sx={{ p: 6, pt: 2.5 }}>
@@ -192,6 +197,7 @@ const Cart: React.FC = () => {
                       <Typography>{t("material")}: {item.material}</Typography>
                       <Typography>{t("thickness")}: {item.thickness} mm</Typography>
                       <Typography>{t("quantity")}: {item.quantity}</Typography>
+                    {/*  <Typography>{t("coating")}: {item.coating}</Typography> */}
                       {item.note && (
                         <Tooltip title={item.note} arrow>
                           <Typography>

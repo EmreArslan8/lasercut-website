@@ -9,9 +9,8 @@ import {
   MenuItem,
   TextField,
   Button,
-  IconButton,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { useCart } from "../context/CartContext";
 import { useRouter } from "next/navigation";
@@ -20,6 +19,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import MaterialCardList from "./MaterialCarousel";
 import theme from "@/theme/theme";
+import Icon from "./Icon";
 
 interface DisplayFilesProps {
   files: File[];
@@ -81,15 +81,25 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   const handleAddToCart = () => {
     if (!validateForm()) return;
 
-    const newCartItem = {
-      fileName: files[selectedFileIndex]?.name || t("noFileName"),
-      file: files[selectedFileIndex],
-      material: selectedMaterial,
-      thickness,
-      quantity: parseInt(quantity, 10),
-      coating,
-      note,
-    };
+
+    const coatingValue =
+    coating === "painted" && note.trim() ? `${coating} (${note.trim()})` : coating;
+  
+
+  
+  const newCartItem = { 
+    fileName: files[selectedFileIndex]?.name || t("noFileName"),
+    file: files[selectedFileIndex],
+    material: selectedMaterial,
+    thickness,
+    quantity: parseInt(quantity, 10),
+    coating: coatingValue, 
+    note,
+  };
+  
+  
+  
+  
 
     setCartItems((prevItems) => [...prevItems, newCartItem]);
     setDrawerOpen(false);
@@ -131,14 +141,11 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
               width: "auto",
             }}
           />
-          <IconButton onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
+          <Icon name="close" onClick={onClose} />
         </Box>
-
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
           <InsertDriveFileIcon sx={{ fontSize: 40 }} />
-          <Typography variant="h5" sx={{ fontWeight: 600 }}>
+          <Typography variant= "h5" sx={{fontWeight: 600, wordBreak: "break-word", whiteSpace: "normal", overflow: "visible" }}>
             {files[selectedFileIndex]?.name}
           </Typography>
         </Box>
@@ -173,7 +180,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
             {/* Kalınlık Section */}
             <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
-                {t("thickness")}
+                {t("thickness")} (mm)
               </Typography>
               <TextField
                 type="number"
@@ -200,27 +207,56 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
               />
             </Box>
 
-            {/* Boyalı/Boyasız Section */}
             <Box sx={{ flex: 1 }}>
-              <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
-                {t("coating")}
-              </Typography>
-              <Select
-                value={coating}
-                onChange={(e) => handleFieldChange("coating", e.target.value)}
-                fullWidth
-                displayEmpty
-                error={errors.coating}
-              >
-                <MenuItem value="painted">{t("painted")}</MenuItem>
-                <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
-              </Select>
-              {errors.coating && (
-                <Typography variant="caption" color="error">
-                  {t("requiredField")}
-                </Typography>
-              )}
-            </Box>
+  <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
+    {t("coating")}
+  </Typography>
+
+  {/* Dinamik Alan */}
+  {coating.startsWith("painted") ? (
+    // Boyalı için TextField
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <TextField
+        value={coating.replace("painted ", "")} // "painted" kısmını kaldırarak sadece renk gösterir
+        onChange={(e) => handleFieldChange("coating", `painted ${e.target.value}`)}
+        placeholder={t("enterColor")} // Örneğin: "Renk girin"
+        fullWidth
+        error={errors.coating}
+        helperText={errors.coating ? t("requiredField") : ""}
+        sx={{ flex: 1 }}
+      />
+      <Button
+        onClick={() => handleFieldChange("coating", "unpainted")} // Tekrar unpainted'e geçiş yapar
+        variant="outlined"
+        sx={{ ml: 1 }}
+      >
+        {t("unpainted")}
+      </Button>
+    </Box>
+  ) : (
+    // Boyalı değilse Select
+    <Select
+      value={coating}
+      onChange={(e) => handleFieldChange("coating", e.target.value)}
+      fullWidth
+      displayEmpty
+      error={errors.coating}
+    >
+      <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
+      <MenuItem value="painted">{t("painted")}</MenuItem>
+    </Select>
+  )}
+
+  {/* Hata Mesajı */}
+  {errors.coating && (
+    <Typography variant="caption" color="error">
+      {t("requiredField")}
+    </Typography>
+  )}
+</Box>
+
+
+
           </Box>
           <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 2 }}>
             {t("noteOptional")}

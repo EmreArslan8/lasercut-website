@@ -58,8 +58,8 @@ const Header = () => {
         <Image
           src="/static/images/logo.png"
           alt={t("logoAlt")}
-          width={120}
-          height={60}
+          width={180}
+          height={90}
           style={{
             objectFit: "contain",
             maxWidth: "100%",

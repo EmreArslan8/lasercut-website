@@ -7,6 +7,7 @@ interface CartItem {
   material: string;
   thickness: string;
   quantity: number;
+  coating: string; // Added coating field
   note?: string; // Opsiyonel not
   file?: File; // Dosya eklenebilir
   fileUrl?: string; // Dosya URL'si (opsiyonel)

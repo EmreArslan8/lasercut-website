@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Container, Stack} from "@mui/material";
+import { Container, Stack, Box} from "@mui/material";
 import useFileUpload from "@/lib/hooks/useFileUpload";
 import AdvantageSection from "../components/Advantage";
 import FileUpload from "../components/FileUpload";
@@ -10,49 +10,82 @@ import ExampleSlider from "../components/ExampleWorks";
 import WhatsAppButton from "../components/WpButton";
 import { useCart } from "@/app/context/CartContext";
 import { ArcadeEmbed } from "../components/Arcade";
-
+import BannerSlider from "../components/Banner";
+import useScreen from "@/lib/hooks/useScreen";
 
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();
-  const { addToCart } = useCart(); 
+  const { addToCart } = useCart();
 
-  const handleAddToCart = (file: File, productDetails: { material: string; thickness: string; quantity: number; note?: string }) => {
+  const isMobile = useScreen();
+
+  const handleAddToCart = (file: File, productDetails: { material: string; thickness: string; quantity: number; coating: string; note?: string }) => {
     const cartItem = {
       fileName: file.name,
       file,
       ...productDetails,
     };
-    addToCart(cartItem); 
+    addToCart(cartItem);
   };
 
   const handleClearFiles = () => {
-    setUploadedFiles([]); 
+    setUploadedFiles([]);
   };
 
   return (
-    <Container maxWidth="xl">
-      <Stack spacing={4} sx={{ mt: 4 }}>
-            {uploadedFiles.length === 0 ? (
-              <>
-                <FileUpload
-                  onFileUpload={(files) => {
-                    setUploadedFiles(files);
-
-                  }}
-                />
-        
-                <ProcessSteps />
-               <ArcadeEmbed />
-                <ExampleSlider />
-                <AdvantageSection />
-                <WhatsAppButton />
-
-              </>
-            ) : (
-              <OrderDetails files={uploadedFiles} onAddToCart={handleAddToCart} onClose={handleClearFiles} />
-            )}
-      </Stack>
-    </Container>
+    <Stack sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", mt: 1 }}>
+      {isMobile ? (
+        <>
+          {/* Mobil Tasarım: Slider ve Dosya Yükleme Alt Alta */}
+          <Box sx={{ backgroundColor: "#fff", mb: 4 }}>
+            <BannerSlider />
+          </Box>
+          <Box sx={{ mb: 4, px: 2 }}>
+            <FileUpload
+              onFileUpload={(files) => {
+                setUploadedFiles(files);
+              }}
+            />
+          </Box>
+        </>
+      ) : (
+        <Box sx={{ position: "relative", backgroundColor: "#fff" }}>
+          {/* Masaüstü Tasarım: Slider ve Dosya Yükleme Birlikte */}
+          <BannerSlider />
+          <Box
+            sx={{
+              position: "absolute",
+              top: "85%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "80%",
+              zIndex: 10,
+            }}
+          >
+            <FileUpload
+              onFileUpload={(files) => {
+                setUploadedFiles(files);
+              }}
+            />
+          </Box>
+        </Box>
+      )}
+      <Container>
+        <Stack spacing={14} sx={{ mt: isMobile ? 4 : 25 }}>
+          {uploadedFiles.length === 0 ? (
+            <>
+              <ProcessSteps />
+              <ArcadeEmbed />
+              <ExampleSlider />
+              <AdvantageSection />
+              <WhatsAppButton />
+            </>
+          ) : (
+            <OrderDetails files={uploadedFiles} onAddToCart={handleAddToCart} onClose={handleClearFiles} />
+          )}
+        </Stack>
+      </Container>
+    </Stack>
   );
 };
 

@@ -6,6 +6,12 @@
     "contact": "İletişim",
     "language": "Türkçe"
   },
+  "Banner": {
+    "title": "Talebe Özel Metal Lazer Kesim Hizmetleri",
+    "subtitle": "İhtiyacınıza uygun yüksek hassasiyetli metal lazer kesim çözümleriyle kaliteyi ve detayı buluşturun"
+
+
+  },
   "Footer": {
     "brand": "D2C",
     "copyright": "© 2017-2024, Draw to Cut TR Technology Inc..",
@@ -48,30 +54,31 @@
     }
   },
   "Advantages": {
-    "sectionTitle": "Xometry Lazer Kesim Hizmetinin Avantajları",
+    "sectionTitle": "DrawToCut Lazer Kesim Hizmetinin Avantajları",
     "highSpeed": {
       "title": "Yüksek Hızda Üretim",
       "description": "Son teknoloji lazer kesim makineleri kullanarak Xometry, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
     },
     "highPrecision": {
       "title": "Yüksek Hassasiyet",
-      "description": "Xometry, ISO 2768'e (standart, ince) göre çeşitli tolerans seçenekleri sunar."
+      "description": "DrawToCut, ISO 2768'e (standart, ince) göre çeşitli tolerans seçenekleri sunar."
     },
     "advancedSurface": {
-      "title": "Gelişmiş Yüzey Seçenekleri",
-      "description": "Anodize, toz boya ve boyama gibi gelişmiş yüzey seçenekleriyle üretim yapın."
+      "title": "Geniş Renk Seçenekleri",
+      "description": "Ürünleriniz talep ettiğiniz renk seçeneğine uygun boyalı yada renksiz gönderilebilir."
     },
     "materialSelection": {
       "title": "Malzeme Seçimi",
       "description": "Yüksek mukavemet, korozyon direnci ve çeşitli iletkenlik ve ağırlık özelliklerine sahip metal malzemeler arasından seçim yapın."
     },
     "qualityControl": {
-      "title": "Kalite Kontrol",
-      "description": "Kalite Kontrol departmanımız güçlü bir kalite güvencesi sağlar. Xometry, ISO 9001 sertifikasına sahiptir."
+      "title": "Birleştirilmiş Ürün Gönderimi",
+      "description": "Ürününüzün kaynak yada perçin ile birleştirilerek son ürün şeklinde gönderimi mümkündür."
+     
     },
     "certificatesReports": {
       "title": "Sertifikalar ve Ölçüm Raporları",
-      "description": "Xometry, özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
+      "description": "DrawToCut, özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
     }
   },
   "OrderSuccessFeedback": {
@@ -107,6 +114,7 @@
     "unpainted": "Boyasız",
     "noteOptional": "Not (Opsiyonel)",
     "addToCart": "Sepete Ekle",
+    "enterColor": "Renk..",
     "requiredField": "Boş Bırakılamaz",
     "materials": {
       "1050": "Aluminum 1050",
@@ -128,6 +136,7 @@
     "material": "Materyal",
     "thickness": "Kalınlık",
     "quantity": "Adet",
+    "coating": "Boya",
     "note": "Not",
     "placeOrder": "Sipariş Ver"
   },

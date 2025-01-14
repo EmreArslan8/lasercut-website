@@ -130,22 +130,23 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, files = [] }) => 
         alignItems="center"
       >
         <Image
-          src="/static/images/dropzone1.png"
+          src="/static/images/drop1.png"
           alt="Dropzone Illustration 1"
-          width={isMobile ? 80 : 120}
-          height={isMobile ? 80 : 120}
+          width={isMobile ? 100 : 120}
+          height={isMobile ? 100 : 120}
+       
         />
         <Image
-          src="/static/images/dropzone2.png"
+          src="/static/images/drop.png"
           alt="Dropzone Illustration 2"
-          width={isMobile ? 80 : 120}
-          height={isMobile ? 80 : 120}
+          width={isMobile ? 100 : 120}
+          height={isMobile ? 100 : 120}
         />
         <Image
-          src="/static/images/dropzone3.png"
+          src="/static/images/drop3.png"
           alt="Dropzone Illustration 3"
-          width={isMobile ? 80 : 120}
-          height={isMobile ? 80 : 120}
+          width={isMobile ? 100 : 120}
+          height={isMobile ? 100 : 120}
         />
       </Stack>
           <Typography
