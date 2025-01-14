@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Stack, Box} from "@mui/material";
+import { Container, Stack, Box, useMediaQuery } from "@mui/material";
 import useFileUpload from "@/lib/hooks/useFileUpload";
 import AdvantageSection from "../components/Advantage";
 import FileUpload from "../components/FileUpload";
@@ -11,13 +11,12 @@ import WhatsAppButton from "../components/WpButton";
 import { useCart } from "@/app/context/CartContext";
 import { ArcadeEmbed } from "../components/Arcade";
 import BannerSlider from "../components/Banner";
-import useScreen from "@/lib/hooks/useScreen";
 
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();
   const { addToCart } = useCart();
 
-  const isMobile = useScreen();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleAddToCart = (file: File, productDetails: { material: string; thickness: string; quantity: number; coating: string; note?: string }) => {
     const cartItem = {
