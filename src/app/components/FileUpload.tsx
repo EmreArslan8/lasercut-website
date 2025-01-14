@@ -137,7 +137,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, files = [] }) => 
        
         />
         <Image
-          src="/static/images/drop.png"
+          src="/static/images/drop2.png"
           alt="Dropzone Illustration 2"
           width={isMobile ? 100 : 120}
           height={isMobile ? 100 : 120}
