@@ -1,28 +1,69 @@
 import React from "react";
 import { Box, Typography, Stack, Card, CardContent, CardMedia } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 interface MaterialCardListProps {
   selectedMaterial: string;
   onMaterialSelect: (value: string) => void;
 }
 
-const materials = [
-  { value: "1050", label: "Alüminyum 1050", description: "Dayanıklı ve hafif.", image: "/static/images/aluminyum.png" },
-  { value: "5754", label: "Alüminyum 5754", description: "Dayanıklı ve hafif.",  image: "/static/images/aluminyum.png" },
-  { value: "GalvanizliSac", label: "Çelik Galvanizli Sac", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/galvaniz.png" },
-  { value: "SiyahSac", label: "SiyahSac", description: "Dayanıklı ve hafif.",  image: "/static/images/galvaniz.png"},
-  { value: "DC01", label: "Çelik DC01 / 6112 / C (DKP", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/sac-karbon-celik.png" },
-  { value: "ST37", label:  "Çelik ST37-K / S235JR / 1.0038", description: "Dayanıklı ve hafif.", image: "/static/images/st37.png" },
-  { value: "Paslanmaz304", label: "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/paslanmaz-sac.png" },
-  { value: "Paslanmaz316L", label: "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A", description: "Paslanmaya karşı dayanıklı.", image: "/static/images/paslanmaz-sac.png" },
-];
 
 
 
-const MaterialCardList: React.FC<MaterialCardListProps> = ({
-  selectedMaterial,
-  onMaterialSelect,
-}) => {
+
+const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, onMaterialSelect }) => {
+  const t = useTranslations("MaterialCardList");
+  const materials = [
+    {
+      value: "1050",
+      label: t("materials.1050"),
+      description: t("materials.1050_description"),
+      image: "/static/images/aluminyum.png",
+    },
+    {
+      value: "5754",
+      label: t("materials.5754"),
+      description: t("materials.5754_description"),
+      image: "/static/images/aluminyum.png",
+    },
+    {
+      value: "GalvanizliSac",
+      label: t("materials.GalvanizliSac"),
+      description: t("materials.GalvanizliSac_description"),
+      image: "/static/images/galvaniz.png",
+    },
+    {
+      value: "SiyahSac",
+      label: t("materials.SiyahSac"),
+      description: t("materials.SiyahSac_description"),
+      image: "/static/images/galvaniz.png",
+    },
+    {
+      value: "DC01",
+      label: t("materials.DC01"),
+      description: t("materials.DC01_description"),
+      image: "/static/images/sac-karbon-celik.png",
+    },
+    {
+      value: "ST37",
+      label: t("materials.ST37"),
+      description: t("materials.ST37_description"),
+      image: "/static/images/st37.png",
+    },
+    {
+      value: "Paslanmaz304",
+      label: t("materials.Paslanmaz304"),
+      description: t("materials.Paslanmaz304_description"),
+      image: "/static/images/paslanmaz-sac.png",
+    },
+    {
+      value: "Paslanmaz316L",
+      label: t("materials.Paslanmaz316L"),
+      description: t("materials.Paslanmaz316L_description"),
+      image: "/static/images/paslanmaz-sac.png",
+    },
+  ];
+  
   return (
     <Box sx={{ overflowY: "auto" }}>
       <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>

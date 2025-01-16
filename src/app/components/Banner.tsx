@@ -44,66 +44,69 @@ const BannerSlider = () => {
 
     return (
         <Stack
+        sx={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: 'xl', // Genişliği sınırlamak için eklendi
+            mx: 'auto', // Ortalamak için
+            overflow: 'hidden',
+            mb: 4,
+        }}
+    >
+        <Slider {...settings}>
+            {images.map((image) => (
+                <Box
+                    key={image.id}
+                    sx={{
+                        position: 'relative',
+                        width: '100%',
+                        height: isMobile ? '300px' : '500px', 
+                    }}
+                >
+                    <Image
+                        src={image.src}
+                        alt={image.alt}
+                        layout="fill"
+                        objectFit="cover"
+                    />
+                </Box>
+            ))}
+        </Slider>
+    
+        {/* Başlık ve Alt Başlık */}
+        <Box
             sx={{
-                position: 'relative',
-                width: '100%',
-                overflow: 'hidden',
-                mb: 4,
+                position: 'absolute',
+                top: isMobile ? '40px' : '60px',
+                left: '2%', // Sola yaslama
+                textAlign: isMobile ? 'center' : 'left', // Responsive hizalama
+                color: '#fff',
+                zIndex: 10,
             }}
         >
-            <Slider {...settings}>
-                {images.map((image) => (
-                    <Box
-                        key={image.id}
-                        sx={{
-                            position: 'relative',
-                            width: '100%',
-                            height: isMobile ? '300px' : '500px', 
-                        }}
-                    >
-                        <Image
-                            src={image.src}
-                            alt={image.alt}
-                            layout="fill"
-                            objectFit="cover"
-                        />
-                    </Box>
-                ))}
-            </Slider>
-
-            {/* Başlık ve Alt Başlık */}
-            <Box
+            <Typography
+                variant={isMobile ? 'h4' : 'h1'}
                 sx={{
-                    position: 'absolute',
-                    top: isMobile ? '40px' : '60px',
-                    left: '2%', // Sola yaslama
-                    textAlign: isMobile ? 'center' : 'left', // Responsive hizalama
-                    color: '#fff',
-                    zIndex: 10,
+                    fontWeight: 'bold',
+                    mb: 1,
+                    lineHeight: 1.2,
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
                 }}
             >
-                <Typography
-                    variant={isMobile ? 'h4' : 'h1'}
-                    sx={{
-                        fontWeight: 'bold',
-                        mb: 1,
-                        lineHeight: 1.2,
-                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
-                    }}
-                >
-                    {t("title")}
-                </Typography>
-                <Typography
-                    variant={isMobile ? 'body1' : 'h6'}
-                    sx={{
-                        textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
-                        maxWidth: isMobile ? '90%' : '50%', // Alt başlık genişliği
-                    }}
-                >
-                    {t("subtitle")}
-                </Typography>
-            </Box>
-        </Stack>
+                {t("title")}
+            </Typography>
+            <Typography
+                variant={isMobile ? 'body1' : 'h6'}
+                sx={{
+                    textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
+                    maxWidth: isMobile ? '90%' : '50%', // Alt başlık genişliği
+                }}
+            >
+                {t("subtitle")}
+            </Typography>
+        </Box>
+    </Stack>
+    
     );
 };
 

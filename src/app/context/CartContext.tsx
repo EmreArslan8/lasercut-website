@@ -18,6 +18,7 @@ interface CartContextProps {
   setCartItems: (callback: (prevItems: CartItem[]) => CartItem[]) => void;
   addToCart: (item: CartItem) => void;
   clearCart: () => void;
+  removeFromCart: (index: number) => void; // Yeni eklenen işlev
   updateCart: (updatedItems: CartItem[]) => void; // Yeni eklenen işlev
 }
 
@@ -62,14 +63,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem("cart");
   };
 
-  // Yeni: Sepet öğelerini güncelle
+  // Tek ürün sil
+  const removeFromCart = (index: number) => {
+    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  };
+
+  // Sepet öğelerini güncelle
   const updateCart = (updatedItems: CartItem[]) => {
     setCartItemsState(updatedItems);
     localStorage.setItem("cart", JSON.stringify(updatedItems));
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, addToCart, clearCart, updateCart }}>
+    <CartContext.Provider
+      value={{ cartItems, setCartItems, addToCart, clearCart, removeFromCart, updateCart }}
+    >
       {children}
     </CartContext.Provider>
   );

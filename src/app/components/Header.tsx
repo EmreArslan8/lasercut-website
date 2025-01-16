@@ -16,10 +16,13 @@ const Header = () => {
   const pathname = usePathname();
   const t = useTranslations("Header");
   const locale = pathname.split("/")[1];
-  const { isMobile } = useScreen();
+  const { isMobile, isTablet } = useScreen();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { cartItems } = useCart(); 
 
+
+  const logoWidth = isMobile ? 100 : isTablet ? 140 : 250; // Ekran boyutlarına göre genişlik
+  const logoHeight = isMobile ? 50 : isTablet ? 70 : 90; //
 
   const handleLocaleChange = (newLocale: string) => {
     const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
@@ -42,9 +45,10 @@ const Header = () => {
         justifyContent: "space-between",
         alignItems: "center",
         borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-        maxWidth: "1536px",
+        maxWidth: "xl",
         margin: "0 auto",
         gap: "16px",
+        pr: 1
       }}
     >
       <IconButton
@@ -55,18 +59,17 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <Image
-          src="/static/images/logo.png"
-          alt={t("logoAlt")}
-          width={180}
-          height={90}
-          style={{
-            objectFit: "contain",
-            maxWidth: "100%",
-            height: "auto",
-            width: "auto",
-          }}
-        />
+  <Image
+      src="/static/images/logo.png"
+      alt="Company Logo"
+      width={logoWidth} // Dinamik genişlik
+      height={logoHeight} // Dinamik yükseklik
+      style={{
+        objectFit: "contain",
+        maxWidth: "100%",
+        height: "auto",
+      }}
+    />
       </IconButton>
 
       {/* Sağ Bölüm */}

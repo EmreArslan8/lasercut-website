@@ -20,6 +20,7 @@ import Image from "next/image";
 import MaterialCardList from "./MaterialCarousel";
 import theme from "@/theme/theme";
 import Icon from "./Icon";
+import capitalize from "@/utils/capitalize";
 
 interface DisplayFilesProps {
   files: File[];
@@ -47,16 +48,16 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
 
   const materials = useMemo(
     () => [
-      { value: "1050", label: "Alüminyum 1050" },
-      { value: "5754", label: "Alüminyum 5754 / 3.3535 / AlMg3" },
-      { value: "GalvanizliSac", label: "Çelik Galvanizli Sac" },
-      { value: "SiyahSac", label: "Çelik Siyah Sac" },
-      { value: "DC01", label: "Çelik DC01 / 6112 / C (DKP)" },
-      { value: "ST37", label: "Çelik ST37-K / S235JR / 1.0038" },
-      { value: "Paslanmaz304", label: "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A" },
-      { value: "Paslanmaz316L", label: "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A" },
+      { value: "1050", label: t("materials.1050") }, // Aluminum 1050
+      { value: "5754", label: t("materials.5754") }, // Aluminum 5754 / 3.3535 / AlMg3
+      { value: "GalvanizliSac", label: t("materials.GalvanizliSac") }, // Steel Galvanized Sheet
+      { value: "SiyahSac", label: t("materials.SiyahSac") }, // Steel Black Sheet
+      { value: "DC01", label: t("materials.DC01") }, // Steel DC01 / 6112 / C (DKP)
+      { value: "ST37", label: t("materials.ST37") }, // Steel ST37-K / S235JR / 1.0038
+      { value: "Paslanmaz304", label: t("materials.Paslanmaz304") }, // Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A
+      { value: "Paslanmaz316L", label: t("materials.Paslanmaz316L") }, // Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A
     ],
-    []
+    [t]
   );
 
   const validateForm = () => {
@@ -82,10 +83,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
     if (!validateForm()) return;
 
 
-    const coatingValue =
-    coating === "painted" && note.trim() ? `${coating} (${note.trim()})` : coating;
-  
-
+    const coatingValue = coating.startsWith('painted')
+    ? `painted ${capitalize(coating.replace('painted ', ''))}`
+    : coating;
   
   const newCartItem = { 
     fileName: files[selectedFileIndex]?.name || t("noFileName"),
@@ -180,16 +180,27 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
             {/* Kalınlık Section */}
             <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
-                {t("thickness")} (mm)
+                {t("thickness")}
               </Typography>
               <TextField
-                type="number"
-                value={thickness}
-                onChange={(e) => handleFieldChange("thickness", e.target.value)}
-                fullWidth
-                error={errors.thickness}
-                helperText={errors.thickness ? t("requiredField") : ""}
-              />
+  
+    type="number"
+    value={thickness}
+    onChange={(e) => handleFieldChange("thickness", e.target.value)}
+    fullWidth
+    error={errors.thickness}
+    helperText={errors.thickness ? t("requiredField") : ""}
+    InputProps={{
+      endAdornment: (
+        <Typography
+          variant="subtitle2"
+          sx={{ ml: 1, color: theme.palette.text.secondary }}
+        >
+          mm
+        </Typography>
+      ),
+    }}
+  />
             </Box>
 
             {/* Adet Section */}
@@ -211,49 +222,52 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
     {t("coating")}
   </Typography>
-
-  {/* Dinamik Alan */}
-  {coating.startsWith("painted") ? (
-    // Boyalı için TextField
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <TextField
-        value={coating.replace("painted ", "")} // "painted" kısmını kaldırarak sadece renk gösterir
-        onChange={(e) => handleFieldChange("coating", `painted ${e.target.value}`)}
-        placeholder={t("enterColor")} // Örneğin: "Renk girin"
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: isSmallScreen ? "column" : "row", // Mobilde dikey, masaüstünde yatay düzen
+      alignItems: isSmallScreen ? "stretch" : "center", // Mobilde tam genişlikte hizalama
+      gap: 1, // Elemanlar arası boşluk
+    }}
+  >
+    {coating.startsWith("painted") ? (
+      <>
+        <TextField
+        
+          onChange={(e) => handleFieldChange("coating", `painted ${e.target.value}`)}
+        
+          fullWidth
+          error={errors.coating}
+          helperText={errors.coating ? t("requiredField") : ""}
+        />
+        <Button
+          onClick={() => handleFieldChange("coating", "unpainted")} // Unpainted'e geçiş
+          variant="outlined"
+          fullWidth={isSmallScreen} // Mobilde tam genişlik
+        >
+          {t("unpainted")}
+        </Button>
+      </>
+    ) : (
+      <Select
+        value={coating}
+        onChange={(e) => handleFieldChange("coating", e.target.value)}
         fullWidth
+        displayEmpty
         error={errors.coating}
-        helperText={errors.coating ? t("requiredField") : ""}
-        sx={{ flex: 1 }}
-      />
-      <Button
-        onClick={() => handleFieldChange("coating", "unpainted")} // Tekrar unpainted'e geçiş yapar
-        variant="outlined"
-        sx={{ ml: 1 }}
       >
-        {t("unpainted")}
-      </Button>
-    </Box>
-  ) : (
-    // Boyalı değilse Select
-    <Select
-      value={coating}
-      onChange={(e) => handleFieldChange("coating", e.target.value)}
-      fullWidth
-      displayEmpty
-      error={errors.coating}
-    >
-      <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
-      <MenuItem value="painted">{t("painted")}</MenuItem>
-    </Select>
-  )}
-
-  {/* Hata Mesajı */}
+        <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
+        <MenuItem value="painted">{t("painted")}</MenuItem>
+      </Select>
+    )}
+  </Box>
   {errors.coating && (
     <Typography variant="caption" color="error">
       {t("requiredField")}
     </Typography>
   )}
 </Box>
+
 
 
 

@@ -104,9 +104,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, files = [] }) => 
       <Box
         sx={{
           textAlign: "center",
+          maxWidth: "lg",
           p: isMobile ? 2 : 4,
           border: "1px dashed #ccc",
           borderRadius: 1,
+          mx: 'auto', // Ortalamak için
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           cursor: "pointer",
           mt: 4,

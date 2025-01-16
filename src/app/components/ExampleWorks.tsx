@@ -19,12 +19,14 @@ const exampleData = [
   { id: 4, title: 'example 4', image: '/static/images/example4.jpeg' },
   { id: 5, title: 'example 5', image: '/static/images/example5.jpeg' },
   { id: 6, title: 'example 6', image: '/static/images/example6.jpeg' },
-  { id: 2, title: 'example 7', image: '/static/images/example7.jpeg' },
-  { id: 3, title: 'example 8', image: '/static/images/example8.jpeg' },
-  { id: 4, title: 'example 9', image: '/static/images/example9.jpeg' },
-  { id: 5, title: 'example 10', image: '/static/images/example10.jpeg' },
-  { id: 6, title: 'example 11', image: '/static/images/example11.jpeg' },
+  { id: 7, title: 'example 7', image: '/static/images/example7.jpeg' },
+  { id: 8, title: 'example 8', image: '/static/images/example8.jpeg' },
+  { id: 9, title: 'example 9', image: '/static/images/example9.jpeg' },
+  { id: 10, title: 'example 10', image: '/static/images/example10.jpeg' },
+  { id: 11, title: 'example 11', image: '/static/images/example11.jpeg' },
+  { id: 12, title: 'example 12', image: '/static/images/example12.jpg' },
 ];
+
 
 
 function PrevArrow(props: CustomArrowProps) {

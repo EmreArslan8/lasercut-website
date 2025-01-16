@@ -4,12 +4,11 @@ export function ArcadeEmbed() {
   return (
     <Box
       sx={{
-        minHeight: "100vh", // Ekranın tamamını kaplar
         display: "flex",
         justifyContent: "center", // Yatay ortalama
         alignItems: "center", // Dikey ortalama
         textAlign: "center",
-        backgroundColor: "#f9f9f9", // Hafif arka plan rengi
+        backgroundColor: "#f9f9f9", 
         py: 4,
       }}
     >
@@ -49,22 +48,15 @@ export function ArcadeEmbed() {
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <iframe
-            src="https://demo.arcade.software/e7gpHbIoRtU8Vs8xu7xy?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-            title="drawtocut.com/tr"
-            frameBorder="0"
-            loading="lazy"
-            allowFullScreen
-            allow="clipboard-write"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              colorScheme: "light",
-            }}
-          />
+         <iframe
+        src="https://demo.arcade.software/0SJCE7FxL3oN7PlWiN1c?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+        title="https://drawtocut.com/en"
+        frameBorder="0"
+        loading="lazy"
+        allowFullScreen
+        allow="clipboard-write"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', colorScheme: 'light' }}
+      />
         </Box>
       </Container>
     </Box>

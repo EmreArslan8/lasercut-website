@@ -10,34 +10,55 @@ import {
   Modal,
   Checkbox,
   Card,
-  Tooltip,
 } from "@mui/material";
 import { useCart } from "@/app/context/CartContext";
 import ModalForm from "@/app/components/Form";
 import { supabase } from "@/lib/api/supabaseClient";
 import { Stack } from "@mui/system";
-import { useTranslations } from "next-intl";
-import FileOpenIcon from '@mui/icons-material/FileOpen';
+import { useLocale, useTranslations } from "next-intl";
+import FileOpenIcon from "@mui/icons-material/FileOpen";
 import OrderSuccessFeedback from "@/app/components/OrderSuccessFeedback";
-import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 import theme from "@/theme/theme";
+import Icon from "@/app/components/Icon";
+import { sendEmail } from "@/utils/sendEmail";
+import useScreen from "@/lib/hooks/useScreen";
 
 const Cart = () => {
-  const { cartItems, clearCart, addToCart } = useCart();
+  const { cartItems, clearCart, addToCart, setCartItems } = useCart();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccessOpen, setSuccessOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<number[]>([])
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const t = useTranslations("CartPage");
 
+  const materialMap: Record<string, string> = {
+    "1050": "Aluminum 1050",
+    "5754": "Aluminum 5754 / 3.3535 / AlMg3",
+    "GalvanizliSac": "Steel Galvanized Sheet",
+    "SiyahSac": "Steel Black Sheet",
+    "DC01": "Steel DC01 / 6112 / C (DKP)",
+    "ST37": "Steel ST37-K / S235JR / 1.0038",
+    "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+    "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
+  };
+
+const {isMobile} = useScreen();
+const locale = useLocale();
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
+  const handleRemoveItem = (index: number) => {
+    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  };
+
   const handleFormSubmit = async (formData: { name: string; email: string; phone: string }) => {
     setIsSubmitting(true);
+    console.time("Sipariş Kaydı Süresi");
+
+    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
     try {
-      // Sipariş oluştur
       const { data: orderData, error: orderError } = await supabase
         .from("orders")
         .insert({
@@ -49,6 +70,8 @@ const Cart = () => {
         .select("id")
         .single();
 
+      console.timeEnd("Sipariş Kaydı Süresi");
+
       if (orderError) {
         console.error("Order Error:", orderError);
         throw new Error(orderError.message);
@@ -56,10 +79,7 @@ const Cart = () => {
 
       const orderId = orderData.id;
 
-      // Seçilen ürünleri al
-      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
-
-      // Her bir dosyayı Supabase Storage'a yükle ve URL al
+      console.time("Dosya Yükleme Süresi");
       const cartItemsWithUrls = await Promise.all(
         selectedCartItems.map(async (item) => {
           if (item.file) {
@@ -82,8 +102,94 @@ const Cart = () => {
           return item;
         })
       );
+      console.timeEnd("Dosya Yükleme Süresi");
 
-      // Sepet öğelerini (URL ile) Supabase'e kaydet
+      console.time("E-posta Gönderim Süresi");
+
+      await Promise.all([
+        // Kullanıcıya e-posta gönder
+        sendEmail({
+          from: `"LaserCut" <${process.env.EMAIL_USER}>`,
+          to: formData.email,
+          subject: "Sipariş Onayı",
+          text: `Merhaba ${formData.name},
+
+Siparişiniz başarıyla alındı. Detaylar aşağıdadır:
+
+Sipariş Numarası: ${orderId}
+Ürünler:
+${cartItemsWithUrls.map(
+            (item) =>
+              `- Ürün: ${item.material}, Kalınlık: ${item.thickness} mm, Miktar: ${item.quantity}, 
+Dosya: ${item.fileUrl || "Yok"}`
+          ).join("\n")}
+
+
+Teşekkür ederiz!
+LaserCut Ekibi`,
+          html: `
+                  <h1>Merhaba ${formData.name},</h1>
+                  <p>Siparişiniz başarıyla alındı. Detaylar aşağıdadır:</p>
+                  <h2>Sipariş Numarası: ${orderId}</h2>
+                  <ul>
+                    ${cartItemsWithUrls.map(
+            (item) =>
+              `<li><strong>Ürün:</strong> ${item.material}, 
+                            <strong>Kalınlık:</strong> ${item.thickness} mm, 
+                            <strong>Miktar:</strong> ${item.quantity}, 
+                            <strong>Dosya:</strong> ${item.fileUrl ? `<a href="${item.fileUrl}">Dosyayı Gör</a>` : "Yok"}</li>`
+          ).join("")}
+                  </ul>
+                  <p>Teşekkür ederiz!</p>
+                  <p>Saygılarımızla,<br>LaserCut Ekibi</p>
+                `,
+        }),
+
+        // Üreticiye e-posta gönder
+        sendEmail({
+          from: `"LaserCut" <${process.env.EMAIL_USER}>`,
+          to: "proofstriker6790@gmail.com",
+          subject: "Yeni Sipariş Alındı",
+          text: `Yeni bir sipariş alındı. Detaylar aşağıdadır:
+
+Sipariş Numarası: ${orderId}
+Kullanıcı Adı: ${formData.name}
+Telefon: ${formData.phone}
+
+Ürünler:
+${cartItemsWithUrls.map(
+            (item) =>
+              `- Ürün: ${item.material}, Kalınlık: ${item.thickness} mm, Miktar: ${item.quantity}, 
+Kaplama: ${item.coating || "Yok"}, Dosya: ${item.fileUrl || "Yok"}`
+          ).join("\n")}
+
+Lütfen siparişi kontrol edin.
+LaserCut Ekibi`,
+          html: `
+                  <h1>Yeni Sipariş Alındı</h1>
+                  <p>Detaylar aşağıdadır:</p>
+                  <h2>Sipariş Numarası: ${orderId}</h2>
+                  <p><strong>Kullanıcı Adı:</strong> ${formData.name}</p>
+                  <p><strong>Telefon:</strong> ${formData.phone}</p>
+                  <ul>
+                    ${cartItemsWithUrls.map(
+            (item) =>
+              `<li><strong>Ürün:</strong> ${item.material}, 
+                            <strong>Kalınlık:</strong> ${item.thickness} mm, 
+                            <strong>Miktar:</strong> ${item.quantity}, 
+                            <strong>Kaplama:</strong> ${item.coating || "Yok"}, 
+                            <strong>Dosya:</strong> ${item.fileUrl ? `<a href="${item.fileUrl}">Dosyayı Gör</a>` : "Yok"}</li>`
+          ).join("")}
+                  </ul>
+                  <p>Lütfen siparişi kontrol edin.</p>
+                  <p>Saygılarımızla,<br>LaserCut Ekibi</p>
+                `,
+        }),
+      ]);
+
+      console.timeEnd("E-posta Gönderim Süresi");
+
+      console.time("Sepet Veritabanı Kaydı Süresi");
       const itemsToSave = cartItemsWithUrls.map((item) => ({
         order_id: orderId,
         material: item.material,
@@ -91,23 +197,22 @@ const Cart = () => {
         quantity: item.quantity,
         coating: item.coating,
         note: item.note,
-        file_url: "fileUrl" in item ? item.fileUrl : null,
+        file_url: item.fileUrl || null,
       }));
- 
-
 
       const { error: cartError } = await supabase.from("cart_items").insert(itemsToSave);
+      console.timeEnd("Sepet Veritabanı Kaydı Süresi");
+
       if (cartError) throw new Error(cartError.message);
 
-      // Seçilen ürünleri sepetten çıkar
+      console.log("Tüm işlemler başarıyla tamamlandı.");
       const remainingItems = cartItems.filter((_, index) => !selectedItems.includes(index));
-      clearCart(); // Sepeti temizle
-      remainingItems.forEach(addToCart); // Kalan ürünleri yeniden ekle
-      setSelectedItems([]); // Seçimleri sıfırla
-
-      setSuccessOpen(true); // Başarı mesajı göster
+      clearCart();
+      remainingItems.forEach(addToCart);
+      setSelectedItems([]);
+      setSuccessOpen(true);
     } catch (error) {
-      console.error("Sipariş oluşturulamadı:", error);
+      console.error("Sipariş oluşturulamadı veya e-posta gönderilemedi:", error);
       alert("Bir hata oluştu, lütfen tekrar deneyin.");
     }
 
@@ -116,18 +221,14 @@ const Cart = () => {
   };
 
 
- 
-
   return (
-    <Stack sx={{ p: 6, pt: 2.5 }}>
+    <Stack sx={{ p: isMobile ? 1 : 6, pt: isMobile ? 1 : 2.5 }}>
       <Box sx={{ mt: 5 }}>
         <Typography variant="h3" gutterBottom sx={{ mb: 2 }}>
-        {t("cartTitle1")} ({cartItems.length} {t("cartTitle2")})
+          {t("cartTitle1")} ({cartItems.length} {t("cartTitle2")})
         </Typography>
         {cartItems.length > 1 && (
-          <Typography variant="body" >
-         {t("selectProducts")}
-          </Typography>
+          <Typography variant="body">{t("selectProducts")}</Typography>
         )}
         {cartItems.length === 0 ? (
           <Stack
@@ -141,88 +242,131 @@ const Cart = () => {
               mt: 5,
             }}
           >
-            {/* İkon ve Açıklama Metni */}
             <AddShoppingCart color="action" sx={{ fontSize: 150 }} />
-            <Typography variant="h6">
-              {t("cartInfo")}
-            </Typography>
-
-            {/* Geri Dön Butonu */}
-            <Button
-              variant="contained"
-              color="primary"
-              href="/"
-              size="medium"
-            >
+            <Typography variant="h6">{t("cartInfo")}</Typography>
+            <Button variant="contained" color="primary" href="/" size="medium">
               {t("button")}
             </Button>
           </Stack>
-
         ) : (
-          <Stack >
+          <Stack>
             <List sx={{ mt: 4 }}>
               {cartItems.map((item, index) => (
-                <Card
-                  key={index}
-                  sx={{
-                    mb: 2,
-                    pr: 3,
-                    borderRadius: "8px",
-                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                    maxWidth: "sm",
-                    border: "1px solid", // Belirgin bir border için 2px genişlikte bir çizgi
-                    borderColor: selectedItems.includes(index)
-                      ? theme.palette.customPrimary[700] // Checkbox seçiliyken
-                      : "grey.300", // Checkbox seçili değilken
-                  }}
-                >
-                  <ListItem sx={{ pl: 0, py: 2 }}>
-                    <Checkbox
-                      checked={selectedItems.includes(index)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedItems((prev) => [...prev, index]); // Seçilen ürünü ekle
-                        } else {
-                          setSelectedItems((prev) =>
-                            prev.filter((itemIndex) => itemIndex !== index)
-                          );
-                        }
-                      }}
-                      sx={{ color: theme.palette.customPrimary[700] }}
-                    />
-                    <Box sx={{ width: "100%", ml: 2 }}>
-                      <Typography variant="h6" gutterBottom>
-                        <FileOpenIcon /> {item.fileName}
-                      </Typography>
-                      <Typography>{t("material")}: {item.material}</Typography>
-                      <Typography>{t("thickness")}: {item.thickness} mm</Typography>
-                      <Typography>{t("quantity")}: {item.quantity}</Typography>
-                    {/*  <Typography>{t("coating")}: {item.coating}</Typography> */}
-                      {item.note && (
-                        <Tooltip title={item.note} arrow>
-                          <Typography>
-                          {t("note")}: {item.note.length > 50 ? `${item.note.substring(0, 50)}...` : item.note}
-                          </Typography>
-                        </Tooltip>
-                      )}
-                    </Box>
-                  </ListItem>
-                </Card>
+           <Card
+           key={index}
+           sx={{
+             mb: 2,
+             pr: 3,
+             borderRadius: "8px",
+             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+             maxWidth: "sm",
+             border: "1px solid",
+             borderColor: selectedItems.includes(index)
+               ? theme.palette.customPrimary[700]
+               : "grey.300",
+             position: "relative", // Relative pozisyon gerekli
+           }}
+         >
+           {/* Delete Butonu */}
+           <Icon
+             name="delete"
+             onClick={() => handleRemoveItem(index)}
+             sx={{
+               position: "absolute", // Absolute pozisyon
+               top: "20px", // Sağ üstte konumlandırmak için
+               right: "20px", // Sağ tarafa yerleştir
+               color: theme.palette.error.main,
+               fontSize: isMobile ? "20px" : "24px", // Mobilde daha küçük font boyutu
+               cursor: "pointer", // Tıklanabilir
+             }}
+           />
+         
+           <ListItem
+             sx={{
+               pl: 0,
+               py: 2,
+               display: "flex",
+               flexDirection: isMobile ? "column" : "row", // Mobilde dikey hizalama
+               alignItems: isMobile ? "flex-start" : "center",
+             }}
+           >
+             <Checkbox
+               checked={selectedItems.includes(index)}
+               onChange={(e) => {
+                 if (e.target.checked) {
+                   setSelectedItems((prev) => [...prev, index]);
+                 } else {
+                   setSelectedItems((prev) =>
+                     prev.filter((itemIndex) => itemIndex !== index)
+                   );
+                 }
+               }}
+               sx={{ color: theme.palette.customPrimary[700] }}
+             />
+             <Box sx={{ width: "100%", ml: 2 }}>
+             <Typography
+  variant={isMobile ? "subtitle1" : "h6"}
+  gutterBottom
+>
+{!isMobile && (
+    <FileOpenIcon sx={{ fontSize: 24, marginRight: 1 }} />
+  )}
+               </Typography>
+               <Typography>
+                 {t("material")}: {materialMap[item.material] || item.material}
+               </Typography>
+               <Typography>{t("thickness")}: {item.thickness} mm</Typography>
+               <Typography>{t("quantity")}: {item.quantity}</Typography>
+               <Typography>
+  {t("coating")}:{" "}
+  {item.coating.startsWith("painted")
+    ? item.coating.replace("painted ", "")
+    : locale === "tr" 
+      ? "Boyasız" 
+      : t("unpainted")}
+</Typography>
+
+             </Box>
+           </ListItem>
+         </Card>
+         
               ))}
             </List>
 
             <Box sx={{ mt: 4 }}>
               <Button
                 variant="contained"
+                color="secondary"
+                size="medium"
+                onClick={clearCart}
+              >
+                {t("clearCart")}
+              </Button>
+              <Button
+                variant="contained"
                 color="primary"
                 size="medium"
                 onClick={handleOpenModal}
-                disabled={selectedItems.length === 0} 
+                disabled={selectedItems.length === 0}
+                sx={{ ml: 2 }}
               >
-               {t("placeOrder")}
+                {t("placeOrder")}
               </Button>
-
             </Box>
+            <Box sx={{ m: 4, textAlign: "center" }}>
+  <Typography variant="body1" sx={{ mb: 2 }}>
+    {t("addMoreProductsText")}
+  </Typography>
+  <Button
+    variant="outlined"
+    color="primary"
+    href="/"
+    size={isMobile ? "small" : "medium"}
+  >
+    {t("goToHomePageButton")}
+  </Button>
+</Box>
+
           </Stack>
         )}
 

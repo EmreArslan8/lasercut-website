@@ -9,8 +9,6 @@
   "Banner": {
     "title": "Talebe Özel Metal Lazer Kesim Hizmetleri",
     "subtitle": "İhtiyacınıza uygun yüksek hassasiyetli metal lazer kesim çözümleriyle kaliteyi ve detayı buluşturun"
-
-
   },
   "Footer": {
     "brand": "D2C",
@@ -74,7 +72,6 @@
     "qualityControl": {
       "title": "Birleştirilmiş Ürün Gönderimi",
       "description": "Ürününüzün kaynak yada perçin ile birleştirilerek son ürün şeklinde gönderimi mümkündür."
-     
     },
     "certificatesReports": {
       "title": "Sertifikalar ve Ölçüm Raporları",
@@ -85,7 +82,6 @@
     "successTitle": "Tebrikler!",
     "successMessage": "Siparişiniz başarıyla alındı. En kısa sürede işleme alınacaktır. Teşekkür ederiz!",
     "backButton": "Ana Sayfaya Dön"
-   
   },
   "Form": {
     "title": "Teklif almak için iletişim bilgilerini doldurun",
@@ -127,18 +123,41 @@
       "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
     }
   },
+  "MaterialCardList": {
+    "materials": {
+      "1050": "Alüminyum 1050",
+      "1050_description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır.",
+      "5754": "Alüminyum 5754",
+      "5754_description": "Korozyon direnci ve mukavemeti yüksek bir alaşım. Denizcilik, otomotiv ve kimyasal depolama için idealdir.",
+      "GalvanizliSac": "Çelik Galvanizli Sac",
+      "GalvanizliSac_description": "Paslanmaya karşı korunmuş dayanıklı ve uzun ömürlü bir çelik türüdür.",
+      "SiyahSac": "Çelik Siyah Sac",
+      "SiyahSac_description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
+      "DC01": "Çelik DC01 / 6112 / C (DKP)",
+      "DC01_description": "Derin çekme işlemlerine uygun, düşük karbonlu çelik. Yüzeyi düz ve parlaktır, boyama ve kaplama için idealdir.",
+      "ST37": "Çelik ST37-K / S235JR / 1.0038",
+      "ST37_description": "İyi kaynaklanabilirlik ve dayanıklılık sunan ekonomik bir yapısal çelik türüdür.",
+      "Paslanmaz304": "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A",
+      "Paslanmaz304_description": "Yüksek korozyon direnci sunar ve mutfak ekipmanları ile medikal araçlarda kullanılır.",
+      "Paslanmaz316L": "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
+      "Paslanmaz316L_description": "Deniz ortamlarında ve kimyasal dayanıklılık gerektiren alanlarda üstün korozyon direnci sunar."
+    }
+  },
   "CartPage": {
     "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
     "button": "Ana Sayfa'ya dönün",
     "cartTitle1": "Sepet",
-    "cartTitle2" : "Ürün",
+    "cartTitle2": "Ürün",
     "selectProducts": "Lütfen sipariş edeceğiniz ürün veya ürünleri seçin",
     "material": "Materyal",
     "thickness": "Kalınlık",
     "quantity": "Adet",
     "coating": "Boya",
     "note": "Not",
-    "placeOrder": "Sipariş Ver"
+    "placeOrder": "Sipariş Ver",
+    "clearCart": "sepeti temizle",
+      "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
+      "goToHomePageButton": "Ürün Ekle"
   },
   "WpButton": {
     "buttonText": " WhatsApp Destek"
