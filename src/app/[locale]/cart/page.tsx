@@ -301,12 +301,13 @@ LaserCut Ekibi`,
                     name="delete"
                     onClick={() => handleRemoveItem(index)}
                     sx={{
-                      position: "absolute", // Absolute pozisyon
-                      top: "20px", // Sağ üstte konumlandırmak için
-                      right: "20px", // Sağ tarafa yerleştir
+                      position: "absolute",
+                      top: "20px",
+                      right: "20px",
                       color: theme.palette.error.main,
-                      fontSize: isMobile ? "20px" : "24px", // Mobilde daha küçük font boyutu
-                      cursor: "pointer", // Tıklanabilir
+                      fontSize: isMobile ? "20px" : "24px",
+                      cursor: "pointer",
+                      zIndex: 10, // Üstte olması için yüksek bir değer kullanın
                     }}
                   />
 

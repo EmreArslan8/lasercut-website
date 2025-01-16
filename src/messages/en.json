@@ -156,8 +156,8 @@
     "placeOrder": "Place Order", 
    "clearCart": "Clear Cart",
 
-    "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
-    "goToHomePageButton": "Ana Sayfaya Git"
+    "addMoreProductsText": "Would you like to add more items to the cart? ",
+    "goToHomePageButton": "Return home page"
   },
   "WpButton": {
     "buttonText": "WhatsApp Support"
