@@ -23,7 +23,7 @@ const styles = {
     transform: "translateX(-50%)",
     display: "flex",
     alignItems: "center",
-    gap: "16px",
+    gap: 5,
   },
   desktopActions: {
     display: "flex",
