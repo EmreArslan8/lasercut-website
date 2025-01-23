@@ -8,27 +8,21 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useCart } from "@/app/context/CartContext";
 import LanguageSwitcher from "../LanguageSwitcher";
 import Icon from "../Icon";
-import { Link } from "@/i18n/routing"; // i18n routing'den Link bileşeni
+import { Link } from "@/i18n/routing"; 
 import useScreen from "@/lib/hooks/useScreen";
-import theme from "@/theme/theme";
-import { fontSize } from "@mui/system";
+import styles from "./styles"; 
 
 const Header = () => {
-  const router = useRouter();
-  const pathname = usePathname();
   const t = useTranslations("Header");
   const { cartItems } = useCart();
-  const locale = useLocale(); // Locale bilgisi
-  const [menuOpen, setMenuOpen] = useState(false); // Menü durumunu kontrol etmek için
+  const [menuOpen, setMenuOpen] = useState(false); 
   const { mdDown, isMobile } = useScreen();
 
   const toggleMenu = () => {
@@ -39,20 +33,9 @@ const Header = () => {
   const logoHeight = isMobile ? 50 : 70;
 
   return (
-    <Box sx={{ position: "relative", zIndex: 1000, backgroundColor: "#fff" }}>
-      {/* Header Üst Bölüm */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 16px",
-          borderBottom: "1px solid #ddd",
-          height: "70px",
-        }}
-      >
-        {/* Logo */}
-        <IconButton onClick={() => router.push("/")}>
+    <Box sx={styles.container}>
+      <Box sx={styles.headerTop}>
+        <Link href="/">
           <Image
             src="/static/images/logo.png"
             alt="Company Logo"
@@ -64,13 +47,9 @@ const Header = () => {
               height: "auto",
             }}
           />
-        </IconButton>
-
-        {/* Menü, Cart ve Dil Değiştirici */}
+        </Link>
         {mdDown ? (
-          // Mobilde Menü: Hamburger
-          <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            {/* Sepet */}
+          <Box sx={styles.mobileActions}>
             <Badge badgeContent={cartItems.length} sx={{ cursor: "pointer" }}>
               <Link
                 href="/cart"
@@ -78,22 +57,17 @@ const Header = () => {
                   textDecoration: "none",
                   display: "flex",
                   alignItems: "center",
-                  color: theme.palette.grey[700],
                 }}
               >
                 <Icon
                   name="shopping_bag"
                   sx={{
-                    fontSize: mdDown ? "24px" : "36px", // Mobilde 24px, masaüstünde 36px
+                    fontSize: mdDown ? "24px" : "36px",
                   }}
                 />
               </Link>
             </Badge>
-
-            {/* Dil Değiştirici */}
             <LanguageSwitcher />
-
-            {/* Hamburger Menü */}
             <IconButton onClick={toggleMenu}>
               <Icon name="menu" />
             </IconButton>
@@ -101,16 +75,7 @@ const Header = () => {
         ) : (
           // Masaüstünde Menü Ortada
           <>
-            <Box
-              sx={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)", // Ortalamak için
-                display: "flex",
-                alignItems: "center",
-                gap: "16px",
-              }}
-            >
+            <Box sx={styles.desktopMenu}>
               {["examples", "about-us", "faq", "contact"].map((key, index) => (
                 <Link
                   key={index}
@@ -120,7 +85,6 @@ const Header = () => {
                     fontWeight: 500,
                     color: "black",
                     textDecoration: "none",
-                    position: "relative",
                   }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.borderBottom = "2px solid blue")
@@ -129,29 +93,23 @@ const Header = () => {
                     (e.currentTarget.style.borderBottom = "none")
                   }
                 >
-                  {t(key)} {/* Çeviri */}
+                  {t(key)}
                 </Link>
               ))}
             </Box>
-
-            {/* Sağ Bölüm: Sepet ve Dil Değiştirici */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "16px",
-                marginLeft: "auto", // Sağ tarafa hizalamak için
-              }}
-            >
+            <Box sx={styles.desktopActions}>
               {/* Sepet */}
               <Badge badgeContent={cartItems.length} sx={{ cursor: "pointer" }}>
+                <Link href="/cart" style={{color: "black"}}>
                 <Icon
                   name="shopping_bag"
-                  onClick={() => router.push(`/${locale}/cart`)}
+                  sx={{
+                    fontSize: mdDown ? "24px" : "36px", 
+                  }}
                 />
+                </Link>
               </Badge>
-
-              {/* Dil Değiştirici */}
+        
               <LanguageSwitcher />
             </Box>
           </>
@@ -161,34 +119,20 @@ const Header = () => {
       {/* Açılır Menü (Mobil İçin) */}
       {mdDown && (
         <Collapse in={menuOpen} timeout="auto" unmountOnExit>
-          <List
-            sx={{
-              backgroundColor: "#f9f9f9",
-              padding: "16px",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <List sx={styles.mobileMenu}>
             {["examples", "about-us", "faq", "contact"].map((key, index) => (
               <Link
                 key={index}
-                href={`/${key}`} // i18n routing link
+                href={`/${key}`}
                 style={{
                   textDecoration: "none",
                   display: "block",
-                  color: "#000", // Metin rengini siyah (#000) yapar
+                  color: "#000",
                 }}
-                onClick={() => setMenuOpen(false)} // Menü kapansın
+                onClick={() => setMenuOpen(false)}
               >
-                <ListItemButton
-                  sx={{
-                    padding: "12px 16px",
-                    borderBottom: "1px solid #ddd",
-                  }}
-                >
-                  <ListItemText
-                    primary={t(key)}
-                    sx={{ color: "#333", fontSize: "16px" }} // Burada metin rengi özelleştirildi
-                  />
+                <ListItemButton sx={styles.listItem}>
+                  <ListItemText primary={t(key)} sx={styles.listItemText} />
                 </ListItemButton>
               </Link>
             ))}
