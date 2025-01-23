@@ -66,8 +66,8 @@ const BannerSlider = () => {
                     <Image
                         src={image.src}
                         alt={image.alt}
-                        layout="fill"
-                        objectFit="cover"
+                      fill
+                      style={{ objectFit: "cover" }}
                     />
                 </Box>
             ))}

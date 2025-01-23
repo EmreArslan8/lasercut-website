@@ -2,20 +2,23 @@
   "Header": {
     "logoAlt": "Company logo",
     "adminPanelButton": "Admin Panel",
-    "about": "About",
+    "about-us": "About",
     "contact": "Contact",
-    "language": "English"
+    "language": "English",
+    "aboutUs": "About",
+  "examples": "Examples",
+  "faq": "Faq"
   },
   "Banner": {
     "title": "Custom Metal Laser Cutting Services",
     "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs"
   },
   "Footer": {
-    "brand": "D2C",
-    "copyright": "© 2017-2024, Draw to Cut TR Technology Inc.",
+    "brand": "Draw to Cut",
+    "copyright": "Copyright® 2025.",
     "contact": "Contact",
-    "phoneNumber": "90 505 520 75 11",
-    "email": "help@drawtocut.com.tr",
+    "phoneNumber": "+90 505 520 75 11",
+    "email": "design@drawtocut.com.tr",
     "address": "Adress",
     "invoice": "Invoice",
     "payWithIyzico": "Pay with iyzico"
@@ -47,14 +50,14 @@
     }
   },
   "Advantages": {
-    "sectionTitle": "Advantages of Xometry Laser Cutting Service",
+    "sectionTitle": "Advantages of DrawToCut Laser Cutting Service",
     "highSpeed": {
       "title": "High-Speed Manufacturing",
-      "description": "Using state-of-the-art laser cutting machines, Xometry enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
+      "description": "Using state-of-the-art laser cutting machines, DrawToCut enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
     },
     "highPrecision": {
       "title": "High Precision",
-      "description": "Xometry offers a range of tolerance options according to ISO 2768 (standard, fine)."
+      "description": "DrawToCut offers a range of tolerance options according to ISO 2768 (standard, fine)."
     },
     "advancedSurface": {
       "title": "Advanced Surface Options",
@@ -66,11 +69,11 @@
     },
     "qualityControl": {
       "title": "Quality Control",
-      "description": "Our Quality Control department provides strong quality assurance. Xometry is ISO 9001 certified."
+      "description": "Our Quality Control department provides strong quality assurance. DrawToCut is ISO 9001 certified."
     },
     "certificatesReports": {
       "title": "Certificates and Measurement Reports",
-      "description": "Xometry can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
+      "description": "DrawToCut can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
     }
   },
   "OrderSuccessFeedback": {
@@ -155,7 +158,6 @@
     "note": "Note",
     "placeOrder": "Place Order", 
    "clearCart": "Clear Cart",
-
     "addMoreProductsText": "Would you like to add more items to the cart? ",
     "goToHomePageButton": "Return home page"
   },
@@ -163,6 +165,22 @@
     "buttonText": "WhatsApp Support"
   },
   "ExampleWorks": {
-    "title": " Example Works"
-  }
+    "title": "Example Works",
+   "viewExamples": "too see more"
+  },
+  "ExamplePage": {
+    "title": "Made with Laser",
+    "description": "Explore our collection of precision-crafted laser-cut designs. "
+    
+  },
+"aboutUsPage": {
+  "title": "Vizyonun Hassasiyetle Şekillendiği Yer",
+  "aboutUsTitle": "Hakkımızda",
+  "aboutUsText1": "Gelişmiş teknolojiyi yenilikçi çözümlerle birleştirerek, hem endüstriyel hem de yaratıcı ihtiyaçlar için olağanüstü kalite sunuyoruz. Karmaşık metal bileşenlerden özel dekoratif parçalara kadar, fikirlerinizi eşsiz bir hassasiyetle hayata geçiriyoruz.",
+  "aboutUsText2": "Mükemmeliyet taahhüdümüz üretimin ötesine geçiyor. En son teknoloji makineler ve son derece yetenekli bir ekiple, her projede hassasiyet, hız ve güvenilirlik sağlıyoruz. İster bir endüstri profesyoneli ister yaratıcı bir hevesli olun, DrawToCut keskin çözümler için güvenilir ortağınızdır.",
+  "approachTitle": "Yaklaşımımız",
+  "approachText1": "DrawToCut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
+  "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. DrawToCut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
+}
+
 }

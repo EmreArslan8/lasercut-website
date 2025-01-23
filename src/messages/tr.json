@@ -2,20 +2,23 @@
   "Header": {
     "logoAlt": "Şirket logosu",
     "adminPanelButton": "Yönetici Paneli",
-    "about": "Hakkımızda",
+    "about-us": "Hakkımızda",
     "contact": "İletişim",
-    "language": "Türkçe"
+    "language": "Türkçe",
+    "aboutUs": "Hakkımızda",
+    "examples": "Örnek Çalışmalar",
+    "faq": "SSS"
   },
   "Banner": {
     "title": "Talebe Özel Metal Lazer Kesim Hizmetleri",
     "subtitle": "İhtiyacınıza uygun yüksek hassasiyetli metal lazer kesim çözümleriyle kaliteyi ve detayı buluşturun"
   },
   "Footer": {
-    "brand": "D2C",
-    "copyright": "© 2017-2024, Draw to Cut TR Technology Inc..",
+    "brand": "Draw to Cut",
+    "copyright": "©Copyright® 2025.",
     "contact": "İletişim",
     "phoneNumber": "+90 505 520 75 11",
-    "email": "help@drawtocut.com.tr",
+    "email": "design@drawtocut.com.tr",
     "address": "Adres",
     "invoice": "Fatura",
     "payWithIyzico": "iyzico ile Öde"
@@ -55,7 +58,7 @@
     "sectionTitle": "DrawToCut Lazer Kesim Hizmetinin Avantajları",
     "highSpeed": {
       "title": "Yüksek Hızda Üretim",
-      "description": "Son teknoloji lazer kesim makineleri kullanarak Xometry, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
+      "description": "Son teknoloji lazer kesim makineleri kullanarak DrawToCut, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
     },
     "highPrecision": {
       "title": "Yüksek Hassasiyet",
@@ -156,13 +159,27 @@
     "note": "Not",
     "placeOrder": "Sipariş Ver",
     "clearCart": "sepeti temizle",
-      "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
-      "goToHomePageButton": "Ürün Ekle"
+    "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
+    "goToHomePageButton": "Ürün Ekle"
   },
   "WpButton": {
     "buttonText": " WhatsApp Destek"
   },
   "ExampleWorks": {
-    "title": "Çalışmalarımız"
+    "title": "Çalışmalarımız",
+    "viewExamples": "daha fazla"
+  },
+  "ExamplePage": {
+    "title": "Örnek Çalışmalarımız",
+    "description": "Hassas işlenmiş lazer kesim tasarımlardan oluşan koleksiyonumuzu keşfedin"
+  },
+  "aboutUsPage": {
+    "title": "Vizyonun Hassasiyetle Şekillendiği Yer",
+    "aboutUsTitle": "Hakkımızda",
+    "aboutUsText1": "Gelişmiş teknolojiyi yenilikçi çözümlerle birleştirerek, hem endüstriyel hem de yaratıcı ihtiyaçlar için olağanüstü kalite sunuyoruz. Karmaşık metal bileşenlerden özel dekoratif parçalara kadar, fikirlerinizi eşsiz bir hassasiyetle hayata geçiriyoruz.",
+    "aboutUsText2": "Mükemmeliyet taahhüdümüz üretimin ötesine geçiyor. En son teknoloji makineler ve son derece yetenekli bir ekiple, her projede hassasiyet, hız ve güvenilirlik sağlıyoruz. İster bir endüstri profesyoneli ister yaratıcı bir hevesli olun, DrawToCut keskin çözümler için güvenilir ortağınızdır.",
+    "approachTitle": "Yaklaşımımız",
+    "approachText1": "DrawToCut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
+    "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. DrawToCut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
   }
 }

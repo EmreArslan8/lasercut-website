@@ -60,7 +60,7 @@ const isMobile = useScreen();
                   {t("phoneNumber")}
                 </Typography>
                 <Link
-                  href="mailto:help@xometry.com.tr"
+                  href="mailto:help@DrawToCut.com.tr"
                   underline="hover"
                   sx={{
                     color: "#0073e6",

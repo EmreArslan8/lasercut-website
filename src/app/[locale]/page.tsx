@@ -6,11 +6,11 @@ import AdvantageSection from "../components/Advantage";
 import FileUpload from "../components/FileUpload";
 import ProcessSteps from "../components/Process";
 import OrderDetails from "../components/OrderDetails";
-import ExampleSlider from "../components/ExampleWorks";
 import WhatsAppButton from "../components/WpButton";
 import { useCart } from "@/app/context/CartContext";
 import { ArcadeEmbed } from "../components/Arcade";
 import BannerSlider from "../components/Banner";
+import ExampleSlider from "../components/ExampleWorks";
 
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();

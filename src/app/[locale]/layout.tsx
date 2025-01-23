@@ -1,11 +1,13 @@
 import { NextIntlClientProvider } from "next-intl";
-import Header from "../components/Header";
+
 import Footer from "../components/Footer";
 import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
 import { CartProvider } from "../context/CartContext";
 import ThemeRegistry from "@/theme/ThemeRegistery";
 import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from 'next/font/google';
+import Header from "../components/Header";
+
 
 const Plus_Jakarta_Sans = _Plus_Jakarta_Sans({
   weight: ['300', '400', '500', '600', '700', '800'],
