@@ -202,7 +202,6 @@ const photos = [
   },
 ];
 
-
 const PhotoGallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -213,7 +212,10 @@ const PhotoGallery = () => {
   const t = useTranslations("ExamplePage");
 
   return (
-    <Stack spacing={3} sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 4, mb: 10 }}>
+    <Stack
+      spacing={3}
+      sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 4, mb: 10 }}
+    >
       <Typography variant="h2" textAlign="center">
         {t("title")}
       </Typography>
@@ -223,14 +225,20 @@ const PhotoGallery = () => {
 
       {/* Full-width 24th Image */}
       <Box sx={{ width: "100%", borderRadius: "8px", overflow: "hidden" }}>
-  <Image
-    src="/static/images/example24.jpeg"
-    alt="Example 24"
-    style={{ width: "100%", objectFit: "cover" }}
-    onClick={() => handlePhotoClick(24)}
-  />
-</Box>
-
+        <Image
+          src="/static/images/example24.jpeg"
+          alt="Example 24"
+          width={1599} // Görselin gerçek genişlik değeri
+          height={899} // Görselin gerçek yükseklik değeri
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+            cursor: "pointer",
+          }} // Stillendirme
+          onClick={() => handlePhotoClick(23)}
+        />
+      </Box>
 
       {/* Photo Album */}
       <PhotoAlbum

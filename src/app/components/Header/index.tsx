@@ -50,39 +50,10 @@ const Header = () => {
       </IconButton>
 
       {/* Menü */}
-      {mdDown ? (
-        <>
-          <IconButton
-            onClick={() => toggleDrawer(true)}
-            sx={styles.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            anchor="top"
-            open={drawerOpen}
-            onClose={() => toggleDrawer(false)}
-            sx={{ "& .MuiDrawer-paper": styles.drawerPaper }}
-          >
-            <List>
-              {["examples", "about", "faq", "contact"].map((key, index) => (
-                <ListItemButton
-                  key={index}
-                  onClick={() => {
-                    toggleDrawer(false);
-                    router.push(`/${locale}/${key}`);
-                  }}
-                >
-                  <ListItemText primary={t(key)} /> {/* Çeviri */}
-                </ListItemButton>
-              ))}
-            </List>
-          </Drawer>
-        </>
-      ) : (
-        /* Desktop Menü */
+   
+    
         <Box sx={styles.desktopMenu}>
-          {["examples", "about-us", "faq", "contact"].map((key, index) => (
+          {["examples", "about", "faq", "contact"].map((key, index) => (
             <Link
               key={index}
               href={`/${key}`}
@@ -100,7 +71,7 @@ const Header = () => {
             </Link>
           ))}
         </Box>
-      )}
+ 
 
       {/* Sağ Bölüm */}
       <Box

@@ -76,7 +76,9 @@ const LanguageSwitcher = () => {
               <Image
                 src={lang.flag}
                 alt={lang.label}
-                style={{ width: "20px", height: "15px", objectFit: "cover" }}
+                width={20} // Sabit genişlik
+                height={15} // Sabit yükseklik
+                style={{ objectFit: "cover" }}
               />
             </ListItemIcon>
             <Typography variant="body1">{lang.label}</Typography>

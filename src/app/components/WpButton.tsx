@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 const WhatsAppButton = () => {
   const { mdUp } = useScreen();
   const t = useTranslations("WpButton");
-  const whatsappUrl = "https://wa.me/905555555555"; 
+  const whatsappUrl = "https://wa.me/905055207511"; 
 
   return (
     <Link
