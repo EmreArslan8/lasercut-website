@@ -47,7 +47,7 @@ const Header = () => {
    
     
         <Box sx={styles.desktopMenu}>
-          {["examples", "about", "faq", "contact"].map((key, index) => (
+          {["examples", "about-us", "faq", "contact"].map((key, index) => (
             <Link
               key={index}
               href={`/${key}`}
