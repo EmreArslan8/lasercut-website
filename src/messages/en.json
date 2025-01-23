@@ -174,13 +174,57 @@
     
   },
 "aboutUsPage": {
-  "title": "Vizyonun Hassasiyetle Şekillendiği Yer",
-  "aboutUsTitle": "Hakkımızda",
-  "aboutUsText1": "Gelişmiş teknolojiyi yenilikçi çözümlerle birleştirerek, hem endüstriyel hem de yaratıcı ihtiyaçlar için olağanüstü kalite sunuyoruz. Karmaşık metal bileşenlerden özel dekoratif parçalara kadar, fikirlerinizi eşsiz bir hassasiyetle hayata geçiriyoruz.",
-  "aboutUsText2": "Mükemmeliyet taahhüdümüz üretimin ötesine geçiyor. En son teknoloji makineler ve son derece yetenekli bir ekiple, her projede hassasiyet, hız ve güvenilirlik sağlıyoruz. İster bir endüstri profesyoneli ister yaratıcı bir hevesli olun, DrawToCut keskin çözümler için güvenilir ortağınızdır.",
-  "approachTitle": "Yaklaşımımız",
-  "approachText1": "DrawToCut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
-  "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. DrawToCut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
-}
+  "title": "Where Vision Takes Shape with Precision",
+  "aboutUsTitle": "About Us",
+  "aboutUsText1": "By combining advanced technology with innovative solutions, we deliver exceptional quality for both industrial and creative needs. From intricate metal components to custom decorative pieces, we bring your ideas to life with unparalleled precision.",
+  "aboutUsText2": "Our commitment to excellence goes beyond production. With state-of-the-art machinery and a highly skilled team, we ensure precision, speed, and reliability in every project. Whether you're an industry professional or a creative enthusiast, DrawToCut is your trusted partner for sharp solutions.",
+  "approachTitle": "Our Approach",
+  "approachText1": "At DrawToCut, we believe in personalized solutions tailored to your specific needs. Our process begins with understanding your vision and requirements, ensuring that every project aligns with your goals. By integrating the latest technology with meticulous craftsmanship, we create products that exceed expectations.",
+  "approachText2": "We focus on sustainability and efficiency at every stage, minimizing waste while maximizing output quality. From the initial concept to final delivery, our customer-focused approach guarantees satisfaction. Join the many clients who trust DrawToCut for innovation, quality, and an unparalleled experience."
+},
+
+  "faqPage": {
+    "title": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "What services do you provide?",
+        "answer": "We offer precision cutting and metal processing services for industrial and creative needs."
+      },
+      {
+        "question": "How can I place an order?",
+        "answer": "You can place an order through our website or contact us directly via email or phone."
+      },
+      {
+        "question": "Do you offer custom designs?",
+        "answer": "Yes, we specialize in creating custom designs tailored to your requirements."
+      },
+      {
+        "question": "What is the estimated delivery time?",
+        "answer": "Delivery time depends on the project, but we aim to complete most orders within 5-10 business days."
+      },
+      {
+        "question": "Can you handle large-scale industrial projects?",
+        "answer": "Absolutely. We have the capacity to manage both small and large-scale projects with precision."
+      }
+    ]
+  },
+  "contactPage": {
+ 
+      "title": "Contact Us",
+      "description": "Have a question or want to reach out? Fill out the form below!",
+      "form": {
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "messageLabel": "Message",
+        "submitButton": "Send Message"
+      },
+      "status": {
+        "success": "Message sent successfully!",
+        "error": "Failed to send message. Please try again later."
+      }
+ 
+    
+  }
+
 
 }

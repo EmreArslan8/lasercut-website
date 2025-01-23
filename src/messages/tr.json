@@ -181,5 +181,45 @@
     "approachTitle": "Yaklaşımımız",
     "approachText1": "DrawToCut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
     "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. DrawToCut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
+  },
+
+  "faqPage": {
+    "title": "Sıkça Sorulan Sorular",
+    "faqs": [
+      {
+        "question": "Hangi hizmetleri sunuyorsunuz?",
+        "answer": "Endüstriyel ve yaratıcı ihtiyaçlar için hassas kesim ve metal işleme hizmetleri sunuyoruz."
+      },
+      {
+        "question": "Siparişi nasıl verebilirim?",
+        "answer": "Web sitemiz üzerinden sipariş verebilir veya bize e-posta ya da telefon yoluyla doğrudan ulaşabilirsiniz."
+      },
+      {
+        "question": "Özel tasarımlar yapıyor musunuz?",
+        "answer": "Evet, gereksinimlerinize göre özel tasarımlar yapma konusunda uzmanız."
+      },
+      {
+        "question": "Tahmini teslimat süresi nedir?",
+        "answer": "Teslimat süresi projeye bağlıdır, ancak çoğu siparişi 5-10 iş günü içinde tamamlamayı hedefliyoruz."
+      },
+      {
+        "question": "Büyük ölçekli endüstriyel projeleri yönetebilir misiniz?",
+        "answer": "Kesinlikle. Hem küçük hem de büyük ölçekli projeleri hassasiyetle yönetme kapasitesine sahibiz."
+      }
+    ]
+  },
+  "contactPage": {
+    "title": "Bize Ulaşın",
+    "description": "Bir sorunuz mu var ya da bize ulaşmak mı istiyorsunuz? Aşağıdaki formu doldurun!",
+    "form": {
+      "nameLabel": "Ad Soyad",
+      "emailLabel": "E-posta",
+      "messageLabel": "Mesaj",
+      "submitButton": "Mesaj Gönder"
+    },
+    "status": {
+      "success": "Mesaj başarıyla gönderildi!",
+      "error": "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin."
+    }
   }
 }

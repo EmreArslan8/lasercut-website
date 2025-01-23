@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography, Stack } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 const ContactPage = () => {
+  const t = useTranslations("contactPage");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +27,7 @@ const ContactPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: "your-email@gmail.com", // Alıcı e-posta adresi
+          to: "your-email@gmail.com",
           subject: `New Message from ${formData.name}`,
           text: `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
           html: `
@@ -51,16 +53,16 @@ const ContactPage = () => {
   return (
     <Box sx={{ maxWidth: "600px", mx: "auto", px: 2, py: 4 }}>
       <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
-        Contact Us
+        {t("title")}
       </Typography>
       <Typography textAlign="center" sx={{ mb: 4 }}>
-        Have a question or want to reach out? Fill out the form below!
+        {t("description")}
       </Typography>
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
-            label="Name"
+            label={t("form.nameLabel")}
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -68,7 +70,7 @@ const ContactPage = () => {
             required
           />
           <TextField
-            label="Email"
+            label={t("form.emailLabel")}
             name="email"
             type="email"
             value={formData.email}
@@ -77,7 +79,7 @@ const ContactPage = () => {
             required
           />
           <TextField
-            label="Message"
+            label={t("form.messageLabel")}
             name="message"
             value={formData.message}
             onChange={handleChange}
@@ -87,7 +89,7 @@ const ContactPage = () => {
             required
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            Send Message
+            {t("form.submitButton")}
           </Button>
         </Stack>
       </form>
@@ -97,7 +99,7 @@ const ContactPage = () => {
           textAlign="center"
           sx={{ mt: 4, color: "green", fontWeight: "bold" }}
         >
-          Message sent successfully!
+          {t("status.success")}
         </Typography>
       )}
       {status === "error" && (
@@ -105,7 +107,7 @@ const ContactPage = () => {
           textAlign="center"
           sx={{ mt: 4, color: "red", fontWeight: "bold" }}
         >
-          Failed to send message. Please try again later.
+          {t("status.error")}
         </Typography>
       )}
     </Box>
