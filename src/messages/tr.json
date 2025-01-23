@@ -184,29 +184,52 @@
   },
 
   "faqPage": {
-    "title": "Sıkça Sorulan Sorular",
-    "faqs": [
-      {
-        "question": "Hangi hizmetleri sunuyorsunuz?",
-        "answer": "Endüstriyel ve yaratıcı ihtiyaçlar için hassas kesim ve metal işleme hizmetleri sunuyoruz."
-      },
-      {
-        "question": "Siparişi nasıl verebilirim?",
-        "answer": "Web sitemiz üzerinden sipariş verebilir veya bize e-posta ya da telefon yoluyla doğrudan ulaşabilirsiniz."
-      },
-      {
-        "question": "Özel tasarımlar yapıyor musunuz?",
-        "answer": "Evet, gereksinimlerinize göre özel tasarımlar yapma konusunda uzmanız."
-      },
-      {
-        "question": "Tahmini teslimat süresi nedir?",
-        "answer": "Teslimat süresi projeye bağlıdır, ancak çoğu siparişi 5-10 iş günü içinde tamamlamayı hedefliyoruz."
-      },
-      {
-        "question": "Büyük ölçekli endüstriyel projeleri yönetebilir misiniz?",
-        "answer": "Kesinlikle. Hem küçük hem de büyük ölçekli projeleri hassasiyetle yönetme kapasitesine sahibiz."
-      }
-    ]
+    
+      "title": "Sıkça Sorulan Sorular",
+      "faqs": [
+        {
+          "question": "Hangi hizmetleri sunuyorsunuz?",
+          "answer": "Endüstriyel ve yaratıcı ihtiyaçlar için hassas kesim ve metal işleme hizmetleri sunuyoruz."
+        },
+        {
+          "question": "Siparişi nasıl verebilirim?",
+          "answer": "Web sitemiz üzerinden sipariş verebilir veya bize e-posta ya da telefon yoluyla doğrudan ulaşabilirsiniz."
+        },
+        {
+          "question": "Özel tasarımlar yapıyor musunuz?",
+          "answer": "Evet, gereksinimlerinize göre özel tasarımlar yapma konusunda uzmanız."
+        },
+        {
+          "question": "Tahmini teslimat süresi nedir?",
+          "answer": "Teslimat süresi projeye bağlıdır, ancak çoğu siparişi 5-10 iş günü içinde tamamlamayı hedefliyoruz."
+        },
+        {
+          "question": "Büyük ölçekli endüstriyel projeleri yönetebilir misiniz?",
+          "answer": "Kesinlikle. Hem küçük hem de büyük ölçekli projeleri hassasiyetle yönetme kapasitesine sahibiz."
+        },
+        {
+          "question": "Hangi malzemeler üzerinde çalışıyorsunuz?",
+          "answer": "Alüminyum, paslanmaz çelik, siyah sac ve galvanizli sac gibi çeşitli metaller üzerinde çalışıyoruz."
+        },
+        {
+          "question": "Minimum sipariş miktarınız nedir?",
+          "answer": "Minimum sipariş miktarı projenin türüne bağlıdır, ancak genellikle düşük hacimli siparişler için de esnekiz."
+        },
+        {
+          "question": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+          "answer": "Kredi kartı, banka havalesi ve bazı durumlarda nakit ödeme kabul ediyoruz."
+        },
+        {
+          "question": "Hangi bölgelerde hizmet veriyorsunuz?",
+          "answer": "Ulusal ve uluslararası müşterilere hizmet veriyoruz. Teslimat seçenekleri bölgeye göre değişiklik gösterebilir."
+        },
+        {
+          "question": "Örnek bir iş veya test çalışması talep edebilir miyim?",
+          "answer": "Evet, proje başlamadan önce test çalışması veya örnek bir iş talep edebilirsiniz."
+        }
+      ]
+    
+    
   },
   "contactPage": {
     "title": "Bize Ulaşın",

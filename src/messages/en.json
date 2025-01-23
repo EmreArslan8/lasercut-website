@@ -184,29 +184,49 @@
 },
 
   "faqPage": {
-    "title": "Frequently Asked Questions",
-    "faqs": [
-      {
-        "question": "What services do you provide?",
-        "answer": "We offer precision cutting and metal processing services for industrial and creative needs."
-      },
-      {
-        "question": "How can I place an order?",
-        "answer": "You can place an order through our website or contact us directly via email or phone."
-      },
-      {
-        "question": "Do you offer custom designs?",
-        "answer": "Yes, we specialize in creating custom designs tailored to your requirements."
-      },
-      {
-        "question": "What is the estimated delivery time?",
-        "answer": "Delivery time depends on the project, but we aim to complete most orders within 5-10 business days."
-      },
-      {
-        "question": "Can you handle large-scale industrial projects?",
-        "answer": "Absolutely. We have the capacity to manage both small and large-scale projects with precision."
-      }
-    ]
+  "title": "Frequently Asked Questions",
+  "faqs": [
+    {
+      "question": "What services do you provide?",
+      "answer": "We offer precision cutting and metal processing services for industrial and creative needs."
+    },
+    {
+      "question": "How can I place an order?",
+      "answer": "You can place an order through our website or contact us directly via email or phone."
+    },
+    {
+      "question": "Do you offer custom designs?",
+      "answer": "Yes, we specialize in creating custom designs tailored to your requirements."
+    },
+    {
+      "question": "What is the estimated delivery time?",
+      "answer": "Delivery time depends on the project, but we aim to complete most orders within 5-10 business days."
+    },
+    {
+      "question": "Can you handle large-scale industrial projects?",
+      "answer": "Absolutely. We have the capacity to manage both small and large-scale projects with precision."
+    },
+    {
+      "question": "What materials do you work with?",
+      "answer": "We work with a variety of metals, including aluminum, stainless steel, black sheet, and galvanized sheet."
+    },
+    {
+      "question": "What is your minimum order quantity?",
+      "answer": "The minimum order quantity depends on the type of project, but we are flexible with low-volume orders."
+    },
+    {
+      "question": "What payment methods do you accept?",
+      "answer": "We accept credit cards, bank transfers, and cash in some cases."
+    },
+    {
+      "question": "Which regions do you serve?",
+      "answer": "We serve both national and international customers. Delivery options may vary by region."
+    },
+    {
+      "question": "Can I request a sample job or test work?",
+      "answer": "Yes, you can request test work or a sample job before starting the project."
+    }
+  ]
   },
   "contactPage": {
  

@@ -1,8 +1,6 @@
 "use client"
 
-import { useState } from "react";
-import { Box, IconButton, Badge, Drawer, List, ListItemButton, ListItemText } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, IconButton, Badge } from "@mui/material";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -19,15 +17,11 @@ const Header = () => {
   const t = useTranslations("Header"); // Çeviri fonksiyonu
   const locale = pathname.split("/")[1];
   const { mdDown } = useScreen(); // Ekran genişliği kontrolü
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const { cartItems } = useCart();
 
   const logoWidth = mdDown ? 100 : 140; // Ekran boyutlarına göre genişlik
   const logoHeight = mdDown ? 50 : 70; // Ekran boyutlarına göre yükseklik
 
-  const toggleDrawer = (open: boolean) => {
-    setDrawerOpen(open);
-  };
 
   return (
     <Box sx={styles.header}>
