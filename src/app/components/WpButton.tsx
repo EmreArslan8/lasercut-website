@@ -19,7 +19,7 @@ const WhatsAppButton = () => {
         position: "fixed",
         bottom: 40,
         right: 2, 
-        zIndex: 2, 
+        zIndex: 100, 
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -31,6 +31,7 @@ const WhatsAppButton = () => {
         p: "0 15px", 
         width: "auto", 
         height: "48px", 
+    
         "&:hover": {
           backgroundColor: theme.palette.success.dark, 
         },

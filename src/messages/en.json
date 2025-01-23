@@ -164,6 +164,10 @@
   "WpButton": {
     "buttonText": "WhatsApp Support"
   },
+  "HowItWorks": {
+    "title": "How It Works",
+    "description": "Discover the process step by step with our interactive guide."
+  },
   "ExampleWorks": {
     "title": "Example Works",
    "viewExamples": "too see more"
@@ -229,7 +233,6 @@
   ]
   },
   "contactPage": {
- 
       "title": "Contact Us",
       "description": "Have a question or want to reach out? Fill out the form below!",
       "form": {
@@ -242,8 +245,6 @@
         "success": "Message sent successfully!",
         "error": "Failed to send message. Please try again later."
       }
- 
-    
   }
 
 

@@ -165,6 +165,10 @@
   "WpButton": {
     "buttonText": " WhatsApp Destek"
   },
+  "HowItWorks": {
+    "title": "Nasıl Çalışır",
+    "description": "Etkileşimli rehberimizle adım adım süreci keşfedin."
+  },
   "ExampleWorks": {
     "title": "Çalışmalarımız",
     "viewExamples": "daha fazla"
