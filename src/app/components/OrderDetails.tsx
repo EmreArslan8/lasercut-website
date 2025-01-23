@@ -22,25 +22,35 @@ import theme from "@/theme/theme";
 import Icon from "./Icon";
 import capitalize from "@/utils/capitalize";
 
-
 interface DisplayFilesProps {
   files: File[];
   onClose: () => void;
   onAddToCart?: (
     file: File,
-    productDetails: { material: string; thickness: string; quantity: number; coating: string; note?: string }
+    productDetails: {
+      material: string;
+      thickness: string;
+      quantity: number;
+      coating: string;
+      note?: string;
+    }
   ) => void;
 }
 
 const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   const { setCartItems } = useCart();
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [selectedMaterial, setSelectedMaterial] = useState("");
-  const [thickness, setThickness] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [selectedMaterial, setSelectedMaterial] = useState("SiyahSac");
+  const [thickness, setThickness] = useState("1");
+  const [quantity, setQuantity] = useState("1");
   const [coating, setCoating] = useState("");
   const [note, setNote] = useState("");
-  const [errors, setErrors] = useState({ material: false, thickness: false, quantity: false, coating: false });
+  const [errors, setErrors] = useState({
+    material: false,
+    thickness: false,
+    quantity: false,
+    coating: false,
+  });
   const [selectedFileIndex] = useState(0);
   const router = useRouter();
   const t = useTranslations("OrderDetails");
@@ -83,24 +93,19 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   const handleAddToCart = () => {
     if (!validateForm()) return;
 
+    const coatingValue = coating.startsWith("painted")
+      ? `painted ${capitalize(coating.replace("painted ", ""))}`
+      : coating;
 
-    const coatingValue = coating.startsWith('painted')
-    ? `painted ${capitalize(coating.replace('painted ', ''))}`
-    : coating;
-  
-  const newCartItem = { 
-    fileName: files[selectedFileIndex]?.name || t("noFileName"),
-    file: files[selectedFileIndex],
-    material: selectedMaterial,
-    thickness,
-    quantity: parseInt(quantity, 10),
-    coating: coatingValue, 
-    note,
-  };
-  
-  
-  
-  
+    const newCartItem = {
+      fileName: files[selectedFileIndex]?.name || t("noFileName"),
+      file: files[selectedFileIndex],
+      material: selectedMaterial,
+      thickness,
+      quantity: parseInt(quantity, 10),
+      coating: coatingValue,
+      note,
+    };
 
     setCartItems((prevItems) => [...prevItems, newCartItem]);
     setDrawerOpen(false);
@@ -128,8 +133,17 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
         },
       }}
     >
-      <Box sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 4 }}>
+      <Box
+        sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 4,
+          }}
+        >
           <Image
             src="/static/images/logo.png"
             alt="logo"
@@ -146,7 +160,15 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
           <InsertDriveFileIcon sx={{ fontSize: 40 }} />
-          <Typography variant= "h5" sx={{fontWeight: 600, wordBreak: "break-word", whiteSpace: "normal", overflow: "visible" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 600,
+              wordBreak: "break-word",
+              whiteSpace: "normal",
+              overflow: "visible",
+            }}
+          >
             {files[selectedFileIndex]?.name}
           </Typography>
         </Box>
@@ -161,7 +183,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
           </Typography>
           <Select
             value={selectedMaterial}
-            onChange={(e) => handleFieldChange("selectedMaterial", e.target.value)}
+            onChange={(e) =>
+              handleFieldChange("selectedMaterial", e.target.value)
+            }
             fullWidth
             displayEmpty
             error={errors.material}
@@ -184,24 +208,23 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
                 {t("thickness")}
               </Typography>
               <TextField
-  
-    type="number"
-    value={thickness}
-    onChange={(e) => handleFieldChange("thickness", e.target.value)}
-    fullWidth
-    error={errors.thickness}
-    helperText={errors.thickness ? t("requiredField") : ""}
-    InputProps={{
-      endAdornment: (
-        <Typography
-          variant="subtitle2"
-          sx={{ ml: 1, color: theme.palette.text.secondary }}
-        >
-          mm
-        </Typography>
-      ),
-    }}
-  />
+                type="number"
+                value={thickness}
+                onChange={(e) => handleFieldChange("thickness", e.target.value)}
+                fullWidth
+                error={errors.thickness}
+                helperText={errors.thickness ? t("requiredField") : ""}
+                InputProps={{
+                  endAdornment: (
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ ml: 1, color: theme.palette.text.secondary }}
+                    >
+                      mm
+                    </Typography>
+                  ),
+                }}
+              />
             </Box>
 
             {/* Adet Section */}
@@ -220,58 +243,59 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
             </Box>
 
             <Box sx={{ flex: 1 }}>
-  <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
-    {t("coating")}
-  </Typography>
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: isSmallScreen ? "column" : "row", // Mobilde dikey, masaüstünde yatay düzen
-      alignItems: isSmallScreen ? "stretch" : "center", // Mobilde tam genişlikte hizalama
-      gap: 1, // Elemanlar arası boşluk
-    }}
-  >
-    {coating.startsWith("painted") ? (
-      <>
-        <TextField
-        
-          onChange={(e) => handleFieldChange("coating", `painted ${e.target.value}`)}
-        
-          fullWidth
-          error={errors.coating}
-          helperText={errors.coating ? t("requiredField") : ""}
-        />
-        <Button
-          onClick={() => handleFieldChange("coating", "unpainted")} // Unpainted'e geçiş
-          variant="outlined"
-          fullWidth={isSmallScreen} // Mobilde tam genişlik
-        >
-          {t("unpainted")}
-        </Button>
-      </>
-    ) : (
-      <Select
-        value={coating}
-        onChange={(e) => handleFieldChange("coating", e.target.value)}
-        fullWidth
-        displayEmpty
-        error={errors.coating}
-      >
-        <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
-        <MenuItem value="painted">{t("painted")}</MenuItem>
-      </Select>
-    )}
-  </Box>
-  {errors.coating && (
-    <Typography variant="caption" color="error">
-      {t("requiredField")}
-    </Typography>
-  )}
-</Box>
-
-
-
-
+              <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
+                {t("coating")}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: isSmallScreen ? "column" : "row", // Mobilde dikey, masaüstünde yatay düzen
+                  alignItems: isSmallScreen ? "stretch" : "center", // Mobilde tam genişlikte hizalama
+                  gap: 1, // Elemanlar arası boşluk
+                }}
+              >
+                {coating.startsWith("painted") ? (
+                  <>
+                    <TextField
+                      onChange={(e) =>
+                        handleFieldChange(
+                          "coating",
+                          `painted ${e.target.value}`
+                        )
+                      }
+                      fullWidth
+                      error={errors.coating}
+                      helperText={errors.coating ? t("requiredField") : ""}
+                    />
+                    <Button
+                      onClick={() => handleFieldChange("coating", "unpainted")} // Unpainted'e geçiş
+                      variant="outlined"
+                      fullWidth={isSmallScreen} // Mobilde tam genişlik
+                    >
+                      {t("unpainted")}
+                    </Button>
+                  </>
+                ) : (
+                  <Select
+                    value={coating}
+                    onChange={(e) =>
+                      handleFieldChange("coating", e.target.value)
+                    }
+                    fullWidth
+                    displayEmpty
+                    error={errors.coating}
+                  >
+                    <MenuItem value="unpainted">{t("unpainted")}</MenuItem>
+                    <MenuItem value="painted">{t("painted")}</MenuItem>
+                  </Select>
+                )}
+              </Box>
+              {errors.coating && (
+                <Typography variant="caption" color="error">
+                  {t("requiredField")}
+                </Typography>
+              )}
+            </Box>
           </Box>
           <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 2 }}>
             {t("noteOptional")}
@@ -305,7 +329,10 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
             overflowY: "auto",
           }}
         >
-    
+          <MaterialCardList
+            selectedMaterial={selectedMaterial}
+            onMaterialSelect={handleMaterialSelect}
+          />
         </Box>
       )}
     </Drawer>
