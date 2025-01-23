@@ -22,6 +22,7 @@ import theme from "@/theme/theme";
 import Icon from "./Icon";
 import capitalize from "@/utils/capitalize";
 
+
 interface DisplayFilesProps {
   files: File[];
   onClose: () => void;
@@ -304,10 +305,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
             overflowY: "auto",
           }}
         >
-          <MaterialCardList
-            selectedMaterial={selectedMaterial}
-            onMaterialSelect={handleMaterialSelect}
-          />
+    
         </Box>
       )}
     </Drawer>
