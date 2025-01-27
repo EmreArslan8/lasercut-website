@@ -18,7 +18,7 @@ const WhatsAppButton = () => {
       sx={{
         position: "fixed",
         bottom: 40,
-        right: 2, 
+        right: 20, 
         zIndex: 100, 
         display: "flex",
         alignItems: "center",

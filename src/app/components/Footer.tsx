@@ -95,22 +95,9 @@ const isMobile = useScreen();
           </Grid2>
         </Grid2>
         <Divider sx={{ margin: "32px 0", backgroundColor: "#e0e0e0" }} />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          <Typography variant="body2" sx={{ color: "#757575" }}>
-            {t("invoice")}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#757575" }}>
-            {t("payWithIyzico")}
-          </Typography>
-        </Box>
+      
+       
+     
       </Container>
     </Box>
   );

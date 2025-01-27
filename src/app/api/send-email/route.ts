@@ -10,22 +10,30 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    // İstekten `to`, `subject`, `text` ve `html` alanlarını alın
+    // İstekten `to`, `subject`, `text`, ve `html` alanlarını alın
     const { to, subject, text, html } = await req.json();
+
+    // Eğer `to` alanı boşsa hata döndür
+    if (!to || !to.includes("@")) {
+      return NextResponse.json(
+        { error: "A valid recipient email address is required" },
+        { status: 400 }
+      );
+    }
 
     // Nodemailer transport tanımlayın
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER, // .env dosyanızdan e-posta bilgisi
-        pass: process.env.EMAIL_PASS, // .env dosyanızdan şifre veya uygulama şifresi
+        user: process.env.EMAIL_USER, // Gönderen e-posta adresi
+        pass: process.env.EMAIL_PASS, // Şifre veya uygulama şifresi
       },
     });
 
     // E-posta gönderimi
     await transporter.sendMail({
-      from: process.env.EMAIL_USER, // Gönderen e-posta adresi
-      to, // Alıcı e-posta adresi
+      from: process.env.EMAIL_USER, // Gönderen adres
+      to, // Formdan alınan alıcı e-posta adresi
       subject, // Konu
       text, // Düz metin içeriği
       html, // HTML içeriği

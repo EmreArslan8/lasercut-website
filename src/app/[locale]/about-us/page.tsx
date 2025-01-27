@@ -1,105 +1,81 @@
 "use client";
 
-import { Box, Grid2, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box, Grid, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const AboutUs = () => {
   const t = useTranslations("aboutUsPage");
 
   return (
-    <Box sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 6 }}>
-      {/* Page Title */}
+    <Box sx={{ maxWidth: "lg", mx: "auto", px: 3, py: 8 }}>
+      {/* Sayfa Başlığı */}
       <Typography
-        variant="h1"
+        variant="h2"
         textAlign="center"
-        sx={{ mb: 8 }}
+        fontWeight="bold"
+        gutterBottom
+        sx={{ mb: 6 }}
       >
         {t("title")}
       </Typography>
 
-      {/* About Us Section */}
-      <Grid2 container spacing={8}>
-        <Grid2 size= {{xs:12, sm: 6}}>
+      {/* Hakkımızda Bölümü */}
+      <Grid container spacing={6}>
+        <Grid item xs={12}>
           <Typography
-            variant="h3"
-            sx={{ mb: 3 }}
+            variant="h4"
+            fontWeight="bold"
+            gutterBottom
+            sx={{ textAlign: { xs: "center", sm: "left" }, mb: 4 }}
           >
             {t("aboutUsTitle")}
           </Typography>
           <Typography
+            variant="body1"
             fontSize={18}
-   
+            lineHeight={1.8}
+            sx={{ textAlign: { xs: "justify", sm: "left" } }}
             dangerouslySetInnerHTML={{ __html: t("aboutUsText1") }}
-            sx={{ mb: 5 }}
           />
           <Typography
+            variant="body1"
             fontSize={18}
+            lineHeight={1.8}
+            sx={{ mt: 2, textAlign: { xs: "justify", sm: "left" } }}
             dangerouslySetInnerHTML={{ __html: t("aboutUsText2") }}
-            sx={{mt: 2}}
           />
-        </Grid2>
-        <Grid2 size= {{xs:12, sm: 6}}>
-          <Box
-            sx={{
-              position: "relative",
-              width: "100%",
-              height: "500px",
-              borderRadius: 2,
-              overflow: "hidden",
-              boxShadow: 2,
-            }}
-          >
-            <Image
-              src="/static/images/banner5.avif"
-              alt={t("aboutUsTitle")}
-              layout="fill"
-              objectFit="cover"
-            />
-          </Box>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
 
-      {/* Our Approach Section */}
-      <Grid2 container spacing={8} sx={{ mt: 12 }}>
-      <Grid2 size= {{xs:12, sm: 6}}>
-          <Box
-            sx={{
-              position: "relative",
-              width: "100%",
-              height: "500px",
-              borderRadius: 2,
-              overflow: "hidden",
-              boxShadow: 2,
-            }}
-          >
-            <Image
-              src="/static/images/about-us-2.webp"
-              alt={t("approachTitle")}
-              layout="fill"
-              objectFit="cover"
-            />
-          </Box>
-        </Grid2>
-        <Grid2 size= {{xs:12, sm: 6}}>
+      {/* Yaklaşımımız Bölümü */}
+      <Grid container spacing={6} sx={{ mt: 8 }}>
+        <Grid item xs={12}>
           <Typography
-            variant="h2"
+            variant="h4"
             fontWeight="bold"
             gutterBottom
-            sx={{ mb: 3 }}
+            sx={{ textAlign: { xs: "center", sm: "left" }, mb: 4 }}
           >
             {t("approachTitle")}
           </Typography>
           <Typography
+            variant="body1"
             fontSize={18}
-           
-            sx={{ mb: 5 }}
+            lineHeight={1.8}
+            sx={{ textAlign: { xs: "justify", sm: "left" } }}
           >
             {t("approachText1")}
           </Typography>
-          <Typography fontSize={18} sx={{ mt: 2 }}>{t("approachText2")}</Typography>
-        </Grid2>
-      </Grid2>
+          <Typography
+            variant="body1"
+            fontSize={18}
+            lineHeight={1.8}
+            sx={{ mt: 2, textAlign: { xs: "justify", sm: "left" } }}
+          >
+            {t("approachText2")}
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
