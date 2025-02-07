@@ -120,44 +120,12 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   };
 
   return (
-    <Drawer
-      anchor="top"
-      open={drawerOpen}
-      onClose={() => setDrawerOpen(false)}
-      PaperProps={{
-        sx: {
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "row",
-        },
-      }}
+    <Box
+    
     >
       <Box
         sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            mb: 4,
-          }}
-        >
-          <Image
-            src="/static/images/logo.png"
-            alt="logo"
-            width={120}
-            height={60}
-            style={{
-              objectFit: "contain",
-              maxWidth: "100%",
-              height: "auto",
-              width: "auto",
-            }}
-          />
-          <Icon name="close" onClick={onClose} />
-        </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
           <InsertDriveFileIcon sx={{ fontSize: 40 }} />
           <Typography
@@ -335,7 +303,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
           />
         </Box>
       )}
-    </Drawer>
+    </Box>
   );
 };
 

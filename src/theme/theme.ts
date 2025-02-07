@@ -1,6 +1,7 @@
 'use client';
 
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { typography } from '@mui/system';
 
 export const defaultMarginBottom = 12;
 export const defaultMaxWidth = 1232;
@@ -172,6 +173,8 @@ const breakpoints = {
 };
 
 const theme = createTheme(
+
+
   {
     breakpoints,
     palette,
@@ -186,6 +189,7 @@ const theme = createTheme(
             scrollBehavior: 'smooth',
             overflowX: 'hidden',
           },
+          
         },
       },
       MuiButton: {

@@ -1,35 +1,18 @@
-'use client';
+"use client";
 
 import { Container, Stack, Box, useMediaQuery } from "@mui/material";
 import useFileUpload from "@/lib/hooks/useFileUpload";
 import AdvantageSection from "../components/Advantage";
-import FileUpload from "../components/FileUpload";
 import ProcessSteps from "../components/Process";
-import OrderDetails from "../components/OrderDetails";
 import WhatsAppButton from "../components/WpButton";
-import { useCart } from "@/app/context/CartContext";
 import { ArcadeEmbed } from "../components/Arcade";
 import BannerSlider from "../components/Banner";
 import ExampleSlider from "../components/ExampleWorks";
+import FileUpload from "../components/FileUpload";
 
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();
-  const { addToCart } = useCart();
-
-  const isMobile = useMediaQuery('(max-width:600px)');
-
-  const handleAddToCart = (file: File, productDetails: { material: string; thickness: string; quantity: number; coating: string; note?: string }) => {
-    const cartItem = {
-      fileName: file.name,
-      file,
-      ...productDetails,
-    };
-    addToCart(cartItem);
-  };
-
-  const handleClearFiles = () => {
-    setUploadedFiles([]);
-  };
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
     <Stack sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", mt: 1 }}>
@@ -44,7 +27,8 @@ const HomePage = () => {
               onFileUpload={(files) => {
                 setUploadedFiles(files);
               }}
-            />
+              files={uploadedFiles}
+              setUploadedFiles={setUploadedFiles}               />
           </Box>
         </>
       ) : (
@@ -65,13 +49,15 @@ const HomePage = () => {
               onFileUpload={(files) => {
                 setUploadedFiles(files);
               }}
+              files={uploadedFiles}
+              setUploadedFiles={setUploadedFiles} 
             />
           </Box>
         </Box>
       )}
       <Container>
         <Stack spacing={14} sx={{ mt: isMobile ? 4 : 25 }}>
-          {uploadedFiles.length === 0 ? (
+         
             <>
               <ProcessSteps />
               <ArcadeEmbed />
@@ -79,9 +65,7 @@ const HomePage = () => {
               <AdvantageSection />
               <WhatsAppButton />
             </>
-          ) : (
-            <OrderDetails files={uploadedFiles} onAddToCart={handleAddToCart} onClose={handleClearFiles} />
-          )}
+    
         </Stack>
       </Container>
     </Stack>

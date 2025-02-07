@@ -7,7 +7,8 @@
     "language": "Türkçe",
     "aboutUs": "Hakkımızda",
     "examples": "Örnek Çalışmalar",
-    "faq": "SSS"
+    "faq": "SSS",
+    "quickQuote": "hızlı teklif"
   },
   "Banner": {
     "title": "Talebe Özel Metal Lazer Kesim Hizmetleri",
@@ -24,6 +25,10 @@
     "payWithIyzico": "iyzico ile Öde"
   },
   "File": {
+    "title": "Modelinizi Yükleyin",
+    "drawerTitle": "CAD dosyanızı yüklemek anlık teklif almanın en iyi yoludur",
+    "drawerInfo": "Tasarımınız güvende! DrawToCut.com'a yüklenen tüm tasarımlar güvenlidir ve fikri mülkiyet haklarının %100'üne sahip olursunuz",
+    "uploadFile": "Dosya yükle",
     "congratulations": "Tebrikler!",
     "submissionSuccess": "Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.",
     "returnToHome": "Ana Sayfaya Dön",
@@ -128,12 +133,8 @@
   },
   "MaterialCardList": {
     "materials": {
-      "1050": "Alüminyum 1050",
+      "1050": "Alüminyum",
       "1050_description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır.",
-      "5754": "Alüminyum 5754",
-      "5754_description": "Korozyon direnci ve mukavemeti yüksek bir alaşım. Denizcilik, otomotiv ve kimyasal depolama için idealdir.",
-      "GalvanizliSac": "Çelik Galvanizli Sac",
-      "GalvanizliSac_description": "Paslanmaya karşı korunmuş dayanıklı ve uzun ömürlü bir çelik türüdür.",
       "SiyahSac": "Çelik Siyah Sac",
       "SiyahSac_description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
       "DC01": "Çelik DC01 / 6112 / C (DKP)",
@@ -248,5 +249,19 @@
       "success": "Mesaj başarıyla gönderildi!",
       "error": "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin."
     }
+  },
+  "Step1": {
+    "title": "Ölçüleri Onaylayın",
+    "description": "Lütfen ölçüleri kontrol edin ve yanlışsa düzeltin.",
+    "width": "Genişlik",
+    "height": "Yükseklik",
+    "unitSelect": "Ölçü Birimi Seç",
+    "inch": "Inch",
+    "mm": "MM",
+    "next": "İleri",
+    "confirmTitle": "Parçanızın Boyutlarını Onaylayın",
+    "confirmMessage": "Parçanızın {width} {unit} x {height} {unit} boyutlarında olduğunu onayladınız.",
+    "cancel": "İptal",
+     "confirmButton": "Onaylıyorum"
   }
 }

@@ -1,0 +1,126 @@
+"use client";
+
+import { useState } from "react";
+import {
+  Box,
+  Drawer,
+  Stack,
+  Typography,
+  LinearProgress,
+  Button,
+} from "@mui/material";
+import { useTranslations } from "next-intl";
+import styles from "./styles";
+import Stepper from "../Stepper";
+import OrderDetails from "../OrderDetails";
+import Icon from "../Icon";
+
+interface FileUploadDrawerProps {
+  open: boolean;
+  onClose: () => void;
+  files: File[];
+  svgData: {
+    svg: string;
+    width: string;
+    height: string;
+    contourLength: string;
+  } | null;
+  loadingSvg: boolean;
+  isDragging: boolean;
+  setIsDragging: (dragging: boolean) => void;
+  handleDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  handleFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  fileInputRef: React.RefObject<HTMLInputElement>;
+}
+
+const FileUploadDrawer = ({
+  open,
+  onClose,
+  files,
+  svgData,
+  loadingSvg,
+  isDragging,
+  setIsDragging,
+  handleDrop,
+  handleFileSelect,
+  fileInputRef,
+}: FileUploadDrawerProps) => {
+  const t = useTranslations("File");
+  const dxfFile = files.find((file) => file.name.toLowerCase().endsWith(".dxf"));
+  const uploadedFile = files.length > 0 ? files[0] : null;
+  const isLoading = uploadedFile && (loadingSvg || (dxfFile && !svgData));
+
+  // **Dosya adını belli bir uzunluğa kısalt**
+  const truncateFileName = (name: string, maxLength: number = 20) => {
+    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
+  };
+
+  return (
+    <Drawer anchor="top" open={open} onClose={onClose} PaperProps={{ sx: styles.drawer }}>
+      <Box sx={styles.drawerContent}>
+        <Icon name="close" sx={styles.closeButton} onClick={onClose} />
+        
+        {uploadedFile ? (
+          isLoading ? (
+            <Stack alignItems="center" sx={{ mt: 2 }}>
+              <Typography sx={{ mb: 1, fontSize: "1.2rem", fontWeight: 500 }}>
+                {truncateFileName(uploadedFile.name)}
+              </Typography>
+              <Typography sx={{ color: "#666" }}>Analiz Ediliyor...</Typography>
+              <Typography sx={{ mt: 1, fontWeight: 500 }}>Lütfen bekleyin...</Typography>
+              <LinearProgress sx={{ width: "80%", mt: 2 }} />
+            </Stack>
+          ) : dxfFile ? (
+            <Stepper
+              svg={svgData?.svg || ""}
+              width={svgData?.width || ""}
+              height={svgData?.height || ""}
+             
+              fileName={truncateFileName(uploadedFile.name)} 
+            />
+          ) : (
+            <OrderDetails files={files} onClose={onClose} />
+          )
+        ) : (
+          <Box sx={{ textAlign: "center", maxWidth: "950px", margin: "auto" }}>
+            <Typography variant="h2" sx={{ mb: 10 }}>
+              {t("title")}
+            </Typography>
+            <Box
+              sx={styles.dropZone(isDragging)}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDrop={handleDrop}
+              onDragLeave={() => setIsDragging(false)}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Stack spacing={3} alignItems="center">
+                <Typography variant="h6">{t("drawerTitle")}</Typography>
+                <Typography variant="body">{t("uploadDescription")}</Typography>
+                <Button variant="contained" size="large">
+                  <Icon name="upload" sx={{ fontSize: 22 }} />
+                  {t("uploadFile")}
+                </Button>
+              </Stack>
+              <Typography variant="bodySmall" sx={{ m: 5 }}>
+                <Icon name="verified_user" /> {t("drawerInfo")}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+        
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          multiple
+          onChange={handleFileSelect}
+        />
+      </Box>
+    </Drawer>
+  );
+};
+
+export default FileUploadDrawer;

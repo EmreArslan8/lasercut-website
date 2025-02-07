@@ -353,13 +353,14 @@ LaserCut Ekibi`,
                         {t("quantity")}: {item.quantity}
                       </Typography>
                       <Typography>
-                        {t("coating")}:{" "}
-                        {item.coating.startsWith("painted")
-                          ? item.coating.replace("painted ", "")
-                          : locale === "tr"
-                          ? "Boyasız"
-                          : t("unpainted")}
-                      </Typography>
+  {t("coating")}:{" "}
+  {item.coating?.startsWith("painted")
+    ? item.coating.replace("painted ", "")
+    : locale === "tr"
+    ? "Boyasız"
+    : t("unpainted")}
+</Typography>
+
                     </Box>
                   </ListItem>
                 </Card>

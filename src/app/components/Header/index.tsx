@@ -8,6 +8,7 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  Button,
 } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -15,14 +16,14 @@ import { useState } from "react";
 import { useCart } from "@/app/context/CartContext";
 import LanguageSwitcher from "../LanguageSwitcher";
 import Icon from "../Icon";
-import { Link } from "@/i18n/routing"; 
+import { Link } from "@/i18n/routing";
 import useScreen from "@/lib/hooks/useScreen";
-import styles from "./styles"; 
+import styles from "./styles";
 
 const Header = () => {
   const t = useTranslations("Header");
   const { cartItems } = useCart();
-  const [menuOpen, setMenuOpen] = useState(false); 
+  const [menuOpen, setMenuOpen] = useState(false);
   const { mdDown, isMobile } = useScreen();
 
   const toggleMenu = () => {
@@ -68,12 +69,22 @@ const Header = () => {
               </Link>
             </Badge>
             <LanguageSwitcher />
+            {/* Hızlı Teklif Butonu */}
+            <Link href="/quote">
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                sx={{ ml: 1 }}
+              >
+                {t("quickQuote")}
+              </Button>
+            </Link>
             <IconButton onClick={toggleMenu}>
               <Icon name="menu" />
             </IconButton>
           </Box>
         ) : (
-          // Masaüstünde Menü Ortada
           <>
             <Box sx={styles.desktopMenu}>
               {["examples", "about-us", "faq", "contact"].map((key, index) => (
@@ -98,25 +109,28 @@ const Header = () => {
               ))}
             </Box>
             <Box sx={styles.desktopActions}>
-              {/* Sepet */}
               <Badge badgeContent={cartItems.length} sx={{ cursor: "pointer" }}>
-                <Link href="/cart" style={{color: "black"}}>
-                <Icon
-                  name="shopping_bag"
-                  sx={{
-                    fontSize: mdDown ? "24px" : "36px", 
-                  }}
-                />
+                <Link href="/cart" style={{ color: "black" }}>
+                  <Icon
+                    name="shopping_bag"
+                    sx={{
+                      fontSize: mdDown ? "24px" : "36px",
+                    }}
+                  />
                 </Link>
               </Badge>
-        
               <LanguageSwitcher />
+              {/* Hızlı Teklif Butonu */}
+              <Link href="/quote">
+                <Button variant="contained" color="primary">
+                  {t("quickQuote")}
+                </Button>
+              </Link>
             </Box>
           </>
         )}
       </Box>
 
-      {/* Açılır Menü (Mobil İçin) */}
       {mdDown && (
         <Collapse in={menuOpen} timeout="auto" unmountOnExit>
           <List sx={styles.mobileMenu}>

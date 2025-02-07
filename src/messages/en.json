@@ -7,7 +7,8 @@
     "language": "English",
     "aboutUs": "About",
   "examples": "Examples",
-  "faq": "Faq"
+  "faq": "Faq",
+    "quickQuote": "get started"
   },
   "Banner": {
     "title": "Custom Metal Laser Cutting Services",
@@ -24,6 +25,10 @@
     "payWithIyzico": "Pay with iyzico"
   },
   "File": {
+    "title": "Upload your models",
+    "drawerTitle": "Uploading your CAD is the best way to get an instant quote",
+    "drawerInfo": " Your design is safe! Any design uploaded to DrawToCut.com is secure, and you retain 100% of the intellectual property rights.",
+    "uploadFile": "Upload File",
     "congratulations": "Congratulations!",
     "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
     "returnToHome": "Return to Home Page",
@@ -123,12 +128,8 @@
   },
  "MaterialCardList": {
 "materials": {
-  "1050": "Aluminum 1050",
+  "1050": "Aluminum",
   "1050_description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
-  "5754": "Aluminum 5754",
-  "5754_description": "Exceptional corrosion resistance and strength, ideal for marine, automotive, and chemical storage.",
-  "GalvanizliSac": "Steel Galvanized Sheet",
-  "GalvanizliSac_description": "Coated to resist rust, providing durability and longevity.",
   "SiyahSac": "Steel Black Sheet",
   "SiyahSac_description": "Raw steel type used in structural and industrial applications.",
   "DC01": "Steel DC01 / 6112 / C (DKP)",
@@ -245,7 +246,20 @@
         "success": "Message sent successfully!",
         "error": "Failed to send message. Please try again later."
       }
+  },
+  "Step1": {
+   "title": "Confirm Dimensions",
+    "description": "Please check the dimensions and correct them if they are incorrect.",
+    "width": "Width",
+    "height": "Height",
+    "unitSelect": "Select Measurement Unit",
+    "inch": "Inch",
+    "mm": "MM",
+    "next": "Next",
+    "confirmTitle": "Confirm the dimensions of your part",
+    "confirmMessage": "{width} {unit} of your part You have confirmed that it has the dimensions {height} x {height} {unit}.",
+    "cancel": "Cancel",
+     "confirmButton": "Confirm"
   }
-
 
 }

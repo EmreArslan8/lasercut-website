@@ -15,22 +15,10 @@ const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, o
   const t = useTranslations("MaterialCardList");
   const materials = [
     {
-      value: "1050",
+      value: "Aluminium ",
       label: t("materials.1050"),
       description: t("materials.1050_description"),
       image: "/static/images/aluminyum.png",
-    },
-    {
-      value: "5754",
-      label: t("materials.5754"),
-      description: t("materials.5754_description"),
-      image: "/static/images/aluminyum.png",
-    },
-    {
-      value: "GalvanizliSac",
-      label: t("materials.GalvanizliSac"),
-      description: t("materials.GalvanizliSac_description"),
-      image: "/static/images/galvaniz.png",
     },
     {
       value: "SiyahSac",

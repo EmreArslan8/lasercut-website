@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { supabase } from "@/lib/api/supabaseClient";
 import { useCart } from "@/app/context/CartContext";
-
+import { supabase } from "../api/supabaseClient";
 
 interface UploadResult {
   success: boolean;
@@ -12,76 +11,112 @@ interface UseFileUploadReturn {
   uploadedFiles: File[];
   setUploadedFiles: (files: File[]) => void;
   uploadFiles: (
+    files: File[],
     formData: { name: string; email: string; phone: string }
   ) => Promise<UploadResult[]>;
   clearFiles: () => void;
+  isDxf: boolean; // DXF kontrolü
 }
 
 const sanitizeFileName = (fileName: string) => {
-  // Geçersiz karakterleri "_" ile değiştir
   return fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
 };
 
 const useFileUpload = (): UseFileUploadReturn => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const { cartItems } = useCart(); // Sepet bilgilerini al
+  const [isDxf, setIsDxf] = useState(false);
+  const { cartItems } = useCart();
 
-  const uploadFiles = async (formData: { name: string; email: string; phone: string }) => {
+  const uploadFiles = async (
+    files: File[],
+    formData: { name: string; email: string; phone: string }
+  ) => {
     const results: UploadResult[] = [];
 
-    for (const file of uploadedFiles) {
+    for (const file of files) {
       try {
         const sanitizedFileName = sanitizeFileName(file.name);
         const uniqueFileName = `uploads/${Date.now()}_${sanitizedFileName}`;
-        console.log("Yüklenen dosyalar:", uploadedFiles);
-        // Upload file to Supabase storage
+
+        // Format Kontrolü
+        const allowedExtensions = ["pdf", "png", "jpg", "jpeg", "dxf"];
+        const fileExtension = file.name.split(".").pop()?.toLowerCase();
+
+        console.log(`📂 Dosya yüklendi: ${file.name} (Uzantı: ${fileExtension})`);
+
+        if (!allowedExtensions.includes(fileExtension!)) {
+          console.warn(`❌ Geçersiz dosya türü: ${file.name}`);
+          results.push({ success: false, message: `Geçersiz dosya türü: ${file.name}` });
+          continue;
+        }
+
+        // Supabase'e yükleme
         const { error: uploadError } = await supabase.storage
           .from("uploaded-files")
           .upload(uniqueFileName, file);
 
         if (uploadError) {
-          console.error("Dosya yükleme hatası:", uploadError.message);
+          console.error(`⚠️ Yükleme hatası: ${uploadError.message}`);
           results.push({ success: false, message: `Yükleme hatası: ${uploadError.message}` });
           continue;
         }
 
-        // Insert form and cart data into Supabase
+        // Dosya URL'sini alma
+        const { data } = await supabase.storage
+          .from("uploaded-files")
+          .getPublicUrl(uniqueFileName);
+
+        // Veritabanına kayıt
         const { error: dbError } = await supabase.from("files").insert([
           {
             file_name: uniqueFileName,
-            form_data: formData, // Form bilgileri
-            cart_items: cartItems, // Sepet bilgileri
+            file_url: data?.publicUrl, // Dosya URL'si
+            form_data: formData,
+            cart_items: cartItems,
           },
         ]);
 
         if (dbError) {
-          console.error("Veritabanına ekleme hatası:", dbError.message);
+          console.error(`⚠️ DB hatası: ${dbError.message}`);
           results.push({ success: false, message: `DB hatası: ${dbError.message}` });
           continue;
         }
 
-        results.push({ success: true, message: `Dosya başarıyla yüklendi: ${sanitizedFileName}` });
+        results.push({ success: true, message: `✅ Dosya başarıyla yüklendi: ${sanitizedFileName}` });
       } catch (error) {
-        console.error("Hata oluştu:", error);
+        console.error(`🚨 Beklenmeyen hata: ${error}`);
         results.push({ success: false, message: `Hata: ${error}` });
       }
     }
-    console.log("Yüklenen dosyalar:", uploadedFiles);
-    console.log("Sepet bilgileri:", cartItems);
-    console.log("Form bilgileri:", formData);
-    
+
+    clearFiles();
     return results;
   };
 
+  const handleFileUpload = (files: File[]) => {
+    console.log("📥 Dosya yükleme işlemi başladı:", files.map((file) => file.name));
+
+    setUploadedFiles(files);
+
+    // DXF kontrolü
+    const hasDxf = files.some((file) => file.name.toLowerCase().endsWith(".dxf"));
+    setIsDxf(hasDxf);
+
+    console.log(`🔍 DXF kontrolü: ${hasDxf ? "Evet, DXF dosyası var." : "Hayır, DXF dosyası yok."}`);
+  };
+
   const clearFiles = () => {
+    console.log("🗑️ Yüklenen dosyalar temizlendi.");
     setUploadedFiles([]);
+    setIsDxf(false);
   };
 
   return {
     uploadedFiles,
-    setUploadedFiles,
+    setUploadedFiles: handleFileUpload, // DXF kontrolünü buraya ekledik
     uploadFiles,
     clearFiles,
+    isDxf,
   };
 };
 
