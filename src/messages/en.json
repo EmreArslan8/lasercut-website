@@ -257,6 +257,19 @@
     "status": {
       "success": "Message sent successfully!",
       "error": "Failed to send message. Please try again later."
+    },
+    "submitButton": "Send",
+    "sending": "Sending...",
+    "successMessage": "Your message has been successfully sent!",
+    "errorMessage": "An error occurred. Please try again.",
+    "socialMedia": {
+      "title": "Follow Us on Social Media",
+      "description": "Follow our social media accounts for updates and special offers! You can contact us via WhatsApp and Instagram.",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram"
+    },
+    "map": {
+      "title": "Our Location"
     }
   },
   "Step1": {
@@ -311,6 +324,11 @@
         "name": "Stainless Steel 316L",
         "image": "/static/images/stainless_316.jpg",
         "description": "Resistant to chemicals and saltwater"
+      },
+      {
+        "name": "Black Sheet",
+        "image": "/static/images/black_steel.webp",
+        "description": "General-purpose steel with good strength"
       }
     ]
   },

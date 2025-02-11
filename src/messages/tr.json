@@ -260,6 +260,19 @@
     "status": {
       "success": "Mesaj başarıyla gönderildi!",
       "error": "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin."
+    },
+    "submitButton": "Gönder",
+    "sending": "Gönderiliyor...",
+    "successMessage": "Mesajınız başarıyla gönderildi!",
+    "errorMessage": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "socialMedia": {
+      "title": "Bizi Sosyal Medyada Takip Edin",
+      "description": "Güncel haberler ve fırsatlar için sosyal medya hesaplarımızı takip edin! WhatsApp ve Instagram üzerinden bizimle iletişim kurabilirsiniz.",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram"
+    },
+    "map": {
+      "title": "Konumumuz"
     }
   },
   "Step1": {
@@ -314,6 +327,11 @@
         "name": "Paslanmaz Çelik 316L",
         "image": "/static/images/stainless_316.jpg",
         "description": "Kimyasal ve tuzlu suya dayanıklı"
+      },
+      {
+        "name": "Black Sheet",
+        "image": "/static/images/black_steel.webp",
+        "description": "İyi mukavemete sahip genel amaçlı çelik"
       }
     ]
   },

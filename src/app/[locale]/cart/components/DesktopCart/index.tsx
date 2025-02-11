@@ -28,7 +28,7 @@ const DesktopCart = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSuccessOpen, setSuccessOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const t = useTranslations("CartPage")
+  const t = useTranslations("CartPage");
 
   const { handleFormSubmit, isSubmitting } = useHandleFormSubmit(
     selectedItems,
@@ -50,22 +50,21 @@ const DesktopCart = () => {
           <Typography variant="h5">{t("cartInfo")}</Typography>
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button variant="outlined" color="primary" href="/" size="medium">
-            {t("button")}
+              {t("button")}
             </Button>
-            
-        { /*  drawer açma butonu
+
+            {/*  drawer açma butonu
          <Button variant="contained" color="primary" onClick={openDrawer} size="medium">
               Add Parts
             </Button>
              */}
           </Stack>
-          
         </Stack>
       ) : (
         <Grid2 container spacing={3}>
           <Grid2 size={{ xs: 12, md: 8 }} sx={styles.cartItemsSection}>
             <Typography variant="h5" fontWeight="bold" sx={{ ml: 7 }}>
-            {t("cartTitle1")}
+              {t("cartTitle1")}
             </Typography>
             <Box sx={{ overflowX: "auto", width: "100%" }}>
               <List sx={{ mt: 2, border: "none", p: 0 }}>
@@ -110,18 +109,22 @@ const DesktopCart = () => {
                           </Typography>
                         )}
                         <Typography sx={styles.textSecondary}>
-                        {t("thickness")}:  {item.thickness} mm
+                          {t("thickness")}: {item.thickness} mm
                         </Typography>
                         {item.extraServices && (
                           <Typography sx={styles.textSecondary}>
-                             {t("extraServices")}: {item.extraServices}
+                            {t("extraServices")}: {item.extraServices}
                           </Typography>
                         )}
                         <Typography sx={styles.textSecondary}>
-                        {t("quantity")}: {item.quantity}
+                          {t("quantity")}: {item.quantity}
                         </Typography>
+
                         <Typography variant="h6">
-                        {t("itemPrice")}:  {item.price} 85,70 EUR
+                          {t("itemPrice")}:{" "}
+                          {item.price
+                            ? `${item.price} TL`
+                            : "Calculating..."}
                         </Typography>
                       </Box>
 
@@ -153,14 +156,14 @@ const DesktopCart = () => {
             >
               <Box sx={styles.summaryBox}>
                 <Typography sx={styles.summaryText}>
-                {t("total")}: {cartItems.length} {t("cartTitle2")}
+                  {t("total")}: {cartItems.length} {t("cartTitle2")}
                 </Typography>
                 <Typography sx={styles.totalPrice}>85,70 EUR</Typography>
 
                 <Stack direction="row" alignItems="center" sx={styles.terms}>
                   <Checkbox color="primary" />
                   <Typography sx={styles.termsText}>
-                  {t("policyText")}
+                    {t("policyText")}
                   </Typography>
                 </Stack>
 
@@ -172,7 +175,7 @@ const DesktopCart = () => {
                   sx={styles.checkoutButton}
                   disabled={selectedItems.length === 0}
                 >
-                 {t("placeOrder")}
+                  {t("placeOrder")}
                 </Button>
               </Box>
             </Grid2>
@@ -180,7 +183,7 @@ const DesktopCart = () => {
         </Grid2>
       )}
 
-{isModalOpen && (
+      {isModalOpen && (
         <Modal open={isModalOpen} onClose={handleCloseModal}>
           <ModalForm
             onClose={handleCloseModal}

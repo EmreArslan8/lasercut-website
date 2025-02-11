@@ -120,19 +120,19 @@ const ContactPage = () => {
                   loading && <CircularProgress size={20} color="inherit" />
                 }
               >
-                {loading ? "Gönderiliyor..." : "Gönder"}
+                {loading ? t("sending") : t("submitButton")}
               </Button>
             </Stack>
           </form>
 
           {status === "success" && (
             <Alert severity="success" sx={{ mt: 3 }}>
-              Mesajınız başarıyla gönderildi!
+             {t("successMessage")}
             </Alert>
           )}
           {status === "error" && (
             <Alert severity="error" sx={{ mt: 3 }}>
-              Bir hata oluştu. Lütfen tekrar deneyin.
+              {t("errorMessage")}
             </Alert>
           )}
         </Box>
@@ -181,12 +181,10 @@ const ContactPage = () => {
           }}
         >
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
-            Bizi Sosyal Medyada Takip Edin
+          {t("socialMedia.title")}
           </Typography>
           <Typography sx={{ color: "text.secondary", lineHeight: 1.6 }}>
-            Güncel haberler ve fırsatlar için sosyal medya hesaplarımızı takip
-            edin! WhatsApp ve Instagram üzerinden bizimle iletişim
-            kurabilirsiniz.
+          {t("socialMedia.description")}
           </Typography>
         </Box>
 
