@@ -3,10 +3,10 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    console.log("📩 API isteği alındı!");
+
 
     const { to, subject, text, html } = await req.json();
-    console.log("📩 Gelen veri:", { to, subject });
+
 
     if (!to || !to.includes("@")) {
       return NextResponse.json(
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       html,
     });
 
-    console.log("✅ E-posta gönderildi:", info);
+   
 
     return NextResponse.json({ message: "Email sent successfully!" });
   } catch (error: unknown) {
