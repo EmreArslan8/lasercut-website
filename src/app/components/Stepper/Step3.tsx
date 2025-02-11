@@ -22,6 +22,7 @@ import Icon from "../Icon";
 const Step3 = ({
   svg,
   onBack,
+  onConfirm,
   dispatch,
 }: {
   svg: string;
@@ -73,6 +74,7 @@ const Step3 = ({
 
   const handleConfirm = () => {
     setModalOpen(true);
+   
   };
 
   return (
@@ -87,7 +89,7 @@ const Step3 = ({
 
       <Grid2 container spacing={4}>
         {/* 📌 DXF Önizleme */}
-        <Grid2 size={{ xs: 6 }} sx={{ textAlign: "center" }}>
+        <Grid2 size={{xs:6}} sx={{ textAlign: "center" }}>
           <Box sx={{ border: "1px solid #ccc", p: 2, borderRadius: "8px" }}>
             <div
               dangerouslySetInnerHTML={{ __html: svg }}
@@ -97,7 +99,7 @@ const Step3 = ({
         </Grid2>
 
         {/* 📌 Ek Hizmet Seçimi */}
-        <Grid2 size={{ xs: 6 }}>
+        <Grid2 size={{xs:6}}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {extraServices.map((service: { name: string }) => (
               <Paper
@@ -173,21 +175,16 @@ const Step3 = ({
           </Box>
         </Grid2>
       </Grid2>
+
+      {/* 🔹 Geri & Siparişi Tamamla Butonları */}
       <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 2 }}>
-        <Button
-          variant="outlined"
-          onClick={onBack}
-          startIcon={<Icon name="arrow_back" />}
-        >
+        <Button variant="outlined" onClick={onBack}>
           {t("buttons.back")}
         </Button>
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleConfirm}
-          startIcon={<Icon name="check_circle" />}
-        >
+        <Button variant="contained" color="primary" onClick={() => {
+    onConfirm(); // Dışarıdan gelen onConfirm fonksiyonu çağırılır
+    handleConfirm(); // Modalı açan fonksiyon çalıştırılır
+  }}>
           {t("buttons.confirm")}
         </Button>
 
