@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     // **Ürünleri Slack mesajına ekleyelim**
     const itemsText = cartItemsWithUrls
-      .map((item: { material: string ; quantity: any; price: any; fileUrl: any;  thickness: any }) => `- **Ürün:** ${item.material} | **Adet:** ${item.quantity || 1} | *Kalınlık:** ${item.quantity || 1} | **Fiyat:** ${item.price || 'Bilinmiyor'}\n  📎 **Dosya:** ${item.fileUrl || 'Dosya Yok'}`)
+      .map((item: { material: string ; thickness: string; quantity: number; price: number;   fileUrl?: string; }) => `- **Ürün:** ${item.material} | **Adet:** ${item.quantity || 1} | *Kalınlık:** ${item.quantity || 1} | **Fiyat:** ${item.price || 'Bilinmiyor'}\n  📎 **Dosya:** ${item.fileUrl || 'Dosya Yok'}`)
       .join("\n");
 
     const message = {
@@ -40,8 +40,14 @@ export async function POST(req: Request) {
     console.log("Slack mesajı başarıyla gönderildi!");
     return NextResponse.json({ success: true, message: "Slack mesajı gönderildi!" }, { status: 200 });
 
-  } catch (error: any) {
-    console.error("Slack mesaj gönderme hatası:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    console.error("🚨 API Hatası:", 
+      error instanceof Error ? error.message : 'Unknown error',
+      error instanceof Error ? error.stack : ''
+    );
+    return NextResponse.json(
+      { error: `Failed to send slack: ${error instanceof Error ? error.message : 'Unknown error'}` },
+      { status: 500 }
+    );
   }
 }
