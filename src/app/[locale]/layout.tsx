@@ -5,18 +5,15 @@ import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
 import { CartProvider } from "../context/CartContext";
 import ThemeRegistry from "@/theme/ThemeRegistery";
-import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from "next/font/google";
 import Header from "../components/Header";
 
-
 const Plus_Jakarta_Sans = _Plus_Jakarta_Sans({
-  weight: ['300', '400', '500', '600', '700', '800'],
-  subsets: ['latin'],
-  display: 'swap',
-  fallback: ['Helvetica', 'Arial', 'sans-serif'],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Helvetica", "Arial", "sans-serif"],
 });
-
-
 
 export default async function RootLayout({
   children,
@@ -33,17 +30,19 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-      <link
+        <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL@400..700,0..1&display=block"
           rel="stylesheet"
         />
       </head>
-     <body className={Plus_Jakarta_Sans.className}>
+      <body className={Plus_Jakarta_Sans.className}>
         <NextIntlClientProvider messages={messages}>
           <CartProvider>
             <ThemeRegistry>
               <Header />
-              <main style={{ minHeight: "calc(100vh - 200px)" }}>{children}</main>
+              <main style={{ minHeight: "calc(100vh - 200px)" }}>
+                {children}
+              </main>
               <Footer />
             </ThemeRegistry>
           </CartProvider>

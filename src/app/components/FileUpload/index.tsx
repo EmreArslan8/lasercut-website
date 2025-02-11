@@ -4,10 +4,10 @@ import { useRef, useState } from "react";
 import { Box, Typography, Button, Stack, Snackbar, Alert } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import useScreen from "@/lib/hooks/useScreen";
 import styles from "./styles";
 import Icon from "../Icon";
 import FileUploadDrawer from "./FileUploadDrawer";
+
 
 interface FileUploadProps {
   onFileUpload: (files: File[]) => void;
@@ -24,8 +24,6 @@ const FileUpload = ({
 }: FileUploadProps) => {
   const t = useTranslations("File");
   const fileInputRef = useRef<HTMLInputElement>(null!);
-
-  const { isMobile } = useScreen();
   const [isDragging, setIsDragging] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -37,10 +35,6 @@ const FileUpload = ({
     contourLength: string;
   } | null>(null);
   const [loadingSvg, setLoadingSvg] = useState(false);
-
-  const dxfFile = files.find((file) =>
-    file.name.toLowerCase().endsWith(".dxf")
-  );
 
   const isValidFile = (fileName: string) => {
     return allowedExtensions.some((ext) =>
@@ -75,34 +69,35 @@ const FileUpload = ({
     setLoadingSvg(true);
     const formData = new FormData();
     formData.append("file", file);
-
+  
     try {
+      console.log("📤 DXF dosyası API'ye gönderiliyor:", file.name);
       const response = await fetch("/api/upload-dxf", {
         method: "POST",
         body: formData,
       });
-
+  
       if (!response.ok) {
-        throw new Error("SVG dönüştürme başarısız!");
+        throw new Error("❌ DXF işleme başarısız!");
       }
-
+  
       const result = await response.json();
       console.log("✅ API Yanıtı:", result);
-
+  
       setSvgData({
         svg: result.svg,
         width: result.width,
         height: result.height,
         contourLength: result.contourLength,
       });
+  
     } catch (error) {
       console.error("❌ SVG alma hatası:", error);
-      setSnackbarMessage("SVG dönüştürme başarısız!");
-      setSnackbarOpen(true);
     } finally {
       setLoadingSvg(false);
     }
   };
+  
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();

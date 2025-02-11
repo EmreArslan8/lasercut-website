@@ -10,6 +10,7 @@ import BannerSlider from "../components/Banner";
 import ExampleSlider from "../components/ExampleWorks";
 import FileUpload from "../components/FileUpload";
 
+
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -59,6 +60,7 @@ const HomePage = () => {
         <Stack spacing={14} sx={{ mt: isMobile ? 4 : 25 }}>
          
             <>
+       
               <ProcessSteps />
               <ArcadeEmbed />
               <ExampleSlider />

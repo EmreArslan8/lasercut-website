@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Box,
   Drawer,
@@ -14,6 +13,7 @@ import styles from "./styles";
 import Stepper from "../Stepper";
 import OrderDetails from "../OrderDetails";
 import Icon from "../Icon";
+import { truncateText } from "@/utils/truncateText";
 
 interface FileUploadDrawerProps {
   open: boolean;
@@ -46,28 +46,36 @@ const FileUploadDrawer = ({
   fileInputRef,
 }: FileUploadDrawerProps) => {
   const t = useTranslations("File");
-  const dxfFile = files.find((file) => file.name.toLowerCase().endsWith(".dxf"));
+  const dxfFile = files.find((file) =>
+    file.name.toLowerCase().endsWith(".dxf")
+  );
+  
   const uploadedFile = files.length > 0 ? files[0] : null;
   const isLoading = uploadedFile && (loadingSvg || (dxfFile && !svgData));
 
   // **Dosya adını belli bir uzunluğa kısalt**
-  const truncateFileName = (name: string, maxLength: number = 20) => {
-    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
-  };
+
 
   return (
-    <Drawer anchor="top" open={open} onClose={onClose} PaperProps={{ sx: styles.drawer }}>
+    <Drawer
+      anchor="top"
+      open={open}
+      onClose={onClose}
+      PaperProps={{ sx: styles.drawer }}
+    >
       <Box sx={styles.drawerContent}>
         <Icon name="close" sx={styles.closeButton} onClick={onClose} />
-        
+
         {uploadedFile ? (
           isLoading ? (
             <Stack alignItems="center" sx={{ mt: 2 }}>
               <Typography sx={{ mb: 1, fontSize: "1.2rem", fontWeight: 500 }}>
-                {truncateFileName(uploadedFile.name)}
+                {truncateText(uploadedFile.name)}
               </Typography>
               <Typography sx={{ color: "#666" }}>Analiz Ediliyor...</Typography>
-              <Typography sx={{ mt: 1, fontWeight: 500 }}>Lütfen bekleyin...</Typography>
+              <Typography sx={{ mt: 1, fontWeight: 500 }}>
+                Lütfen bekleyin...
+              </Typography>
               <LinearProgress sx={{ width: "80%", mt: 2 }} />
             </Stack>
           ) : dxfFile ? (
@@ -75,8 +83,8 @@ const FileUploadDrawer = ({
               svg={svgData?.svg || ""}
               width={svgData?.width || ""}
               height={svgData?.height || ""}
-             
-              fileName={truncateFileName(uploadedFile.name)} 
+              fileName={uploadedFile.name}
+              file={uploadedFile} 
             />
           ) : (
             <OrderDetails files={files} onClose={onClose} />
@@ -104,13 +112,18 @@ const FileUploadDrawer = ({
                   {t("uploadFile")}
                 </Button>
               </Stack>
-              <Typography variant="bodySmall" sx={{ m: 5 }}>
-                <Icon name="verified_user" /> {t("drawerInfo")}
+              <Typography
+                variant="bodySmall"
+                sx={{
+                  m: 5,
+                }}
+              >
+               🔒 {t("drawerInfo")}
               </Typography>
             </Box>
           </Box>
         )}
-        
+
         <input
           type="file"
           ref={fileInputRef}

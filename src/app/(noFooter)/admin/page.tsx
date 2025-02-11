@@ -123,7 +123,7 @@ const AdminPanel = () => {
   }, [router]);
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f9f9f9" }}>
+    (<Box sx={{ minHeight: "100vh", backgroundColor: "#f9f9f9" }}>
       {/* Header */}
       <AppBar
         position="static"
@@ -153,7 +153,6 @@ const AdminPanel = () => {
           </Box>
         </Toolbar>
       </AppBar>
-
       {/* Content */}
       <Box sx={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
         {/* Search Bar */}
@@ -164,21 +163,23 @@ const AdminPanel = () => {
             variant="outlined"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <SearchIcon
-                  sx={{
-                    marginLeft: "8px",
-                    marginRight: "-4px",
-                    color: "#757575",
-                  }}
-                />
-              ),
-            }}
             sx={{
               backgroundColor: "#fff",
               borderRadius: "8px",
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            }}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <SearchIcon
+                    sx={{
+                      marginLeft: "8px",
+                      marginRight: "-4px",
+                      color: "#757575",
+                    }}
+                  />
+                ),
+              }
             }}
           />
         </Box>
@@ -258,7 +259,7 @@ const AdminPanel = () => {
           </Table>
         </TableContainer>
       </Box>
-    </Box>
+    </Box>)
   );
 };
 

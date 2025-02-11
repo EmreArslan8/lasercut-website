@@ -6,8 +6,8 @@
     "contact": "Contact",
     "language": "English",
     "aboutUs": "About",
-  "examples": "Examples",
-  "faq": "Faq",
+    "examples": "Examples",
+    "faq": "Faq",
     "quickQuote": "get started"
   },
   "Banner": {
@@ -27,7 +27,7 @@
   "File": {
     "title": "Upload your models",
     "drawerTitle": "Uploading your CAD is the best way to get an instant quote",
-    "drawerInfo": " Your design is safe! Any design uploaded to DrawToCut.com is secure, and you retain 100% of the intellectual property rights.",
+    "drawerInfo": "Your design is safe! Any design uploaded to DrawToCut.com is secure, and you retain 100% of the intellectual property rights.",
     "uploadFile": "Upload File",
     "congratulations": "Congratulations!",
     "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
@@ -38,7 +38,12 @@
     "addFile": "Upload File",
     "getQuote": "Get Quote",
     "secureUploads": "All uploads are secure and confidential.",
-    "invalidFileFormat": "Invalid file format: {fileName}"
+    "invalidFileFormat": "Invalid file format: {fileName}",
+    "steps": {
+      "dimensions": "Dimensions",
+      "materialSelection": "Product Details",
+      "additionalServices": "Additional Services"
+    }
   },
   "ProcessSteps": {
     "step1": {
@@ -116,9 +121,7 @@
     "requiredField": "Required Field",
     "enterColor": "Color..",
     "materials": {
-      "1050": "Aluminum 1050",
-      "5754": "Aluminum 5754 / 3.3535 / AlMg3",
-      "GalvanizliSac": "Steel Galvanized Sheet",
+      "Aluminum": "Aluminum",
       "SiyahSac": "Steel Black Sheet",
       "DC01": "Steel DC01 / 6112 / C (DKP)",
       "ST37": "Steel ST37-K / S235JR / 1.0038",
@@ -126,25 +129,25 @@
       "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
     }
   },
- "MaterialCardList": {
-"materials": {
-  "1050": "Aluminum",
-  "1050_description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
-  "SiyahSac": "Steel Black Sheet",
-  "SiyahSac_description": "Raw steel type used in structural and industrial applications.",
-  "DC01": "Steel DC01 / 6112 / C (DKP)",
-  "DC01_description": "Low-carbon steel suitable for deep drawing, with a smooth and bright surface for painting or coating.",
-  "ST37": "Steel ST37-K / S235JR / 1.0038",
-  "ST37_description": "Structural steel known for its weldability and cost-effectiveness.",
-  "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-  "Paslanmaz304_description": "Highly corrosion-resistant, ideal for kitchen equipment and medical tools.",
-  "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
-  "Paslanmaz316L_description": "Marine-grade stainless steel with exceptional chemical resistance."
-}
-
- },
+  "MaterialCardList": {
+    "materials": {
+      "Aluminum": "Aluminum",
+      "Aluminum_description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
+      "SiyahSac": "Steel Black Sheet",
+      "SiyahSac_description": "Raw steel type used in structural and industrial applications.",
+      "DC01": "Steel DC01 / 6112 / C (DKP)",
+      "DC01_description": "Low-carbon steel suitable for deep drawing, with a smooth and bright surface for painting or coating.",
+      "ST37": "Steel ST37-K / S235JR / 1.0038",
+      "ST37_description": "Structural steel known for its weldability and cost-effectiveness.",
+      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
+      "Paslanmaz304_description": "Highly corrosion-resistant, ideal for kitchen equipment and medical tools.",
+      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
+      "Paslanmaz316L_description": "Marine-grade stainless steel with exceptional chemical resistance."
+    },
+    "materialSelection": "Material Selection"
+  },
   "CartPage": {
-    "title": "Your Cart",
+    "title": "Cart",
     "cartInfo": "Your cart is empty. To create an order back to home page",
     "button": "Back To Home",
     "cartTitle1": "Cart",
@@ -155,12 +158,22 @@
     "quantity": "Quantity",
     "coating": "Coating",
     "painted": "Painted",
-    "unpainted": "Unpainted", 
+    "unpainted": "Unpainted",
     "note": "Note",
-    "placeOrder": "Place Order", 
-   "clearCart": "Clear Cart",
+    "placeOrder": "Order Now",
+    "clearCart": "Clear Cart",
     "addMoreProductsText": "Would you like to add more items to the cart? ",
-    "goToHomePageButton": "Return home page"
+    "goToHomePageButton": "Return home page",
+    "orderSummary": "Order Summary",
+    "totalProducts": "Total Products",
+    "totalAmount": "Total Amount",
+    "termsAndConditions": "Terms And Conditions",
+    "checkout": "Checkout",
+    "removeButton": "REMOVE",
+    "extraServices": "Extra Services",
+    "itemPrice": "Item total",
+    "total": "Total",
+    "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy."
   },
   "WpButton": {
     "buttonText": "WhatsApp Support"
@@ -171,84 +184,83 @@
   },
   "ExampleWorks": {
     "title": "Example Works",
-   "viewExamples": "too see more"
+    "viewExamples": "too see more"
   },
   "ExamplePage": {
     "title": "Made with Laser",
     "description": "Explore our collection of precision-crafted laser-cut designs. "
-    
   },
-"aboutUsPage": {
-  "title": "Where Vision Takes Shape with Precision",
-  "aboutUsTitle": "About Us",
-  "aboutUsText1": "By combining advanced technology with innovative solutions, we deliver exceptional quality for both industrial and creative needs. From intricate metal components to custom decorative pieces, we bring your ideas to life with unparalleled precision.",
-  "aboutUsText2": "Our commitment to excellence goes beyond production. With state-of-the-art machinery and a highly skilled team, we ensure precision, speed, and reliability in every project. Whether you're an industry professional or a creative enthusiast, DrawToCut is your trusted partner for sharp solutions.",
-  "approachTitle": "Our Approach",
-  "approachText1": "At DrawToCut, we believe in personalized solutions tailored to your specific needs. Our process begins with understanding your vision and requirements, ensuring that every project aligns with your goals. By integrating the latest technology with meticulous craftsmanship, we create products that exceed expectations.",
-  "approachText2": "We focus on sustainability and efficiency at every stage, minimizing waste while maximizing output quality. From the initial concept to final delivery, our customer-focused approach guarantees satisfaction. Join the many clients who trust DrawToCut for innovation, quality, and an unparalleled experience."
-},
+  "aboutUsPage": {
+    "title": "Where Vision Takes Shape with Precision",
+    "aboutUsTitle": "About Us",
+    "aboutUsText1": "By combining advanced technology with innovative solutions, we deliver exceptional quality for both industrial and creative needs. From intricate metal components to custom decorative pieces, we bring your ideas to life with unparalleled precision.",
+    "aboutUsText2": "Our commitment to excellence goes beyond production. With state-of-the-art machinery and a highly skilled team, we ensure precision, speed, and reliability in every project. Whether you're an industry professional or a creative enthusiast, DrawToCut is your trusted partner for sharp solutions.",
+    "approachTitle": "Our Approach",
+    "approachText1": "At DrawToCut, we believe in personalized solutions tailored to your specific needs. Our process begins with understanding your vision and requirements, ensuring that every project aligns with your goals. By integrating the latest technology with meticulous craftsmanship, we create products that exceed expectations.",
+    "approachText2": "We focus on sustainability and efficiency at every stage, minimizing waste while maximizing output quality. From the initial concept to final delivery, our customer-focused approach guarantees satisfaction. Join the many clients who trust DrawToCut for innovation, quality, and an unparalleled experience."
+  },
 
   "faqPage": {
-  "title": "Frequently Asked Questions",
-  "faqs": [
-    {
-      "question": "What services do you provide?",
-      "answer": "We offer precision cutting and metal processing services for industrial and creative needs."
-    },
-    {
-      "question": "How can I place an order?",
-      "answer": "You can place an order through our website or contact us directly via email or phone."
-    },
-    {
-      "question": "Do you offer custom designs?",
-      "answer": "Yes, we specialize in creating custom designs tailored to your requirements."
-    },
-    {
-      "question": "What is the estimated delivery time?",
-      "answer": "Delivery time depends on the project, but we aim to complete most orders within 5-10 business days."
-    },
-    {
-      "question": "Can you handle large-scale industrial projects?",
-      "answer": "Absolutely. We have the capacity to manage both small and large-scale projects with precision."
-    },
-    {
-      "question": "What materials do you work with?",
-      "answer": "We work with a variety of metals, including aluminum, stainless steel, black sheet, and galvanized sheet."
-    },
-    {
-      "question": "What is your minimum order quantity?",
-      "answer": "The minimum order quantity depends on the type of project, but we are flexible with low-volume orders."
-    },
-    {
-      "question": "What payment methods do you accept?",
-      "answer": "We accept credit cards, bank transfers, and cash in some cases."
-    },
-    {
-      "question": "Which regions do you serve?",
-      "answer": "We serve both national and international customers. Delivery options may vary by region."
-    },
-    {
-      "question": "Can I request a sample job or test work?",
-      "answer": "Yes, you can request test work or a sample job before starting the project."
-    }
-  ]
+    "title": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "What services do you provide?",
+        "answer": "We offer precision cutting and metal processing services for industrial and creative needs."
+      },
+      {
+        "question": "How can I place an order?",
+        "answer": "You can place an order through our website or contact us directly via email or phone."
+      },
+      {
+        "question": "Do you offer custom designs?",
+        "answer": "Yes, we specialize in creating custom designs tailored to your requirements."
+      },
+      {
+        "question": "What is the estimated delivery time?",
+        "answer": "Delivery time depends on the project, but we aim to complete most orders within 5-10 business days."
+      },
+      {
+        "question": "Can you handle large-scale industrial projects?",
+        "answer": "Absolutely. We have the capacity to manage both small and large-scale projects with precision."
+      },
+      {
+        "question": "What materials do you work with?",
+        "answer": "We work with a variety of metals, including aluminum, stainless steel, black sheet, and galvanized sheet."
+      },
+      {
+        "question": "What is your minimum order quantity?",
+        "answer": "The minimum order quantity depends on the type of project, but we are flexible with low-volume orders."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept credit cards, bank transfers, and cash in some cases."
+      },
+      {
+        "question": "Which regions do you serve?",
+        "answer": "We serve both national and international customers. Delivery options may vary by region."
+      },
+      {
+        "question": "Can I request a sample job or test work?",
+        "answer": "Yes, you can request test work or a sample job before starting the project."
+      }
+    ]
   },
   "contactPage": {
-      "title": "Contact Us",
-      "description": "Have a question or want to reach out? Fill out the form below!",
-      "form": {
-        "nameLabel": "Name",
-        "emailLabel": "Email",
-        "messageLabel": "Message",
-        "submitButton": "Send Message"
-      },
-      "status": {
-        "success": "Message sent successfully!",
-        "error": "Failed to send message. Please try again later."
-      }
+    "title": "Contact Us",
+    "description": "Have a question or want to reach out? Fill out the form below!",
+    "form": {
+      "nameLabel": "Name",
+      "emailLabel": "Email",
+      "messageLabel": "Message",
+      "submitButton": "Send Message"
+    },
+    "status": {
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again later."
+    }
   },
   "Step1": {
-   "title": "Confirm Dimensions",
+    "title": "Confirm Dimensions",
     "description": "Please check the dimensions and correct them if they are incorrect.",
     "width": "Width",
     "height": "Height",
@@ -259,7 +271,76 @@
     "confirmTitle": "Confirm the dimensions of your part",
     "confirmMessage": "{width} {unit} of your part You have confirmed that it has the dimensions {height} x {height} {unit}.",
     "cancel": "Cancel",
-     "confirmButton": "Confirm"
-  }
+    "confirmButton": "Confirm"
+  },
+  "Step2": {
+    "materialSelection": "Production Details: Material, Thickness, and Quantity Selection",
+    "materialSelectionDesc": "Please specify your production details: Choose the material type, thickness, and quantity to proceed.",
+    "selectedMaterial": "Selected Material: ",
+    "selectMaterial": "Select Material",
+    "selectedThickness": "Selected Thickness",
+    "selectThickness": "Select Thickness",
+    "selectedQuantity": "Quantity: ",
+    "selectQuantity": "Quantity",
+    "noteTitle": "If you have any additional details for your product, you can write them here.",
+    "additionalNotes": "Additional Notes (Optional)",
+    "back": "Back",
+    "next": "Next",
+    "materials": [
+      {
+        "name": "Aluminum",
+        "image": "/static/images/aluminum.jpg",
+        "description": "Light and durable"
+      },
+      {
+        "name": "DKP Steel",
+        "image": "/static/images/steel_dkp.jpg",
+        "description": "Suitable for shaping"
+      },
+      {
+        "name": "ST37-K / S235JR",
+        "image": "/static/images/steel_st37.jpeg",
+        "description": "Structural steel"
+      },
+      {
+        "name": "Stainless Steel 304",
+        "image": "/static/images/stainless_304.jpg",
+        "description": "Suitable for food and medical use"
+      },
+      {
+        "name": "Stainless Steel 316L",
+        "image": "/static/images/stainless_316.jpg",
+        "description": "Resistant to chemicals and saltwater"
+      }
+    ]
+  },
 
+  "Step3": {
+    "title": "Additional Services",
+    "description": "You can select additional services below. For painting, you can enter a custom color.",
+    "extraServices": [
+      { "name": "Welding", "description": "Metal parts joining process" },
+      { "name": "Bending", "description": "Bending of sheet or metal parts" },
+      {
+        "name": "Painting",
+        "description": "Color coating process (Custom Color Option Available)"
+      }
+    ],
+    "colorSelection": "Select or Enter a Paint Color:",
+    "selectColor": "Select Paint Color",
+    "black": "Black",
+    "red": "Red",
+    "blue": "Blue",
+    "customColor": "Custom Color",
+    "buttons": {
+      "back": "Back",
+      "confirm": "Complete Order"
+    },
+    "modal": {
+      "title": "Product Added to Cart",
+      "description": "You can continue shopping or go to your cart to complete your order.",
+      "goHome": "Go to Home",
+      "goCart": "Go to Cart"
+    }
+  }
 }

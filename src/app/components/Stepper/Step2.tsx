@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Box,
   Typography,
-  Grid,
+  Grid2,
   Button,
   Collapse,
   TextField,
@@ -12,45 +12,66 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
-const subMaterials = [
-  { name: "Alüminyum", image: "/static/images/aluminum.jpg", description: "Hafif ve dayanıklı" },
-  { name: "DKP Çelik", image: "/static/images/steel_dkp.jpg", description: "Şekillendirmeye uygun" },
-  { name: "ST37-K / S235JR", image: "/static/images/steel_st37.jpeg", description: "Yapı çeliği" },
-  { name: "Paslanmaz Çelik 304", image: "/static/images/stainless_304.jpg", description: "Gıda ve medikal kullanım" },
-  { name: "Paslanmaz Çelik 316L", image: "/static/images/stainless_316.jpg", description: "Kimyasal ve tuzlu suya dayanıklı" },
-];
+interface Material {
+  name: string;
+  description: string;
+  image: string;
+}
 
-const thicknesses = ["1.0 mm", "1.6 mm", "2.0 mm", "2.3 mm", "2.5 mm", "3.2 mm", "4.7 mm", "6.3 mm", "9.5 mm"];
 
-const Step2 = ({ 
+const Step2 = ({
   svg,
   onNext,
-  onBack, 
-  dispatch 
+  onBack,
+  dispatch,
 }: {
   svg: string;
   onNext: () => void;
   onBack: () => void;
-  dispatch: (payload: { material?: string; thickness?: string; quantity?: number; note?: string }) => void;
+  dispatch: (payload: {
+    material?: string;
+    thickness?: string;
+    quantity?: number;
+    note?: string;
+  }) => void;
 }) => {
   const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
-  const [selectedThickness, setSelectedThickness] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
+  const [selectedThickness, setSelectedThickness] = useState<string | null>(
+    null
+  );
+  const [quantity, setQuantity] = useState<number>();
   const [note, setNote] = useState<string>("");
   const [openMaterial, setOpenMaterial] = useState<boolean>(true);
   const [openThickness, setOpenThickness] = useState<boolean>(false);
   const [openQuantity, setOpenQuantity] = useState<boolean>(true);
+  const t = useTranslations("Step2");
+  const materials = t.raw("materials") as Material[];
+
+
+  const thicknessMap: Record<string, number[]> = {
+    "ST37-K / S235JR": [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
+    "Stainless Steel 316L": [0.5, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
+    "Stainless Steel 304":[0.5, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
+    Aluminum: [1, 1.5, 2, 3, 4, 5, 6, 8, 10],
+    "DKP Steel": [1, 1.5, 2, 3, 4, 5, 6, 8, 10],
+  };
+
+  // Seçilen malzemeye göre kalınlık listesini getir
+  const thicknesses = selectedMaterial ? thicknessMap[selectedMaterial] || [] : [];
 
   const handleMaterialSelect = (material: string) => {
     setSelectedMaterial(material);
+    setSelectedThickness(null); // Yeni malzeme seçildiğinde kalınlığı sıfırla
     setOpenMaterial(false);
     setOpenThickness(true);
     dispatch({ material });
   };
+
 
   const handleThicknessSelect = (thickness: string) => {
     setSelectedThickness(thickness);
@@ -58,26 +79,37 @@ const Step2 = ({
     dispatch({ thickness });
   };
 
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, ""); // Sadece sayı al
+    const parsedValue = val === "" ? undefined : parseInt(val, 10);
+
+    setQuantity(parsedValue); // State güncelle
+    if (parsedValue !== undefined) {
+      dispatch({ quantity: parsedValue }); // Redux veya state yönetimine gönder
+    }
+  };
+
   return (
-    <Box sx={{ mt: 4 }}>
-      {/* 📌 Başlık & Alt Başlık */}
+    (<Box sx={{ mt: 4 }}>
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
-        Malzeme ve Kalınlık Seçimi
+        {t("materialSelection")}
       </Typography>
       <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-        Lütfen malzeme, kalınlık, adet ve ek not girerek devam edin.
+        {t("materialSelectionDesc")}
       </Typography>
-
-      <Grid container spacing={4}>
+      <Grid2 container spacing={4}>
         {/* 📌 Sol: DXF Önizleme */}
-        <Grid item xs={6} sx={{ textAlign: "center" }}>
+        <Grid2 size={{ xs: 12, md: 6 }} sx={{ textAlign: "center" }}>
           <Box sx={{ border: "1px solid #ccc", p: 2, borderRadius: "8px" }}>
-            <div dangerouslySetInnerHTML={{ __html: svg }} style={{ width: "100%", height: "auto" }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: svg }}
+              style={{ width: "100%", height: "auto" }}
+            />
           </Box>
-        </Grid>
+        </Grid2>
 
         {/* 📌 Sağ: Seçim Alanları */}
-        <Grid item xs={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {/* 🟢 Malzeme Seçimi */}
             <Box>
@@ -87,15 +119,20 @@ const Step2 = ({
                 endIcon={<ExpandMoreIcon />}
                 sx={{ border: "1px solid #000", color: "#000" }}
               >
-                {selectedMaterial ? `Malzeme Seçildi: ${selectedMaterial}` : "Malzeme Seçimi"}
+                {selectedMaterial
+                  ? `${t("selectedMaterial")}${selectedMaterial}`
+                  : t("selectMaterial")}
               </Button>
               <Collapse in={openMaterial}>
-                <Grid container spacing={2} sx={{ mt: 2 }}>
-                  {subMaterials.map((material) => (
-                    <Grid item xs={12} key={material.name}>
+                <Grid2 container spacing={2} sx={{ mt: 2 }}>
+                  {materials.map((material: Material) => (
+                    <Grid2 size={{ xs: 12 }} key={material.name}>
                       <Paper
                         sx={{
-                          border: selectedMaterial === material.name ? "2px solid #1976D2" : "1px solid #ddd",
+                          border:
+                            selectedMaterial === material.name
+                              ? "2px solid #1976D2"
+                              : "1px solid #ddd",
                           borderRadius: "8px",
                           padding: "16px",
                           display: "flex",
@@ -104,18 +141,15 @@ const Step2 = ({
                         }}
                         onClick={() => handleMaterialSelect(material.name)}
                       >
-                        <img
+                        <Image
                           src={material.image}
                           alt={material.name}
-                          style={{
-                            width: "80px",
-                            height: "80px",
-                            objectFit: "cover",
-                            borderRadius: "8px",
-                            marginRight: "16px",
-                          }}
+                          width={80}
+                          height={80}
+                          style={{ objectFit: "cover", borderRadius: "8px", marginRight: "16px" }}
                         />
-                        <Box>
+                        <Box sx={{ textAlign: "left" }}>
+                          {" "}
                           <Typography variant="body1" fontWeight="bold">
                             {material.name}
                           </Typography>
@@ -124,106 +158,97 @@ const Step2 = ({
                           </Typography>
                         </Box>
                       </Paper>
-                    </Grid>
+                    </Grid2>
                   ))}
-                </Grid>
+                </Grid2>
               </Collapse>
             </Box>
 
             {/* 🟢 Kalınlık Seçimi */}
-            {selectedMaterial && (
-              <Box>
-                <Button
-                  fullWidth
-                  onClick={() => setOpenThickness(!openThickness)}
-                  endIcon={<ExpandMoreIcon />}
-                  sx={{ border: "1px solid #000", color: "#000" }}
-                >
-                  {selectedThickness ? `Kalınlık Seçildi: ${selectedThickness}` : "Kalınlık Seçimi"}
-                </Button>
-                <Collapse in={openThickness}>
-                  <FormControl fullWidth sx={{ mt: 2 }}>
-                    <Select
-                      value={selectedThickness || ""}
-                      onChange={(e) => handleThicknessSelect(e.target.value)}
-                    >
-                      {thicknesses.map((thickness) => (
-                        <MenuItem key={thickness} value={thickness}>
-                          {thickness}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Collapse>
-              </Box>
-            )}
 
-            {/* 🟢 Adet Seçimi ve Not Alanı */}
-            {selectedThickness && (
-              <Box>
-                <Button
-                  fullWidth
-                  onClick={() => setOpenQuantity(!openQuantity)}
-                  endIcon={<ExpandMoreIcon />}
-                  sx={{ border: "1px solid #000", color: "#000" }}
-                >
-                  {quantity ? `Seçilen Adet: ${quantity}` : "Adet Seçimi"}
-                </Button>
-                <Collapse in={openQuantity}>
-                  <TextField
-                    fullWidth
-                    label="Adet Seçimi"
-                    value={quantity}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      if (!isNaN(val) && val > 0) {
-                        setQuantity(val);
-                        dispatch({ quantity: val });
-                      }
-                    }}
-                    inputProps={{ min: 1, max: 10, type: "number" }}
-                    sx={{ mt: 2 }}
-                  />
-                </Collapse>
+            <Box>
+              <Button
+                fullWidth
+                onClick={() => setOpenThickness(!openThickness)}
+                endIcon={<ExpandMoreIcon />}
+                sx={{ border: "1px solid #000", color: "#000" }}
+              >
+                {selectedThickness
+                  ? `${t("selectedThickness")}: ${selectedThickness}`
+                  : t("selectThickness")}
+              </Button>
+              <Collapse in={openThickness}>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                  <Select
+                    value={selectedThickness || "1.0 mm"}
+                    onChange={(e) => handleThicknessSelect(e.target.value)}
+                  >
+                    {thicknesses.map((thickness) => (
+                      <MenuItem key={thickness} value={thickness}>
+                        {thickness}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Collapse>
+            </Box>
 
-               <Stack sx= {{m:2}}>
-                <Typography variant="bodySmall" >
-                  Ürününüz için eklemek istediğiniz detaylar varsa buraya yazabilirsiniz.
-                </Typography>
-                </Stack>
+            <Box>
+              <Button
+                fullWidth
+                onClick={() => setOpenQuantity(!openQuantity)}
+                endIcon={<ExpandMoreIcon />}
+                sx={{ border: "1px solid #000", color: "#000" }}
+              >
+                {quantity
+                  ? `${t("selectedQuantity")}${quantity}`
+                  : t("selectQuantity")}
+              </Button>
+              <Collapse in={openQuantity}>
                 <TextField
-                  label="Ek Notlar (Opsiyonel)"
-                  multiline
-                  rows={4}
                   fullWidth
+                  label={t("selectQuantity")}
+                  value={quantity ?? ""} // undefined olursa boş göster
+                  onChange={handleQuantityChange} // Fonksiyonu çağır
+                  type="number"
                   sx={{ mt: 2 }}
-                  value={note}
-                  onChange={(e) => {
-                    setNote(e.target.value);
-                    dispatch({ note: e.target.value });
+                  slotProps={{
+                    htmlInput: { min: 1 }
                   }}
                 />
-              </Box>
-            )}
+              </Collapse>
+              <TextField
+                label={t("additionalNotes")}
+                multiline
+                rows={4}
+                fullWidth
+                sx={{ mt: 2 }}
+                value={note}
+                onChange={(e) => {
+                  setNote(e.target.value);
+                  dispatch({ note: e.target.value });
+                }}
+              />
+            </Box>
           </Box>
-        </Grid>
-      </Grid>
-
-      {/* 🔹 Navigasyon Butonları (Sağ Alt Köşe) */}
+        </Grid2>
+      </Grid2>
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 3 }}>
         <Button variant="outlined" onClick={onBack}>
-          Geri
+          {t("back")}
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={onNext}
-          disabled={!selectedMaterial || !selectedThickness}
+          disabled={
+            !selectedMaterial || !selectedThickness || !quantity || quantity < 1
+          }
         >
-          İleri
+          {t("next")}
         </Button>
       </Box>
-    </Box>
+    </Box>)
   );
 };
 

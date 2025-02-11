@@ -63,12 +63,20 @@ const Step1 = ({
   };
 
   return (
-    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, }}>
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>{t("title")}</Typography>
       <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>{t("description")}</Typography>
 
       {/* 🔹 SVG Görseli */}
-      <Box dangerouslySetInnerHTML={{ __html: svg }} sx={{ width: "80%", height: "auto", mb: 2 }} />
+      <Box
+  dangerouslySetInnerHTML={{ __html: svg }}
+  sx={{
+    width: { xs: "100%", sm: "60%" }, // xs ekranlarda %60, sm ve üstünde %40
+    height: "auto",
+    mb: 2,
+  }}
+/>
+
 
       {/* 🔹 Ölçü Girişleri */}
       <Box sx={{ display: "flex", gap: 2, alignItems: "center", justifyContent: "center" }}>

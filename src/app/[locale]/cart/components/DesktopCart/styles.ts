@@ -1,0 +1,41 @@
+const styles = {
+    cartContainer: { my: 4, overflow: "hidden", pl: 2 },
+    cartItemsSection: { width: "100%" },
+    emptyCart: { textAlign: "center", mt: 5, alignItems: "center" },
+    emptyIcon: { fontSize: 220, color: "#bbb"   },
+    cartItem: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      px: 1,
+      py: 2,
+    },
+    checkbox: { mr: 1 },
+    svgContainer: {
+      width: 150,
+      height: 150,
+      border: "1px solid #ddd",
+      borderRadius: "4px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      overflow: "hidden",
+      p: 0.5,
+      mr: 2,
+    },
+    svg: { maxWidth: "100%", maxHeight: "100%" },
+    itemDetails: { flex: 1 },
+    textSecondary: { fontSize: 14, color: "textSecondary" },
+    deleteIcon: { color: "red", cursor: "pointer", fontSize: 24 },
+    divider: { borderColor: "#ddd", mt: 2, mb: 2 },
+    summaryBox: { p: 3, borderRadius: "8px", display: "block" },
+    summaryText: { fontSize: 18, fontWeight: "bold" },
+    totalPrice: { fontSize: 20, fontWeight: "bold", mt: 1 },
+    terms: { mt: 2 },
+    termsText: { fontSize: 14 },
+    checkoutButton: { mt: 2 },
+    modal: { display: "flex", alignItems: "center", justifyContent: "center" },
+  };
+  
+  export default styles;
+  

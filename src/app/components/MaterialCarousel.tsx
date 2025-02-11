@@ -7,16 +7,12 @@ interface MaterialCardListProps {
   onMaterialSelect: (value: string) => void;
 }
 
-
-
-
-
 const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, onMaterialSelect }) => {
   const t = useTranslations("MaterialCardList");
   const materials = [
     {
       value: "Aluminium ",
-      label: t("materials.1050"),
+      label: t("materials.Aluminum"),
       description: t("materials.1050_description"),
       image: "/static/images/aluminyum.png",
     },
@@ -51,11 +47,11 @@ const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, o
       image: "/static/images/paslanmaz-sac.png",
     },
   ];
-  
+
   return (
     <Box sx={{ overflowY: "auto" }}>
       <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-        Materyal Seçimi
+        {t("materialSelection")}
       </Typography>
       <Stack spacing={3}>
         {materials.map((material) => (
@@ -87,7 +83,7 @@ const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, o
               image={material.image}
               alt={material.label}
             />
-            <CardContent>
+            <CardContent sx={{ textAlign: "left" }}>  {/* Metinleri sola yasladık */}
               <Typography variant="h5" fontWeight="bold" sx={{ marginBottom: 1 }}>
                 {material.label}
               </Typography>

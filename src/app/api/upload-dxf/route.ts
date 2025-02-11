@@ -2,6 +2,24 @@ import { NextResponse } from "next/server";
 import { Helper } from "dxf";
 import type { NextRequest } from "next/server";
 
+/** 📌 DXF İçin Türler */
+interface DXFEntity {
+  type: string;
+  start?: { x: number; y: number };
+  end?: { x: number; y: number };
+  x?: number;
+  y?: number;
+  r?: number;
+  vertices?: { x: number; y: number }[];
+  closed?: boolean;
+  controlPoints?: { x: number; y: number }[];
+}
+
+interface DXFBlock {
+  entities?: DXFEntity[];
+}
+
+/** 📌 DXF Dosya İşleme API */
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -11,88 +29,60 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Dosya yüklenmedi" }, { status: 400 });
     }
 
-    // DXF Dosyasını oku
+    // 📌 DXF Dosyasını Oku ve Parse Et
     const text = await file.text();
     const helper = new Helper(text);
-    
-    // **DXF Verilerini Parse Et**
     const dxfData = helper.parse();
 
     if (!dxfData || !dxfData.entities || dxfData.entities.length === 0) {
       return NextResponse.json({ error: "Geçerli DXF verisi bulunamadı" }, { status: 400 });
     }
 
-   // console.log("DXF içinde bulunan entity türleri:", dxfData.entities.map((e: any) => e.type));
-   // console.log("DXF içindeki bloklar:", Object.keys(dxfData.blocks || {}));
-
-    // **Blok içeriğini listeleyelim ve en dolu bloğu bulalım**
+    // 📌 DXF İçindeki Blokları Analiz Et
     let largestBlock = { name: "", entityCount: 0 };
 
-    Object.entries(dxfData.blocks || {}).forEach(([blockName, blockData]: any) => {
-      const entityCount = blockData.entities?.length || 0;
-    //  console.log(`Blok: ${blockName}, İçindeki çizim sayısı: ${entityCount}`);
+    Object.entries(dxfData.blocks ?? {}).forEach(([blockName, blockData]) => {
+      const block = blockData as DXFBlock; // **📌 Türü açıkça belirtiyoruz**
+      const entityCount = block.entities?.length || 0;
       if (entityCount > largestBlock.entityCount) {
         largestBlock = { name: blockName, entityCount };
       }
     });
 
-    // **Min & Max X/Y Koordinatlarını Bul**
+    // 📌 Min & Max X/Y Koordinatlarını Bul
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     let contourLength = 0;
-    
 
- // 🔹 Kontur uzunluğunu hesaplamak için değişken
-
-    const processEntity = (entity: any) => {
-      if (entity.type === "LINE") {
-        if (!entity.start || !entity.end) return;
-    
-        // 🔹 Çizgi uzunluğu hesapla ve ekle
+    // 📌 DXF İçerisindeki Varlıkları İşleyen Fonksiyon
+    const processEntity = (entity: DXFEntity) => {
+      if (entity.type === "LINE" && entity.start && entity.end) {
         const length = Math.sqrt(
           Math.pow(entity.end.x - entity.start.x, 2) + Math.pow(entity.end.y - entity.start.y, 2)
         );
         contourLength += length;
-    
-        // 🔹 Mevcut min-max hesaplamalarını değiştirmeden bırak
         minX = Math.min(minX, entity.start.x, entity.end.x);
         maxX = Math.max(maxX, entity.start.x, entity.end.x);
         minY = Math.min(minY, entity.start.y, entity.end.y);
         maxY = Math.max(maxY, entity.start.y, entity.end.y);
-      } 
-      else if (entity.type === "CIRCLE") {
-        if (!entity.x || !entity.y || !entity.r) return;
-    
-        // 🔹 Çember çevresini hesapla ve ekle
+      }
+
+      if (entity.type === "CIRCLE" && entity.x !== undefined && entity.y !== undefined && entity.r !== undefined) {
         const circumference = 2 * Math.PI * entity.r;
         contourLength += circumference;
-    
         minX = Math.min(minX, entity.x - entity.r);
         maxX = Math.max(maxX, entity.x + entity.r);
         minY = Math.min(minY, entity.y - entity.r);
         maxY = Math.max(maxY, entity.y + entity.r);
-      } 
-      else if (entity.type === "ARC") {
-        if (!entity.startAngle || !entity.endAngle || !entity.r) return;
-    
-        // 🔹 Yay uzunluğunu hesapla ve ekle
-        const angle = Math.abs(entity.endAngle - entity.startAngle);
-        const arcLength = (Math.PI * entity.r * angle) / 180;
-        contourLength += arcLength;
-      } 
-      else if (entity.type === "POLYLINE" || entity.type === "LWPOLYLINE") {
+      }
+
+      if (entity.type === "POLYLINE" || entity.type === "LWPOLYLINE") {
         if (!entity.vertices || entity.vertices.length < 2) return;
-    
-        // 🔹 Polyline uzunluğunu hesapla ve ekle
         for (let i = 0; i < entity.vertices.length - 1; i++) {
           const v1 = entity.vertices[i];
           const v2 = entity.vertices[i + 1];
-          const segmentLength = Math.sqrt(
-            Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2)
-          );
+          const segmentLength = Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2));
           contourLength += segmentLength;
         }
-    
-        // 🔹 Kapalı polyline ise başlangıç ve bitiş noktalarını bağla
         if (entity.closed) {
           const first = entity.vertices[0];
           const last = entity.vertices[entity.vertices.length - 1];
@@ -101,102 +91,58 @@ export async function POST(req: NextRequest) {
           );
           contourLength += closingSegmentLength;
         }
-    
-        // 🔹 Mevcut min-max hesaplamaları
-        entity.vertices.forEach((v: any) => {
+        entity.vertices.forEach((v) => {
           minX = Math.min(minX, v.x);
           maxX = Math.max(maxX, v.x);
           minY = Math.min(minY, v.y);
           maxY = Math.max(maxY, v.y);
         });
-      } 
-      else if (entity.type === "SPLINE") {
-        if (!entity.controlPoints || entity.controlPoints.length < 2) return;
-    
-        // 🔹 Eğri uzunluğunu hesapla ve ekle
+      }
+
+      if (entity.type === "SPLINE" && entity.controlPoints) {
         for (let i = 0; i < entity.controlPoints.length - 1; i++) {
           const p1 = entity.controlPoints[i];
           const p2 = entity.controlPoints[i + 1];
-          const segmentLength = Math.sqrt(
-            Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)
-          );
+          const segmentLength = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
           contourLength += segmentLength;
         }
-    
-        // 🔹 Mevcut min-max hesaplamaları
-        entity.controlPoints.forEach((point: any) => {
+        entity.controlPoints.forEach((point) => {
           minX = Math.min(minX, point.x);
           maxX = Math.max(maxX, point.x);
           minY = Math.min(minY, point.y);
           maxY = Math.max(maxY, point.y);
         });
-      } 
-      else if (entity.type === "INSERT") {
-        let blockName = entity.block.replace(/\D/g, ""); // Sadece sayıyı al
-        let block = dxfData.blocks?.[blockName];
-    
-        if (!block || block.entities?.length === 0) {
-          if (largestBlock.entityCount > 0) {
-            blockName = largestBlock.name;
-            block = dxfData.blocks?.[blockName];
-          }
-        }
-    
-        if (block && block.entities && block.entities.length > 0) {
-          block.entities.forEach(processEntity);
-        }
       }
     };
-    
-    // **Tüm varlıkları işle**
-    dxfData.entities.forEach(processEntity);
 
-    // Eğer minX veya minY hala Infinity ise DXF içinde ölçü alınacak bir obje yok demektir.
-    if (minX === Infinity || minY === Infinity || maxX === -Infinity || maxY === -Infinity) {
-      return NextResponse.json({
-        error: "DXF içinde ölçü alınacak nesne bulunamadı.",
-        entityTypes: dxfData.entities.map((e: any) => e.type),
-        blocks: Object.keys(dxfData.blocks || {}),
-        blockContents: Object.entries(dxfData.blocks || {}).map(([name, data]: any) => ({
-          name,
-          entityCount: data.entities?.length || 0
-        }))
-      }, { status: 400 });
-    }
+    // 📌 Tüm Varlıkları İşle
+    dxfData.entities.forEach((entity) => processEntity(entity as DXFEntity));
 
-
-
-
-
-
-
-    // **Ölçümleri Hesapla**
+    // 📌 Ölçümleri Hesapla
     const width = maxX - minX;
     const height = maxY - minY;
     const aspectRatio = width / height;
 
-    // **SVG çıktısını oluştur**
-    const svg = helper.toSVG();
+    // 📌 SVG Çıktısını Oluştur
+    let svg = helper.toSVG();
+    svg = svg
+      .replace(/<svg /, '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" ')
+      .replace(/<path /g, '<path stroke="black" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round" ')
+      .replace(/<polygon /g, '<polygon stroke="black" stroke-width="1" fill="lightgray" ')
+      .replace(/<rect /g, '<rect stroke="black" stroke-width="1" fill="lightgray" ')
+      .replace(/<circle /g, '<circle stroke="black" stroke-width="1" fill="none" ') 
+      .replace(/<ellipse /g, '<ellipse stroke="black" stroke-width="1" fill="none" ');
 
     return NextResponse.json({
       svg,
       width: width.toFixed(2),
       height: height.toFixed(2),
       aspectRatio: aspectRatio.toFixed(2),
-      contourLength: contourLength.toFixed(2)
+      contourLength: contourLength.toFixed(2),
     });
-  
 
-  }  catch (error) {
+  } catch (error) {
     console.error("DXF İşleme Hatası:", error);
-    
-    return NextResponse.json(
-      { 
-        error: "DXF işleme hatası", 
-        // Cast `error` to `Error` before using `.message`
-        details: (error as Error).message 
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "DXF işleme hatası", details: (error as Error).message }, { status: 500 });
   }
 }

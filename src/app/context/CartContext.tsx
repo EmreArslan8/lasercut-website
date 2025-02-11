@@ -11,6 +11,14 @@ interface CartItem {
   note?: string; // Opsiyonel not
   file?: File; // Dosya eklenebilir
   fileUrl?: string; // Dosya URL'si (opsiyonel)
+  extraServices?: string[];
+  svg?: string;
+  price?: string;
+  dimensions?: {
+    width: string;
+    height: string;
+    unit: "mm" | "inch";
+  }; // ✅ SVG bilgisi eklendi // ✅ Eksik alan eklendi
 }
 
 interface CartContextProps {

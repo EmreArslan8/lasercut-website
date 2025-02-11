@@ -8,7 +8,6 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Button,
 } from "@mui/material";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -70,16 +69,7 @@ const Header = () => {
             </Badge>
             <LanguageSwitcher />
             {/* Hızlı Teklif Butonu */}
-            <Link href="/quote">
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                sx={{ ml: 1 }}
-              >
-                {t("quickQuote")}
-              </Button>
-            </Link>
+          
             <IconButton onClick={toggleMenu}>
               <Icon name="menu" />
             </IconButton>
@@ -121,11 +111,7 @@ const Header = () => {
               </Badge>
               <LanguageSwitcher />
               {/* Hızlı Teklif Butonu */}
-              <Link href="/quote">
-                <Button variant="contained" color="primary">
-                  {t("quickQuote")}
-                </Button>
-              </Link>
+           
             </Box>
           </>
         )}

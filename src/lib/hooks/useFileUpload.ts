@@ -26,6 +26,7 @@ const useFileUpload = (): UseFileUploadReturn => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isDxf, setIsDxf] = useState(false);
   const { cartItems } = useCart();
+  
 
   const uploadFiles = async (
     files: File[],
@@ -95,15 +96,30 @@ const useFileUpload = (): UseFileUploadReturn => {
 
   const handleFileUpload = (files: File[]) => {
     console.log("📥 Dosya yükleme işlemi başladı:", files.map((file) => file.name));
-
-    setUploadedFiles(files);
-
+  
+    // 0 bayt olan dosyaları filtrele
+    const validFiles = files.filter((file) => {
+      if (file.size === 0) {
+        console.warn(`❌ Geçersiz dosya: ${file.name} (Dosya boyutu 0 bayt)`);
+        return false;
+      }
+      return true;
+    });
+  
+    if (validFiles.length === 0) {
+      console.error("🚨 Hiçbir dosya yüklenmedi, tüm dosyalar 0 bayt.");
+      return;
+    }
+  
+    setUploadedFiles(validFiles);
+  
     // DXF kontrolü
-    const hasDxf = files.some((file) => file.name.toLowerCase().endsWith(".dxf"));
+    const hasDxf = validFiles.some((file) => file.name.toLowerCase().endsWith(".dxf"));
     setIsDxf(hasDxf);
-
+  
     console.log(`🔍 DXF kontrolü: ${hasDxf ? "Evet, DXF dosyası var." : "Hayır, DXF dosyası yok."}`);
   };
+  
 
   const clearFiles = () => {
     console.log("🗑️ Yüklenen dosyalar temizlendi.");

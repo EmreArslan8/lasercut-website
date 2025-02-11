@@ -31,10 +31,10 @@ const ProcessSteps = () => {
   ];
 
   return (
-    <Box sx={{ padding: { xs: "16px", sm: "24px", md: "32px" }, backgroundColor: "#f9f9f9", borderRadius: "12px" }}>
+    (<Box sx={{ padding: { xs: "16px", sm: "24px", md: "32px" }, backgroundColor: "#f9f9f9", borderRadius: "12px" }}>
       {isMobile || isTablet ? (
         // Mobil ve Tablet Tasarım
-        <Stack spacing={4}>
+        (<Stack spacing={4}>
           {steps.map((step, index) => (
             <Stack
               key={index}
@@ -70,10 +70,10 @@ const ProcessSteps = () => {
               </Stack>
             </Stack>
           ))}
-        </Stack>
+        </Stack>)
       ) : (
         // Masaüstü Tasarım
-        <Stack direction="row" justifyContent="space-around" alignItems="center" spacing={4}>
+        (<Stack direction="row" justifyContent="space-around" alignItems="center" spacing={4}>
           {steps.map((step, index) => (
             <Stack
               key={index}
@@ -119,9 +119,9 @@ const ProcessSteps = () => {
               )}
             </Stack>
           ))}
-        </Stack>
+        </Stack>)
       )}
-    </Box>
+    </Box>)
   );
 };
 

@@ -20,7 +20,6 @@ const styles = {
   drawer: {
     width: "100vw",
     height: "100%",
-    p: 3,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

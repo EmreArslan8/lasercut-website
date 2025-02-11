@@ -43,8 +43,14 @@
     "uploadedDescription": "Dosyalarınızı buraya sürükleyebilir veya tıklayarak yükleyebilirsiniz.",
     "dropFilesHere": "Dosyaları buraya bırakın",
     "dragAndDropDescription": "Sürükle ve bırak ile hızlı yükleme yapabilirsiniz.",
-    "invalidFileFormat": "Geçersiz dosya formatı: {fileName}"
+    "invalidFileFormat": "Geçersiz dosya formatı: {fileName}",
+    "steps": {
+      "dimensions": "Ölçüler",
+      "materialSelection": "Malzeme Seçimi",
+      "additionalServices": "Ek Hizmetler"
+    }
   },
+
   "ProcessSteps": {
     "step1": {
       "title": "Teklif alın",
@@ -121,9 +127,7 @@
     "enterColor": "Renk..",
     "requiredField": "Boş Bırakılamaz",
     "materials": {
-      "1050": "Aluminum 1050",
-      "5754": "Aluminum 5754 / 3.3535 / AlMg3",
-      "GalvanizliSac": "Steel Galvanized Sheet",
+      "Aluminum": "Aluminum",
       "SiyahSac": "Steel Black Sheet",
       "DC01": "Steel DC01 / 6112 / C (DKP)",
       "ST37": "Steel ST37-K / S235JR / 1.0038",
@@ -133,8 +137,8 @@
   },
   "MaterialCardList": {
     "materials": {
-      "1050": "Alüminyum",
-      "1050_description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır.",
+      "Aluminum": "Alüminyum",
+      "Aluminum_description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır.",
       "SiyahSac": "Çelik Siyah Sac",
       "SiyahSac_description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
       "DC01": "Çelik DC01 / 6112 / C (DKP)",
@@ -145,7 +149,8 @@
       "Paslanmaz304_description": "Yüksek korozyon direnci sunar ve mutfak ekipmanları ile medikal araçlarda kullanılır.",
       "Paslanmaz316L": "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
       "Paslanmaz316L_description": "Deniz ortamlarında ve kimyasal dayanıklılık gerektiren alanlarda üstün korozyon direnci sunar."
-    }
+    },
+    "materialSelection": "Material Selection"
   },
   "CartPage": {
     "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
@@ -161,7 +166,17 @@
     "placeOrder": "Sipariş Ver",
     "clearCart": "sepeti temizle",
     "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
-    "goToHomePageButton": "Ürün Ekle"
+    "goToHomePageButton": "Ürün Ekle",
+    "orderSummary": "Sipariş Özeti",
+    "totalProducts": "Toplam Ürün",
+    "totalAmount": "Ödenecek Tutar (KDV Dahil)",
+    "termsAndConditions": "Kullanım Koşulları ve Üyelik Sözleşmesi okudum ve kabul ediyorum",
+    "checkout": "Devam et",
+    "removeButton": "SİL",
+    "extraServices": "Ek Hizmet",
+    "itemPrice": "Fiyat",
+    "total": "Toplam",
+    "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum."
   },
   "WpButton": {
     "buttonText": " WhatsApp Destek"
@@ -189,52 +204,49 @@
   },
 
   "faqPage": {
-    
-      "title": "Sıkça Sorulan Sorular",
-      "faqs": [
-        {
-          "question": "Hangi hizmetleri sunuyorsunuz?",
-          "answer": "Endüstriyel ve yaratıcı ihtiyaçlar için hassas kesim ve metal işleme hizmetleri sunuyoruz."
-        },
-        {
-          "question": "Siparişi nasıl verebilirim?",
-          "answer": "Web sitemiz üzerinden sipariş verebilir veya bize e-posta ya da telefon yoluyla doğrudan ulaşabilirsiniz."
-        },
-        {
-          "question": "Özel tasarımlar yapıyor musunuz?",
-          "answer": "Evet, gereksinimlerinize göre özel tasarımlar yapma konusunda uzmanız."
-        },
-        {
-          "question": "Tahmini teslimat süresi nedir?",
-          "answer": "Teslimat süresi projeye bağlıdır, ancak çoğu siparişi 5-10 iş günü içinde tamamlamayı hedefliyoruz."
-        },
-        {
-          "question": "Büyük ölçekli endüstriyel projeleri yönetebilir misiniz?",
-          "answer": "Kesinlikle. Hem küçük hem de büyük ölçekli projeleri hassasiyetle yönetme kapasitesine sahibiz."
-        },
-        {
-          "question": "Hangi malzemeler üzerinde çalışıyorsunuz?",
-          "answer": "Alüminyum, paslanmaz çelik, siyah sac ve galvanizli sac gibi çeşitli metaller üzerinde çalışıyoruz."
-        },
-        {
-          "question": "Minimum sipariş miktarınız nedir?",
-          "answer": "Minimum sipariş miktarı projenin türüne bağlıdır, ancak genellikle düşük hacimli siparişler için de esnekiz."
-        },
-        {
-          "question": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
-          "answer": "Kredi kartı, banka havalesi ve bazı durumlarda nakit ödeme kabul ediyoruz."
-        },
-        {
-          "question": "Hangi bölgelerde hizmet veriyorsunuz?",
-          "answer": "Ulusal ve uluslararası müşterilere hizmet veriyoruz. Teslimat seçenekleri bölgeye göre değişiklik gösterebilir."
-        },
-        {
-          "question": "Örnek bir iş veya test çalışması talep edebilir miyim?",
-          "answer": "Evet, proje başlamadan önce test çalışması veya örnek bir iş talep edebilirsiniz."
-        }
-      ]
-    
-    
+    "title": "Sıkça Sorulan Sorular",
+    "faqs": [
+      {
+        "question": "Hangi hizmetleri sunuyorsunuz?",
+        "answer": "Endüstriyel ve yaratıcı ihtiyaçlar için hassas kesim ve metal işleme hizmetleri sunuyoruz."
+      },
+      {
+        "question": "Siparişi nasıl verebilirim?",
+        "answer": "Web sitemiz üzerinden sipariş verebilir veya bize e-posta ya da telefon yoluyla doğrudan ulaşabilirsiniz."
+      },
+      {
+        "question": "Özel tasarımlar yapıyor musunuz?",
+        "answer": "Evet, gereksinimlerinize göre özel tasarımlar yapma konusunda uzmanız."
+      },
+      {
+        "question": "Tahmini teslimat süresi nedir?",
+        "answer": "Teslimat süresi projeye bağlıdır, ancak çoğu siparişi 5-10 iş günü içinde tamamlamayı hedefliyoruz."
+      },
+      {
+        "question": "Büyük ölçekli endüstriyel projeleri yönetebilir misiniz?",
+        "answer": "Kesinlikle. Hem küçük hem de büyük ölçekli projeleri hassasiyetle yönetme kapasitesine sahibiz."
+      },
+      {
+        "question": "Hangi malzemeler üzerinde çalışıyorsunuz?",
+        "answer": "Alüminyum, paslanmaz çelik, siyah sac ve galvanizli sac gibi çeşitli metaller üzerinde çalışıyoruz."
+      },
+      {
+        "question": "Minimum sipariş miktarınız nedir?",
+        "answer": "Minimum sipariş miktarı projenin türüne bağlıdır, ancak genellikle düşük hacimli siparişler için de esnekiz."
+      },
+      {
+        "question": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+        "answer": "Kredi kartı, banka havalesi ve bazı durumlarda nakit ödeme kabul ediyoruz."
+      },
+      {
+        "question": "Hangi bölgelerde hizmet veriyorsunuz?",
+        "answer": "Ulusal ve uluslararası müşterilere hizmet veriyoruz. Teslimat seçenekleri bölgeye göre değişiklik gösterebilir."
+      },
+      {
+        "question": "Örnek bir iş veya test çalışması talep edebilir miyim?",
+        "answer": "Evet, proje başlamadan önce test çalışması veya örnek bir iş talep edebilirsiniz."
+      }
+    ]
   },
   "contactPage": {
     "title": "Bize Ulaşın",
@@ -262,6 +274,76 @@
     "confirmTitle": "Parçanızın Boyutlarını Onaylayın",
     "confirmMessage": "Parçanızın {width} {unit} x {height} {unit} boyutlarında olduğunu onayladınız.",
     "cancel": "İptal",
-     "confirmButton": "Onaylıyorum"
+    "confirmButton": "Onaylıyorum"
+  },
+  "Step2": {
+    "materialSelection": "Üretim Detayları: Malzeme, Kalınlık ve Adet Seçimi",
+    "materialSelectionDesc": "Lütfen üretim detaylarınızı belirleyin: Malzeme türünü, kalınlığını ve adet sayısını seçerek devam edin.",
+    "selectedMaterial": "Malzeme Seçildi: ",
+    "selectMaterial": "Malzeme Seçimi",
+    "selectedThickness": "Kalınlık Seçildi: ",
+    "selectThickness": "Kalınlık Seçimi",
+    "selectedQuantity": "Seçilen Adet: ",
+    "selectQuantity": "Adet Seçimi",
+    "noteTitle": "Ürününüz için eklemek istediğiniz detaylar varsa buraya yazabilirsiniz.",
+    "additionalNotes": "Ek Notlar (Opsiyonel)",
+    "back": "Geri",
+    "next": "İleri",
+    "materials": [
+      {
+        "name": "Alüminyum",
+        "image": "/static/images/aluminum.jpg",
+        "description": "Hafif ve dayanıklı"
+      },
+      {
+        "name": "DKP Çelik",
+        "image": "/static/images/steel_dkp.jpg",
+        "description": "Şekillendirmeye uygun"
+      },
+      {
+        "name": "ST37-K / S235JR",
+        "image": "/static/images/steel_st37.jpeg",
+        "description": "Yapı çeliği"
+      },
+      {
+        "name": "Paslanmaz Çelik 304",
+        "image": "/static/images/stainless_304.jpg",
+        "description": "Gıda ve medikal kullanım"
+      },
+      {
+        "name": "Paslanmaz Çelik 316L",
+        "image": "/static/images/stainless_316.jpg",
+        "description": "Kimyasal ve tuzlu suya dayanıklı"
+      }
+    ]
+  },
+
+  "Step3": {
+    "title": "Ek Hizmetler",
+    "description": "Aşağıdan ek hizmetleri seçebilirsiniz. Boya için özel renk girişi yapabilirsiniz.",
+    "extraServices": [
+      { "name": "Kaynak", "description": "Metal parçaları birleştirme işlemi" },
+      { "name": "Büküm", "description": "Sac veya metal parçaların bükülmesi" },
+      {
+        "name": "Boya",
+        "description": "Renk kaplama işlemi (Özel Renk Girişi Yapılabilir)"
+      }
+    ],
+    "colorSelection": "Boya Rengi Seçin veya Girin:",
+    "selectColor": "Boya Rengi Seçin",
+    "black": "Siyah",
+    "red": "Kırmızı",
+    "blue": "Mavi",
+    "customColor": "Özel Renk",
+    "buttons": {
+      "back": "Geri",
+      "confirm": "Siparişi Tamamla"
+    },
+    "modal": {
+      "title": "Ürün Sepete Eklendi",
+      "description": "Alışverişe devam edebilir veya siparişinizi tamamlamak için sepete gidebilirsiniz.",
+      "goHome": "Ana Sayfaya Git",
+      "goCart": "Sepete Git"
+    }
   }
 }

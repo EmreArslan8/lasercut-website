@@ -2,13 +2,13 @@
 
 import React, { useState, useMemo } from "react";
 import {
-  Drawer,
   Box,
   Typography,
   Select,
   MenuItem,
   TextField,
   Button,
+  Stack,
 } from "@mui/material";
 
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -16,10 +16,8 @@ import { useCart } from "../context/CartContext";
 import { useRouter } from "next/navigation";
 import useScreen from "@/lib/hooks/useScreen";
 import { useLocale, useTranslations } from "next-intl";
-import Image from "next/image";
 import MaterialCardList from "./MaterialCarousel";
 import theme from "@/theme/theme";
-import Icon from "./Icon";
 import capitalize from "@/utils/capitalize";
 
 interface DisplayFilesProps {
@@ -37,9 +35,9 @@ interface DisplayFilesProps {
   ) => void;
 }
 
-const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
+const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
   const { setCartItems } = useCart();
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [, setDrawerOpen] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState("SiyahSac");
   const [thickness, setThickness] = useState("1");
   const [quantity, setQuantity] = useState("1");
@@ -59,9 +57,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
 
   const materials = useMemo(
     () => [
-      { value: "1050", label: t("materials.1050") }, // Aluminum 1050
-      { value: "5754", label: t("materials.5754") }, // Aluminum 5754 / 3.3535 / AlMg3
-      { value: "GalvanizliSac", label: t("materials.GalvanizliSac") }, // Steel Galvanized Sheet
+      { value: "Aluminum", label: t("materials.Aluminum") },
       { value: "SiyahSac", label: t("materials.SiyahSac") }, // Steel Black Sheet
       { value: "DC01", label: t("materials.DC01") }, // Steel DC01 / 6112 / C (DKP)
       { value: "ST37", label: t("materials.ST37") }, // Steel ST37-K / S235JR / 1.0038
@@ -120,11 +116,8 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
   };
 
   return (
-    <Box
-    
-    >
-      <Box
-        sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
+    <Stack>
+      <Box sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
           <InsertDriveFileIcon sx={{ fontSize: 40 }} />
@@ -182,15 +175,17 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
                 fullWidth
                 error={errors.thickness}
                 helperText={errors.thickness ? t("requiredField") : ""}
-                InputProps={{
-                  endAdornment: (
-                    <Typography
-                      variant="subtitle2"
-                      sx={{ ml: 1, color: theme.palette.text.secondary }}
-                    >
-                      mm
-                    </Typography>
-                  ),
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ ml: 1, color: theme.palette.text.secondary }}
+                      >
+                        mm
+                      </Typography>
+                    ),
+                  }
                 }}
               />
             </Box>
@@ -287,7 +282,6 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
           {t("addToCart")}
         </Button>
       </Box>
-
       {!isSmallScreen && (
         <Box
           sx={{
@@ -303,7 +297,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, onClose }) => {
           />
         </Box>
       )}
-    </Box>
+    </Stack>
   );
 };
 

@@ -34,10 +34,13 @@ export async function POST(req: Request) {
     console.log("✅ E-posta gönderildi:", info);
 
     return NextResponse.json({ message: "Email sent successfully!" });
-  } catch (error: any) {
-    console.error("🚨 API Hatası:", error.message, error.stack);
+  } catch (error: unknown) {
+    console.error("🚨 API Hatası:", 
+      error instanceof Error ? error.message : 'Unknown error',
+      error instanceof Error ? error.stack : ''
+    );
     return NextResponse.json(
-      { error: `Failed to send email: ${error.message}` },
+      { error: `Failed to send email: ${error instanceof Error ? error.message : 'Unknown error'}` },
       { status: 500 }
     );
   }

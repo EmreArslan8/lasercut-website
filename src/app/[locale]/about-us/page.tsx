@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const AboutUs = () => {
@@ -20,8 +20,8 @@ const AboutUs = () => {
       </Typography>
 
       {/* Hakkımızda Bölümü */}
-      <Grid container spacing={6}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={6}>
+        <Grid2 size= {{xs:12}}>
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -44,12 +44,12 @@ const AboutUs = () => {
             sx={{ mt: 2, textAlign: { xs: "justify", sm: "left" } }}
             dangerouslySetInnerHTML={{ __html: t("aboutUsText2") }}
           />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
 
       {/* Yaklaşımımız Bölümü */}
-      <Grid container spacing={6} sx={{ mt: 8 }}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={6} sx={{ mt: 8 }}>
+      <Grid2 size= {{xs:12}}>
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -74,8 +74,8 @@ const AboutUs = () => {
           >
             {t("approachText2")}
           </Typography>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };
