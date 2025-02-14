@@ -30,7 +30,7 @@ const MobileCart = () => {
     setSuccessOpen
   );
   const t = useTranslations("CartPage");
-  const locale = useLocale(); // Locale bilgisini al
+  const locale = useLocale(); 
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
 
