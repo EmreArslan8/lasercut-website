@@ -23,7 +23,7 @@ const DXFStepper = ({
   file: File;
 }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const { addToCart, cartItems } = useCart();
+  const { addToCart} = useCart();
   const t = useTranslations("File");
   const [priceTL, setPriceTL] = useState<string>("0.00");
   const [priceUSD, setPriceUSD] = useState<string>("0.00");

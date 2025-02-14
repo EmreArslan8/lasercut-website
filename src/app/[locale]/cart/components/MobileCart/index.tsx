@@ -79,8 +79,7 @@ const MobileCart = () => {
       ) : (
         <List sx={{ mt: 2 }}>
           {cartItems.map((item, index) => {
-            const priceUSD = item.priceUSD ?? 0; // Fallback to 0 if priceUSD is undefined
-            const priceTL = item.priceTL ?? 0; // Fallback to 0 if priceTL is undefined
+
 
             return (
               <Card key={index} sx={styles.cartCard}>

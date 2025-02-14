@@ -38,14 +38,13 @@ const DesktopCart = () => {
     setSuccessOpen
   );
 
-  const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
 
-  const [loading, setLoading] = useState(false);
+  const [loading, ] = useState(false);
 
   const handleCheckout = async () => {
     try {
