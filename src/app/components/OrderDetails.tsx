@@ -93,6 +93,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
       ? `painted ${capitalize(coating.replace("painted ", ""))}`
       : coating;
 
+      
+
+
     const newCartItem = {
       fileName: files[selectedFileIndex]?.name || t("noFileName"),
       file: files[selectedFileIndex],

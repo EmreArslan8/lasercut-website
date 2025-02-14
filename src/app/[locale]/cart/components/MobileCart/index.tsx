@@ -34,7 +34,6 @@ const MobileCart = () => {
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
 
-  const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
@@ -58,6 +57,52 @@ const MobileCart = () => {
           : item
       )
     );
+  };
+  
+
+  const handleCheckout = async () => {
+    try {
+      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+
+      const lineItems = selectedCartItems.map((item) => ({
+        title: item.fileName,
+        quantity: item.quantity,
+        price: isNaN(Number(item.priceTL))
+          ? "0.00"
+          : Number(item.priceUSD).toFixed(2),
+        properties: [
+          { name: "Material", value: item.material },
+          { name: "Thickness", value: `${item.thickness} mm` },
+          ...(item.extraServices && item.extraServices.length > 0
+            ? item.extraServices.map((service) => ({
+                name: "Extra Service",
+                value: service,
+              }))
+            : []),
+        ],
+      }));
+
+      console.log("🟡 Gönderilecek lineItems:", lineItems);
+
+      const response = await fetch("/api/shopify/createDraftOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lineItems }),
+      });
+
+      const data = await response.json();
+
+      console.log("🟢 Shopify API Frontend Yanıtı:", data);
+
+      if (data.checkoutUrl) {
+        console.log("✅ Yönlendiriliyor:", data.checkoutUrl);
+        window.location.href = data.checkoutUrl;
+      } else {
+        console.error("🔴 Ödeme URL alınamadı. Shopify API Yanıtı:", data);
+      }
+    } catch (error) {
+      console.error("🔴 Sipariş oluştururken beklenmedik hata oluştu:", error);
+    }
   };
 
   return (
@@ -188,22 +233,34 @@ const MobileCart = () => {
                 {/* Ürün Fiyatı - Sağ Alt */}
                 <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
                   <Box>
-                    <Typography variant="h6">
-                      {t("itemPrice")}:
-                      {locale === "en"
-                        ? typeof item.priceUSD === "string" &&
-                          isNaN(Number(item.priceUSD))
-                          ? item.priceUSD
-                          : `$${(Number(item.priceUSD) * item.quantity).toFixed(
-                              2
-                            )} USD`
-                        : typeof item.priceTL === "string" &&
-                          isNaN(Number(item.priceTL))
-                        ? item.priceTL
-                        : `${(Number(item.priceTL) * item.quantity).toFixed(
-                            2
-                          )} TL`}
-                    </Typography>
+                  <Typography variant="h3">
+                          {t("itemPrice")}:
+                          {locale === "en"
+                            ? item.priceUSD === "pending" ||
+                              item.priceUSD ===
+                                "Fiyat bilgisi siparişten sonra verilecek"
+                              ? t("pricePending")
+                              : `$${
+                                  Number(item.priceUSD) &&
+                                  !isNaN(Number(item.priceUSD))
+                                    ? (
+                                        Number(item.priceUSD) * item.quantity
+                                      ).toFixed(2)
+                                    : "0.00"
+                                } USD`
+                            : item.priceTL === "pending" ||
+                              item.priceTL ===
+                                "Fiyat bilgisi siparişten sonra verilecek"
+                            ? t("pricePending")
+                            : `${
+                                Number(item.priceTL) &&
+                                !isNaN(Number(item.priceTL))
+                                  ? (
+                                      Number(item.priceTL) * item.quantity
+                                    ).toFixed(2)
+                                  : "0.00"
+                              } TL`}
+                        </Typography>
                   </Box>
                 </Stack>
               </Card>
@@ -212,28 +269,43 @@ const MobileCart = () => {
         </List>
       )}
 {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
+{cartItems.length > 0 && (
 <Box sx={{ mt: 3, textAlign: "right" }}>
-  <Typography variant="h6" fontWeight="bold">
-    {t("totalAmount")}:
-    {selectedItems.length > 0
-      ? locale === "en"
-        ? `$${selectedItems
-            .reduce(
-              (sum, index) => sum + (Number(cartItems[index]?.priceUSD) || 0) * cartItems[index]?.quantity,
-              0
-            )
-            .toFixed(2)} USD`
-        : `${selectedItems
-            .reduce(
-              (sum, index) => sum + (Number(cartItems[index]?.priceTL) || 0) * cartItems[index]?.quantity,
-              0
-            )
-            .toFixed(2)} TL`
-      : ""}
-  </Typography>
-</Box>
+<Typography variant="h6" fontWeight="bold">
+  {t("totalAmount")}:
+  {selectedItems.length > 0
+    ? selectedItems.some(
+        (index) =>
+          cartItems[index]?.priceUSD === "pending" ||
+          cartItems[index]?.priceUSD === "Fiyat bilgisi siparişten sonra verilecek"
+      )
+      ? t("pricePending")
+      : locale === "en"
+      ? `$${selectedItems
+          .reduce(
+            (sum, index) =>
+              sum +
+              (Number(cartItems[index]?.priceUSD) || 0) *
+                cartItems[index]?.quantity,
+            0
+          )
+          .toFixed(2)} USD`
+      : `${selectedItems
+          .reduce(
+            (sum, index) =>
+              sum +
+              (Number(cartItems[index]?.priceTL) || 0) *
+                cartItems[index]?.quantity,
+            0
+          )
+          .toFixed(2)} TL`
+    : ""}
+</Typography>
 
-{/* Sepeti Temizle ve Sipariş Tamamla Butonları (Her Zaman Gösterilecek) */}
+</Box>
+)}
+
+{cartItems.length > 0 && (
 <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
   <Button variant="contained" color="secondary" onClick={clearCart}>
     {t("clearCart")}
@@ -241,13 +313,13 @@ const MobileCart = () => {
   <Button
     variant="contained"
     color="primary"
-    onClick={handleOpenModal}
+    onClick={handleCheckout}
     disabled={selectedItems.length === 0}
   >
     {t("placeOrder")}
   </Button>
 </Stack>
-
+)}
 
 
       {/* Modal ve Başarı Bildirimi */}

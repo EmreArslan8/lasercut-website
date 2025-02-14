@@ -43,39 +43,54 @@ const DesktopCart = () => {
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
-
-  const [loading, ] = useState(false);
-
+  console.log(
+    "🔄 Toplam Fiyat Kontrol - Seçili Ürünler:",
+    selectedItems.map((i) => cartItems[i])
+  );
   const handleCheckout = async () => {
     try {
-      const response = await fetch('/api/shopify/createDraftOrder', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          productName: '1737042130779_CORPO_QUADRADO',
-          quantity: 1,
-          price: 1.29,
-          customDetails: {
-            Material: 'Aluminum',
-            Thickness: '1.5 mm',
-            'Extra Services': 'None',
-          },
-        }),
+      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+
+      const lineItems = selectedCartItems.map((item) => ({
+        title: item.fileName,
+        quantity: item.quantity,
+        price: isNaN(Number(item.priceTL))
+          ? "0.00"
+          : Number(item.priceUSD).toFixed(2),
+        properties: [
+          { name: "Material", value: item.material },
+          { name: "Thickness", value: `${item.thickness} mm` },
+          ...(item.extraServices && item.extraServices.length > 0
+            ? item.extraServices.map((service) => ({
+                name: "Extra Service",
+                value: service,
+              }))
+            : []),
+        ],
+      }));
+
+      console.log("🟡 Gönderilecek lineItems:", lineItems);
+
+      const response = await fetch("/api/shopify/createDraftOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lineItems }),
       });
-  
+
       const data = await response.json();
-      console.log('Frontend - API Response:', data);
-  
+
+      console.log("🟢 Shopify API Frontend Yanıtı:", data);
+
       if (data.checkoutUrl) {
+        console.log("✅ Yönlendiriliyor:", data.checkoutUrl);
         window.location.href = data.checkoutUrl;
       } else {
-        console.error('Frontend - Ödeme URL alınamadı:', data);
+        console.error("🔴 Ödeme URL alınamadı. Shopify API Yanıtı:", data);
       }
     } catch (error) {
-      console.error('Frontend - Sipariş oluştururken hata oluştu:', error);
+      console.error("🔴 Sipariş oluştururken beklenmedik hata oluştu:", error);
     }
   };
-  
 
   return (
     <Stack sx={styles.cartContainer}>
@@ -161,22 +176,33 @@ const DesktopCart = () => {
                         <Typography sx={styles.textSecondary}>
                           {t("quantity")}: {item.quantity}
                         </Typography>
-
-                        <Typography variant="h6">
+                        <Typography variant="h3">
                           {t("itemPrice")}:
                           {locale === "en"
-                            ? typeof item.priceUSD === "string" &&
-                              isNaN(Number(item.priceUSD))
-                              ? item.priceUSD
-                              : `$${(
-                                  Number(item.priceUSD) * item.quantity
-                                ).toFixed(2)} USD`
-                            : typeof item.priceTL === "string" &&
-                              isNaN(Number(item.priceTL))
-                            ? item.priceTL
-                            : `${(Number(item.priceTL) * item.quantity).toFixed(
-                                2
-                              )} TL`}
+                            ? item.priceUSD === "pending" ||
+                              item.priceUSD ===
+                                "Fiyat bilgisi siparişten sonra verilecek"
+                              ? t("pricePending")
+                              : `$${
+                                  Number(item.priceUSD) &&
+                                  !isNaN(Number(item.priceUSD))
+                                    ? (
+                                        Number(item.priceUSD) * item.quantity
+                                      ).toFixed(2)
+                                    : "0.00"
+                                } USD`
+                            : item.priceTL === "pending" ||
+                              item.priceTL ===
+                                "Fiyat bilgisi siparişten sonra verilecek"
+                            ? t("pricePending")
+                            : `${
+                                Number(item.priceTL) &&
+                                !isNaN(Number(item.priceTL))
+                                  ? (
+                                      Number(item.priceTL) * item.quantity
+                                    ).toFixed(2)
+                                  : "0.00"
+                              } TL`}
                         </Typography>
                       </Box>
 
@@ -200,59 +226,69 @@ const DesktopCart = () => {
             </Box>
           </Grid2>
 
-         {/* Sipariş Özeti (Her Zaman Gösterilecek) */}
-{cartItems.length > 0 && (
-  <Grid2 size={{ xs: 12, md: 4 }} sx={{ bgcolor: theme.palette.grey[100] }}>
-    <Box sx={styles.summaryBox}>
-      <Typography sx={styles.summaryText}>
-        {t("total")}: {cartItems.length} {t("cartTitle2")}
-      </Typography>
+          {/* Sipariş Özeti (Her Zaman Gösterilecek) */}
+          {cartItems.length > 0 && (
+            <Grid2
+              size={{ xs: 12, md: 4 }}
+              sx={{ bgcolor: theme.palette.grey[100] }}
+            >
+              <Box sx={styles.summaryBox}>
+                <Typography sx={styles.summaryText}>
+                  {t("total")}: {cartItems.length} {t("cartTitle2")}
+                </Typography>
 
-      {/* ✅ Toplam Fiyat Hesaplama (Sadece Seçili Ürünler) */}
-      <Typography sx={styles.totalPrice}>
-      {t("totalAmount")}:
-        {selectedItems.length > 0
-          ? locale === "en"
-            ? `$${selectedItems
-                .reduce(
-                  (sum, index) =>
-                    sum +
-                    (Number(cartItems[index]?.priceUSD) || 0) *
-                      cartItems[index]?.quantity,
-                  0
-                )
-                .toFixed(2)} USD`
-            : `${selectedItems
-                .reduce(
-                  (sum, index) =>
-                    sum +
-                    (Number(cartItems[index]?.priceTL) || 0) *
-                      cartItems[index]?.quantity,
-                  0
-                )
-                .toFixed(2)} TL`
-          : ""}
-      </Typography>
+                <Typography sx={styles.totalPrice}>
+  {t("totalAmount")}:
+  {selectedItems.length > 0
+    ? selectedItems.some(
+        (index) =>
+          cartItems[index]?.priceUSD === "pending" ||
+          cartItems[index]?.priceUSD === "Fiyat bilgisi siparişten sonra verilecek"
+      )
+      ? t("pricePending")
+      : locale === "en"
+      ? `$${selectedItems
+          .reduce(
+            (sum, index) =>
+              sum +
+              (Number(cartItems[index]?.priceUSD) || 0) *
+                cartItems[index]?.quantity,
+            0
+          )
+          .toFixed(2)} USD`
+      : `${selectedItems
+          .reduce(
+            (sum, index) =>
+              sum +
+              (Number(cartItems[index]?.priceTL) || 0) *
+                cartItems[index]?.quantity,
+            0
+          )
+          .toFixed(2)} TL`
+    : ""}
+</Typography>
 
-      <Stack direction="row" alignItems="center" sx={styles.terms}>
-        <Checkbox color="primary" />
-        <Typography sx={styles.termsText}>{t("policyText")}</Typography>
-      </Stack>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleCheckout}
-        fullWidth
-        sx={styles.checkoutButton}
-        disabled={selectedItems.length === 0}
-      >
-        {t("placeOrder")} {loading ? 'Yükleniyor...' : 'Sepete Ekle & Ödeme Yap'}
-      </Button>
-    </Box>
-  </Grid2>
-)}
+                <Stack direction="row" alignItems="center" sx={styles.terms}>
+                  <Checkbox color="primary" />
+                  <Typography sx={styles.termsText}>
+                    {t("policyText")}
+                  </Typography>
+                </Stack>
 
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleCheckout}
+                  fullWidth
+                  sx={styles.checkoutButton}
+                  disabled={selectedItems.length === 0}
+                >
+                  {t("placeOrder")}
+                </Button>
+              </Box>
+            </Grid2>
+          )}
         </Grid2>
       )}
 

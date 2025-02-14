@@ -53,9 +53,6 @@ const FileUploadDrawer = ({
   const uploadedFile = files.length > 0 ? files[0] : null;
   const isLoading = uploadedFile && (loadingSvg || (dxfFile && !svgData));
 
-  // **Dosya adını belli bir uzunluğa kısalt**
-
-
   return (
     <Drawer
       anchor="top"
@@ -72,9 +69,9 @@ const FileUploadDrawer = ({
               <Typography sx={{ mb: 1, fontSize: "1.2rem", fontWeight: 500 }}>
                 {truncateText(uploadedFile.name)}
               </Typography>
-              <Typography sx={{ color: "#666" }}>Analiz Ediliyor...</Typography>
+              <Typography sx={{ color: "#666" }}>{t("analyzing")}</Typography>
               <Typography sx={{ mt: 1, fontWeight: 500 }}>
-                Lütfen bekleyin...
+              {t("loading")}
               </Typography>
               <LinearProgress sx={{ width: "80%", mt: 2 }} />
             </Stack>
@@ -84,7 +81,7 @@ const FileUploadDrawer = ({
               width={svgData?.width || ""}
               height={svgData?.height || ""}
               fileName={uploadedFile.name}
-              file={uploadedFile} 
+              file={uploadedFile} // ✅ Dosya bilgisini ekle
             />
           ) : (
             <OrderDetails files={files} onClose={onClose} />

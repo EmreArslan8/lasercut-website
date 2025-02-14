@@ -37,6 +37,8 @@
     "uploadedFiles": "Uploaded Files",
     "addFile": "Upload File",
     "getQuote": "Get Quote",
+    "analyzing": "Analyzing...",
+    "loading": "Please wait for it",
     "secureUploads": "All uploads are secure and confidential.",
     "invalidFileFormat": "Invalid file format: {fileName}",
     "steps": {
@@ -172,10 +174,12 @@
     "removeButton": "REMOVE",
     "extraServices": "Extra Services",
     "itemPrice": "Item total",
+"pricePending": "Price to be confirmed after order.",
     "total": "Total",
     "totalPrice": "Total",
   "totalPriceTL": "Total (TL)",
   "totalPriceUSD": "Total (USD)",
+
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "extraServicesList": {
       "welding": "Welding",
@@ -387,6 +391,11 @@
       "goHome": "Go to Home",
       "goCart": "Go to Cart"
     }
+  },
+  "calculatePrice": {
+    "priceTL": "Price information will be given after ordering", 
+    "priceUSD": "Price information will be given after ordering" 
   }
+ 
   
 }

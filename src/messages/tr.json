@@ -44,6 +44,8 @@
     "dropFilesHere": "Dosyaları buraya bırakın",
     "dragAndDropDescription": "Sürükle ve bırak ile hızlı yükleme yapabilirsiniz.",
     "invalidFileFormat": "Geçersiz dosya formatı: {fileName}",
+    "analyzing": "Analiz Ediliyor...",
+    "loading": "Lütfen bekleyin",
     "steps": {
       "dimensions": "Ölçüler",
       "materialSelection": "Malzeme Seçimi",
@@ -176,6 +178,7 @@
     "extraServices": "Ek Hizmet",
     "itemPrice": "Fiyat",
     "total": "Toplam",
+    "pricePending": "Fiyat bilgisi siparişten sonra verilecektir.",
     "totalPrice": "Toplam Fiyat",
     "totalPriceTL": "Toplam Fiyat (TL)",
     "totalPriceUSD": "Toplam Fiyat (USD)",
@@ -402,5 +405,10 @@
       "goHome": "Ana Sayfaya Git",
       "goCart": "Sepete Git"
     }
+  },
+  "calculatePrice": {
+    "priceTL": "Price information will be given after ordering", 
+    "priceUSD": "Price information will be given after ordering" 
   }
+ 
 }
