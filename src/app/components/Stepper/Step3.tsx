@@ -33,6 +33,7 @@ const Step3 = ({
   const t = useTranslations("Step3");
 
   const extraServices = t.raw("extraServices") as {
+    key: string;
     name: string;
     description: string;
   }[];
@@ -41,20 +42,25 @@ const Step3 = ({
   const [customColor, setCustomColor] = useState<string>("");
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleServiceToggle = (serviceName: string) => {
-    const updatedServices = selectedServices.includes(serviceName)
-      ? selectedServices.filter((s) => s !== serviceName)
-      : [...selectedServices, serviceName];
-
+  const handleServiceToggle = (serviceKey: string) => {
+    const updatedServices = selectedServices.includes(serviceKey)
+      ? selectedServices.filter((s) => s !== serviceKey)
+      : [...selectedServices, serviceKey];
+  
     setSelectedServices(updatedServices);
     dispatch({ extraServices: updatedServices });
-
-    if (serviceName === extraServices[2]?.name) {
-      // Boya (Painting) için özel işlem
+  
+    // Eğer Boya (painting) seçilmişse, özel renk alanlarını sıfırla
+    if (serviceKey === "painting") {
       setSelectedColor("");
       setCustomColor("");
     }
+  
+    console.log("✅ Seçilen Ek Hizmetler (Key Bazlı):", updatedServices);
   };
+  
+  
+
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -89,7 +95,7 @@ const Step3 = ({
 
       <Grid2 container spacing={4}>
         {/* 📌 DXF Önizleme */}
-        <Grid2 size={{xs:6}} sx={{ textAlign: "center" }}>
+        <Grid2 size={{xs:12, md:6}} sx={{ textAlign: "center" }}>
           <Box sx={{ border: "1px solid #ccc", p: 2, borderRadius: "8px" }}>
             <div
               dangerouslySetInnerHTML={{ __html: svg }}
@@ -99,39 +105,39 @@ const Step3 = ({
         </Grid2>
 
         {/* 📌 Ek Hizmet Seçimi */}
-        <Grid2 size={{xs:6}}>
+        <Grid2 size={{xs:12, md: 6}}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            {extraServices.map((service: { name: string }) => (
+          {extraServices.map((service: { key: string; name: string }) => (
               <Paper
-                key={service.name}
+                key={service.key}
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   p: 2,
                   borderRadius: "12px",
-                  border: selectedServices.includes(service.name)
+                  border: selectedServices.includes(service.key)
                     ? "2px solid #1976D2"
                     : "1px solid #ddd",
-                  backgroundColor: selectedServices.includes(service.name)
+                  backgroundColor: selectedServices.includes(service.key)
                     ? "#E3F2FD"
                     : "transparent",
                   cursor: "pointer",
                   transition: "0.3s",
                 }}
-                onClick={() => handleServiceToggle(service.name)}
+                onClick={() => handleServiceToggle(service.key)}
               >
                 <Typography
                   variant="body1"
                   fontWeight="bold"
                   color={
-                    selectedServices.includes(service.name) ? "#1976D2" : "#000"
+                    selectedServices.includes(service.key) ? "#1976D2" : "#000"
                   }
                 >
                   {service.name}
                 </Typography>
                 <Checkbox
-                  checked={selectedServices.includes(service.name)}
+                  checked={selectedServices.includes(service.key)}
                   color="primary"
                 />
               </Paper>
@@ -139,7 +145,7 @@ const Step3 = ({
 
             {/* 🟢 Boya Seçilirse Renk Girişi */}
 
-            {selectedServices.includes(extraServices[2]?.name) && (
+            {selectedServices.includes(extraServices[2]?.key) && (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="body2" sx={{ mb: 1 }}>
                   {t("colorSelection")}
@@ -181,7 +187,7 @@ const Step3 = ({
         <Button variant="outlined" onClick={onBack}>
           {t("buttons.back")}
         </Button>
-        <Button variant="contained" color="primary" onClick={() => {
+      <Button variant="contained" color="primary" onClick={() => {
     onConfirm(); // Dışarıdan gelen onConfirm fonksiyonu çağırılır
     handleConfirm(); // Modalı açan fonksiyon çalıştırılır
   }}>

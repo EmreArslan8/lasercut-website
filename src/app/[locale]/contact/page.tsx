@@ -14,6 +14,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { useTranslations } from "next-intl";
 
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -223,6 +224,7 @@ const ContactPage = () => {
           >
             Instagram
           </Button>
+
         </Box>
       </Box>
     </Box>

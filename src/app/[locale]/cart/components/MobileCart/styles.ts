@@ -25,6 +25,7 @@ const styles = {
     pb: 1,
     mb: 2,
   },
+  textSecondary: { fontSize: 14, color: "textSecondary" },
   productLayout: {
     display: "grid",
     gridTemplateColumns: "6fr 1fr",

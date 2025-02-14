@@ -7,6 +7,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { useCart } from "@/app/context/CartContext";
 import { useTranslations } from "next-intl";
+import { calculatePrice } from "@/utils/calculatePrice";
 
 const DXFStepper = ({
   svg,
@@ -22,9 +23,11 @@ const DXFStepper = ({
   file: File;
 }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const { addToCart } = useCart();
-
+  const { addToCart, cartItems } = useCart();
   const t = useTranslations("File");
+  const [priceTL, setPriceTL] = useState<string>("0.00");
+  const [priceUSD, setPriceUSD] = useState<string>("0.00");
+
   // ✅ Merkezi state
   const [stepData, setStepData] = useState({
     fileName,
@@ -41,23 +44,46 @@ const DXFStepper = ({
 
   const [isReadyToAdd, setIsReadyToAdd] = useState(false);
 
+  // Add to cart once everything is ready
   useEffect(() => {
     if (isReadyToAdd) {
       console.log("🚀 Güncellenmiş stepData ile sepete ekleniyor:", stepData);
-      addToCart(stepData);
-      setIsReadyToAdd(false); // İşlem tamamlandı, tekrar tetiklenmesin
+      addToCart({ ...stepData, priceTL, priceUSD });
+      setIsReadyToAdd(false); 
     }
-  }, [isReadyToAdd, addToCart, stepData]); // ✅ Eksik bağımlılıklar eklendi
+  }, [isReadyToAdd, addToCart, stepData, priceTL, priceUSD]);
+  
 
-  // ✅ Güncelleme fonksiyonu
-  const updateStepData = (data: Partial<typeof stepData>) => {
-    setStepData((prev) => ({ ...prev, ...data }));
+  const updateStepData = async (data: Partial<typeof stepData>) => {
+    setStepData((prev) => {
+      const newData = { ...prev, ...data };
+
+      // Fiyatları güncelle
+      calculatePrice(newData)
+        .then(({ priceTL, priceUSD }) => {
+          console.log("✅ Hesaplanan Fiyat (TL):", priceTL);
+          console.log("✅ Hesaplanan Fiyat (USD):", priceUSD);
+          setPriceTL(priceTL);
+          setPriceUSD(priceUSD);
+
+          // Fiyatı `stepData` içine ekleyelim
+          setStepData((prev) => ({
+            ...prev,
+            priceTL: priceTL,
+            priceUSD: priceUSD,
+          }));
+        })
+        .catch((error) => console.error("❌ Fiyat Hesaplama Hatası:", error));
+
+      return newData;
+    });
   };
 
   const handleNext = () => setActiveStep((prevStep) => prevStep + 1);
   const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
 
   const handleConfirmOrder = () => {
+    console.log("✅ Sipariş Onaylandı! Son stepData:", stepData);
     setIsReadyToAdd(true);
   };
 
@@ -78,14 +104,18 @@ const DXFStepper = ({
           ))}
         </Stepper>
       </Box>
-      {/* 📌 Step1 */}
+
+      {/* 📌 Step1 - Ölçüleri Al */}
       {activeStep === 0 && (
         <Step1
           svg={svg}
           width={stepData.dimensions.width}
           height={stepData.dimensions.height}
           unit={stepData.dimensions.unit}
-          onNext={handleNext}
+          onNext={() => {
+            console.log("✅ Step 1 Tamamlandı! Ölçüler:", stepData.dimensions);
+            handleNext();
+          }}
           onDimensionsChange={(w, h) =>
             updateStepData({
               dimensions: { ...stepData.dimensions, width: w, height: h },
@@ -97,23 +127,34 @@ const DXFStepper = ({
         />
       )}
 
-      {/* 📌 Step2 */}
+      {/* 📌 Step2 - Malzeme, Kalınlık, Not vs. */}
       {activeStep === 1 && (
         <Step2
           svg={svg}
-          onNext={handleNext}
+          onNext={() => {
+            console.log("✅ Step 2 Tamamlandı! Malzeme Bilgisi:", {
+              material: stepData.material,
+              thickness: stepData.thickness,
+              quantity: stepData.quantity,
+              note: stepData.note,
+            });
+            handleNext();
+          }}
           onBack={handleBack}
           dispatch={updateStepData}
         />
       )}
 
-      {/* 📌 Step3 */}
+      {/* 📌 Step3 - Ek Hizmetler ve Sipariş Onayı */}
       {activeStep === 2 && (
         <Step3
           svg={svg}
           onBack={handleBack}
           onConfirm={handleConfirmOrder}
-          dispatch={(payload) => updateStepData(payload)}
+          dispatch={(payload) => {
+            console.log("📌 Step 3 - Ek Hizmetler Güncellendi:", payload);
+            updateStepData(payload);
+          }}
         />
       )}
     </Box>

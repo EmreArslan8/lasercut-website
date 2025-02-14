@@ -176,7 +176,23 @@
     "extraServices": "Ek Hizmet",
     "itemPrice": "Fiyat",
     "total": "Toplam",
-    "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum."
+    "totalPrice": "Toplam Fiyat",
+    "totalPriceTL": "Toplam Fiyat (TL)",
+    "totalPriceUSD": "Toplam Fiyat (USD)",
+    "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum.",
+    "extraServicesList": {
+      "welding": "Kaynak",
+      "bending": "Büküm",
+      "painting": "Boya"
+    },
+    "materialsList": {
+      "Aluminum": "Alüminyum",
+      "DKP Steel": "DKP Çelik",
+      "Black Sheet": "Siyah Sac",
+      "ST37-K / S235JR": "ST37-K / S235JR",
+      "Stainless Steel 304": "Paslanmaz Sac 304",
+      "Stainless Steel 316L": "Paslanmaz Sac 316L"
+    }
   },
   "WpButton": {
     "buttonText": " WhatsApp Destek"
@@ -292,9 +308,9 @@
   "Step2": {
     "materialSelection": "Üretim Detayları: Malzeme, Kalınlık ve Adet Seçimi",
     "materialSelectionDesc": "Lütfen üretim detaylarınızı belirleyin: Malzeme türünü, kalınlığını ve adet sayısını seçerek devam edin.",
-    "selectedMaterial": "Malzeme Seçildi: ",
+    "selectedMaterial": "Malzeme Seçildi ",
     "selectMaterial": "Malzeme Seçimi",
-    "selectedThickness": "Kalınlık Seçildi: ",
+    "selectedThickness": "Kalınlık Seçildi ",
     "selectThickness": "Kalınlık Seçimi",
     "selectedQuantity": "Seçilen Adet: ",
     "selectQuantity": "Adet Seçimi",
@@ -304,45 +320,68 @@
     "next": "İleri",
     "materials": [
       {
+        "key": "Aluminum",
         "name": "Alüminyum",
         "image": "/static/images/aluminum.jpg",
         "description": "Hafif ve dayanıklı"
       },
       {
         "name": "DKP Çelik",
+        "key": "DKP Steel",
         "image": "/static/images/steel_dkp.jpg",
         "description": "Şekillendirmeye uygun"
       },
       {
+        "name": "Siyah Saç",
+        "key": "Black Sheet",
+        "image": "/static/images/black_steel.webp",
+        "description": "İyi mukavemete sahip genel amaçlı çelik"
+      },
+      {
         "name": "ST37-K / S235JR",
+        "key": "ST37-K / S235JR",
         "image": "/static/images/steel_st37.jpeg",
         "description": "Yapı çeliği"
       },
       {
         "name": "Paslanmaz Çelik 304",
+        "key": "Stainless Steel 304",
         "image": "/static/images/stainless_304.jpg",
         "description": "Gıda ve medikal kullanım"
       },
       {
         "name": "Paslanmaz Çelik 316L",
+        "key": "Stainless Steel 316L",
         "image": "/static/images/stainless_316.jpg",
         "description": "Kimyasal ve tuzlu suya dayanıklı"
-      },
-      {
-        "name": "Black Sheet",
-        "image": "/static/images/black_steel.webp",
-        "description": "İyi mukavemete sahip genel amaçlı çelik"
       }
-    ]
+    ],
+    "materialNames": {
+      "Aluminum": "Alüminyum",
+      "DKP Steel": "DKP Çelik",
+      "Black Sheet": "Siyah Sac",
+      "ST37-K / S235JR": "ST37-K / S235JR",
+      "Stainless Steel 304": "Paslanmaz Sac 304",
+      "Stainless Steel 316L": "Paslanmaz Sac 316L"
+    }
   },
 
   "Step3": {
     "title": "Ek Hizmetler",
     "description": "Aşağıdan ek hizmetleri seçebilirsiniz. Boya için özel renk girişi yapabilirsiniz.",
     "extraServices": [
-      { "name": "Kaynak", "description": "Metal parçaları birleştirme işlemi" },
-      { "name": "Büküm", "description": "Sac veya metal parçaların bükülmesi" },
       {
+        "key": "welding",
+        "name": "Kaynak",
+        "description": "Metal parçaları birleştirme işlemi"
+      },
+      {
+        "key": "bending",
+        "name": "Büküm",
+        "description": "Sac veya metal parçaların bükülmesi"
+      },
+      {
+        "key": "painting",
         "name": "Boya",
         "description": "Renk kaplama işlemi (Özel Renk Girişi Yapılabilir)"
       }

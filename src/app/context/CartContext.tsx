@@ -7,18 +7,19 @@ interface CartItem {
   material: string;
   thickness: string;
   quantity: number;
-  coating: string; // Added coating field
-  note?: string; // Opsiyonel not
-  file?: File; // Dosya eklenebilir
-  fileUrl?: string; // Dosya URL'si (opsiyonel)
+  coating: string; 
+  note?: string; 
+  file?: File;
+  fileUrl?: string; 
   extraServices?: string[];
   svg?: string;
-  price?: string;
+  priceTL?: string;
+  priceUSD?: string;
   dimensions?: {
     width: string;
     height: string;
     unit: "mm" | "inch";
-  }; // ✅ SVG bilgisi eklendi // ✅ Eksik alan eklendi
+  };
 }
 
 interface CartContextProps {

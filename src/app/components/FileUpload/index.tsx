@@ -63,6 +63,7 @@ const FileUpload = ({
     setDrawerOpen(false);
     setUploadedFiles([]);
     setSvgData(null);
+
   };
 
   const uploadDXFFile = async (file: File) => {

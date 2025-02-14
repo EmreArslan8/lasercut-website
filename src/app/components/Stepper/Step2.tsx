@@ -18,11 +18,11 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface Material {
+  key: string;
   name: string;
   description: string;
   image: string;
 }
-
 
 const Step2 = ({
   svg,
@@ -52,17 +52,19 @@ const Step2 = ({
   const t = useTranslations("Step2");
   const materials = t.raw("materials") as Material[];
 
-
   const thicknessMap: Record<string, number[]> = {
     "ST37-K / S235JR": [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
     "Stainless Steel 316L": [0.5, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
-    "Stainless Steel 304":[0.5, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
+    "Stainless Steel 304": [0.5, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 15],
     Aluminum: [1, 1.5, 2, 3, 4, 5, 6, 8, 10],
     "DKP Steel": [1, 1.5, 2, 3, 4, 5, 6, 8, 10],
+    "Black Sheet": [1, 1.5, 2, 3, 4, 5, 6, 8, 10],
   };
 
   // Seçilen malzemeye göre kalınlık listesini getir
-  const thicknesses = selectedMaterial ? thicknessMap[selectedMaterial] || [] : [];
+  const thicknesses = selectedMaterial
+    ? thicknessMap[selectedMaterial] || []
+    : [];
 
   const handleMaterialSelect = (material: string) => {
     setSelectedMaterial(material);
@@ -70,8 +72,8 @@ const Step2 = ({
     setOpenMaterial(false);
     setOpenThickness(true);
     dispatch({ material });
+    console.log("Seçilen Materyal Keyi:", material); // Log the selected key
   };
-
 
   const handleThicknessSelect = (thickness: string) => {
     setSelectedThickness(thickness);
@@ -90,7 +92,7 @@ const Step2 = ({
   };
 
   return (
-    (<Box sx={{ mt: 4 }}>
+    <Box sx={{ mt: 4 }}>
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
         {t("materialSelection")}
       </Typography>
@@ -120,17 +122,19 @@ const Step2 = ({
                 sx={{ border: "1px solid #000", color: "#000" }}
               >
                 {selectedMaterial
-                  ? `${t("selectedMaterial")}${selectedMaterial}`
+                  ? `${t("selectedMaterial")} ${t(
+                      "materialNames." + selectedMaterial
+                    )}`
                   : t("selectMaterial")}
               </Button>
               <Collapse in={openMaterial}>
                 <Grid2 container spacing={2} sx={{ mt: 2 }}>
                   {materials.map((material: Material) => (
-                    <Grid2 size={{ xs: 12 }} key={material.name}>
+                    <Grid2 size={{ xs: 12 }} key={material.key}>
                       <Paper
                         sx={{
                           border:
-                            selectedMaterial === material.name
+                            selectedMaterial === material.key
                               ? "2px solid #1976D2"
                               : "1px solid #ddd",
                           borderRadius: "8px",
@@ -139,17 +143,20 @@ const Step2 = ({
                           alignItems: "center",
                           cursor: "pointer",
                         }}
-                        onClick={() => handleMaterialSelect(material.name)}
+                        onClick={() => handleMaterialSelect(material.key)}
                       >
                         <Image
                           src={material.image}
                           alt={material.name}
                           width={80}
                           height={80}
-                          style={{ objectFit: "cover", borderRadius: "8px", marginRight: "16px" }}
+                          style={{
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                            marginRight: "16px",
+                          }}
                         />
                         <Box sx={{ textAlign: "left" }}>
-                          {" "}
                           <Typography variant="body1" fontWeight="bold">
                             {material.name}
                           </Typography>
@@ -165,7 +172,6 @@ const Step2 = ({
             </Box>
 
             {/* 🟢 Kalınlık Seçimi */}
-
             <Box>
               <Button
                 fullWidth
@@ -213,7 +219,7 @@ const Step2 = ({
                   type="number"
                   sx={{ mt: 2 }}
                   slotProps={{
-                    htmlInput: { min: 1 }
+                    htmlInput: { min: 1 },
                   }}
                 />
               </Collapse>
@@ -248,7 +254,7 @@ const Step2 = ({
           {t("next")}
         </Button>
       </Box>
-    </Box>)
+    </Box>
   );
 };
 
