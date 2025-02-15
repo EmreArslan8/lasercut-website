@@ -22,6 +22,7 @@ import ModalForm from "@/app/components/Form";
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
+import { supabase } from "@/lib/api/supabaseClient";
 
 const DesktopCart = () => {
   const { cartItems, setCartItems } = useCart();
@@ -43,54 +44,67 @@ const DesktopCart = () => {
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
-  console.log(
-    "🔄 Toplam Fiyat Kontrol - Seçili Ürünler:",
-    selectedItems.map((i) => cartItems[i])
-  );
+ 
+
   const handleCheckout = async () => {
-    try {
-      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
-
-      const lineItems = selectedCartItems.map((item) => ({
-        title: item.fileName,
-        quantity: item.quantity,
-        price: isNaN(Number(item.priceTL))
-          ? "0.00"
-          : Number(item.priceUSD).toFixed(2),
-        properties: [
-          { name: "Material", value: item.material },
-          { name: "Thickness", value: `${item.thickness} mm` },
-          ...(item.extraServices && item.extraServices.length > 0
-            ? item.extraServices.map((service) => ({
-                name: "Extra Service",
-                value: service,
-              }))
-            : []),
-        ],
-      }));
-
-      console.log("🟡 Gönderilecek lineItems:", lineItems);
-
-      const response = await fetch("/api/shopify/createDraftOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lineItems }),
-      });
-
-      const data = await response.json();
-
-      console.log("🟢 Shopify API Frontend Yanıtı:", data);
-
-      if (data.checkoutUrl) {
-        console.log("✅ Yönlendiriliyor:", data.checkoutUrl);
-        window.location.href = data.checkoutUrl;
-      } else {
-        console.error("🔴 Ödeme URL alınamadı. Shopify API Yanıtı:", data);
-      }
-    } catch (error) {
-      console.error("🔴 Sipariş oluştururken beklenmedik hata oluştu:", error);
-    }
+    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+  
+    const uploadedFileUrls = await Promise.all(
+      selectedCartItems.map(async (item) => {
+        if (!item.file) return null;
+        const filePath = `orders/${Date.now()}_${item.file.name.replace(/\s+/g, "_").toLowerCase()}`;
+        const { error } = await supabase.storage
+          .from("uploaded-files")
+          .upload(filePath, item.file);
+        if (error) throw new Error(error.message);
+        const { data } = supabase.storage.from("uploaded-files").getPublicUrl(filePath);
+        return data.publicUrl;
+      })
+    );
+  
+    const lineItems = selectedCartItems.map((item, index) => ({
+      title: item.fileName || "Unnamed Product",
+      quantity: item.quantity,
+      price: item.priceUSD || "0.00",
+      properties: [
+        { name: "Material", value: item.material },
+        { name: "Thickness", value: item.thickness },
+      ],
+    }));
+  
+    const productDetails = JSON.stringify({
+      material: selectedCartItems[0].material,
+      thickness: selectedCartItems[0].thickness,
+      quantity: selectedCartItems[0].quantity,
+    });
+  
+    const response = await fetch("/api/shopify/createDraftOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lineItems,
+        userData: {
+          fileUrl: uploadedFileUrls[0] || "",
+          productDetails,
+        },
+      }),
+    });
+  
+    const data = await response.json();
+    window.location.href = data.draft_order.invoice_url;
   };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   return (
     <Stack sx={styles.cartContainer}>
