@@ -62,7 +62,7 @@ const DesktopCart = () => {
       })
     );
   
-    const lineItems = selectedCartItems.map((item, index) => ({
+    const lineItems = selectedCartItems.map((item) => ({
       title: item.fileName || "Unnamed Product",
       quantity: item.quantity,
       price: item.priceUSD || "0.00",
