@@ -128,31 +128,47 @@
     "addToCart": "Sepete Ekle",
     "enterColor": "Renk..",
     "requiredField": "Boş Bırakılamaz",
-    "materials": {
-      "Aluminum": "Aluminum",
-      "SiyahSac": "Steel Black Sheet",
-      "DC01": "Steel DC01 / 6112 / C (DKP)",
-      "ST37": "Steel ST37-K / S235JR / 1.0038",
-      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
-    }
-  },
-  "MaterialCardList": {
-    "materials": {
-      "Aluminum": "Alüminyum",
-      "Aluminum_description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır.",
-      "SiyahSac": "Çelik Siyah Sac",
-      "SiyahSac_description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
-      "DC01": "Çelik DC01 / 6112 / C (DKP)",
-      "DC01_description": "Derin çekme işlemlerine uygun, düşük karbonlu çelik. Yüzeyi düz ve parlaktır, boyama ve kaplama için idealdir.",
-      "ST37": "Çelik ST37-K / S235JR / 1.0038",
-      "ST37_description": "İyi kaynaklanabilirlik ve dayanıklılık sunan ekonomik bir yapısal çelik türüdür.",
-      "Paslanmaz304": "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A",
-      "Paslanmaz304_description": "Yüksek korozyon direnci sunar ve mutfak ekipmanları ile medikal araçlarda kullanılır.",
-      "Paslanmaz316L": "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
-      "Paslanmaz316L_description": "Deniz ortamlarında ve kimyasal dayanıklılık gerektiren alanlarda üstün korozyon direnci sunar."
-    },
-    "materialSelection": "Material Selection"
+    "bendingService": "Büküm hizmeti istiyorum",
+    "width": "Genişlik",
+    "height": "Uzunluk",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Alüminyum",
+        "description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır",
+        "image": "/static/images/aluminyum.png"
+      },
+      {
+        "key": "DKP Steel",
+        "name": "Çelik DC01 / 6112 / C (DKP)",
+        "description": "Derin çekme işlemlerine uygun, düşük karbonlu çelik. Yüzeyi düz ve parlaktır, boyama ve kaplama için idealdir.",
+        "image": "/static/images/galvaniz.png"
+      },
+      {
+        "key": "Black Sheet",
+        "name": "Çelik Siyah Sac",
+        "description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
+        "image": "/static/images/sac-karbon-celik.png"
+      },
+      {
+        "key": "ST37-K / S235JR",
+        "name": "Çelik ST37-K / S235JR / 1.0038",
+        "description": "İyi kaynaklanabilirlik ve dayanıklılık sunan ekonomik bir yapısal çelik türüdür.",
+        "image":  "/static/images/st37.png"
+      },
+      {
+        "key": "Stainless Steel 304",
+        "name": "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A",
+        "description": "Yüksek korozyon direnci sunar ve mutfak ekipmanları ile medikal araçlarda kullanılır",
+        "image": "/static/images/paslanmaz-sac.png"
+      },
+      {
+        "key": "Stainless Steel 316L",
+        "name": "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
+        "description": "Deniz ortamlarında ve kimyasal dayanıklılık gerektiren alanlarda üstün korozyon direnci sunar.",
+        "image": "/static/images/paslanmaz-sac.png"
+      }
+    ]
   },
   "CartPage": {
     "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
@@ -407,8 +423,7 @@
     }
   },
   "calculatePrice": {
-    "priceTL": "Price information will be given after ordering", 
-    "priceUSD": "Price information will be given after ordering" 
+    "priceTL": "Price information will be given after ordering",
+    "priceUSD": "Price information will be given after ordering"
   }
- 
 }

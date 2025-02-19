@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
 
     const customerInfo = orderData.billing_address || {};
     const email = orderData.contact_email || orderData.email;
+    const productDetails = JSON.parse(pendingOrder.product_details);
 
     const { error: insertError } = await supabase.from("orders").insert({
       order_id: orderData.id.toString(),
@@ -87,7 +88,10 @@ export async function POST(request: NextRequest) {
 📍 Adres: ${customerInfo.address1}, ${customerInfo.city}, ${customerInfo.country}
 💲 Toplam Fiyat: ${orderData.current_total_price} ${orderData.currency}
 📄 Dosya Linki: ${pendingOrder.file_url || "Dosya Eklenmemiş"}
-🛠️ Ürün Detayı: ${pendingOrder.product_details}
+🛠️ Ürün Detayı:
+  - Malzeme: ${productDetails.material}
+  - Kalınlık: ${productDetails.thickness} mm
+  - Adet: ${productDetails.quantity}
 `);
 
     return NextResponse.json({ message: "Sipariş başarıyla eklendi." });

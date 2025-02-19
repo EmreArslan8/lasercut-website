@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -19,6 +19,12 @@ import { useLocale, useTranslations } from "next-intl";
 import MaterialCardList from "./MaterialCarousel";
 import theme from "@/theme/theme";
 import capitalize from "@/utils/capitalize";
+import { calculatePrice } from "@/utils/calculatePrice";
+
+interface Material {
+  key: string;
+  name: string;
+}
 
 interface DisplayFilesProps {
   files: File[];
@@ -31,23 +37,30 @@ interface DisplayFilesProps {
       quantity: number;
       coating: string;
       note?: string;
+      width: string;
+      height: string;
     }
   ) => void;
 }
 
-const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
+const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
   const { setCartItems } = useCart();
   const [, setDrawerOpen] = useState(true);
-  const [selectedMaterial, setSelectedMaterial] = useState("SiyahSac");
+  const [selectedMaterial, setSelectedMaterial] = useState("Black Sheet");
   const [thickness, setThickness] = useState("1");
   const [quantity, setQuantity] = useState("1");
   const [coating, setCoating] = useState("");
   const [note, setNote] = useState("");
+  const [width, setWidth] = useState<string>("");
+  const [height, setHeight] = useState<string>("");
+  const [bending, setBending] = useState<boolean>(false);
   const [errors, setErrors] = useState({
     material: false,
     thickness: false,
     quantity: false,
     coating: false,
+    width: false,
+    height: false,
   });
   const [selectedFileIndex] = useState(0);
   const router = useRouter();
@@ -55,17 +68,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
   const { isMobile, isTablet } = useScreen();
   const locale = useLocale();
 
-  const materials = useMemo(
-    () => [
-      { value: "Aluminum", label: t("materials.Aluminum") },
-      { value: "SiyahSac", label: t("materials.SiyahSac") }, // Steel Black Sheet
-      { value: "DC01", label: t("materials.DC01") }, // Steel DC01 / 6112 / C (DKP)
-      { value: "ST37", label: t("materials.ST37") }, // Steel ST37-K / S235JR / 1.0038
-      { value: "Paslanmaz304", label: t("materials.Paslanmaz304") }, // Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A
-      { value: "Paslanmaz316L", label: t("materials.Paslanmaz316L") }, // Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A
-    ],
-    [t]
-  );
+  const materials = t.raw("materials") as Material[];
 
   const validateForm = () => {
     const newErrors = {
@@ -73,6 +76,8 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
       thickness: !thickness.trim(),
       quantity: !quantity.trim(),
       coating: !coating.trim(),
+      width: !width.trim(),
+      height: !height.trim(),
     };
     setErrors(newErrors);
     return !Object.values(newErrors).some(Boolean);
@@ -84,32 +89,58 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
     if (field === "thickness") setThickness(value);
     if (field === "quantity") setQuantity(value);
     if (field === "coating") setCoating(value);
+    if (field === "width") setWidth(value);
+    if (field === "height") setHeight(value);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!validateForm()) return;
 
     const coatingValue = coating.startsWith("painted")
       ? `painted ${capitalize(coating.replace("painted ", ""))}`
       : coating;
 
-      
+    const extraServices = [];
+    if (bending) extraServices.push("bending");
+    if (coating.startsWith("painted")) extraServices.push("painting");
 
+    try {
+      const priceResult = await calculatePrice({
+        dimensions: { width, height },
+        material: selectedMaterial,
+        thickness,
+        quantity: parseInt(quantity, 10),
+        extraServices,
+      });
 
-    const newCartItem = {
-      fileName: files[selectedFileIndex]?.name || t("noFileName"),
-      file: files[selectedFileIndex],
-      material: selectedMaterial,
-      thickness,
-      quantity: parseInt(quantity, 10),
-      coating: coatingValue,
-      note,
-    };
+      console.log("Fiyat Sonucu (TL):", priceResult.priceTL);
+      console.log("Fiyat Sonucu (USD):", priceResult.priceUSD);
 
-    setCartItems((prevItems) => [...prevItems, newCartItem]);
-    setDrawerOpen(false);
+      const newCartItem = {
+        fileName: files[selectedFileIndex]?.name || t("noFileName"),
+        file: files[selectedFileIndex],
+        material: selectedMaterial,
+        thickness,
+        quantity: parseInt(quantity, 10),
+        coating: coatingValue,
+        note,
+        dimensions: {
+          width,
+          height,
+          unit: "mm" as const,
+        },
+        extraServices,
+        priceTL: priceResult.priceTL,
+        priceUSD: priceResult.priceUSD,
+      };
 
-    router.push(`/${locale}/cart`);
+      setCartItems((prevItems) => [...prevItems, newCartItem]);
+      setDrawerOpen(false);
+
+      router.push(`/${locale}/cart`);
+    } catch (error) {
+      console.error("Fiyat hesaplama hatası:", error);
+    }
   };
 
   const isSmallScreen = isMobile || isTablet;
@@ -119,8 +150,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
   };
 
   return (
-    <Stack>
-      <Box sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
+    <Stack direction="row">
+      <Box
+        sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
           <InsertDriveFileIcon sx={{ fontSize: 40 }} />
@@ -155,8 +187,8 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
             error={errors.material}
           >
             {materials.map((material) => (
-              <MenuItem key={material.value} value={material.value}>
-                {material.label}
+              <MenuItem key={material.key} value={material.key}>
+                {material.name}
               </MenuItem>
             ))}
           </Select>
@@ -165,6 +197,23 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
               {t("requiredField")}
             </Typography>
           )}
+          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+            <TextField
+              label={t("width")}
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              fullWidth
+              error={errors.width}
+            />
+            <TextField
+              label={t("height")}
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              fullWidth
+              error={errors.height}
+            />
+          </Box>
+
           <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
             {/* Kalınlık Section */}
             <Box sx={{ flex: 1 }}>
@@ -188,7 +237,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
                         mm
                       </Typography>
                     ),
-                  }
+                  },
                 }}
               />
             </Box>
@@ -263,6 +312,19 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files, }) => {
               )}
             </Box>
           </Box>
+          <Box sx={{ display: "flex", alignItems: "center", mt: 5 }}>
+            <input
+              type="checkbox"
+              id="bending"
+              checked={bending}
+              onChange={(e) => setBending(e.target.checked)}
+              style={{ transform: "scale(1.5)", width: "12px", height: "12px" }} // Checkbox büyütme
+            />
+            <Typography variant="h5" sx={{ ml: 2 }}>
+              {t("bendingService")}
+            </Typography>
+          </Box>
+
           <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 2 }}>
             {t("noteOptional")}
           </Typography>

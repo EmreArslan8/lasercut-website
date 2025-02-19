@@ -122,31 +122,47 @@
     "addToCart": "Add to Cart",
     "requiredField": "Required Field",
     "enterColor": "Color..",
-    "materials": {
-      "Aluminum": "Aluminum",
-      "SiyahSac": "Steel Black Sheet",
-      "DC01": "Steel DC01 / 6112 / C (DKP)",
-      "ST37": "Steel ST37-K / S235JR / 1.0038",
-      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A"
-    }
-  },
-  "MaterialCardList": {
-    "materials": {
-      "Aluminum": "Aluminum",
-      "Aluminum_description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
-      "SiyahSac": "Steel Black Sheet",
-      "SiyahSac_description": "Raw steel type used in structural and industrial applications.",
-      "DC01": "Steel DC01 / 6112 / C (DKP)",
-      "DC01_description": "Low-carbon steel suitable for deep drawing, with a smooth and bright surface for painting or coating.",
-      "ST37": "Steel ST37-K / S235JR / 1.0038",
-      "ST37_description": "Structural steel known for its weldability and cost-effectiveness.",
-      "Paslanmaz304": "Stainless Steel 304 / 1.4301 / X5CrNi18.10 / V2A",
-      "Paslanmaz304_description": "Highly corrosion-resistant, ideal for kitchen equipment and medical tools.",
-      "Paslanmaz316L": "Stainless Steel 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
-      "Paslanmaz316L_description": "Marine-grade stainless steel with exceptional chemical resistance."
-    },
-    "materialSelection": "Material Selection"
+    "bendingService": "I want bending service",
+    "width": "Width",
+    "height": "Height",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Aluminum",
+        "description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
+        "image": "/static/images/aluminyum.png"
+      },
+      {
+        "key": "DKP Steel",
+        "name": "DKP Steel",
+        "description": "Low-carbon steel suitable for deep drawing, with a smooth and bright surface for painting or coating.",
+        "image": "/static/images/galvaniz.png"
+      },
+      {
+        "key": "Black Sheet",
+        "name": "Black Sheet",
+        "description": "Raw steel type used in structural and industrial applications.",
+        "image": "/static/images/sac-karbon-celik.png"
+      },
+      {
+        "key": "ST37-K / S235JR",
+        "name": "ST37-K / S235JR",
+        "description": "Structural steel known for its weldability and cost-effectiveness.",
+        "image":  "/static/images/st37.png"
+      },
+      {
+        "key": "Stainless Steel 304",
+        "name": "Stainless Steel 304",
+        "description": "Highly corrosion-resistant, ideal for kitchen equipment and medical tools.",
+        "image": "/static/images/paslanmaz-sac.png"
+      },
+      {
+        "key": "Stainless Steel 316L",
+        "name": "Stainless Steel 316L",
+        "description": "Marine-grade stainless steel with exceptional chemical resistance.",
+        "image": "/static/images/paslanmaz-sac.png"
+      }
+    ]
   },
   "CartPage": {
     "title": "Cart",
@@ -174,11 +190,11 @@
     "removeButton": "REMOVE",
     "extraServices": "Extra Services",
     "itemPrice": "Item total",
-"pricePending": "Price to be confirmed after order.",
+    "pricePending": "Price to be confirmed after order.",
     "total": "Total",
     "totalPrice": "Total",
-  "totalPriceTL": "Total (TL)",
-  "totalPriceUSD": "Total (USD)",
+    "totalPriceTL": "Total (TL)",
+    "totalPriceUSD": "Total (USD)",
 
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "extraServicesList": {
@@ -371,9 +387,21 @@
     "title": "Additional Services",
     "description": "You can select additional services below. For painting, you can enter a custom color.",
     "extraServices": [
-      { "key": "welding", "name": "Welding", "description": "Metal parts joining process" },
-      { "key": "bending", "name": "Bending", "description": "Bending of sheet or metal parts" },
-      { "key": "painting", "name": "Painting", "description": "Color coating process (Custom Color Option Available)" }
+      {
+        "key": "welding",
+        "name": "Welding",
+        "description": "Metal parts joining process"
+      },
+      {
+        "key": "bending",
+        "name": "Bending",
+        "description": "Bending of sheet or metal parts"
+      },
+      {
+        "key": "painting",
+        "name": "Painting",
+        "description": "Color coating process (Custom Color Option Available)"
+      }
     ],
     "colorSelection": "Select or Enter a Paint Color:",
     "selectColor": "Select Paint Color",
@@ -393,9 +421,7 @@
     }
   },
   "calculatePrice": {
-    "priceTL": "Price information will be given after ordering", 
-    "priceUSD": "Price information will be given after ordering" 
+    "priceTL": "Price information will be given after ordering",
+    "priceUSD": "Price information will be given after ordering"
   }
- 
-  
 }

@@ -6,47 +6,16 @@ interface MaterialCardListProps {
   selectedMaterial: string;
   onMaterialSelect: (value: string) => void;
 }
+interface Material {
+  key: string;
+  name: string;
+  description: string;
+  image: string;
+}
 
 const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, onMaterialSelect }) => {
-  const t = useTranslations("MaterialCardList");
-  const materials = [
-    {
-      value: "Aluminium ",
-      label: t("materials.Aluminum"),
-      description: t("materials.1050_description"),
-      image: "/static/images/aluminyum.png",
-    },
-    {
-      value: "SiyahSac",
-      label: t("materials.SiyahSac"),
-      description: t("materials.SiyahSac_description"),
-      image: "/static/images/galvaniz.png",
-    },
-    {
-      value: "DC01",
-      label: t("materials.DC01"),
-      description: t("materials.DC01_description"),
-      image: "/static/images/sac-karbon-celik.png",
-    },
-    {
-      value: "ST37",
-      label: t("materials.ST37"),
-      description: t("materials.ST37_description"),
-      image: "/static/images/st37.png",
-    },
-    {
-      value: "Paslanmaz304",
-      label: t("materials.Paslanmaz304"),
-      description: t("materials.Paslanmaz304_description"),
-      image: "/static/images/paslanmaz-sac.png",
-    },
-    {
-      value: "Paslanmaz316L",
-      label: t("materials.Paslanmaz316L"),
-      description: t("materials.Paslanmaz316L_description"),
-      image: "/static/images/paslanmaz-sac.png",
-    },
-  ];
+  const t = useTranslations("OrderDetails");
+  const materials = t.raw("materials") as Material[];
 
   return (
     <Box sx={{ overflowY: "auto" }}>
@@ -56,17 +25,17 @@ const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, o
       <Stack spacing={3}>
         {materials.map((material) => (
           <Card
-            key={material.value}
+            key={material.key}
             sx={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               boxShadow:
-                selectedMaterial === material.value
+                selectedMaterial === material.key
                   ? "0 0 10px #1976d2"
                   : "0 2px 6px rgba(0, 0, 0, 0.1)",
               border:
-                selectedMaterial === material.value
+                selectedMaterial === material.key
                   ? "2px solid #1976d2"
                   : "1px solid #ddd",
               borderRadius: "8px",
@@ -75,17 +44,17 @@ const MaterialCardList: React.FC<MaterialCardListProps> = ({ selectedMaterial, o
                 boxShadow: "0 0 10px rgba(25, 118, 210, 0.5)",
               },
             }}
-            onClick={() => onMaterialSelect(material.value)}
+            onClick={() => onMaterialSelect(material.key)}
           >
             <CardMedia
               component="img"
               sx={{ width: 150, height: 150, objectFit: "contain", padding: 2 }}
               image={material.image}
-              alt={material.label}
+              alt={material.name}
             />
             <CardContent sx={{ textAlign: "left" }}>  {/* Metinleri sola yasladık */}
               <Typography variant="h5" fontWeight="bold" sx={{ marginBottom: 1 }}>
-                {material.label}
+                {material.name}
               </Typography>
               <Typography variant="body1" color="textSecondary" sx={{ marginBottom: 1 }}>
                 {material.description}

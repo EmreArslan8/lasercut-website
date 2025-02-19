@@ -93,18 +93,7 @@ const DesktopCart = () => {
     const data = await response.json();
     window.location.href = data.draft_order.invoice_url;
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
 
   return (
     <Stack sx={styles.cartContainer}>
@@ -219,8 +208,6 @@ const DesktopCart = () => {
                               } TL`}
                         </Typography>
                       </Box>
-
-                      {/* Silme Butonu */}
                       <Icon
                         name="delete"
                         onClick={() => handleRemoveItem(index)}

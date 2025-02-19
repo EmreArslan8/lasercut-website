@@ -16,20 +16,6 @@ export const calculatePrice = async (stepData: {
 
   console.log("🔄 Fiyat Hesaplama Başlıyor...");
 
-  // 🔹 Eğer "Kaynak" veya "Boya" seçildiyse, fiyat bilgisi siparişten sonra verilecek.
-  if (
-    extraServices &&
-    (extraServices.includes("welding") || extraServices.includes("painting"))
-  ) {
-    console.log(
-      "🔔 Kaynak veya Boya seçildi. Fiyat bilgisi siparişten sonra verilecek."
-    );
-    return {
-      priceTL: "pending", // veya "siparişten sonra" gibi özel bir keyword
-      priceUSD: "pending",
-    };
-  }
-
   if (!(material in materialDensities)) {
     console.error("❌ Geçersiz malzeme:", material);
     return { priceTL: "0.00", priceUSD: "0.00" };
@@ -57,7 +43,6 @@ export const calculatePrice = async (stepData: {
   console.log("🔩 Kalınlık (mm):", thicknessInMM);
   console.log("⚖️ Malzeme Yoğunluğu:", density);
 
-  // **Levha ağırlığını hesaplayalım (kg cinsinden)**
   const weight = (thicknessInMM * width * height * density) / 1_000;
 
   console.log("⚖️ Hesaplanan Ağırlık (kg):", weight.toFixed(6));
@@ -75,25 +60,34 @@ export const calculatePrice = async (stepData: {
   const exchangeRate = await getExchangeRate();
   const totalCostUSD = totalCost / exchangeRate;
 
-  // **%35 kar eklenmiş fiyat**
   let finalPriceTL = totalCost * 1.35;
   let finalPriceUSD = totalCostUSD * 1.35;
 
-  // **Ek hizmetler (Büküm eklenirse fiyat artır)**
   let extraCostUSD = 0;
+
   if (extraServices && Array.isArray(extraServices)) {
     if (extraServices.includes("bending")) {
-      extraCostUSD += 1; // 🔥 **Her "Büküm" için 1 USD ekle**
+      extraCostUSD += 1;
       console.log("✅ Büküm seçildi, fiyat artırıldı: +1 USD");
+    }
+
+    // 🎨 BOYA EKLEMESİ: m² başına 2 USD
+    if (extraServices.includes("painting")) {
+      const areaM2 = (width / 1000) * (height / 1000);
+      const paintingCostUSD = areaM2 * 2;
+      extraCostUSD += paintingCostUSD;
+      console.log(
+        `✅ Boya seçildi, alan: ${areaM2.toFixed(
+          2
+        )} m², fiyat artırıldı: +${paintingCostUSD.toFixed(2)} USD`
+      );
     }
   }
 
-  // **Büküm için ekstra maliyet ekleyelim**
   finalPriceUSD += extraCostUSD;
   finalPriceTL += extraCostUSD * exchangeRate;
 
   console.log("✅ Hesaplama Tamamlandı!");
-  console.log("💰 Toplam Maliyet (TL):", totalCost.toFixed(2));
   console.log("💰 Son Fiyat (TL):", finalPriceTL.toFixed(2));
   console.log("💵 Son Fiyat (USD):", finalPriceUSD.toFixed(2));
 
