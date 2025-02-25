@@ -7,6 +7,8 @@ import { CartProvider } from "../context/CartContext";
 import ThemeRegistry from "@/theme/ThemeRegistery";
 import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from "next/font/google";
 import Header from "../components/Header";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 const Plus_Jakarta_Sans = _Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -41,6 +43,8 @@ export default async function RootLayout({
             <ThemeRegistry>
               <Header />
               <main style={{ minHeight: "calc(100vh - 200px)" }}>
+              <SpeedInsights />
+              <Analytics />
                 {children}
               </main>
               <Footer />
