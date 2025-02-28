@@ -12,14 +12,15 @@
   },
   "Banner": {
     "title": "Precision Laser Cutting & Engineering Solutions for Every Industry.",
-    "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs"
+    "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs",
+    "quickQuote": "Get online quote in seconds"
   },
   "Footer": {
     "brand": "Draw to Cut",
     "copyright": "Copyright® 2025.",
     "contact": "Contact",
     "phoneNumber": "+90 505 520 75 11",
-    "email": "design@drawtocut.com.tr",
+    "email": "design@drawtocut.com",
     "address": "Adress",
     "invoice": "Invoice",
     "payWithIyzico": "Pay with iyzico"
