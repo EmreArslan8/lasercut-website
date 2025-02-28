@@ -11,6 +11,7 @@ const styles = {
     padding: "0 16px",
     borderBottom: "1px solid #ddd",
     height: "70px",
+    
   },
   mobileActions: {
     display: "flex",

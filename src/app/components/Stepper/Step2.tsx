@@ -16,6 +16,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Tik ikonu ekledik
 
 interface Material {
   key: string;
@@ -118,8 +119,24 @@ const Step2 = ({
               <Button
                 fullWidth
                 onClick={() => setOpenMaterial(!openMaterial)}
-                endIcon={<ExpandMoreIcon />}
-                sx={{ border: "1px solid #000", color: "#000" }}
+                endIcon={
+                  selectedMaterial ? (
+                    <CheckCircleIcon sx={{ color: "#2E7D32" }} />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )
+                }
+                sx={{
+                  border: selectedMaterial
+                    ? "2px solid #2E7D32"
+                    : "1px solid #000", // Yeşil veya siyah çerçeve
+                  backgroundColor: selectedMaterial ? "#E8F5E9" : "transparent", // Açık yeşil arka plan
+                  color: selectedMaterial ? "#2E7D32" : "#000", // Yeşil yazı rengi
+                  fontWeight: selectedMaterial ? "bold" : "normal",
+                  "&:hover": {
+                    backgroundColor: selectedMaterial ? "#C8E6C9" : "#F5F5F5", // Daha koyu yeşil hover efekti
+                  },
+                }}
               >
                 {selectedMaterial
                   ? `${t("selectedMaterial")} ${t(
@@ -127,6 +144,7 @@ const Step2 = ({
                     )}`
                   : t("selectMaterial")}
               </Button>
+
               <Collapse in={openMaterial}>
                 <Grid2 container spacing={2} sx={{ mt: 2 }}>
                   {materials.map((material: Material) => (
@@ -176,13 +194,32 @@ const Step2 = ({
               <Button
                 fullWidth
                 onClick={() => setOpenThickness(!openThickness)}
-                endIcon={<ExpandMoreIcon />}
-                sx={{ border: "1px solid #000", color: "#000" }}
+                endIcon={
+                  selectedThickness ? (
+                    <CheckCircleIcon sx={{ color: "#2E7D32" }} />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )
+                }
+                sx={{
+                  border: selectedThickness
+                    ? "2px solid #2E7D32"
+                    : "1px solid #000", // Seçiliyse yeşil çerçeve
+                  backgroundColor: selectedThickness
+                    ? "#E8F5E9"
+                    : "transparent", // Açık yeşil arka plan
+                  color: selectedThickness ? "#2E7D32" : "#000", // Yazı rengi yeşil
+                  fontWeight: selectedThickness ? "bold" : "normal", // Seçiliyse kalın yazı
+                  "&:hover": {
+                    backgroundColor: selectedThickness ? "#C8E6C9" : "#F5F5F5", // Hover efekti
+                  },
+                }}
               >
                 {selectedThickness
                   ? `${t("selectedThickness")}: ${selectedThickness}`
                   : t("selectThickness")}
               </Button>
+
               <Collapse in={openThickness}>
                 <FormControl fullWidth sx={{ mt: 2 }}>
                   <Select
@@ -203,13 +240,28 @@ const Step2 = ({
               <Button
                 fullWidth
                 onClick={() => setOpenQuantity(!openQuantity)}
-                endIcon={<ExpandMoreIcon />}
-                sx={{ border: "1px solid #000", color: "#000" }}
+                endIcon={
+                  quantity ? (
+                    <CheckCircleIcon sx={{ color: "#2E7D32" }} />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )
+                }
+                sx={{
+                  border: quantity ? "2px solid #2E7D32" : "1px solid #000", // Seçiliyse yeşil çerçeve
+                  backgroundColor: quantity ? "#E8F5E9" : "transparent", // Açık yeşil arka plan
+                  color: quantity ? "#2E7D32" : "#000", // Yazı rengi yeşil
+                  fontWeight: quantity ? "bold" : "normal", // Seçiliyse kalın yazı
+                  "&:hover": {
+                    backgroundColor: quantity ? "#C8E6C9" : "#F5F5F5", // Hover efekti
+                  },
+                }}
               >
                 {quantity
-                  ? `${t("selectedQuantity")}${quantity}`
+                  ? `${t("selectedQuantity")} ${quantity}`
                   : t("selectQuantity")}
               </Button>
+
               <Collapse in={openQuantity}>
                 <TextField
                   fullWidth

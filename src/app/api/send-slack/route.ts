@@ -4,26 +4,42 @@ export async function POST(req: Request) {
   try {
     console.log("Slack API çağrıldı...");
 
-    const { orderId, formData, cartItemsWithUrls } = await req.json();
-    console.log("Gelen Sipariş:", orderId, formData, cartItemsWithUrls);
+    // JSON verisini yalnızca bir kez oku
+    const body = await req.json();
+    console.log("📩 API'ye Gelen Veri:", body);
 
-    const webhookUrl = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL;
+    const { orderId, name, email, phone, items } = body; // Değişkenlere ata
 
-    if (!webhookUrl) {
-      console.error("HATA: Slack Webhook URL tanımlanmamış!");
-      return NextResponse.json({ success: false, error: "Slack Webhook URL tanımlanmamış!" }, { status: 500 });
+    if (!items || !Array.isArray(items)) {
+      console.error("🚨 HATA: items eksik veya hatalı!", items);
+      return NextResponse.json(
+        { success: false, error: "Sipariş içeriği eksik veya yanlış formatta!" },
+        { status: 400 }
+      );
     }
 
-    // **Ürünleri Slack mesajına ekleyelim**
-    const itemsText = cartItemsWithUrls
-      .map((item: { material: string ; thickness: string; quantity: number; price: number;   fileUrl?: string; }) => `- **Ürün:** ${item.material} | **Adet:** ${item.quantity || 1} | *Kalınlık:** ${item.quantity || 1} | **Fiyat:** ${item.price || 'Bilinmiyor'}\n  📎 **Dosya:** ${item.fileUrl || 'Dosya Yok'}`)
-      .join("\n");
+    const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+    if (!webhookUrl) {
+      console.error("HATA: Slack Webhook URL tanımlanmamış!");
+      return NextResponse.json(
+        { success: false, error: "Slack Webhook URL tanımlanmamış!" },
+        { status: 500 }
+      );
+    }
+
+    // Ürünleri Slack mesajına ekle
+    const itemsText = items
+    .map((item) => 
+      `- **Ürün:** ${item.material} | **Adet:** ${item.quantity || 1} | **Kalınlık:** ${item.thickness || 'Bilinmiyor'} | **Fiyat:** ${item.price || 'Bilinmiyor'}\n  📎 **Dosya:** ${item.fileUrl || 'Dosya Yok'}`
+    )
+    .join("\n");
+  
 
     const message = {
-      text: `📢 *Yeni Sipariş Geldi!*\n🆔 *Sipariş ID:* ${orderId}\n👤 *Müşteri:* ${formData.name}\n📧 *E-Posta:* ${formData.email}\n📞 *Telefon:* ${formData.phone}\n📦 **Sipariş İçeriği:**\n${itemsText}`
+      text: `📢 *Yeni Sipariş Geldi!*\n🆔 *Sipariş ID:* ${orderId || "Bilinmiyor"}\n👤 *Müşteri:* ${name}\n📧 *E-Posta:* ${email}\n📞 *Telefon:* ${phone || "Belirtilmemiş"}\n📦 **Sipariş İçeriği:**\n${itemsText}`
     };
 
-    console.log("Slack Mesajı Gönderiliyor...", message);
+    console.log("✅ Slack Mesajı Gönderiliyor:", message);
 
     const response = await fetch(webhookUrl, {
       method: "POST",
@@ -33,20 +49,20 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Slack mesajı gönderilemedi! Hata:", errorText);
+      console.error("🚨 Slack mesajı gönderilemedi! Hata:", errorText);
       throw new Error(`Slack API Hatası: ${errorText}`);
     }
 
-    console.log("Slack mesajı başarıyla gönderildi!");
+    console.log("✅ Slack mesajı başarıyla gönderildi!");
     return NextResponse.json({ success: true, message: "Slack mesajı gönderildi!" }, { status: 200 });
 
   } catch (error: unknown) {
     console.error("🚨 API Hatası:", 
-      error instanceof Error ? error.message : 'Unknown error',
+      error instanceof Error ? error.message : 'Bilinmeyen hata',
       error instanceof Error ? error.stack : ''
     );
     return NextResponse.json(
-      { error: `Failed to send slack: ${error instanceof Error ? error.message : 'Unknown error'}` },
+      { error: `Slack mesajı gönderilemedi: ${error instanceof Error ? error.message : 'Bilinmeyen hata'}` },
       { status: 500 }
     );
   }

@@ -49,7 +49,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
   const [selectedMaterial, setSelectedMaterial] = useState("Black Sheet");
   const [thickness, setThickness] = useState("1");
   const [quantity, setQuantity] = useState("1");
-  const [coating, setCoating] = useState("");
+  const [coating, setCoating] = useState("unpainted");
   const [note, setNote] = useState("");
   const [width, setWidth] = useState<string>("");
   const [height, setHeight] = useState<string>("");

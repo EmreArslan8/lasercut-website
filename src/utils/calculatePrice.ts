@@ -96,3 +96,24 @@ export const calculatePrice = async (stepData: {
     priceUSD: finalPriceUSD.toFixed(2),
   };
 };
+
+export const calculateTotalPrice = (
+  selectedItems: number[],
+  cartItems: any[],
+  locale: string
+) => {
+  if (selectedItems.length === 0) {
+    return locale === "en" ? "$0.00 USD" : "0.00 TL";
+  }
+
+  const total = selectedItems.reduce((sum, index) => {
+    const price =
+      locale === "en"
+        ? Number(cartItems[index]?.priceUSD) || 0
+        : Number(cartItems[index]?.priceTL) || 0;
+
+    return sum + price * (cartItems[index]?.quantity || 1);
+  }, 0);
+
+  return locale === "en" ? `$${total.toFixed(2)} USD` : `${total.toFixed(2)} TL`;
+};

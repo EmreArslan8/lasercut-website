@@ -11,7 +11,7 @@
     "quickQuote": "get started"
   },
   "Banner": {
-    "title": "Custom Metal Laser Cutting Services",
+    "title": "Precision Laser Cutting & Engineering Solutions for Every Industry.",
     "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs"
   },
   "Footer": {
@@ -85,7 +85,7 @@
     },
     "certificatesReports": {
       "title": "Certificates and Measurement Reports",
-      "description": "DrawToCut can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
+      "description": "We can provide certificates (e.g., material certificates) and quality control reports (CMM, FAIR, etc.) tailored to your custom parts."
     }
   },
   "OrderSuccessFeedback": {
@@ -178,27 +178,32 @@
     "painted": "Painted",
     "unpainted": "Unpainted",
     "note": "Note",
+    "none": "None",
     "placeOrder": "Order Now",
+    "skipAndCheckout": "Skip",
+    "continueWithInfo": "Save",
     "clearCart": "Clear Cart",
+    "processingOrder": "Redirecting to payment page please wait",
     "addMoreProductsText": "Would you like to add more items to the cart? ",
     "goToHomePageButton": "Return home page",
     "orderSummary": "Order Summary",
     "totalProducts": "Total Products",
     "totalAmount": "Total Amount",
+    "supportInfo": "For assistance with your order, please provide your details below.",
     "termsAndConditions": "Terms And Conditions",
     "checkout": "Checkout",
     "removeButton": "REMOVE",
     "extraServices": "Extra Services",
     "itemPrice": "Item total",
+    "itemPriceInfo": "This price is an estimate and may change based on order details.",
     "pricePending": "Price to be confirmed after order.",
     "total": "Total",
     "totalPrice": "Total",
     "totalPriceTL": "Total (TL)",
     "totalPriceUSD": "Total (USD)",
-
+   "customerDetails": "Customer Details",
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "extraServicesList": {
-      "welding": "Welding",
       "bending": "Bending",
       "painting": "Coating"
     },
@@ -387,11 +392,6 @@
     "title": "Additional Services",
     "description": "You can select additional services below. For painting, you can enter a custom color.",
     "extraServices": [
-      {
-        "key": "welding",
-        "name": "Welding",
-        "description": "Metal parts joining process"
-      },
       {
         "key": "bending",
         "name": "Bending",

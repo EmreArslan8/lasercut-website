@@ -8,33 +8,32 @@ import {
   Checkbox,
   Stack,
   Card,
+  Tooltip,
   Modal,
+  TextField,
+  CircularProgress,
 } from "@mui/material";
 import { useCart } from "@/app/context/CartContext";
 import { useState } from "react";
-import OrderSuccessFeedback from "@/app/components/OrderSuccessFeedback";
-import ModalForm from "@/app/components/Form";
-import { useHandleFormSubmit } from "@/utils/handleFormSubmit";
 import styles from "./styles";
 import Icon from "@/app/components/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { truncateText } from "@/utils/truncateText";
+import { calculateTotalPrice } from "@/utils/calculatePrice";
+import { supabase } from "@/lib/api/supabaseClient";
+import theme from "@/theme/theme";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSuccessOpen, setSuccessOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const { handleFormSubmit, isSubmitting } = useHandleFormSubmit(
-    selectedItems,
-    setSuccessOpen
-  );
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("CartPage");
-  const locale = useLocale(); 
+  const locale = useLocale();
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
-
-  const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
@@ -58,55 +57,116 @@ const MobileCart = () => {
       )
     );
   };
-  
-
   const handleCheckout = async () => {
+    setIsLoading(true); // Start loading
     try {
+      console.log("🟢 Checkout started...");
       const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
+      console.log("🟢 Seçilen Ürünler:", selectedCartItems);
+
+      const uploadedFileUrls = await Promise.all(
+        selectedCartItems.map(async (item) => {
+          if (!item.file) return null;
+          const filePath = `orders/${Date.now()}_${item.file.name
+            .replace(/\s+/g, "_")
+            .toLowerCase()}`;
+          const { error } = await supabase.storage
+            .from("uploaded-files")
+            .upload(filePath, item.file);
+          if (error) {
+            console.error("❌ Dosya yükleme hatası:", error.message);
+            throw new Error(error.message);
+          }
+          const { data } = supabase.storage
+            .from("uploaded-files")
+            .getPublicUrl(filePath);
+          console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
+          return data.publicUrl;
+        })
+      );
+
+      console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+
       const lineItems = selectedCartItems.map((item) => ({
-        title: item.fileName,
+        title: item.fileName || "Unnamed Product",
         quantity: item.quantity,
-        price: isNaN(Number(item.priceTL))
-          ? "0.00"
-          : Number(item.priceUSD).toFixed(2),
+        price: item.priceUSD || "0.00",
         properties: [
           { name: "Material", value: item.material },
-          { name: "Thickness", value: `${item.thickness} mm` },
-          ...(item.extraServices && item.extraServices.length > 0
-            ? item.extraServices.map((service) => ({
-                name: "Extra Service",
-                value: service,
-              }))
-            : []),
+          { name: "Thickness", value: item.thickness },
         ],
       }));
 
-      console.log("🟡 Gönderilecek lineItems:", lineItems);
+      const productDetails = {
+        name: customerName,
+        email: customerEmail,
+        items: selectedCartItems.map((item, index) => ({
+          material: item.material,
+          thickness: item.thickness,
+          quantity: item.quantity,
+          price:
+            locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+          fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
+        })),
+      };
 
+      console.log("🟢 Ürün Detayları:", productDetails);
+
+      // **1️⃣ Slack'e Bildirim Gönder**
+      console.log("🟡 Slack'e gönderiliyor...");
+      await fetch("/api/send-slack", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productDetails),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("🟢 Slack yanıtı:", data);
+        })
+        .catch((error) => {
+          console.error("❌ Slack gönderme hatası:", error);
+        });
+
+      console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
       const response = await fetch("/api/shopify/createDraftOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lineItems }),
+        body: JSON.stringify({
+          lineItems,
+          userData: {
+            name: customerName,
+            email: customerEmail,
+            fileUrl: uploadedFileUrls[0] || "",
+            productDetails: JSON.stringify(productDetails),
+          },
+        }),
       });
 
-      const data = await response.json();
-
-      console.log("🟢 Shopify API Frontend Yanıtı:", data);
-
-      if (data.checkoutUrl) {
-        console.log("✅ Yönlendiriliyor:", data.checkoutUrl);
-        window.location.href = data.checkoutUrl;
-      } else {
-        console.error("🔴 Ödeme URL alınamadı. Shopify API Yanıtı:", data);
+      if (!response.ok) {
+        throw new Error(await response.text());
       }
+
+      const data = await response.json();
+      console.log("🟢 Shopify Order Created:", data);
+
+      // Redirect the user
+      window.location.href = data.draft_order.invoice_url;
     } catch (error) {
-      console.error("🔴 Sipariş oluştururken beklenmedik hata oluştu:", error);
+      console.error("❌ Checkout Error:", error);
+    } finally {
+      setIsLoading(false); // Stop loading when done
     }
   };
-
   return (
     <Stack sx={styles.cartContainer}>
+      {isLoading && (
+        <Box sx={styles.loading}>
+          <CircularProgress size={60} color="primary" />
+        
+        </Box>
+      )}
+
       <Typography variant="h2" gutterBottom>
         {t("cartTitle1")} ({cartItems.length} {t("cartTitle2")})
       </Typography>
@@ -124,10 +184,17 @@ const MobileCart = () => {
       ) : (
         <List sx={{ mt: 2 }}>
           {cartItems.map((item, index) => {
-
-
             return (
-              <Card key={index} sx={styles.cartCard}>
+              <Card
+              key={index}
+              sx={{
+                ...styles.cartCard,
+                border: selectedItems.includes(index)
+                  ? "2px solid blue"
+                  : "1px solid #ddd",
+              }}
+            >
+            
                 <Box sx={styles.itemHeader}>
                   <Typography variant="body1" fontWeight="bold">
                     {truncateText(item.fileName)}
@@ -147,7 +214,7 @@ const MobileCart = () => {
                 </Box>
 
                 <Box sx={styles.productLayout}>
-                  {item.svg && (
+                  {item.svg ? (
                     <Box
                       sx={{
                         width: "100%",
@@ -169,6 +236,20 @@ const MobileCart = () => {
                         dangerouslySetInnerHTML={{ __html: item.svg }}
                         sx={styles.svg}
                       />
+                    </Box>
+                  ): (
+                    <Box
+                      sx={{
+                        width: "100px",
+                        height: "100px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#f0f0f0",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Icon name="image"  />
                     </Box>
                   )}
 
@@ -204,27 +285,27 @@ const MobileCart = () => {
                 </Box>
 
                 <Box sx={styles.materialInfoBox}>
-                <Typography sx={styles.textSecondary}>
-                          {t("material")}:{" "}
-                          {materialsMap[item.material] || item.material}
-                        </Typography>
                   <Typography sx={styles.textSecondary}>
-                          {t("thickness")}: {item.thickness} mm
-                        </Typography>
+                    {t("material")}:{" "}
+                    {materialsMap[item.material] || item.material}
+                  </Typography>
+                  <Typography sx={styles.textSecondary}>
+                    {t("thickness")}: {item.thickness} mm
+                  </Typography>
 
                   {item.extraServices && (
-                          <Typography >
-                            {t("extraServices")}:{" "}
-                            {item.extraServices
-                              .map(
-                                (serviceKey) =>
-                                  extraServicesMap[serviceKey] || serviceKey
-                              ) // Çeviri varsa al, yoksa orijinal key göster
-                              .join(", ")}
-                          </Typography>
-                        )}
+                    <Typography sx={styles.textSecondary}>
+                      {t("extraServices")}:{" "}
+                      {item.extraServices
+                        .map(
+                          (serviceKey) =>
+                            extraServicesMap[serviceKey] || serviceKey
+                        ) // Çeviri varsa al, yoksa orijinal key göster
+                        .join(", ")}
+                    </Typography>
+                  )}
                   {item.coating && (
-                    <Typography fontSize={14} color="textSecondary">
+                    <Typography fontSize={14}>
                       {t("coating")} : {item.coating}
                     </Typography>
                   )}
@@ -233,34 +314,21 @@ const MobileCart = () => {
                 {/* Ürün Fiyatı - Sağ Alt */}
                 <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
                   <Box>
-                  <Typography variant="h3">
-                          {t("itemPrice")}:
-                          {locale === "en"
-                            ? item.priceUSD === "pending" ||
-                              item.priceUSD ===
-                                "Fiyat bilgisi siparişten sonra verilecek"
-                              ? t("pricePending")
-                              : `$${
-                                  Number(item.priceUSD) &&
-                                  !isNaN(Number(item.priceUSD))
-                                    ? (
-                                        Number(item.priceUSD) * item.quantity
-                                      ).toFixed(2)
-                                    : "0.00"
-                                } USD`
-                            : item.priceTL === "pending" ||
-                              item.priceTL ===
-                                "Fiyat bilgisi siparişten sonra verilecek"
-                            ? t("pricePending")
-                            : `${
-                                Number(item.priceTL) &&
-                                !isNaN(Number(item.priceTL))
-                                  ? (
-                                      Number(item.priceTL) * item.quantity
-                                    ).toFixed(2)
-                                  : "0.00"
-                              } TL`}
-                        </Typography>
+                    <Typography variant="buttonExtraBold" sx={styles.itemPrice}>
+                      {t("itemPrice")}:
+                      {locale === "en"
+                        ? `$${(
+                            (Number(item.priceUSD) || 0) * item.quantity
+                          ).toFixed(2)} USD`
+                        : `${(
+                            (Number(item.priceTL) || 0) * item.quantity
+                          ).toFixed(2)} TL`}
+                      <Tooltip title={t("itemPriceInfo")} arrow>
+                        <Box sx={styles.itemPrice}>
+                          <Icon name="info" fontSize={12} color="gray" />
+                        </Box>
+                      </Tooltip>
+                    </Typography>
                   </Box>
                 </Stack>
               </Card>
@@ -268,76 +336,83 @@ const MobileCart = () => {
           })}
         </List>
       )}
-{/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
-{cartItems.length > 0 && (
-<Box sx={{ mt: 3, textAlign: "right" }}>
-<Typography variant="h6" fontWeight="bold">
-  {t("totalAmount")}:
-  {selectedItems.length > 0
-    ? selectedItems.some(
-        (index) =>
-          cartItems[index]?.priceUSD === "pending" ||
-          cartItems[index]?.priceUSD === "Fiyat bilgisi siparişten sonra verilecek"
-      )
-      ? t("pricePending")
-      : locale === "en"
-      ? `$${selectedItems
-          .reduce(
-            (sum, index) =>
-              sum +
-              (Number(cartItems[index]?.priceUSD) || 0) *
-                cartItems[index]?.quantity,
-            0
-          )
-          .toFixed(2)} USD`
-      : `${selectedItems
-          .reduce(
-            (sum, index) =>
-              sum +
-              (Number(cartItems[index]?.priceTL) || 0) *
-                cartItems[index]?.quantity,
-            0
-          )
-          .toFixed(2)} TL`
-    : ""}
-</Typography>
-
-</Box>
-)}
-
-{cartItems.length > 0 && (
-<Stack direction="column" spacing={2} sx={{ mt: 4 }}>
-  <Button variant="contained" color="secondary" onClick={clearCart}>
-    {t("clearCart")}
-  </Button>
-  <Button
-    variant="contained"
-    color="primary"
-    onClick={handleCheckout}
-    disabled={selectedItems.length === 0}
-  >
-    {t("placeOrder")}
-  </Button>
-</Stack>
-)}
-
-
-      {/* Modal ve Başarı Bildirimi */}
-      {isModalOpen && (
-        <Modal open={isModalOpen} onClose={handleCloseModal}>
-          <ModalForm
-            onClose={handleCloseModal}
-            onSubmit={handleFormSubmit}
-            disabled={isSubmitting}
-            loading={isSubmitting}
-          />
-        </Modal>
+      {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
+      {cartItems.length > 0 && (
+        <Box sx={{ mt: 3, textAlign: "right" }}>
+          <Typography sx={styles.totalPrice}>
+            {t("totalAmount")}:{" "}
+            {calculateTotalPrice(selectedItems, cartItems, locale)}
+          </Typography>
+        </Box>
       )}
-      {isSuccessOpen && (
-        <OrderSuccessFeedback
-          open={isSuccessOpen}
-          onClose={() => setSuccessOpen(false)}
-        />
+
+      {cartItems.length > 0 && (
+        <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
+          <Button variant="contained" color="secondary" onClick={clearCart}>
+            {t("clearCart")}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setModalOpen(true)} // Open modal
+            disabled={selectedItems.length === 0}
+          >
+            {t("placeOrder")}
+          </Button>
+          <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
+            <Box sx={styles.modal} >
+              <Typography variant="buttonExtraBold"sx={{ display: "block", mb: 1 }} >
+                {t("customerDetails")}
+              </Typography>
+              <Typography variant="bodySmall" sx={{ display: "block", mb: 2, color: "text.secondary" }} >
+                {t("supportInfo")}
+              </Typography>
+
+              <TextField
+                fullWidth
+                label="Full Name"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                sx={{ mb: 2 }}
+              />
+
+              {/* Email Input */}
+              <TextField
+                fullWidth
+                label="Email Address"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                sx={{ mb: 2 }}
+              />
+
+              {/* Buttons to Proceed */}
+              <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  onClick={() => {
+                    setModalOpen(false);
+                    handleCheckout(); // Proceed without details
+                  }}
+                >
+                  {t("skipAndCheckout")}
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={() => {
+                    setModalOpen(false);
+                    handleCheckout(); // Proceed with details
+                  }}
+                >
+                  {t("continueWithInfo")}
+                </Button>
+              </Stack>
+            </Box>
+          </Modal>
+        </Stack>
       )}
     </Stack>
   );

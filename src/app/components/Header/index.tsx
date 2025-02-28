@@ -29,7 +29,7 @@ const Header = () => {
     setMenuOpen((prev) => !prev);
   };
 
-  const logoWidth = isMobile ? 100 : 140;
+  const logoWidth = isMobile ? 120 : 140;
   const logoHeight = isMobile ? 50 : 70;
 
   return (

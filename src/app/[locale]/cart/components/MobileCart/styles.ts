@@ -1,3 +1,6 @@
+import theme from "@/theme/theme";
+import { modalClasses } from "@mui/material";
+
 const styles = {
   cartContainer: { p: 2 },
   emptyCart: {
@@ -32,6 +35,8 @@ const styles = {
     gap: 2,
     width: "100%",
   },
+  itemPrice: { display: "flex", alignItems: "center", gap: 0.5 },
+  totalPrice: { fontSize: 18, fontWeight: "bold", mt: 1 },
   quantityContainer: {
     display: "flex",
     flexDirection: "column",
@@ -66,6 +71,28 @@ const styles = {
     padding: "8px",
     mt: 2,
   },
+  modal: {
+    width: "80%",
+    bgcolor: "white",
+    p: 4,
+    mx: "auto",
+    my: "20vh",
+    boxShadow: 24,
+    textAlign: "center",
+    borderRadius: 2,
+  },
+  loading: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: theme.palette.grey[100],
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999, // Ensure it appears above everything
+  }
 };
 
 export default styles;

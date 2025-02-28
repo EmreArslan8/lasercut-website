@@ -145,7 +145,7 @@ const Step3 = ({
 
             {/* 🟢 Boya Seçilirse Renk Girişi */}
 
-            {selectedServices.includes(extraServices[2]?.key) && (
+            {selectedServices.includes(extraServices[1]?.key) && (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="body2" sx={{ mb: 1 }}>
                   {t("colorSelection")}
@@ -164,6 +164,7 @@ const Step3 = ({
                       {t("customColor")}
                     </MenuItem>
                   </Select>
+                 
                 </FormControl>
 
                 {/* Kullanıcı özel renk seçerse giriş alanını aç */}

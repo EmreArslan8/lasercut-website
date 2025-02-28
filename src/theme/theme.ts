@@ -355,6 +355,18 @@ const theme = createTheme(
           },
         },
       },
+      MuiTextField: {
+        defaultProps: {
+          variant: "outlined",
+        },
+        styleOverrides: {
+          root: {
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 0,
+            },
+          },
+        },
+      },
     },
   },
   {} satisfies ThemeOptions

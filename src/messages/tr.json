@@ -91,7 +91,7 @@
     },
     "certificatesReports": {
       "title": "Sertifikalar ve Ölçüm Raporları",
-      "description": "DrawToCut, özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
+      "description": "Özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
     }
   },
   "OrderSuccessFeedback": {
@@ -181,26 +181,32 @@
     "quantity": "Adet",
     "coating": "Boya",
     "note": "Not",
+    "none": "Yok",
     "placeOrder": "Sipariş Ver",
+    "skipAndCheckout": "Atla",
+    "continueWithInfo": "Kaydet",
     "clearCart": "sepeti temizle",
     "addMoreProductsText": "Sepete daha fazla ürün eklemek ister misiniz?",
     "goToHomePageButton": "Ürün Ekle",
     "orderSummary": "Sipariş Özeti",
     "totalProducts": "Toplam Ürün",
     "totalAmount": "Ödenecek Tutar (KDV Dahil)",
+    "supportInfo": "Siparişinizle ilgili yardım için lütfen aşağıda bilgilerinizi doldurun.",
     "termsAndConditions": "Kullanım Koşulları ve Üyelik Sözleşmesi okudum ve kabul ediyorum",
     "checkout": "Devam et",
     "removeButton": "SİL",
     "extraServices": "Ek Hizmet",
     "itemPrice": "Fiyat",
+    "processingOrder": "Ödeme sayfasına yöndlendiriyor lütfen bekleyin",
+    "itemPriceInfo": "Bu fiyat tahmini bir fiyattır. Sipariş detaylarına göre değişebilir",
     "total": "Toplam",
     "pricePending": "Fiyat bilgisi siparişten sonra verilecektir.",
+    "customerDetails": "Müşteri bilgileri",
     "totalPrice": "Toplam Fiyat",
     "totalPriceTL": "Toplam Fiyat (TL)",
     "totalPriceUSD": "Toplam Fiyat (USD)",
     "policyText": "Hüküm ve Koşulları ayrıca Gizlilik Politikası'nı inceledim ve kabul ediyorum.",
     "extraServicesList": {
-      "welding": "Kaynak",
       "bending": "Büküm",
       "painting": "Boya"
     },
@@ -389,11 +395,6 @@
     "title": "Ek Hizmetler",
     "description": "Aşağıdan ek hizmetleri seçebilirsiniz. Boya için özel renk girişi yapabilirsiniz.",
     "extraServices": [
-      {
-        "key": "welding",
-        "name": "Kaynak",
-        "description": "Metal parçaları birleştirme işlemi"
-      },
       {
         "key": "bending",
         "name": "Büküm",
