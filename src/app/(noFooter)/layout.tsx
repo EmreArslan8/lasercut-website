@@ -1,5 +1,6 @@
+import { CartProvider } from "@/context/CartContext";
 import { ReactNode } from "react";
-import { CartProvider } from "../context/CartContext";
+
 
 export default async function RootLayout({
   children,

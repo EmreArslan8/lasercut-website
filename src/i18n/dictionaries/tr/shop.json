@@ -1,0 +1,185 @@
+{
+  "category": "Kategoriler",
+  "brand": "Markalar",
+  "gender": "Cinsiyet",
+  "genders": {
+    "1": "Kadın",
+    "2": "Erkek",
+    "3": "Çocuklar",
+    "4": "Erkek Çocuk",
+    "5": "Kız Çocuk",
+    "6": "Kız Bebek",
+    "7": "Erkek Bebek"
+  },
+  "filters": {
+    "label": "Filtreler {numSelected, plural, =0 {} other {(#)}}",
+    "selected": "Seçilen filtreler",
+    "category": "Kategoriler",
+    "brand": "Markalar",
+    "gender": "Cinsiyet",
+    "genders": {
+      "1": "Kadın",
+      "2": "Erkek",
+      "3": "Çocuklar",
+      "4": "Erkek Çocuk",
+      "5": "Kız Çocuk",
+      "6": "Kız Bebek",
+      "7": "Erkek Bebek"
+    },
+    "size": "Beden",
+    "searchPlaceholder": "Ara {type, select, category {Kategoriler} brand {Markalar} gender {Cinsiyet} size {Beden} other {} }...",
+    "noOptionsFound": "Aramanıza uygun seçenek bulunamadı."
+  },
+  "sort": {
+    "dsc": "Fiyat düşüyor",
+    "asc": "Fiyat artıyor",
+    "rcc": "Önerilen",
+    "bst": "Çok satanlar",
+    "fav": "En sık favorilenen",
+    "rct": "En yeni"
+  },
+  "totalCount": "{query, select, null {} other {\"{query}\" aramanız için }}{totalCount} ürün bulundu",
+  "back": "Geri",
+  "addToCart": "Sepete Ekle",
+  "recommendations": "Ayrıca sevebilecekleriniz",
+  "variants": {
+    "size": "Beden"
+  },
+  "quantity": "Adet: {quantity}",
+  "sizeGuide": "Beden Rehberi",
+  "reviews": "Değerlendirmeler",
+  "cart": {
+    "button": {
+      "label": "Sepet {numItems, plural, =0 {} other {(#)}}",
+      "title": "Alışveriş Sepeti {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "Alışveriş sepetiniz boş",
+      "itemsTotal": "Ürünler Toplamı",
+      "continue": "Sepete Git"
+    },
+    "page": {
+      "title": "Alışveriş Sepetiniz {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "Alışveriş sepetiniz boş.",
+      "selectAll": "Tümünü Seç",
+      "checkoutCard": {
+        "title": "Siparişiniz",
+        "shippingBanner": "7-14 gün içerisinde teslimat, 30 gün içerisinde ücretsiz iade!",
+        "itemsTotal": "{numSelected} ürün",
+        "discountCodeSuccess": "{totalDiscount} indirim uygulandı!",
+        "discountCodeLabel": "İndirim kodunuz var mı?",
+        "discountCodePlaceholder": "İndirim kodunu giriniz",
+        "discountCodeSubmit": "Uygula",
+        "discountCodeError": "Geçersiz indirim kodu",
+        "totalDiscountNote": "**{discount}** kazanç!",
+        "shippingNote": "**{amount}** kargo ücreti",
+        "productDiscount": "{percent}% ürün indirimi",
+        "promotionDiscount": "İndirim kodu",
+        "shipping": "Gönderim",
+        "discount": "İndirim",
+        "totalDue": "Toplam Ödeme",
+        "continue": "Ödemeye Geç"
+      },
+      "deliveryCard": {
+        "title": "Teslimat",
+        "homeDelivery": "Kapıya Teslim",
+        "shippingBanner": "7-14 gün içerisinde teslim edilir"
+      },
+      "paymentCard": {
+        "title": "Ödeme yöntemi",
+        "creditDebit": "Kredi/Banka Kartı",
+        "creditDebitDescription": "Bir sonraki adımda kart bilgilerinizi girmenizi isteyeceğiz.",
+        "uzcardHumo": "Uzcard/Humo (yakında!)"
+      },
+      "productsCard": {
+        "title": "{numSelected} ürün"
+      },
+      "clearModal": {
+        "title": "Uyarı",
+        "body": "Alışveriş sepetinizi boşaltmak ister misiniz?",
+        "cancel": "İptal",
+        "confirm": "Sepetimi boşalt"
+      }
+    },
+    "placeOrder": "Sipariş Ver"
+  },
+  "defaultAddressName": "Adresim",
+  "success": {
+    "pageTitle": "Sipariş Tamamlandi",
+    "title": "Ödeme alındı",
+    "body": "Sipariş numaranız:\n**{id}**\n\nSiparişiniz en kısa sürede işleme alınarak kargoya verilecektir.",
+    "cta": "Siparişi görüntüle"
+  },
+  "orders": {
+    "ordersPage": {
+      "title": "Geçmiş siparişleriniz",
+      "noOrders": {
+        "title": "Burası boş!",
+        "body": "Hesabınızda henüz bir sipariş bulunmuyor.",
+        "cta": "Ürünleri Keşfedin"
+      }
+    },
+    "orderPage": {
+      "title": "Sipariş detayları",
+      "status": "Sipariş durumu",
+      "trackShipmentButton": "Gönderiyi takip et",
+      "products": {
+        "cardTitle": "Ürünler",
+        "quantity": "Miktar: {quantity}"
+      },
+      "summary": {
+        "cardTitle": "Ödeme detayları",
+        "productsTotal": "Ürünler",
+        "shipping-handling": "Gönderim",
+        "discount": "İndirim",
+        "total": "Toplam",
+        "totalDue": "Toplam Ödeme",
+        "customsChargesLabels": {
+          "tax": "KDV %17",
+          "clearence-fee": "Clearence fee",
+          "clearance-fee": "Clearence fee",
+          "computer-fee": "Gümrük Bilgisayar vergisi",
+          "security-fee": "Security fee"
+        }
+      }
+    },
+    "orderId": "Sipariş Numarası",
+    "trackingNumber": "Takip numarası",
+    "createdDate": "Oluşturulma tarihi",
+    "status": "Durum",
+    "statuses": {
+      "processing": {
+        "label": "İşleniyor",
+        "description": "Siparişiniz işleniyor. İşlem tamamlandığında siparişinizi hazırlamaya başlayacağız."
+      },
+      "preparing": {
+        "label": "Hazırlanıyor",
+        "description": "Siparişinizi sizin için hazırlıyor ve en kısa sürede kargoya verilecektir."
+      },
+      "shipped": {
+        "label": "Kargoya Teslim Edildi",
+        "description": "Siparişiniz yolda ve kısa süre içinde tarafınıza ulaşacaktır."
+      },
+      "cancelled": {
+        "label": "İptal edildi",
+        "description": "Siparişiniz iptal edilmiş olup paranız iade edilecektir. Daha fazla bilgi edinmek için lütfen destek ekibiyle iletişime geçin."
+      }
+    }
+  },
+
+  "payment": {
+    "uzcardHumo": {
+      "portal": {
+        "title": "Uzcard/Humo ile Öde",
+        "cardNumberDescription": "Lütfen kart bilgilerinizi giriniz.",
+        "cardNumberLabel": "Kart numarası",
+        "monthLabel": "Ay",
+        "yearLabel": "Yıl",
+        "cancelButton": "Vazgeç",
+        "continueToCodeButton": "Devam et",
+        "backToCardNumberButton": "Geri",
+        "codeDescription": "SMS ile gönderilen onay kodunu giriniz.",
+        "codeLabel": "Onay kodu",
+        "confirmButton": "Ödemeyi Onayla"
+      }
+    }
+  }
+}

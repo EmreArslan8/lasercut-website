@@ -11,9 +11,60 @@
     "quickQuote": "hızlı teklif"
   },
   "Banner": {
-    "title": "Talebe Özel Metal Lazer Kesim Hizmetleri",
-    "subtitle": "İhtiyacınıza uygun yüksek hassasiyetli metal lazer kesim çözümleriyle kaliteyi ve detayı buluşturun"
+    "titleStart": "Talebe Özel",
+    "titleHighlight": "Metal Lazer Kesim ",
+    "titleEnd": "Hizmetleri",
+    "description": "İhtiyaçlarınıza özel yüksek hassasiyetli metal lazer kesim çözümleri ile kalite ve hassasiyeti bir araya getirin.",
+    "quickQuote": "Hızlı Teklif Al",
+    "counterTitle": "Memnun Müşteriler",
+    "counterSubtitle": "Mühendislik Çözümleri"
   },
+  "FeatureSection": {
+    "badge": "Biz Kimiz",
+    "desc": "Yüksek kalite standartlarında lazer kesim ve mühendislik çözümleri sunan uzman bir ekibiz. Her adımda güvenilir destek sağlıyoruz.",
+    "heading": "Üst Düzey ",
+    "highlight": "Lazer Kesim",
+    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız.",
+    "subheading": "Neler Yapıyoruz",
+    "serviceTitle": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
+    "serviceDesc": "Tasarım aşamasından üretime kadar ihtiyacınıza yönelik kaliteli ve hassas çözümler sağlıyoruz.",
+    "services": [
+      {
+        "title": "Lazer Kesim",
+        "desc": "Metal ve diğer materyaller üzerinde hassas lazer kesim çözümleri."
+      },
+      {
+        "title": "İmalat",
+        "desc": "Profesyonel ekipmanlarla yüksek kaliteli üretim süreçleri."
+      },
+      {
+        "title": "Yüzey İşleme",
+        "desc": "Estetik ve dayanıklılığı artıran özel yüzey kaplama çözümleri."
+      }
+    ],
+    "imageAlt": "Profesyonel işçi koruyucu ekipmanıyla çalışıyor"
+  },
+
+  "Services": {
+  "subheading": "NE YAPIYORUZ",
+  "serviceTitle": "SİZİN İÇİN EN İYİ MÜHENDİSLİK HİZMETLERİNİ SUNUYORUZ",
+  "serviceDesc": "Doğru insanları bir araya getirerek yerleşik düşünceleri sorguluyor ve dönüşümü sağlıyoruz.",
+  "services": [
+    {
+      "title": "LAZER KESİM",
+      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
+    },
+    {
+      "title": "İMALAT",
+      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
+    },
+    {
+      "title": "BİTİŞ İŞLEMLERİ",
+      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
+    }
+  ]
+},
+
   "Footer": {
     "brand": "Draw to Cut",
     "copyright": "©Copyright® 2025.",
@@ -94,6 +145,7 @@
       "description": "Özel parçalarınıza uygun sertifikalar (ör. malzeme sertifikaları) ve kalite kontrol raporları (CMM, FAIR vb.) sağlayabilir."
     }
   },
+
   "OrderSuccessFeedback": {
     "successTitle": "Tebrikler!",
     "successMessage": "Siparişiniz başarıyla alındı. En kısa sürede işleme alınacaktır. Teşekkür ederiz!",
@@ -154,7 +206,7 @@
         "key": "ST37-K / S235JR",
         "name": "Çelik ST37-K / S235JR / 1.0038",
         "description": "İyi kaynaklanabilirlik ve dayanıklılık sunan ekonomik bir yapısal çelik türüdür.",
-        "image":  "/static/images/st37.png"
+        "image": "/static/images/st37.png"
       },
       {
         "key": "Stainless Steel 304",
@@ -227,8 +279,11 @@
     "description": "Etkileşimli rehberimizle adım adım süreci keşfedin."
   },
   "ExampleWorks": {
-    "title": "Çalışmalarımız",
-    "viewExamples": "daha fazla"
+    "ourWork": "Çalışmalarımız",
+    "workingGallery": "Çalışma Galerisi",
+    "workingGalleryDesc": "Özel projeler ve sektörler için titizlikle hazırlanmış yüksek kaliteli lazer kesim çalışmalarımızı keşfedin.",
+    "goToGallery": "Galeriyi Gör",
+    "title": "Galeri"
   },
   "ExamplePage": {
     "title": "Örnek Çalışmalarımız",
@@ -426,5 +481,32 @@
   "calculatePrice": {
     "priceTL": "Price information will be given after ordering",
     "priceUSD": "Price information will be given after ordering"
+  },
+
+  "Blog": {
+    "posts": [
+      {
+        "title": "Kolay Mühendislik Nasıl Yapılır",
+        "slug": "how-to-easy-engineering",
+        "excerpt": "Mühendislik süreçlerinizi kolaylaştırmak ve verimliliği artırmak için basit adımları keşfedin.",
+        "content": "Mühendislik karmaşık olmak zorunda değil. Doğru araçlar ve yöntemlerle iş akışınızı basitleştirebilir ve daha iyi sonuçlar alabilirsiniz.",
+        "date": "4 Mart 2024"
+      },
+      {
+        "title": "Lazer Kesimin Geleceği",
+        "slug": "the-future-of-laser-cutting",
+        "excerpt": "Lazer kesimin hassasiyet ve hız ile sektörleri nasıl dönüştürdüğünü keşfedin.",
+        "content": "Lazer kesim teknolojisi hızla gelişiyor ve üreticilerin benzersiz hassasiyetle karmaşık tasarımlar oluşturmasını sağlıyor.",
+        "date": "20 Şubat 2024"
+      },
+      {
+        "title": "İmalatta Verimlilik Nasıl Artırılır",
+        "slug": "maximizing-productivity-in-fabrication",
+        "excerpt": "İmalat sürecinizi bu uzman ipuçları ve tekniklerle geliştirin.",
+        "content": "Rekabetçi kalabilmek için imalat süreçlerinizi optimize etmek önemlidir. Atıkları azaltın, zamandan tasarruf edin ve yüksek kaliteli sonuçlar sunun.",
+        "date": "15 Ocak 2024"
+      }
+    ],
+    "readMore": "Devamını Oku"
   }
 }

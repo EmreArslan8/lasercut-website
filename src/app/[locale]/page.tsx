@@ -2,26 +2,32 @@
 
 import { Container, Stack, Box, useMediaQuery } from "@mui/material";
 import useFileUpload from "@/lib/hooks/useFileUpload";
-import AdvantageSection from "../components/Advantage";
-import ProcessSteps from "../components/Process";
-import WhatsAppButton from "../components/WpButton";
-import { ArcadeEmbed } from "../components/Arcade";
-import BannerSlider from "../components/Banner";
-import ExampleSlider from "../components/ExampleWorks";
-import FileUpload from "../components/FileUpload";
-
+import { ArcadeEmbed } from "@/components/Arcade";
+import CustomBanner from "@/components/CustomBanner";
+import ExampleSlider from "@/components/ExampleWorks";
+import WhatsAppButton from "@/components/WpButton";
+import { useState } from "react";
+import FileUpload from "@/components/FileUpload";
+import Blogs from "@/components/Blogs";
+import FeatureSection from "@/components/FeatureSection";
+import AdvantageSection from "@/components/AdvantageSection";
+import ServicesSection from "@/components/ServiceSection";
+import HeroSection from "@/components/HeroSection";
+import Archivements from "@/components/Archivements";
+import MaterialListSection from "@/components/MaterialSection";
 
 const HomePage = () => {
   const { uploadedFiles, setUploadedFiles } = useFileUpload();
   const isMobile = useMediaQuery("(max-width:600px)");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Stack sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", mt: 1 }}>
+    <Stack sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh"}}>
       {isMobile ? (
         <>
           {/* Mobil Tasarım: Slider ve Dosya Yükleme Alt Alta */}
           <Box sx={{ backgroundColor: "#fff", mb: 4 }}>
-            <BannerSlider />
+          <CustomBanner setDrawerOpen={setDrawerOpen} />
           </Box>
           <Box sx={{ mb: 4, px: 2 }}>
             <FileUpload
@@ -29,48 +35,37 @@ const HomePage = () => {
                 setUploadedFiles(files);
               }}
               files={uploadedFiles}
-              setUploadedFiles={setUploadedFiles}               />
+              setUploadedFiles={setUploadedFiles} 
+              drawerOpen={drawerOpen}
+              setDrawerOpen={setDrawerOpen}/>
           </Box>
         </>
       ) : (
         <Box sx={{ position: "relative", backgroundColor: "#fff" }}>
-          {/* Masaüstü Tasarım: Slider ve Dosya Yükleme Birlikte */}
-          <BannerSlider />
-          <Box
-            sx={{
-              position: "absolute",
-              top: "85%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "80%",
-              zIndex: 10,
-            }}
-          >
+          <CustomBanner setDrawerOpen={setDrawerOpen} />
             <FileUpload
               onFileUpload={(files) => {
                 setUploadedFiles(files);
               }}
               files={uploadedFiles}
               setUploadedFiles={setUploadedFiles} 
+              setDrawerOpen={setDrawerOpen}
+              drawerOpen= {drawerOpen}
             />
           </Box>
-        </Box>
       )}
-      <Container>
-        <Stack spacing={14} sx={{ mt: isMobile ? 4 : 25 }}>
-         
-            <>
-       
-              <ProcessSteps />
+       <FeatureSection />
               <ArcadeEmbed />
-              <ExampleSlider />
+              <ServicesSection />
+              <HeroSection />
+              <Archivements />
+             <MaterialListSection />
               <AdvantageSection />
+              <ExampleSlider />
+              <Blogs />
               <WhatsAppButton />
-            </>
-    
         </Stack>
-      </Container>
-    </Stack>
+
   );
 };
 

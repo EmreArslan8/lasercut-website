@@ -68,7 +68,7 @@ const ContactPage = () => {
   };
 
   return (
-    <Box sx={{ width: "100%", px: 3, py: 6 }}>
+    <Box sx={{ width: "100%", px: 3, py: 6, mt: 18 }}>
       {/* Form ve Harita */}
       <Box
         sx={{

@@ -11,10 +11,63 @@
     "quickQuote": "get started"
   },
   "Banner": {
-    "title": "Precision Laser Cutting & Engineering Solutions for Every Industry.",
-    "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs",
-    "quickQuote": "Get online quote in seconds"
+    "titleStart": "Precision Laser Cutting",
+    "titleHighlight": "Engineering Solutions",
+    "titleEnd": "for Every Industry.",
+    "description": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs.",
+    "counterSubtitle": "Engineering Solutions",
+    "counterTitle": "Satisfying Clients",
+    "quickQuote": "Get a quote"
   },
+
+    "FeatureSection": {
+      "badge": "Who We Are",
+      "desc": "We are a team of experts delivering high-quality laser cutting and engineering solutions with reliable support at every step.",
+      "heading": "We Specialize In Delivering Top-Notch  ",
+      "highlight": "Laser Cutting",
+      "headingContinuation": " and Engineering Services.",
+      "subheading": "What We Do",
+      "serviceTitle": "We Do Best Engineering Services For You",
+      "serviceDesc": "From design to production, we deliver precise and quality solutions tailored to your needs.",
+      "services": [
+        {
+          "title": "Laser Cutting",
+          "desc": "Precision laser cutting solutions for metals and other materials."
+        },
+        {
+          "title": "Fabrication",
+          "desc": "High-quality production processes with professional equipment."
+        },
+        {
+          "title": "Finishing",
+          "desc": "Special surface finishing solutions enhancing aesthetics and durability."
+        }
+      ],
+      "imageAlt": "Professional worker operating in safety gear"
+    },
+
+    "Services": {
+  "subheading": "WHAT WE DO",
+  "serviceTitle": "WE DO BEST ENGINEERING SERVICES FOR YOU",
+  "serviceDesc": "We bring the right people together to challenge established thinking and drive transformation.",
+  "services": [
+    {
+      "title": "LASER CUTTING",
+      "desc": "We bring the right people together to challenge established thinking and drive transformation."
+    },
+    {
+      "title": "FABRICATION",
+      "desc": "We bring the right people together to challenge established thinking and drive transformation."
+    },
+    {
+      "title": "FINISHING",
+      "desc": "We bring the right people together to challenge established thinking and drive transformation."
+    }
+  ]
+},
+
+
+  
   "Footer": {
     "brand": "Draw to Cut",
     "copyright": "Copyright® 2025.",
@@ -149,7 +202,7 @@
         "key": "ST37-K / S235JR",
         "name": "ST37-K / S235JR",
         "description": "Structural steel known for its weldability and cost-effectiveness.",
-        "image":  "/static/images/st37.png"
+        "image": "/static/images/st37.png"
       },
       {
         "key": "Stainless Steel 304",
@@ -202,7 +255,7 @@
     "totalPrice": "Total",
     "totalPriceTL": "Total (TL)",
     "totalPriceUSD": "Total (USD)",
-   "customerDetails": "Customer Details",
+    "customerDetails": "Customer Details",
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "extraServicesList": {
       "bending": "Bending",
@@ -225,9 +278,13 @@
     "description": "Discover the process step by step with our interactive guide."
   },
   "ExampleWorks": {
-    "title": "Example Works",
-    "viewExamples": "too see more"
+    "ourWork": "Our Work",
+    "workingGallery": "Working Gallery",
+   "workingGalleryDesc": "Discover our high-quality laser cutting works, crafted with precision to meet the unique needs of each project and industry.",
+    "goToGallery": "Go to Gallery",
+    "title": "Gallery"
   },
+
   "ExamplePage": {
     "title": "Made with Laser",
     "description": "Explore our collection of precision-crafted laser-cut designs. "
@@ -424,5 +481,32 @@
   "calculatePrice": {
     "priceTL": "Price information will be given after ordering",
     "priceUSD": "Price information will be given after ordering"
-  }
+  },
+    "Blog": {
+      "posts": [
+        {
+          "title": "How to Easy Engineering",
+          "slug": "how-to-easy-engineering",
+          "excerpt": "Discover simple steps to streamline your engineering processes and increase efficiency.",
+          "content": "Engineering doesn't have to be complicated. With the right tools and methodologies, you can simplify your workflow and achieve better results.",
+          "date": "March 4, 2024"
+        },
+        {
+          "title": "The Future of Laser Cutting",
+          "slug": "the-future-of-laser-cutting",
+          "excerpt": "Explore how laser cutting is transforming industries with precision and speed.",
+          "content": "Laser cutting technology is advancing rapidly, enabling manufacturers to create complex designs with unprecedented accuracy.",
+          "date": "February 20, 2024"
+        },
+        {
+          "title": "Maximizing Productivity in Fabrication",
+          "slug": "maximizing-productivity-in-fabrication",
+          "excerpt": "Boost your fabrication process with these expert tips and techniques.",
+          "content": "Optimizing your fabrication process is key to staying competitive. Reduce waste, save time, and deliver top-quality results.",
+          "date": "January 15, 2024"
+        }
+      ],
+      "readMore": "Read More"
+    }
+  
 }

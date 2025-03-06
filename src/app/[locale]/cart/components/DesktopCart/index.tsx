@@ -16,17 +16,15 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import { useCart } from "@/app/context/CartContext";
-import OrderSuccessFeedback from "@/app/components/OrderSuccessFeedback";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
-import Icon from "@/app/components/Icon";
-import { useHandleFormSubmit } from "@/utils/handleFormSubmit";
-import ModalForm from "@/app/components/Form";
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
 import { supabase } from "@/lib/api/supabaseClient";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
+import { generateOrderEmail } from "@/utils/emailTemplates";
+import Icon from "@/components/common/Icon";
+import { useCart } from "@/context/CartContext";
 
 const DesktopCart = () => {
   const { cartItems, setCartItems } = useCart();
@@ -40,15 +38,11 @@ const DesktopCart = () => {
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
 
-  const { handleFormSubmit, isSubmitting } = useHandleFormSubmit(
-    selectedItems,
-    setSuccessOpen
-  );
 
   const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    setCartItems((prevItems: any[]) => prevItems.filter((_, i) => i !== index));
   };
 
   const handleCheckout = async () => {
@@ -122,6 +116,29 @@ const DesktopCart = () => {
       .catch((error) => {
         console.error("❌ Slack gönderme hatası:", error);
       });
+
+      const emailContent = generateOrderEmail({
+        customerName,
+        customerEmail,
+        items: selectedCartItems.map((item, index) => ({
+          fileName: item.fileName,
+          material: item.material,
+          thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+          quantity: item.quantity,
+          price:
+            locale === "en"
+              ? `$${item.priceUSD} USD`
+              : `${item.priceTL} TL`,
+          fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+        })),
+      });
+      
+      await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailContent),
+      });
+      
 
     console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
     const response = await fetch("/api/shopify/createDraftOrder", {

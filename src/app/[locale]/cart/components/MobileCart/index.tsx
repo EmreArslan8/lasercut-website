@@ -13,15 +13,16 @@ import {
   TextField,
   CircularProgress,
 } from "@mui/material";
-import { useCart } from "@/app/context/CartContext";
+
 import { useState } from "react";
 import styles from "./styles";
-import Icon from "@/app/components/Icon";
+import Icon from "@/components/common/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { truncateText } from "@/utils/truncateText";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { supabase } from "@/lib/api/supabaseClient";
-import theme from "@/theme/theme";
+import { generateOrderEmail } from "@/utils/emailTemplates";
+import { useCart } from "@/context/CartContext";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
@@ -126,6 +127,28 @@ const MobileCart = () => {
         })
         .catch((error) => {
           console.error("❌ Slack gönderme hatası:", error);
+        });
+
+        const emailContent = generateOrderEmail({
+          customerName,
+          customerEmail,
+          items: selectedCartItems.map((item, index) => ({
+            fileName: item.fileName,
+            material: item.material,
+            thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+            quantity: item.quantity,
+            price:
+              locale === "en"
+                ? `$${item.priceUSD} USD`
+                : `${item.priceTL} TL`,
+            fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+          })),
+        });
+        
+        await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emailContent),
         });
 
       console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");

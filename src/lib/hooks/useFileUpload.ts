@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useCart } from "@/app/context/CartContext";
 import { supabase } from "../api/supabaseClient";
+import { useCart } from "@/context/CartContext";
 
 interface UploadResult {
   success: boolean;
