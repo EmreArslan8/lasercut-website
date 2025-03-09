@@ -1,5 +1,5 @@
 const styles = {
-    cartContainer: { my: 4, overflow: "hidden", pl: 2 },
+    cartContainer: { my: 4, overflow: "hidden", pl: 2, mt: 20 , mb: 30 },
     cartItemsSection: { width: "100%" },
     emptyCart: { textAlign: "center", mt: 5, alignItems: "center" },
     emptyIcon: { fontSize: 220, color: "#bbb" },

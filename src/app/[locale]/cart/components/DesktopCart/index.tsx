@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   List,
   ListItem,
@@ -16,17 +16,17 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import { useCart } from "@/app/context/CartContext";
-import OrderSuccessFeedback from "@/app/components/OrderSuccessFeedback";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
-import Icon from "@/app/components/Icon";
-import { useHandleFormSubmit } from "@/utils/handleFormSubmit";
-import ModalForm from "@/app/components/Form";
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
 import { supabase } from "@/lib/api/supabaseClient";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
+import { generateOrderEmail } from "@/utils/emailTemplates";
+import Icon from "@/components/common/Icon";
+import { useCart } from "@/context/CartContext";
+import router, { useRouter } from "next/navigation";
+import { Link } from "@/i18n/routing";
 
 const DesktopCart = () => {
   const { cartItems, setCartItems } = useCart();
@@ -36,26 +36,28 @@ const DesktopCart = () => {
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const t = useTranslations("CartPage");
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const locale = useLocale();
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
-
-  const { handleFormSubmit, isSubmitting } = useHandleFormSubmit(
-    selectedItems,
-    setSuccessOpen
-  );
+  const router = useRouter();
 
   const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    setCartItems((prevItems: any[]) => prevItems.filter((_, i) => i !== index));
   };
 
   const handleCheckout = async () => {
 
+    router.push(`/${locale}/checkout`);
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
     console.log("📩 Müşteri E-Posta:", customerEmail);
+    if (!customerName.trim()) setNameError(true);
+    if (!customerEmail.trim()) setEmailError(true);
+    if (!customerName.trim() || !customerEmail.trim()) return;
 
     const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
@@ -83,6 +85,20 @@ const DesktopCart = () => {
     );
 
     console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+
+    const checkoutData = {
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || "Dosya Yok",
+      })),
+    };
+
+    console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
 
     const lineItems = selectedCartItems.map((item) => ({
       title: item.fileName || "Unnamed Product",
@@ -123,6 +139,30 @@ const DesktopCart = () => {
         console.error("❌ Slack gönderme hatası:", error);
       });
 
+    const emailContent = generateOrderEmail({
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        fileName: item.fileName,
+        material: item.material,
+        thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+        quantity: item.quantity,
+        price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+      })),
+    });
+
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(emailContent),
+    });
+    console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
+
+    // ✅ Checkout’a yönlendir
+    localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+
+    /*
     console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
     const response = await fetch("/api/shopify/createDraftOrder", {
       method: "POST",
@@ -145,6 +185,7 @@ const DesktopCart = () => {
       console.log("🟢 Shopify siparişi başarıyla oluşturuldu.");
       window.location.href = data.draft_order.invoice_url;
     }
+      */
   };
 
   return (
@@ -289,16 +330,25 @@ const DesktopCart = () => {
                   fullWidth
                   label="Full Name"
                   value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
+                  onChange={(e) => {
+                    setCustomerName(e.target.value);
+                    setNameError(false); // Kullanıcı giriş yaptığında hata sıfırlanır
+                  }}
+                  error={nameError} // Eğer boşsa kırmızı border
+                  helperText={nameError ? "Full Name is required" : ""} // Uyarı mesajı
                   sx={{ mb: 2 }}
                 />
 
-                {/* Email Input */}
                 <TextField
                   fullWidth
                   label="Email Address"
                   value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  onChange={(e) => {
+                    setCustomerEmail(e.target.value);
+                    setEmailError(false);
+                  }}
+                  error={emailError}
+                  helperText={emailError ? "Email Address is required" : ""}
                   sx={{ mb: 2 }}
                 />
 
@@ -314,17 +364,21 @@ const DesktopCart = () => {
                   <Typography variant="bodySmall">{t("policyText")}</Typography>
                 </Stack>
 
-                {/* Place Order Button */}
+                {/* Place Order Button */}  
+
                 <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleCheckout}
-                  fullWidth
-                  sx={styles.checkoutButton}
-                  disabled={selectedItems.length === 0}
-                >
-                  {t("placeOrder")}
-                </Button>
+  variant="contained"
+  color="primary"
+  fullWidth
+  onClick={handleCheckout} // 📌 Burada fonksiyonu çağırıyoruz!
+  disabled={
+    selectedItems.length === 0 ||
+    !customerName.trim() ||
+    !customerEmail.trim()
+  }
+>
+  {t("placeOrder")}
+</Button>;
               </Box>
             </Grid2>
           )}

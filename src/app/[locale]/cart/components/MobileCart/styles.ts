@@ -1,8 +1,7 @@
 import theme from "@/theme/theme";
-import { modalClasses } from "@mui/material";
 
 const styles = {
-  cartContainer: { p: 2 },
+  cartContainer: { p: 2, mt: 19 },
   emptyCart: {
    gap: 5,
     alignItems: "center",
@@ -11,6 +10,7 @@ const styles = {
     borderRadius: "8px",
     textAlign: "center",
     mt: 5,
+    
   },
   cartCard: {
     mb: 2,

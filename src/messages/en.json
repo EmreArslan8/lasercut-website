@@ -11,16 +11,84 @@
     "quickQuote": "get started"
   },
   "Banner": {
-    "title": "Precision Laser Cutting & Engineering Solutions for Every Industry.",
-    "subtitle": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs",
-    "quickQuote": "Get online quote in seconds"
+    "titleStart": "Precision Laser Cutting",
+    "titleHighlight": "Engineering Solutions",
+    "titleEnd": "for Every Industry.",
+    "description": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs.",
+    "counterSubtitle": "Engineering Solutions",
+    "counterTitle": "Satisfying Clients",
+    "quickQuote": "Get a quote"
   },
+
+  "FeatureSection": {
+    "badge": "Who We Are",
+    "desc": "We are a team of experts delivering high-quality laser cutting and engineering solutions with reliable support at every step.",
+    "heading": "We Specialize In Delivering Top-Notch  ",
+    "highlight": "Laser Cutting",
+    "headingContinuation": " and Engineering Services.",
+    "subheading": "What We Do",
+    "serviceTitle": "We Do Best Engineering Services For You"
+  },
+
+  "Services": {
+    "title": "What We Do",
+    "heading": "We Provide the Best Engineering Services for You",
+    "description": "Our expertise lies in precision engineering, offering high-quality services tailored to your needs. From laser cutting to custom fabrication, we ensure efficiency, accuracy, and reliability in every project.",
+    "laserCutting": {
+      "title": "Laser Cutting Service",
+      "description": "Experience high-precision laser cutting with fast turnaround times, ensuring clean and accurate cuts for various materials."
+    },
+
+    "cncMachining": {
+      "title": "CNC Machining Service",
+      "description": "Accurate CNC machining for complex parts."
+    },
+    "customFabrication": {
+      "title": "Custom Metal Fabrication",
+      "description": "Tailored metal fabrication to meet your needs."
+    }
+  },
+  "Arcade": {
+    "section": "How to Works",
+    "title": "Discover the process step by step with our interactive guide.",
+    "description": "Please select the file format you want to upload",
+    "button1": "Dxf Files",
+    "button2": "Image",
+    "paperTitle": "Get started now and create your laser cutting order!",
+    "offerButton": "Get a Free Quote",
+    "supportButton": "Get Support",
+    "info": "Design. Upload. Get it Cut!"
+  },
+  "metadata": {
+    "description": "Online Laser Cutting"
+  },
+  "HeroSection": {
+    "badge": "Fast and Easy",
+    "title": "Prepare Your Custom Cut Parts",
+    "description": "Upload your design file, define your measurements, and easily order your laser-cut parts. Whether it's a single piece or mass production, we produce it just for you.",
+    "ctaTitle": "Get an online quote now",
+    "slogan": "You design it, we make it!",
+    "button": "Upload File"
+  },
+
+  "MaterialSection": {
+    "title": "LASER CUTTING",
+    "subtitle": "What materials can we cut with laser cutting?",
+    "description": "Laser cutting technology allows us to precisely cut a variety of metals.",
+    "materials": {
+      "0": "Mild Steel",
+      "1": "Aluminum",
+      "2": "Stainless Steel"
+    },
+    "button": "Contact Us"
+  },
+
   "Footer": {
     "brand": "Draw to Cut",
     "copyright": "Copyright® 2025.",
     "contact": "Contact",
     "phoneNumber": "+90 505 520 75 11",
-    "email": "design@drawtocut.com",
+    "email": "design@2dtocut.com",
     "address": "Adress",
     "invoice": "Invoice",
     "payWithIyzico": "Pay with iyzico"
@@ -28,7 +96,7 @@
   "File": {
     "title": "Upload your models",
     "drawerTitle": "Uploading your CAD is the best way to get an instant quote",
-    "drawerInfo": "Your design is safe! Any design uploaded to DrawToCut.com is secure, and you retain 100% of the intellectual property rights.",
+    "drawerInfo": "Your design is safe! Any design uploaded to 2dtocut.com is secure, and you retain 100% of the intellectual property rights.",
     "uploadFile": "Upload File",
     "congratulations": "Congratulations!",
     "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
@@ -63,14 +131,15 @@
     }
   },
   "Advantages": {
-    "sectionTitle": "Advantages of DrawToCut Laser Cutting Service",
+    "whyChooseUs": "Why Choose Us",
+    "subtitle": "Your Vision, Our Craftsmanship",
     "highSpeed": {
       "title": "High-Speed Manufacturing",
-      "description": "Using state-of-the-art laser cutting machines, DrawToCut enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
+      "description": "Using state-of-the-art laser cutting machines, 2dtocut enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
     },
     "highPrecision": {
       "title": "High Precision",
-      "description": "DrawToCut offers a range of tolerance options according to ISO 2768 (standard, fine)."
+      "description": "2dtocut offers a range of tolerance options according to ISO 2768 (standard, fine)."
     },
     "advancedSurface": {
       "title": "Advanced Surface Options",
@@ -82,7 +151,7 @@
     },
     "qualityControl": {
       "title": "Quality Control",
-      "description": "Our Quality Control department provides strong quality assurance. DrawToCut is ISO 9001 certified."
+      "description": "Our Quality Control department provides strong quality assurance. 2dtocut is ISO 9001 certified."
     },
     "certificatesReports": {
       "title": "Certificates and Measurement Reports",
@@ -149,7 +218,7 @@
         "key": "ST37-K / S235JR",
         "name": "ST37-K / S235JR",
         "description": "Structural steel known for its weldability and cost-effectiveness.",
-        "image":  "/static/images/st37.png"
+        "image": "/static/images/st37.png"
       },
       {
         "key": "Stainless Steel 304",
@@ -182,7 +251,7 @@
     "none": "None",
     "placeOrder": "Order Now",
     "skipAndCheckout": "Skip",
-    "continueWithInfo": "Save",
+    "continueWithInfo": "Go to Checkout",
     "clearCart": "Clear Cart",
     "processingOrder": "Redirecting to payment page please wait",
     "addMoreProductsText": "Would you like to add more items to the cart? ",
@@ -202,7 +271,7 @@
     "totalPrice": "Total",
     "totalPriceTL": "Total (TL)",
     "totalPriceUSD": "Total (USD)",
-   "customerDetails": "Customer Details",
+    "customerDetails": "Customer Details",
     "policyText": "I have read and agree to the Terms and Conditions and Privacy Policy.",
     "extraServicesList": {
       "bending": "Bending",
@@ -225,8 +294,20 @@
     "description": "Discover the process step by step with our interactive guide."
   },
   "ExampleWorks": {
-    "title": "Example Works",
-    "viewExamples": "too see more"
+    "ourWork": "Our Work",
+    "workingGallery": "Working Gallery",
+    "workingGalleryDesc": "Discover our high-quality laser cutting works, crafted with precision to meet the unique needs of each project and industry.",
+    "goToGallery": "Go to Gallery",
+    "title": "Gallery"
+  },
+  "Archivements": {
+    "title": "Our Journey & Growth",
+    "subTitle": "Building a Future Together",
+    "description": "We continue to grow and innovate every day. Join us and be a part of something greater!",
+    "experience": "Experience",
+    "ourWorker": "Our Workers",
+    "companyPartner": "Company Partners",
+    "happyClients": "Happy Clients"
   },
   "ExamplePage": {
     "title": "Made with Laser",
@@ -236,10 +317,10 @@
     "title": "Where Vision Takes Shape with Precision",
     "aboutUsTitle": "About Us",
     "aboutUsText1": "By combining advanced technology with innovative solutions, we deliver exceptional quality for both industrial and creative needs. From intricate metal components to custom decorative pieces, we bring your ideas to life with unparalleled precision.",
-    "aboutUsText2": "Our commitment to excellence goes beyond production. With state-of-the-art machinery and a highly skilled team, we ensure precision, speed, and reliability in every project. Whether you're an industry professional or a creative enthusiast, DrawToCut is your trusted partner for sharp solutions.",
+    "aboutUsText2": "Our commitment to excellence goes beyond production. With state-of-the-art machinery and a highly skilled team, we ensure precision, speed, and reliability in every project. Whether you're an industry professional or a creative enthusiast, 2dtocut is your trusted partner for sharp solutions.",
     "approachTitle": "Our Approach",
-    "approachText1": "At DrawToCut, we believe in personalized solutions tailored to your specific needs. Our process begins with understanding your vision and requirements, ensuring that every project aligns with your goals. By integrating the latest technology with meticulous craftsmanship, we create products that exceed expectations.",
-    "approachText2": "We focus on sustainability and efficiency at every stage, minimizing waste while maximizing output quality. From the initial concept to final delivery, our customer-focused approach guarantees satisfaction. Join the many clients who trust DrawToCut for innovation, quality, and an unparalleled experience."
+    "approachText1": "At 2dtocut, we believe in personalized solutions tailored to your specific needs. Our process begins with understanding your vision and requirements, ensuring that every project aligns with your goals. By integrating the latest technology with meticulous craftsmanship, we create products that exceed expectations.",
+    "approachText2": "We focus on sustainability and efficiency at every stage, minimizing waste while maximizing output quality. From the initial concept to final delivery, our customer-focused approach guarantees satisfaction. Join the many clients who trust 2dtocut for innovation, quality, and an unparalleled experience."
   },
 
   "faqPage": {
@@ -392,6 +473,10 @@
   "Step3": {
     "title": "Additional Services",
     "description": "You can select additional services below. For painting, you can enter a custom color.",
+    "modalTitle": "Congratulations!",
+    "modalDescription": "Your product has been successfully added to the cart.",
+    "homeButton": "Home",
+    "cartButton": "Go to Cart",
     "extraServices": [
       {
         "key": "bending",
@@ -415,8 +500,8 @@
       "confirm": "Complete Order"
     },
     "modal": {
-      "title": "Product Added to Cart",
-      "description": "You can continue shopping or go to your cart to complete your order.",
+      "title": "🎉 Congratulations!",
+      "description": "Your product has been successfully added to the cart",
       "goHome": "Go to Home",
       "goCart": "Go to Cart"
     }
@@ -424,5 +509,53 @@
   "calculatePrice": {
     "priceTL": "Price information will be given after ordering",
     "priceUSD": "Price information will be given after ordering"
+  },
+  "Blog": {
+    "posts": [
+      {
+        "title": "How to Easy Engineering",
+        "slug": "how-to-easy-engineering",
+        "excerpt": "Discover simple steps to streamline your engineering processes and increase efficiency.",
+        "content": "Engineering doesn't have to be complicated. With the right tools and methodologies, you can simplify your workflow and achieve better results.",
+        "date": "March 4, 2024"
+      },
+      {
+        "title": "The Future of Laser Cutting",
+        "slug": "the-future-of-laser-cutting",
+        "excerpt": "Explore how laser cutting is transforming industries with precision and speed.",
+        "content": "Laser cutting technology is advancing rapidly, enabling manufacturers to create complex designs with unprecedented accuracy.",
+        "date": "February 20, 2024"
+      },
+      {
+        "title": "Maximizing Productivity in Fabrication",
+        "slug": "maximizing-productivity-in-fabrication",
+        "excerpt": "Boost your fabrication process with these expert tips and techniques.",
+        "content": "Optimizing your fabrication process is key to staying competitive. Reduce waste, save time, and deliver top-quality results.",
+        "date": "January 15, 2024"
+      }
+    ],
+    "readMore": "Read More"
+  },
+  "CheckoutPage": {
+    "contact": "Contact",
+    "emailOrPhone": "Email or Phone",
+    "payment": "Payment",
+    "creditCard": "Credit Card (İyzico)",
+    "bankTransfer": "Bank Transfer / EFT",
+    "billingAddress": "Billing Address",
+    "fullName": "Full Name",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "orderSummary": "Order Summary",
+    "price": "Price",
+    "total": "Total",
+    "completeOrder": "Complete Order",
+    "quantity": "Part",
+    "loading": "Yükleniyor...",
+    "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
+    "orderReceived": "Congratulations! Your transaction has been received.",
+    "orderConfirmationMessage": "You will be contacted for payment.",
+      "close": "close"
   }
 }

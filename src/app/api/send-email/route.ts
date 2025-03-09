@@ -5,8 +5,10 @@ export async function POST(req: Request) {
   try {
     console.log("📩 API isteği alındı!");
 
-    const { to, subject, text, html } = await req.json();
-    console.log("📩 Gelen veri:", { to, subject });
+    const { subject, text, html } = await req.json();
+    const to = process.env.EMAIL_USER; // ✅ Alıcıyı burada sabitliyoruz
+
+    console.log("📩 Gönderilecek veri:", { to, subject });
 
     if (!to || !to.includes("@")) {
       return NextResponse.json(
@@ -35,12 +37,17 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Email sent successfully!" });
   } catch (error: unknown) {
-    console.error("🚨 API Hatası:", 
-      error instanceof Error ? error.message : 'Unknown error',
-      error instanceof Error ? error.stack : ''
+    console.error(
+      "🚨 API Hatası:",
+      error instanceof Error ? error.message : "Unknown error",
+      error instanceof Error ? error.stack : ""
     );
     return NextResponse.json(
-      { error: `Failed to send email: ${error instanceof Error ? error.message : 'Unknown error'}` },
+      {
+        error: `Failed to send email: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      },
       { status: 500 }
     );
   }

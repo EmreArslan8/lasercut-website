@@ -1,0 +1,98 @@
+{
+  "label": "עברית",
+  "cart": "סל קניות {numItems, plural, =0 {} other {(#)}}",
+  "cartModalTitle": "סל הקניות שלכם",
+  "account": "חשבון",
+  "categories": "קטגוריות",
+  "home": "עמוד הבית",
+  "routes": {
+    "orders": "ההזמנות שלי",
+    "settings": "הגדרות"
+  },
+  "faq": "שאלות נפוצות",
+  "about": "אודות",
+  "returnPolicy": "מדיניות החזרות",
+  "terms": "תנאים והגבלות",
+  "help": "עזרה",
+  "contactSupport": "יצירת קשר עם התמיכה",
+  "logout": "התנתק",
+  "back": "חזור",
+  "languages": {
+    "en": "English",
+    "he": "עברית",
+    "ru": "Русский",
+    "uz": "O'zbekcha",
+    "tr": "Türkçe"
+  },
+  "regions": {
+    "placeholder": "בחרו מדינה",
+    "uz": "אוזבקיסטן",
+    "ww": "עולמי"
+  },
+  "search": "חיפוש",
+  "searchInputPlaceholder": "חפשו {smUp, select, true {מוצרים, מותגים, קטגוריות...} other {מוצרים...}}",
+  "address": {
+    "addresses": "כתובות",
+    "defaultCardLabel": "כתובת",
+    "addressInputLabel": "כתובת",
+    "name": "תווית הכתובת",
+    "namePlaceholder": "בית, עבודה וכו'.",
+    "nameDefaultValue": "כתובת שלי",
+    "contactName": "שם הנמען",
+    "contactPhone": "מספר טלפון",
+    "phoneCode": "קידומת מדינה",
+    "phoneNumber": "מספר טלפון",
+    "email": "כתובת המייל של הנמען",
+    "taxNumber": "מספר תעודת זהות",
+    "lines": "כתובת",
+    "postcode": "מיקוד",
+    "district": "איזור",
+    "city": "עיר",
+    "state": "מחוז",
+    "stateOptional": "מחוז (אופציונלי)",
+    "countryCode": "מדינה",
+    "viewMore": "הצג עוד",
+    "errors": {
+      "hasErrors": "בחלקים הבאים יש שגיאות",
+      "minChars": "יש להזין לפחות {minChars} תווים."
+    },
+    "pageTitle": "פנקס הכתובות",
+    "addAddress": "הוספת כתובת חדשה",
+    "addAddressSubmitButton": "הוספת כתובת",
+    "addAddressSuccess": "הכתובת נוספה.",
+    "addAddressError": "אירעה שגיאת שרת, אנא נסו שוב.",
+    "ok": "אישור",
+    "goBack": "חזור",
+    "deleteTitle": "למחוק?",
+    "deleteCancel": "ביטול",
+    "deleteConfirm": "למחוק",
+    "editTitle": "עדכון כתובת",
+    "editSaveButton": "שמירת שינויים",
+    "editSuccess": "הכתובת השתנתה.",
+    "editError": "אירעה שגיאת שרת, אנא נסו שוב.",
+    "latinCharsOnly": "אנא השתמשו באותיות לטיניות בלבד",
+    "taxNumberHelper": ""
+  },
+  "errorPage": {
+    "title": "משהו השתבש",
+    "body": "אנחנו מתקשים לטעון את הדף הזה כרגע.\n\nתוכלו לנסות שוב או ליצור איתנו קשר אם השגיאה נמשכת.",
+    "tryAgain": "נסו שוב"
+  },
+  "notFoundPage": {
+    "title": "לא הצלחנו למצוא את הדף הזה",
+    "body": "חיפשנו היטב, אבל לא מצאנו את הדף הזה.\n\nזו שגיאת 404.",
+    "tryAgain": "חזרה לעמוד הבית"
+  },
+  "settings": {
+    "account": {
+      "cardTitle": "חשבון",
+      "logout": "התנתק",
+      "changePassword": "שינוי סיסמה"
+    }
+  },
+  "noOptions": "לא נמצאו אפשרויות.",
+  "metadata": {
+    "description": "מצאו את הסגנון שלכם עם ברינגיסט."
+  },
+  "contactUs": "כתוב לנו"
+}

@@ -1,0 +1,222 @@
+{
+  "category": "Categories",
+  "brand": "Brands",
+  "gender": "Gender",
+  "genders": {
+    "1": "Women",
+    "2": "Men",
+    "3": "Kids",
+    "4": "Boys",
+    "5": "Girls",
+    "6": "Baby girls",
+    "7": "Baby boys"
+  },
+  "filters": {
+    "label": "Filters {numSelected, plural, =0 {} other {(#)}}",
+    "selected": "Selected filters",
+    "category": "Categories",
+    "brand": "Brands",
+    "gender": "Gender",
+    "genders": {
+      "1": "Women",
+      "2": "Men",
+      "3": "Kids",
+      "4": "Boys",
+      "5": "Girls",
+      "6": "Baby girls",
+      "7": "Baby boys"
+    },
+    "size": "Size",
+    "color": "Color",
+    "searchPlaceholder": "Search {type, select, category {categories} brand {brands} gender {genders} size {sizes} other {} }...",
+    "noOptionsFound": "No options found for your search.",
+    "backToPreviousCategories": "To previous categories"
+  },
+  "sort": {
+    "dsc": "Price decreasing",
+    "asc": "Price increasing",
+    "rcc": "Recommended",
+    "bst": "Best sellers",
+    "fav": "Most favorited",
+    "rct": "Most recent"
+  },
+  "totalCount": "{totalCount} products found {query, select, null {} other {for \"{query}\"}}",
+  "back": "Back",
+  "addToCart": "Add to cart",
+  "recommendations": "You may also like",
+  "variants": {
+    "size": "Size"
+  },
+  "quantity": "Quantity: {quantity}",
+  "sizeGuide": "Size Guide",
+  "reviews": "Reviews",
+  "translationBanner": "Some comments translated via Google Translate.",
+  "features": {
+    "shipping": "7-14 day shipping",
+    "genuine": "100% original products",
+    "returns": "Free returns",
+    "payments": "Secure payments"
+  },
+  "cart": {
+    "button": {
+      "label": "Cart {numItems, plural, =0 {} other {(#)}}",
+      "title": "Shopping cart {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "Shopping cart is empty",
+      "itemsTotal": "Items total",
+      "continue": "Go to Cart"
+    },
+    "page": {
+      "title": "Your shopping cart {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "Your shopping cart is empty.",
+      "selectAll": "Select all",
+      "checkoutCard": {
+        "title": "Your order",
+        "shippingBanner": "Delivery within 7-14 days",
+        "finalPriceBanner": "No hidden fees – the price you see here is the total amount, inclusive of all charges.",
+        "itemsTotal": "{numSelected} items",
+        "discountCodeSuccess": "{totalDiscount} discount applied!",
+        "discountCodeLabel": "Have a discount code?",
+        "discountCodePlaceholder": "Enter discount code",
+        "discountCodeSubmit": "Apply",
+        "discountCodeError": "Invalid discount code",
+        "totalDiscountNote": "**{discount}** discount!",
+        "shippingNote": "**{amount}** shipping",
+        "productDiscount": "{percent}% product discount",
+        "promotionDiscount": "Discount code",
+        "shipping": "Shipping",
+        "codServiceFee": "COD service fee",
+        "discount": "Discount",
+        "totalDue": "Total due",
+        "continue": "Continue to Payment",
+        "terms": "I have read and agree to Bringist’s <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy>",
+        "selectCountryForShippingQuote": "Shipping cost calculated based on the destination"
+      },
+      "deliveryCard": {
+        "title": "Delivery",
+        "homeDelivery": "Home Delivery",
+        "shippingBanner": "Delivery within 7-14 days"
+      },
+      "paymentCard": {
+        "title": "Payment method",
+        "creditDebit": "Credit or Debit Card",
+        "creditDebitDescription": "You will be asked to provide your card details in the next step.",
+        "cod": "Payment on Delivery",
+        "codDescription": "Payment method will be available soon!",
+        "uzcardHumo": "Uzcard/Humo",
+        "codFailureReasons": {
+          "OutstandingShipmentsAndNewBasketTotalExceedsLimit": "The total outstanding payment-on-delivery balance for items in your cart and pending deliveries cannot exceed 500,000 som (before applying discounts). To place a new order with payment-on-delivery:\n- Wait for your current payment-on-delivery orders to be delivered,\n- Reduce your cart total, or\n- Choose an alternative payment method to complete your order immediately.",
+          "OutstandingShipmentsExceedsLimit": "The payment-on-delivery amount in your cart before discounts cannot exceed 500,000 som. To place a new order with payment-on-delivery, reduce your cart total or use another payment method to complete your order immediately.",
+          "CustomerNotEligible": "Your account is not eligible to place orders with payment-on-delivery. For more information, please contact customer support.",
+          "CountryNotEligible": "COD is not available in your country."
+        }
+      },
+      "productsCard": { "title": "{numSelected} products" },
+      "clearModal": {
+        "title": "Warning",
+        "body": "Would you like to clear your shopping cart?",
+        "cancel": "Cancel",
+        "confirm": "Clear my cart"
+      },
+      "discountCodeApplied": "Discount code applied!",
+      "applySalomCode": "Apply SALOM code"
+    },
+    "placeOrder": "Continue to Checkout"
+  },
+  "defaultAddressName": "My Address",
+  "success": {
+    "pageTitle": "Order complete",
+    "title": "Payment received",
+    "body": "Your order number is:\n**{id}**\n\nYour order will be processed and shipped as soon as possible.",
+    "cta": "View order"
+  },
+  "orders": {
+    "ordersPage": {
+      "title": "Your past orders",
+      "noOrders": {
+        "title": "It's empty here!",
+        "body": "You do not have any orders yet.",
+        "cta": "Explore Products"
+      }
+    },
+    "orderPage": {
+      "title": "Order details",
+      "status": "Order status",
+      "trackShipmentButton": "Track Shipment",
+      "products": {
+        "cardTitle": "Products",
+        "quantity": "Quantity: {quantity}"
+      },
+      "summary": {
+        "cardTitle": "Payment details",
+        "productsTotal": "Products",
+        "shipping-handling": "Shipping",
+        "codServiceFee": "COD service fee",
+        "discount": "Discount",
+        "total": "Total",
+        "totalDue": "Total Due",
+        "customsChargesLabels": {
+          "tax": "VAT 17%",
+          "clearence-fee": "Clearence fee",
+          "clearance-fee": "Clearence fee",
+          "computer-fee": "Computer fee",
+          "security-fee": "Security fee"
+        }
+      }
+    },
+    "orderId": "Order ID",
+    "trackingNumber": "Tracking number",
+    "createdDate": "Created at",
+    "status": "Status",
+    "statuses": {
+      "processing": {
+        "label": "Processing",
+        "description": "Your order is being processed. We will start preparing your order when processing is completed."
+      },
+      "preparing": {
+        "label": "Preparing",
+        "description": "We are preparing your order for you and will ship it as soon as possible."
+      },
+      "shipped": {
+        "label": "Shipped",
+        "description": "Your order is on its way and will arrive shortly."
+      },
+      "cancelled": {
+        "label": "Cancelled",
+        "description": "Your order has been cancelled and you will be refunded. Please contact support to find out more."
+      }
+    }
+  },
+  "wheel": {
+    "discounts": {
+      "freeShipping": "Free Shipping",
+      "5percent": "5% Discount",
+      "8percent": "8% Discount",
+      "10percent": "10% Discount",
+      "15percent": "15% Discount"
+    },
+    "congratulations": "Congratulations! You won!",
+    "couponCode": "Your Coupon Code: {code}",
+    "noCoupon": "No coupon available",
+    "spin": "Spin",
+    "close": "Close"
+  },
+  "payment": {
+    "uzcardHumo": {
+      "portal": {
+        "title": "Pay via Uzcard/Humo",
+        "total": "Total due",
+        "cardNumberDescription": "Please enter your card details",
+        "cardNumberLabel": "Card number",
+        "expirationLabel": "Expiration",
+        "cancelButton": "Cancel",
+        "continueToCodeButton": "Pay Now",
+        "backToCardNumberButton": "Back",
+        "codeDescription": "Please enter the confirmation code sent via SMS",
+        "codeLabel": "Confirmation code",
+        "confirmButton": "Confirm Payment",
+        "error": "An error occured. Please check the values you entered and try again.",
+        "contactSupport": "Need help with your payment?"
+      }
+    }
+  }
+}

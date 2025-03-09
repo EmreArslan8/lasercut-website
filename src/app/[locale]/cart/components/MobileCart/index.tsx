@@ -13,15 +13,17 @@ import {
   TextField,
   CircularProgress,
 } from "@mui/material";
-import { useCart } from "@/app/context/CartContext";
+
 import { useState } from "react";
 import styles from "./styles";
-import Icon from "@/app/components/Icon";
+import Icon from "@/components/common/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { truncateText } from "@/utils/truncateText";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { supabase } from "@/lib/api/supabaseClient";
-import theme from "@/theme/theme";
+import { generateOrderEmail } from "@/utils/emailTemplates";
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
@@ -34,7 +36,8 @@ const MobileCart = () => {
   const locale = useLocale();
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
-
+  const router = useRouter();
+  
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
@@ -57,113 +60,147 @@ const MobileCart = () => {
       )
     );
   };
+
   const handleCheckout = async () => {
-    setIsLoading(true); // Start loading
-    try {
-      console.log("🟢 Checkout started...");
-      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+    router.push(`/${locale}/checkout`);
+    console.log("🟢 Sipariş işlemi başladı...");
+    console.log("📩 Müşteri Adı:", customerName);
+    console.log("📩 Müşteri E-Posta:", customerEmail);
 
-      console.log("🟢 Seçilen Ürünler:", selectedCartItems);
+    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
-      const uploadedFileUrls = await Promise.all(
-        selectedCartItems.map(async (item) => {
-          if (!item.file) return null;
-          const filePath = `orders/${Date.now()}_${item.file.name
-            .replace(/\s+/g, "_")
-            .toLowerCase()}`;
-          const { error } = await supabase.storage
-            .from("uploaded-files")
-            .upload(filePath, item.file);
-          if (error) {
-            console.error("❌ Dosya yükleme hatası:", error.message);
-            throw new Error(error.message);
-          }
-          const { data } = supabase.storage
-            .from("uploaded-files")
-            .getPublicUrl(filePath);
-          console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
-          return data.publicUrl;
-        })
-      );
+    console.log("🟢 Seçilen Ürünler:", selectedCartItems);
 
-      console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
-
-      const lineItems = selectedCartItems.map((item) => ({
-        title: item.fileName || "Unnamed Product",
-        quantity: item.quantity,
-        price: item.priceUSD || "0.00",
-        properties: [
-          { name: "Material", value: item.material },
-          { name: "Thickness", value: item.thickness },
-        ],
-      }));
-
-      const productDetails = {
-        name: customerName,
-        email: customerEmail,
-        items: selectedCartItems.map((item, index) => ({
-          material: item.material,
-          thickness: item.thickness,
-          quantity: item.quantity,
-          price:
-            locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-          fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
-        })),
-      };
-
-      console.log("🟢 Ürün Detayları:", productDetails);
-
-      // **1️⃣ Slack'e Bildirim Gönder**
-      console.log("🟡 Slack'e gönderiliyor...");
-      await fetch("/api/send-slack", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productDetails),
+    const uploadedFileUrls = await Promise.all(
+      selectedCartItems.map(async (item) => {
+        if (!item.file) return null;
+        const filePath = `orders/${Date.now()}_${item.file.name
+          .replace(/\s+/g, "_")
+          .toLowerCase()}`;
+        const { error } = await supabase.storage
+          .from("uploaded-files")
+          .upload(filePath, item.file);
+        if (error) {
+          console.error("❌ Dosya yükleme hatası:", error.message);
+          throw new Error(error.message);
+        }
+        const { data } = supabase.storage
+          .from("uploaded-files")
+          .getPublicUrl(filePath);
+        console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
+        return data.publicUrl;
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("🟢 Slack yanıtı:", data);
-        })
-        .catch((error) => {
-          console.error("❌ Slack gönderme hatası:", error);
-        });
+    );
 
-      console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
-      const response = await fetch("/api/shopify/createDraftOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lineItems,
-          userData: {
-            name: customerName,
-            email: customerEmail,
-            fileUrl: uploadedFileUrls[0] || "",
-            productDetails: JSON.stringify(productDetails),
-          },
-        }),
+    console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+
+    const checkoutData = {
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || "Dosya Yok",
+      })),
+    };
+
+    console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
+
+    const lineItems = selectedCartItems.map((item) => ({
+      title: item.fileName || "Unnamed Product",
+      quantity: item.quantity,
+      price: item.priceUSD || "0.00",
+      properties: [
+        { name: "Material", value: item.material },
+        { name: "Thickness", value: item.thickness },
+      ],
+    }));
+
+    const productDetails = {
+      name: customerName,
+      email: customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
+      })),
+    };
+
+    console.log("🟢 Ürün Detayları:", productDetails);
+
+    // **1️⃣ Slack'e Bildirim Gönder**
+    console.log("🟡 Slack'e gönderiliyor...");
+    await fetch("/api/send-slack", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productDetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("🟢 Slack yanıtı:", data);
+      })
+      .catch((error) => {
+        console.error("❌ Slack gönderme hatası:", error);
       });
 
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
+    const emailContent = generateOrderEmail({
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        fileName: item.fileName,
+        material: item.material,
+        thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+        quantity: item.quantity,
+        price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+      })),
+    });
 
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(emailContent),
+    });
+    console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
+
+    // ✅ Checkout’a yönlendir
+    localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+
+    /*
+    console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
+    const response = await fetch("/api/shopify/createDraftOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lineItems,
+        userData: {
+          name: customerName,
+          email: customerEmail,
+          fileUrl: uploadedFileUrls[0] || "",
+          productDetails: JSON.stringify(productDetails),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("❌ Shopify sipariş hatası:", await response.text());
+    } else {
       const data = await response.json();
-      console.log("🟢 Shopify Order Created:", data);
-
-      // Redirect the user
+      console.log("🟢 Shopify siparişi başarıyla oluşturuldu.");
       window.location.href = data.draft_order.invoice_url;
-    } catch (error) {
-      console.error("❌ Checkout Error:", error);
-    } finally {
-      setIsLoading(false); // Stop loading when done
     }
+      */
   };
+
   return (
     <Stack sx={styles.cartContainer}>
       {isLoading && (
         <Box sx={styles.loading}>
           <CircularProgress size={60} color="primary" />
-        
         </Box>
       )}
 
@@ -186,15 +223,14 @@ const MobileCart = () => {
           {cartItems.map((item, index) => {
             return (
               <Card
-              key={index}
-              sx={{
-                ...styles.cartCard,
-                border: selectedItems.includes(index)
-                  ? "2px solid blue"
-                  : "1px solid #ddd",
-              }}
-            >
-            
+                key={index}
+                sx={{
+                  ...styles.cartCard,
+                  border: selectedItems.includes(index)
+                    ? "2px solid blue"
+                    : "1px solid #ddd",
+                }}
+              >
                 <Box sx={styles.itemHeader}>
                   <Typography variant="body1" fontWeight="bold">
                     {truncateText(item.fileName)}
@@ -237,7 +273,7 @@ const MobileCart = () => {
                         sx={styles.svg}
                       />
                     </Box>
-                  ): (
+                  ) : (
                     <Box
                       sx={{
                         width: "100px",
@@ -249,7 +285,7 @@ const MobileCart = () => {
                         borderRadius: "8px",
                       }}
                     >
-                      <Icon name="image"  />
+                      <Icon name="image" />
                     </Box>
                   )}
 
@@ -348,23 +384,31 @@ const MobileCart = () => {
 
       {cartItems.length > 0 && (
         <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
-          <Button variant="contained" color="secondary" onClick={clearCart}>
+        {/*  <Button variant="contained" color="secondary" onClick={clearCart}>
             {t("clearCart")}
-          </Button>
+          </Button> */}
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setModalOpen(true)} // Open modal
+            fullWidth
+            onClick={() => setModalOpen(true)}
             disabled={selectedItems.length === 0}
           >
             {t("placeOrder")}
           </Button>
+
           <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-            <Box sx={styles.modal} >
-              <Typography variant="buttonExtraBold"sx={{ display: "block", mb: 1 }} >
+            <Box sx={styles.modal}>
+              <Typography
+                variant="buttonExtraBold"
+                sx={{ display: "block", mb: 1 }}
+              >
                 {t("customerDetails")}
               </Typography>
-              <Typography variant="bodySmall" sx={{ display: "block", mb: 2, color: "text.secondary" }} >
+              <Typography
+                variant="bodySmall"
+                sx={{ display: "block", mb: 2, color: "text.secondary" }}
+              >
                 {t("supportInfo")}
               </Typography>
 
@@ -380,6 +424,7 @@ const MobileCart = () => {
               <TextField
                 fullWidth
                 label="Email Address"
+                
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 sx={{ mb: 2 }}
@@ -387,10 +432,11 @@ const MobileCart = () => {
 
               {/* Buttons to Proceed */}
               <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-                <Button
+               {/*     <Button
                   variant="outlined"
                   color="secondary"
                   fullWidth
+                  disabled={!customerName.trim() || !customerEmail.trim()}
                   onClick={() => {
                     setModalOpen(false);
                     handleCheckout(); // Proceed without details
@@ -398,10 +444,12 @@ const MobileCart = () => {
                 >
                   {t("skipAndCheckout")}
                 </Button>
+                */}
                 <Button
                   variant="contained"
                   color="primary"
                   fullWidth
+                  disabled={!customerName.trim() || !customerEmail.trim()}
                   onClick={() => {
                     setModalOpen(false);
                     handleCheckout(); // Proceed with details
@@ -409,6 +457,8 @@ const MobileCart = () => {
                 >
                   {t("continueWithInfo")}
                 </Button>
+
+                
               </Stack>
             </Box>
           </Modal>

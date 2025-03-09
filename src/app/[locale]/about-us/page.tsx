@@ -7,7 +7,7 @@ const AboutUs = () => {
   const t = useTranslations("aboutUsPage");
 
   return (
-    <Box sx={{ maxWidth: "lg", mx: "auto", px: 3, py: 8 }}>
+    <Box sx={{ maxWidth: "lg", mx: "auto", px: 3, py: 8, mt: 16 }}>
       {/* Sayfa Başlığı */}
       <Typography
         variant="h2"

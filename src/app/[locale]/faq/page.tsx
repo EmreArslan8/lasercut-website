@@ -23,7 +23,7 @@ const FaqPage = () => {
   );
 
   return (
-    <Box sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 4 }}>
+    <Box sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 4, mt: 17}}>
       {/* Başlık */}
       <Typography
         variant="h2"

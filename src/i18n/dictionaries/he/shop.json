@@ -1,0 +1,146 @@
+{
+  "category": "קטגוריות",
+  "brand": "מותגים",
+  "gender": "מין",
+  "genders": {
+    "1": "נשים",
+    "2": "גברים",
+    "3": "ילדים",
+    "4": "בנים",
+    "5": "בנות",
+    "6": "תינוקות",
+    "7": "תינוקים"
+  },
+  "filters": {
+    "label": "פילטרים {numSelected, plural, =0 {} other {(#)}}",
+    "selected": "פילטרים שנבחרו",
+    "category": "קטגוריות",
+    "brand": "מותגים",
+    "gender": "מין",
+    "genders": {
+      "1": "נשים",
+      "2": "גברים",
+      "3": "ילדים",
+      "4": "בנים",
+      "5": "בנות",
+      "6": "תינוקות",
+      "7": "תינוקים"
+    },
+    "size": "מידה",
+    "searchPlaceholder": "חפשו {type, select, category {קטגוריות} brand {מותגים} gender {מין} size {מידות} other {} }...",
+    "noOptionsFound": "לא נמצאו אפשרויות לחיפוש שלכם."
+  },
+  "sort": {
+    "dsc": "המחיר יורדת",
+    "asc": "המחיר עולה",
+    "rcc": "מומלץ",
+    "bst": "הנמכרים ביותר",
+    "fav": "האהובים ביותר",
+    "rct": "העדכניות ביותר"
+  },
+  "totalCount": "{totalCount} מוצרים נמצאו {query, select, null {} other {ל - \"{query}\"}}",
+  "back": "חזור",
+  "addToCart": "הוספו לסל",
+  "recommendations": "אולי גם תאהבו",
+  "variants": {
+    "size": "מידה"
+  },
+  "sizeGuide": "מדריך מידות",
+  "reviews": "ביקורות",
+  "cart": {
+    "button": {
+      "label": "סל קניות {numItems, plural, =0 {} other {(#)}}",
+      "title": "סל קניות {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "סל קניות ריק",
+      "itemsTotal": "פריטים",
+      "continue": "עברו לסל הקניות"
+    },
+    "page": {
+      "title": "סל הקניות שלכם {numItems, plural, =0 {} other {(#)}}",
+      "shoppingCartEmpty": "סל הקניות שלכם ריק.",
+      "selectAll": "בחרו הכל",
+      "checkoutCard": {
+        "title": "ההזמנה שלכם",
+        "shippingBanner": "האספקה תוך 7-14 ימים",
+        "discountCodeLabel": "יש קוד הנחה?",
+        "discountCodePlaceholder": "הזן קוד הנחה",
+        "discountCodeError": "קוד הנחה לא חוקי",
+        "itemsTotal": "{numSelected} פריטים",
+        "shipping": "משלוח",
+        "discount": "הנחה",
+        "totalDue": "סה\"כ לתשלום",
+        "continue": "המשיכו לקופה"
+      },
+      "clearModal": {
+        "title": "אזהרה",
+        "body": "האם תרצו לרוקן את סל הקניות שלכם?",
+        "cancel": "ביטול",
+        "confirm": "המשיכו לקופה"
+      }
+    },
+    "placeOrder": ""
+  },
+  "defaultAddressName": "כתובת שלי",
+  "success": {
+    "pageTitle": "ההזמנה הושלמה!",
+    "title": "תשלום התקבל",
+    "body": "מספר ההזמנה שלכם הוא:\n**{id}**\n\nההזמנה שלכם תטופל ותשלח בהקדם האפשרי.",
+    "cta": "הצג הזמנה"
+  },
+  "orders": {
+    "ordersPage": {
+      "title": "הזמנות הישנות שלכם",
+      "noOrders": {
+        "title": "זה ריק כאן!",
+        "body": "עדיין אין לכם הזמנות.",
+        "cta": "גלו מוצרים"
+      }
+    },
+    "orderPage": {
+      "title": "פרטי הזמנה",
+      "status": "סטטוס הזמנה",
+      "trackShipmentButton": "עקוב אחר משלוח",
+      "products": {
+        "cardTitle": "מוצרים",
+        "quantity": "כמות: {quantity}"
+      },
+      "summary": {
+        "cardTitle": "פרטי תשלום",
+        "productsTotal": "מוצרים",
+        "shipping-handling": "משלוח",
+        "discount": "הנחה",
+        "total": "סה\"כ",
+        "totalDue": "סה\"כ לתשלום",
+        "customsChargesLabels": {
+          "tax": "מע\"מ 17%",
+          "clearence-fee": "עמלת סילוק",
+          "clearance-fee": "עמלת סילוק",
+          "computer-fee": "אגרת מחשב",
+          "security-fee": "עמלת ביטחון"
+        }
+      }
+    },
+    "orderId": "מספר הזמנה",
+    "createdDate": "נוצר ב-",
+    "status": "סטטוס",
+    "statuses": {
+      "processing": {
+        "label": "מעבד",
+        "description": "ההזמנה שלכם נמצאת בעיבוד. אנחנו נתחיל להכין את ההזמנה שלכם אחרי השלמת העיבוד."
+      },
+      "preparing": {
+        "label": "מכינים",
+        "description": "אנחנו מכינים בשבילכם את ההזמנה שלכם ונשלח אותה בהקדם האפשרי."
+      },
+      "shipped": {
+        "label": "נשלח",
+        "description": "ההזמנה שלכם בדרך ותגיע בקרוב."
+      },
+      "cancelled": {
+        "label": "מבוטל",
+        "description": "ההזמנה שלכם בוטלה ותקבלו החזר כספי. אנא תיצרו קשר עם התמיכה למידע נוסף."
+      }
+    }
+  },
+  "sizeGuide": "מדריך מידות"
+}

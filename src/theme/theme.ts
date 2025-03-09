@@ -3,7 +3,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 export const defaultMarginBottom = 12;
-export const defaultMaxWidth = 1232;
+export const defaultMaxWidth = 1400;
 export const headerHeightPx = { xs: 54, md: 72 };
 export const headerHeight = Object.fromEntries(
   Object.entries(headerHeightPx).map(([k, v]) => [k, v / 8])
@@ -58,6 +58,8 @@ declare module '@mui/material/Button' {
     light: true;
   }
 }
+
+
 
 
 declare module "@mui/material/styles" {
@@ -152,6 +154,11 @@ export const palette = {
     g2r: 'linear-gradient(67.25deg, #FF668E 0%, #FFB88E 100%)',
     g3: 'linear-gradient(96.66deg, #E872D0 0%, #8A32A8 100%)',
     g3r: 'linear-gradient(68.75deg, #8A32A8 0%, #E872D0 99.99%)',
+    g4: `linear-gradient(120deg, #D9F4FF, #8ED9FF, #009EFF)`, // Yeni custom gradient 1
+    g5: `linear-gradient(120deg, #80C9F1, #006BB3, #004A8D)`, // Daha koyu tonlar
+
+
+
   },
   error: {
     main: '#e84121',
@@ -169,6 +176,7 @@ const breakpoints = {
     lg: 1200,
     xl: 1920,
   },
+  customMaxWidth: 1400, 
 };
 
 const theme = createTheme(
