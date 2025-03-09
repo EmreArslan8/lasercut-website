@@ -39,6 +39,7 @@ const HomePage = () => {
       <AdvantageSection />
       <ExampleSlider />
       <BlogPost />
+      <WhatsAppButton />
     </Stack>
   );
 };
