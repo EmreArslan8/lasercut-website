@@ -1,76 +1,48 @@
-import useGsapAnimation from "@/lib/hooks/useGsapAnimation";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { useRef } from "react";
-
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import styles from "./styles";
+import { useFramerAnimations } from "@/lib/hooks/useFramerAnimation";
 
 const achievements = [
-  { value: 25, suffix: "Y", title: "Experience" },
-  { value: 250, suffix: "+", title: "Our Worker" },
-  { value: 15, suffix: "+", title: "Company Partner" },
-  { value: 500, suffix: "+", title: "Happy Clients" },
+  { value: 3, suffix: "Y+", key: "experience" },
+  { value: 25, suffix: "+", key: "ourWorker" },
+  { value: 5, suffix: "+", key: "companyPartner" },
+  { value: 100, suffix: "+", key: "happyClients" },
 ];
 
 const Archivements = () => {
-  const refs = achievements.map(() => useRef<HTMLDivElement>(null));
-
-  // Counter animasyonlarını tetikle
-  refs.forEach((ref, index) => {
-    useGsapAnimation(ref, {
-      animation: "counter",
-      counterEndValue: achievements[index].value,
-      suffix: achievements[index].suffix,
-      duration: 2,
-      ease: "power1.out",
-      start: "top 90%",
-    });
-  });
+  const t = useTranslations("Archivements");
 
   return (
-    <Box sx={{ py: 10,   bgcolor: "white" }}>
+    <Box sx={styles.wrapper}>
       <Container>
-        <Typography
-          variant="subtitle2"
-          color="error"
-          textAlign="center"
-          fontWeight={700}
-        >
-          ARCHIVEMENTS
-        </Typography>
-        <Typography
-          variant="h4"
-          textAlign="center"
-          fontWeight={800}
-          mb={4}
-        >
-          OUR BUSINESS ARCHIVEMENTS
-        </Typography>
-        <Typography
-          variant="body1"
-          textAlign="center"
-          color="text.secondary"
-          maxWidth={600}
-          mx="auto"
-          mb={6}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
-        </Typography>
-
+        <Typography variant="h6" sx={styles.title}>{t("title")}</Typography>
+        <Typography variant="h2" sx={styles.subTitle}>{t("subTitle")}</Typography>
+        <Typography variant="h6" sx={styles.description}>{t("description")}</Typography>
         <Grid container spacing={4} justifyContent="center">
-          {achievements.map((item, index) => (
-            <Grid key={item.title} item xs={6} md={3} textAlign="center">
-              <Typography
-                ref={refs[index]}
-                variant="h4"
-                fontWeight={800}
-                color="error"
-              >
-                0{item.suffix}
-              </Typography>
-              <Typography variant="subtitle1" color="text.primary">
-                {item.title}
-              </Typography>
-            </Grid>
-          ))}
+          {achievements.map((item, index) => {
+            const { count } = useFramerAnimations("counter", item.value);
+
+            return (
+              <Grid key={index} item xs={6} md={3} textAlign="center">
+                {/* Sayı Animasyonu */}
+                <motion.span
+                  {...useFramerAnimations("slideUp").animation}
+                  style={{ fontSize: "2rem", fontWeight: "bold", color: "#1976D2" }}
+                >
+                  {`${count}${item.suffix}`}
+                </motion.span>
+
+                {/* Açıklamalar */}
+                <motion.div {...useFramerAnimations("slideLeft").animation}>
+                  <Typography sx={{ fontSize: "1rem", color: "#333" }}>
+                    {t(item.key)}
+                  </Typography>
+                </motion.div>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
     </Box>

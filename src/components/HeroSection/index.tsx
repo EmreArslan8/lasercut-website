@@ -1,105 +1,96 @@
 import Image from "next/image";
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Button, Typography, Stack, Grid2 } from "@mui/material";
 import { palette } from "@/theme/theme";
+import { useTranslations } from "next-intl";
+import styles from "./styles";
+import Icon from "../common/Icon";
+import { useDrawer } from "@/context/DrawerContext";
+import useScreen from "@/lib/hooks/useScreen";
 
-const FeatureSection = () => {
+const HeroSection = () => {
+  const t = useTranslations("HeroSection");
+  const { setDrawerOpen } = useDrawer();
+  const { smDown, mdDown } = useScreen();
+
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-     py: 8,
-      bgcolor: "#f5f5f5"
-      }}
-    >
-      <Box
-        sx={{
-          width: "80%",
-          maxWidth: "lg",
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          borderRadius: 3,
-          overflow: "hidden",
-          boxShadow: 3,
-        }}
-      >
-        {/* Görsel */}
-        <Box
-          sx={{
-            flex: 1,
-            my: 4,
-            ml:4,
-            pr: 14,
-            position: "relative",
-            minHeight: { xs: 250, md: 400 },
-          }}
-        >
+    <Stack sx={styles.wrapper}>
+      <Box sx={styles.badgeTitleContainer}>
+        <Typography variant="h6" sx={styles.badge}>
+          {t("badge")}
+        </Typography>
+        <Typography variant="h2" fontWeight="bold">
+          {t("title")}
+        </Typography>
+      </Box>
+      <Box sx={styles.container}>
+        <Box sx={styles.imageWrapper}>
           <Image
-            src="/static/images/section.webp"
+            src={
+              mdDown
+                ? "/static/images/smsection.jpeg"
+                : "/static/images/mdsection.jpeg"
+            }
             alt="technical parts"
             fill
-            style={{
-              objectFit: "cover",
-            }}
+            style={{ objectFit: "cover" }}
           />
         </Box>
 
-        {/* İçerik */}
-        <Box
-          sx={{
-            flex: 1,
-            bgcolor: palette.customPrimary[600],
-            color: "white",
-            p: { xs: 4, md: 6 },
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-          }}
-        >
-          <Stack spacing={2}>
-            <Typography variant="caption" fontWeight="bold">
-              for engineers
-            </Typography>
-            <Typography variant="h2" fontWeight="bold">
-              Create technical parts
-            </Typography>
-            <Typography variant="body">
-              Create custom mounting plates, mechanisms, housings, gaskets,
-              jigs, molds, inlays, spacers, etc. Start with a prototype and
-              scale up to your liking
-            </Typography>
-            <Typography variant="body1" fontWeight={800}>
-          get an online offer now
-            </Typography>
-            <Typography variant="body2">
-              You design it, 2dtocut makes it.
-            </Typography>
+        <Box sx={styles.contentWrapper}>
+          {mdDown ? (
+            <Grid2 container sx={styles.gridContainer}>
+              <Grid2 size={{ xs: 12, sm: 6 }} sx={styles.textContainer}>
+                <Stack spacing={1}>
+                  <Typography variant="h6" sx={styles.ctaTitle}>
+                    {t("ctaTitle")}
+                  </Typography>
+                  <Typography variant="body1" sx={styles.slogan}>
+                    {t("slogan")}
+                  </Typography>
+                </Stack>
+              </Grid2>
+              <Grid2 size={{ xs: 12, sm: 6 }} sx={styles.buttonContainer}>
+                <Button
+                  variant="contained"
+                  size={smDown ? "medium" : "large"}
+                  onClick={() => setDrawerOpen(true)}
+                  sx={styles.button}
+                >
+                  {t("button")}
+                  <Icon name="publish" sx={styles.icon} />
+                </Button>
+              </Grid2>
+            </Grid2>
+          ) : (
+            <Stack spacing={1}>
+              <Typography variant="body" sx={styles.badge}>
+                {t("badge")}
+              </Typography>
+              <Typography variant="h2" sx={styles.title}>
+                {t("title")}
+              </Typography>
+              <Typography variant="body2">{t("description")}</Typography>
+              <Typography variant="body1" sx={styles.ctaTitle}>
+                {t("ctaTitle")}
+              </Typography>
+              <Typography variant="body2">{t("slogan")}</Typography>
 
-            <Button
-              variant="contained"
-              sx={{
-                mt: 10,
-                bgcolor: "white",
-                color: "black",
-                fontWeight: "bold",
-                px: 3,
-                py: 1.5,
-                borderRadius: 20,
-                textTransform: "none",
-                width: "fit-content",
-                "&:hover": {
-                  bgcolor: "#f0f0f0",
-                },
-              }}
-            >
-            uplaod file
-            </Button>
-          </Stack>
+              <Box sx={styles.buttonWrapper}>
+                <Button
+                  variant="contained"
+                  onClick={() => setDrawerOpen(true)}
+                  sx={styles.button}
+                >
+                  {t("button")}
+                  <Icon name="publish" sx={styles.icon} />
+                </Button>
+              </Box>
+            </Stack>
+          )}
         </Box>
       </Box>
-    </Box>
+    </Stack>
   );
 };
 
-export default FeatureSection;
+export default HeroSection;

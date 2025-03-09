@@ -24,6 +24,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "demo8.eightheme.com",
+        port: "",
+        pathname: "/**",
+      },
     
     ],
   },

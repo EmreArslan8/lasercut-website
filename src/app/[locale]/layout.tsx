@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 
 import { getMessages } from "next-intl/server";
 import { ReactNode } from "react";
-
+import { getTranslations } from 'next-intl/server';
 import ThemeRegistry from "@/theme/ThemeRegistery";
 import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from "next/font/google";
 
@@ -14,6 +14,8 @@ import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
+import { DrawerProvider } from "@/context/DrawerContext";
+import { Locale } from "@/i18n";
 
 export const dynamicParams = true;
 
@@ -34,6 +36,9 @@ export default async function RootLayout({
   const awaitedParams = await Promise.resolve(params);
   const { locale } = awaitedParams;
   const messages = await getMessages({ locale });
+
+
+
 
   return (
     <html lang={locale}>
@@ -65,9 +70,11 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeRegistry>
             <CartProvider>
+            <DrawerProvider>
               <Header />
               <main>{children}</main>
               <Footer />
+              </DrawerProvider>
             </CartProvider>
           </ThemeRegistry>
         </NextIntlClientProvider>
@@ -77,3 +84,27 @@ export default async function RootLayout({
     </html>
   );
 }
+
+export const generateMetadata = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+
+  // LOG EKLEYELİM
+  console.log(`📢 Locale: ${locale}`);
+  console.log(`🔍 Metadata Description:`, t('description'));
+
+  return {
+    title: {  default: '2dtocut', template: '%s | 2dtocut', },
+    description: t('description'),
+    openGraph: {
+      description: t('description'),
+      images: [
+        {
+          url: '/static/images/logo7.png',
+          alt: '2dtocut',
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+};

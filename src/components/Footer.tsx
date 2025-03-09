@@ -12,16 +12,16 @@ import {
 } from "@mui/material";
 import { Facebook, Twitter, YouTube, Pinterest, WhatsApp, X } from "@mui/icons-material";
 import Image from "next/image";
-import useScreen from "@/lib/hooks/useScreen";
+import { palette } from "@/theme/theme";
 
 const Footer = () => {
-  const isMobile = useScreen();
-
   return (
     <Box
       component="footer"
       sx={{
-        bgcolor: "#0d1117",
+        backgroundImage: palette.gradient.g5,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         color: "#fff",
         py: 6,
       }}
@@ -34,21 +34,35 @@ const Footer = () => {
               <Image
                 src="/static/images/logo7.png"
                 alt="Company Logo"
-                width={isMobile ? 100 : 200}
-                height={25}
+                width={200}
+                height={50}
                 style={{
                   objectFit: "contain",
                   width: "100%",
-                  maxWidth: isMobile ? "100px" : "200px",
+                  maxWidth: "200px",
                   height: "auto",
                 }}
               />
             </Box>
             <Typography variant="body2" sx={{ mb: 2 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Copyright® 2025.
             </Typography>
-            <Typography variant="body2">Hello@Email.co</Typography>
-            <Typography variant="body2">+44 123 456 789</Typography>
+            <Typography variant="body2">design@2dtocut.com</Typography>
+            <Typography variant="body2">+90 505 520 75 11</Typography>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <IconButton sx={{ color: "#fff" }}>
+                <Facebook />
+              </IconButton>
+              <IconButton sx={{ color: "#fff" }}>
+                <X />
+              </IconButton>
+              <IconButton sx={{ color: "#fff" }}>
+                <YouTube />
+              </IconButton>
+              <IconButton sx={{ color: "#fff" }}>
+                <WhatsApp />
+              </IconButton>
+            </Box>
           </Grid>
 
           {/* Quick Links */}
@@ -128,26 +142,8 @@ const Footer = () => {
                 Subscribe
               </Button>
             </Box>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <IconButton sx={{ color: "#fff" }}>
-                <Facebook />
-              </IconButton>
-              <IconButton sx={{ color: "#fff" }}>
-                <X />
-              </IconButton>
-              <IconButton sx={{ color: "#fff" }}>
-                <YouTube />
-              </IconButton>
-              <IconButton sx={{ color: "#fff" }}>
-                <WhatsApp />
-              </IconButton>
-            </Box>
           </Grid>
         </Grid>
-
-        <Box sx={{ textAlign: "center", mt: 4, color: "#aaa", fontSize: "14px" }}>
-          ALLRIGHT RESERVED - EIGHTHEME TEMPLATE KIT
-        </Box>
       </Container>
     </Box>
   );

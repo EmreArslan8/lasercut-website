@@ -24,45 +24,55 @@
     "desc": "Yüksek kalite standartlarında lazer kesim ve mühendislik çözümleri sunan uzman bir ekibiz. Her adımda güvenilir destek sağlıyoruz.",
     "heading": "Üst Düzey ",
     "highlight": "Lazer Kesim",
-    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız.",
-    "subheading": "Neler Yapıyoruz",
-    "serviceTitle": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
-    "serviceDesc": "Tasarım aşamasından üretime kadar ihtiyacınıza yönelik kaliteli ve hassas çözümler sağlıyoruz.",
-    "services": [
-      {
-        "title": "Lazer Kesim",
-        "desc": "Metal ve diğer materyaller üzerinde hassas lazer kesim çözümleri."
-      },
-      {
-        "title": "İmalat",
-        "desc": "Profesyonel ekipmanlarla yüksek kaliteli üretim süreçleri."
-      },
-      {
-        "title": "Yüzey İşleme",
-        "desc": "Estetik ve dayanıklılığı artıran özel yüzey kaplama çözümleri."
-      }
-    ],
-    "imageAlt": "Profesyonel işçi koruyucu ekipmanıyla çalışıyor"
+    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız."  
   },
 
   "Services": {
-  "subheading": "NE YAPIYORUZ",
-  "serviceTitle": "SİZİN İÇİN EN İYİ MÜHENDİSLİK HİZMETLERİNİ SUNUYORUZ",
-  "serviceDesc": "Doğru insanları bir araya getirerek yerleşik düşünceleri sorguluyor ve dönüşümü sağlıyoruz.",
-  "services": [
-    {
-      "title": "LAZER KESİM",
-      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
-    },
-    {
-      "title": "İMALAT",
-      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
-    },
-    {
-      "title": "BİTİŞ İŞLEMLERİ",
-      "desc": "Yerleşik düşünceleri sorgulamak ve dönüşümü sağlamak için doğru insanları bir araya getiriyoruz."
-    }
-  ]
+    
+      "title": "Ne Yapıyoruz?",
+      "heading": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
+      "description": "Uzmanlığımız hassas mühendisliktir. Lazer kesimden özel üretime kadar yüksek kalite, verimlilik ve doğruluk sağlayarak projelerinizi en iyi şekilde gerçekleştiriyoruz.",
+      "laserCutting": {
+        "title": "Lazer Kesim Hizmeti",
+        "description": "Çeşitli malzemeler için temiz ve hassas kesimler sunan, hızlı işlem süresiyle yüksek hassasiyetli lazer kesim hizmeti."
+      
+    
+    
+      },
+      "cncMachining": {
+        "title": "CNC İşleme Hizmeti",
+        "description": "Karmaşık parçalar için hassas CNC işleme."
+      },
+      "customFabrication": {
+        "title": "Özel Metal İmalatı",
+        "description": "İhtiyaçlarınıza özel metal üretimi."
+      }
+
+    
+},
+"Arcade": 
+  {
+    "section": "Naıl Çalışır",
+    "title": "Lazer Kesim Siparişlerinizi Kolayca Oluşturun",
+    "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesim siparişinizi kolayca tamamlayın.",
+    "button1": "Dxf Dosyaları",
+    "button2": "Diğer Dosyalar",
+    "paperTitle": "Hemen başlayın, lazer kesim siparişinizi oluşturun!",
+    "offerButton": "Ücretsiz Teklif Al",
+    "supportButton": "Destek Al",
+    "info": " Tasarla. Yükle. Kestir!"
+  },
+"HeroSection":
+{
+  "badge": "Hızlı ve Kolay",
+  "title": "Özel Kesim Parçalarınızı Hazırlayın",
+  "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesimle üretilmiş parçalarınızı kolayca sipariş edin. İster tek parça ister seri üretim, tamamen size özel üretim.",
+  "ctaTitle": "Hemen online teklif alın",
+  "slogan": "Tasarlayın, biz üretelim!",
+  "button": "Dosya Yükle"
+},
+"metadata": {
+  "description": "Online lazer kesim."
 },
 
   "Footer": {
@@ -70,7 +80,7 @@
     "copyright": "©Copyright® 2025.",
     "contact": "İletişim",
     "phoneNumber": "+90 505 520 75 11",
-    "email": "design@drawtocut.com",
+    "email": "design@2dtocut.com",
     "address": "Adres",
     "invoice": "Fatura",
     "payWithIyzico": "iyzico ile Öde"
@@ -78,7 +88,7 @@
   "File": {
     "title": "Modelinizi Yükleyin",
     "drawerTitle": "CAD dosyanızı yüklemek anlık teklif almanın en iyi yoludur",
-    "drawerInfo": "Tasarımınız güvende! DrawToCut.com'a yüklenen tüm tasarımlar güvenlidir ve fikri mülkiyet haklarının %100'üne sahip olursunuz",
+    "drawerInfo": "Tasarımınız güvende! 2dtocut.com'a yüklenen tüm tasarımlar güvenlidir ve fikri mülkiyet haklarının %100'üne sahip olursunuz",
     "uploadFile": "Dosya yükle",
     "congratulations": "Tebrikler!",
     "submissionSuccess": "Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.",
@@ -119,14 +129,15 @@
     }
   },
   "Advantages": {
-    "sectionTitle": "DrawToCut Lazer Kesim Hizmetinin Avantajları",
+  "whyChooseUs": "Neden Bizi Seçmelisiniz?",
+  "subtitle": "Sizin Vizyonunuz, Bizim Zanaatkarlığımız",
     "highSpeed": {
       "title": "Yüksek Hızda Üretim",
-      "description": "Son teknoloji lazer kesim makineleri kullanarak DrawToCut, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
+      "description": "Son teknoloji lazer kesim makineleri kullanarak 2dtocut, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
     },
     "highPrecision": {
       "title": "Yüksek Hassasiyet",
-      "description": "DrawToCut, ISO 2768'e (standart, ince) göre çeşitli tolerans seçenekleri sunar."
+      "description": "2dtocut, ISO 2768'e (standart, ince) göre çeşitli tolerans seçenekleri sunar."
     },
     "advancedSurface": {
       "title": "Geniş Renk Seçenekleri",
@@ -278,6 +289,15 @@
     "title": "Nasıl Çalışır",
     "description": "Etkileşimli rehberimizle adım adım süreci keşfedin."
   },
+  "Archivements": {
+    "title": "Yolculuğumuz & Büyümemiz",
+      "subTitle": "Deneyim, başarı ve gelişim.",
+      "description": "Her geçen gün gelişen ve büyüyen bir vizyon.",
+    "experience": "Deneyim",
+    "ourWorker": "Çalışanlarımız",
+    "companyPartner": "Şirket Ortakları",
+    "happyClients": "Mutlu Müşteriler"
+     },
   "ExampleWorks": {
     "ourWork": "Çalışmalarımız",
     "workingGallery": "Çalışma Galerisi",
@@ -285,6 +305,21 @@
     "goToGallery": "Galeriyi Gör",
     "title": "Galeri"
   },
+
+
+    "MaterialSection": {
+      "title": "LAZER KESİM",
+      "subtitle": "Lazer kesim ile hangi malzemeleri kesebiliriz?",
+      "description": "Lazer kesim teknolojisi, farklı metallerin temiz kenarlar ve yüksek hassasiyetle kesilmesini sağlar.",
+      "materials": {
+        "0": "Karbon Çelik",
+        "1": "Alüminyum",
+        "2": "Paslanmaz Çelik"
+      },
+      "button": "Bize Ulaşın"
+    },
+
+  
   "ExamplePage": {
     "title": "Örnek Çalışmalarımız",
     "description": "Hassas işlenmiş lazer kesim tasarımlardan oluşan koleksiyonumuzu keşfedin"
@@ -293,10 +328,10 @@
     "title": "Vizyonun Hassasiyetle Şekillendiği Yer",
     "aboutUsTitle": "Hakkımızda",
     "aboutUsText1": "Gelişmiş teknolojiyi yenilikçi çözümlerle birleştirerek, hem endüstriyel hem de yaratıcı ihtiyaçlar için olağanüstü kalite sunuyoruz. Karmaşık metal bileşenlerden özel dekoratif parçalara kadar, fikirlerinizi eşsiz bir hassasiyetle hayata geçiriyoruz.",
-    "aboutUsText2": "Mükemmeliyet taahhüdümüz üretimin ötesine geçiyor. En son teknoloji makineler ve son derece yetenekli bir ekiple, her projede hassasiyet, hız ve güvenilirlik sağlıyoruz. İster bir endüstri profesyoneli ister yaratıcı bir hevesli olun, DrawToCut keskin çözümler için güvenilir ortağınızdır.",
+    "aboutUsText2": "Mükemmeliyet taahhüdümüz üretimin ötesine geçiyor. En son teknoloji makineler ve son derece yetenekli bir ekiple, her projede hassasiyet, hız ve güvenilirlik sağlıyoruz. İster bir endüstri profesyoneli ister yaratıcı bir hevesli olun, 2dtocut keskin çözümler için güvenilir ortağınızdır.",
     "approachTitle": "Yaklaşımımız",
-    "approachText1": "DrawToCut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
-    "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. DrawToCut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
+    "approachText1": "2dtocut olarak, özel ihtiyaçlarınıza göre kişiselleştirilmiş çözümlere inanıyoruz. Sürecimiz, vizyonunuzu ve gereksinimlerinizi anlamakla başlar ve her projenin hedeflerinizle uyumlu olmasını sağlar. En son teknolojiyi ve detaylı el işçiliğini entegre ederek, beklentilerin ötesinde ürünler yaratıyoruz.",
+    "approachText2": "Her aşamada sürdürülebilirlik ve verimliliğe odaklanıyoruz, atıkları en aza indirirken çıktı kalitesini en üst düzeye çıkarıyoruz. İlk konseptten son teslimata kadar müşteri odaklı yaklaşımımız memnuniyet garantisi verir. 2dtocut’a güvenen birçok müşteriye katılın; yenilik, kalite ve eşsiz bir deneyim için."
   },
 
   "faqPage": {

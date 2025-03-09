@@ -14,10 +14,9 @@ import Stepper from "../Stepper";
 import OrderDetails from "../OrderDetails";
 import Icon from "../common/Icon";
 import { truncateText } from "@/utils/truncateText";
+import { useDrawer } from "@/context/DrawerContext";
 
 interface FileUploadDrawerProps {
-  open: boolean;
-  onClose: () => void;
   files: File[];
   svgData: {
     svg: string;
@@ -34,8 +33,6 @@ interface FileUploadDrawerProps {
 }
 
 const FileUploadDrawer = ({
-  open,
-  onClose,
   files,
   svgData,
   loadingSvg,
@@ -49,20 +46,20 @@ const FileUploadDrawer = ({
   const dxfFile = files.find((file) =>
     file.name.toLowerCase().endsWith(".dxf")
   );
-  
   const uploadedFile = files.length > 0 ? files[0] : null;
   const isLoading = uploadedFile && (loadingSvg || (dxfFile && !svgData));
+  const { isDrawerOpen, setDrawerOpen } = useDrawer();
 
+  
   return (
     <Drawer
+      open={isDrawerOpen}
+      onClose={() => setDrawerOpen(false)}
       anchor="top"
-      open={open}
-      onClose={onClose}
       PaperProps={{ sx: styles.drawer }}
     >
       <Box sx={styles.drawerContent}>
-        <Icon name="close" sx={styles.closeButton} onClick={onClose} />
-
+      <Icon name="close"  sx={styles.closeButton} onClick={() => setDrawerOpen(false)} />
         {uploadedFile ? (
           isLoading ? (
             <Stack alignItems="center" sx={{ mt: 2 }}>
@@ -81,10 +78,11 @@ const FileUploadDrawer = ({
               width={svgData?.width || ""}
               height={svgData?.height || ""}
               fileName={uploadedFile.name}
-              file={uploadedFile} // ✅ Dosya bilgisini ekle
+              file={uploadedFile}
+             
             />
           ) : (
-            <OrderDetails files={files} onClose={onClose} />
+            <OrderDetails files={files} onClose={() => setDrawerOpen(false)} />
           )
         ) : (
           <Box sx={{ textAlign: "center", maxWidth: "950px", margin: "auto" }}>

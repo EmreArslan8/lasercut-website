@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -15,50 +15,43 @@ import {
   Stack,
   Modal,
 } from "@mui/material";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Icon from "../common/Icon";
+import { useDrawer } from "@/context/DrawerContext";
+import { useRouter } from "next/navigation";
 
 const Step3 = ({
   svg,
   onBack,
   onConfirm,
   dispatch,
-  setDrawerOpen, // 🔹 Ekledik
 }: {
   svg: string;
   onBack: () => void;
   onConfirm: () => void;
   dispatch: (payload: { extraServices?: string[]; coating?: string }) => void;
-  setDrawerOpen: (open: boolean) => void; // 🔹 Drawer'ı kontrol için
 }) => {
   const t = useTranslations("Step3");
   const [isModalOpen, setModalOpen] = useState(false);
+  const { setDrawerOpen } = useDrawer();
   const handleGoHome = () => {
-    console.log("🏠 Geri Dön Butonuna Tıklandı!");
-  
     setModalOpen(false);
-    console.log("❌ Modal kapatıldı!");
-  
-    if (typeof setDrawerOpen === "function") {
-      console.log("🟢 setDrawerOpen fonksiyonu çalıştırılıyor...");
-      setDrawerOpen(false);
-      console.log("❌ Drawer kapatıldı!");
-    } else {
-      console.error("🔴 HATA: setDrawerOpen fonksiyonu GELMEDİ!");
-    }
+    setDrawerOpen(false);
   };
-  
 
-  console.log("🟡 Step3 render oldu. Gelen props:", {
-    svg,
-    onBack,
-    onConfirm,
-    dispatch,
-    setDrawerOpen,
-  });
-  
-console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
+  const router = useRouter();
+  const locale = useLocale()
+  useEffect(() => {
+    if (isModalOpen) {
+      const timeout = setTimeout(() => {
+        router.push(`/${locale}/cart`);
+      }, 10000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isModalOpen]);
+
+  const handleConfirm = () => setModalOpen(true);
 
   const extraServices = t.raw("extraServices") as {
     key: string;
@@ -69,26 +62,22 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [customColor, setCustomColor] = useState<string>("");
 
-
   const handleServiceToggle = (serviceKey: string) => {
     const updatedServices = selectedServices.includes(serviceKey)
       ? selectedServices.filter((s) => s !== serviceKey)
       : [...selectedServices, serviceKey];
-  
+
     setSelectedServices(updatedServices);
     dispatch({ extraServices: updatedServices });
-  
+
     // Eğer Boya (painting) seçilmişse, özel renk alanlarını sıfırla
     if (serviceKey === "painting") {
       setSelectedColor("");
       setCustomColor("");
     }
-  
+
     console.log("✅ Seçilen Ek Hizmetler (Key Bazlı):", updatedServices);
   };
-  
-  
-
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
@@ -106,11 +95,6 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
     dispatch({ coating: e.target.value });
   };
 
-  const handleConfirm = () => {
-    setModalOpen(true);
-   
-  };
-
   return (
     <Box sx={{ mt: 4 }}>
       {/* 🟢 Başlık & Açıklama */}
@@ -123,7 +107,7 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
 
       <Grid2 container spacing={4}>
         {/* 📌 DXF Önizleme */}
-        <Grid2 size={{xs:12, md:6}} sx={{ textAlign: "center" }}>
+        <Grid2 size={{ xs: 12, md: 6 }} sx={{ textAlign: "center" }}>
           <Box sx={{ border: "1px solid #ccc", p: 2, borderRadius: "8px" }}>
             <div
               dangerouslySetInnerHTML={{ __html: svg }}
@@ -133,9 +117,9 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
         </Grid2>
 
         {/* 📌 Ek Hizmet Seçimi */}
-        <Grid2 size={{xs:12, md: 6}}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {extraServices.map((service: { key: string; name: string }) => (
+            {extraServices.map((service: { key: string; name: string }) => (
               <Paper
                 key={service.key}
                 sx={{
@@ -192,7 +176,6 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
                       {t("customColor")}
                     </MenuItem>
                   </Select>
-                 
                 </FormControl>
 
                 {/* Kullanıcı özel renk seçerse giriş alanını aç */}
@@ -216,61 +199,73 @@ console.log("🟠 setDrawerOpen fonksiyonu geldi mi:", setDrawerOpen);
         <Button variant="outlined" onClick={onBack}>
           {t("buttons.back")}
         </Button>
-      <Button variant="contained" color="primary" onClick={() => {
-    onConfirm(); // Dışarıdan gelen onConfirm fonksiyonu çağırılır
-    handleConfirm(); // Modalı açan fonksiyon çalıştırılır
-  }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            onConfirm(); // Dışarıdan gelen onConfirm fonksiyonu çağırılır
+            handleConfirm(); // Modalı açan fonksiyon çalıştırılır
+          }}
+        >
           {t("buttons.confirm")}
         </Button>
 
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-          <Box
-            sx={{
-              width: { xs: 300, sm: 500, md: 600 }, // Mobil için daha küçük boyut
-              bgcolor: "white",
-              p: { xs: 2, sm: 4 }, // Mobil için daha az padding
-              mx: "auto",
-              my: "20vh",
-              boxShadow: 24,
-              textAlign: "center",
-              borderRadius: 2,
-            }}
-          >
-            <Icon name="check_circle" sx={{ fontSize: 50, color: "green" }} />
+  <Box
+    sx={{
+      width: { xs: 320, sm: 440 },
+      bgcolor: "white",
+      p: 4,
+      mx: "auto",
+      my: "20vh",
+      boxShadow: 24,
+      textAlign: "center",
 
-            <Typography variant="h5" fontWeight="bold" sx={{ mt: 1 }}>
-              {t("modal.title")}
-            </Typography>
-            <Typography sx={{ mt: 2 }}>{t("modal.description")}</Typography>
+    }}
+  >
+    <Icon name="check_circle" sx={{ fontSize: 60, color: "green", mb: 2 }} />
 
-            <Stack
-              direction={{ xs: "column", sm: "row" }} // Mobilde dikey, büyük ekranlarda yatay
-              spacing={2}
-              justifyContent="center"
-              sx={{ mt: 3 }}
-            >
-            <Button
-  variant="outlined"
-  fullWidth
-  onClick={handleGoHome}
-  startIcon={<Icon name="home" />}
+    <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
+      🎉 Congratulations!
+    </Typography>
+
+    <Typography variant="body1" sx={{ color: "text.secondary", mb: 4 }}>
+      Your product has been successfully added to the cart.
+    </Typography>
+
+    <Stack
+  direction={{ xs: "column", sm: "row" }}
+  spacing={2}
+  justifyContent="center"
+  sx={{ mt: 3 }}
 >
-  {t("modal.goHome")}
-</Button>
+  <Button
+    variant="outlined"
+    fullWidth 
+    onClick={handleGoHome}
 
-              <Link href="/cart" passHref>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  startIcon={<Icon name="shopping_cart" />}
-                >
-                  {t("modal.goCart")}
-                </Button>
-              </Link>
-            </Stack>
-          </Box>
-        </Modal>
+
+  >
+    Home
+  </Button>
+
+  <Link href="/cart" passHref>
+    <Button
+      variant="contained"
+      color="primary"
+      fullWidth 
+   
+
+    >
+      Go to Cart
+    </Button>
+  </Link>
+</Stack>
+
+  </Box>
+</Modal>
+
+
       </Box>
     </Box>
   );

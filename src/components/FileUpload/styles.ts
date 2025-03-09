@@ -81,6 +81,7 @@ const styles = {
     position: "absolute",
     top: 8,
     right: 8,
+    fontSize: {xs: 24, sm: 30,  md: 36}
   },
 };
 

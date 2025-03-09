@@ -1,30 +1,29 @@
+// contexts/DrawerContext.tsx
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-interface DrawerContextType {
-  isOpen: boolean;
-  openDrawer: () => void;
-  closeDrawer: () => void;
-}
+const DrawerContext = createContext<{
+  isDrawerOpen: boolean;
+  setDrawerOpen: (open: boolean) => void;
+}>({
+  isDrawerOpen: false,
+  setDrawerOpen: () => {},
+});
 
-const DrawerContext = createContext<DrawerContextType | undefined>(undefined);
 
-export const DrawerProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openDrawer = () => setIsOpen(true);
-  const closeDrawer = () => setIsOpen(false);
-
+export const DrawerProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  useEffect(() => {
+    console.log("🟡 Drawer durumu değişti:", isDrawerOpen);
+  }, [isDrawerOpen]);
+  console.log("📌 DrawerContext Yükleniyor: isDrawerOpen =", isDrawerOpen);
+  
   return (
-    <DrawerContext.Provider value={{ isOpen, openDrawer, closeDrawer }}>
+    <DrawerContext.Provider value={{ isDrawerOpen, setDrawerOpen }}>
       {children}
     </DrawerContext.Provider>
   );
 };
 
-export const useDrawer = () => {
-  const context = useContext(DrawerContext);
-  if (!context) throw new Error("useDrawer must be used within DrawerProvider");
-  return context;
-};
+export const useDrawer = () => useContext(DrawerContext);

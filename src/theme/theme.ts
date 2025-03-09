@@ -3,7 +3,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 export const defaultMarginBottom = 12;
-export const defaultMaxWidth = 1232;
+export const defaultMaxWidth = 1400;
 export const headerHeightPx = { xs: 54, md: 72 };
 export const headerHeight = Object.fromEntries(
   Object.entries(headerHeightPx).map(([k, v]) => [k, v / 8])
@@ -58,6 +58,10 @@ declare module '@mui/material/Button' {
     light: true;
   }
 }
+
+
+
+
 declare module "@mui/material/styles" {
   interface Palette {
   customPrimary: {
@@ -172,6 +176,7 @@ const breakpoints = {
     lg: 1200,
     xl: 1920,
   },
+  customMaxWidth: 1400, 
 };
 
 const theme = createTheme(

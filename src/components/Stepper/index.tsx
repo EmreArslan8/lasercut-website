@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction} from "react";
 import { Box, Stepper, Step, StepLabel } from "@mui/material";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -16,12 +16,14 @@ const DXFStepper = ({
   height,
   fileName,
   file,
+
 }: {
   svg: string;
   width: string;
   height: string;
   fileName: string;
   file: File;
+
 }) => {
   const [activeStep, setActiveStep] = useState(0);
   const { addToCart} = useCart();
@@ -151,7 +153,7 @@ const DXFStepper = ({
       {activeStep === 2 && (
         <Step3
           svg={svg}
-          setDrawerOpen={setDrawerOpen} // Buradan gönder
+        
           onBack={handleBack}
           onConfirm={handleConfirmOrder}
           dispatch={(payload) => {

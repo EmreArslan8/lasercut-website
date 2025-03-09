@@ -53,14 +53,12 @@ const styles = {
     px: isMobile ? 2 : 6,
     color: "#fff",
     margin: "0 auto", 
-    maxWidth: "1300px",
     mx: "auto", // Ortalamak için
-    py: { xs: 4, md: 8 }, // Üst-alt boşluk (isteğe bağlı  // Ortalamak için
+    pt: { xs: 4, md: 8 }, // Üst-alt boşluk (isteğe bağlı  // Ortalamak için
   }),
   gridContainer: {
     mx: "auto",
     gap: 2,
-    alignItems: "center",
     justifyContent: "space-between",
     flexDirection: { xs: "column", md: "row" },
   },

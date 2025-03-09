@@ -2,7 +2,7 @@ import theme, { palette } from "@/theme/theme";
 
 const styles = {
   topSection: {
-    py: { xs: 1, sm: 5,  md:4  },
+    py: { xs: 1, sm: 5,  md: 0  },
     bgColor: "white"
   
   },

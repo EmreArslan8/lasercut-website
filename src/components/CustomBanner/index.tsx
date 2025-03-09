@@ -3,14 +3,7 @@
 import { useRef, useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import {
-  Box,
-  Stack,
-  Typography,
-  Button,
-  Modal,
-  Grid2,
-} from "@mui/material";
+import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useScreen from "@/lib/hooks/useScreen";
@@ -19,6 +12,7 @@ import theme from "@/theme/theme";
 import styles from "./styles";
 import useGsapAnimation from "@/lib/hooks/useGsapAnimation";
 import Icon from "../common/Icon";
+import { useDrawer } from "@/context/DrawerContext";
 
 const images = [
   { id: 1, src: "/static/images/cnc1.jpg", alt: "Laser Cut Example 1" },
@@ -27,11 +21,7 @@ const images = [
   { id: 4, src: "/static/images/cnc4.jpg", alt: "Laser Cut Example 4" },
 ];
 
-const BannerSlider = ({
-  setDrawerOpen,
-}: {
-  setDrawerOpen: (open: boolean) => void;
-}) => {
+const BannerSlider = ({}: {}) => {
   const { isMobile } = useScreen();
   const titleRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -40,6 +30,7 @@ const BannerSlider = ({
   const counterRef = useRef<HTMLSpanElement>(null);
   const t = useTranslations("Banner");
   const [videoOpen, setVideoOpen] = useState(false);
+  const { setDrawerOpen } = useDrawer();
 
   useGsapAnimation(titleRef, { animation: "slideRight", delay: 0.3 });
   useGsapAnimation(textRef, { animation: "slideLeft", delay: 0.4 });
@@ -119,7 +110,9 @@ const BannerSlider = ({
                 ref={buttonRef}
                 variant="contained"
                 size="large"
-                onClick={() => setDrawerOpen(true)}
+                onClick={() => {
+                  setDrawerOpen(true);
+                }}
                 sx={styles.button}
               >
                 {t("quickQuote")}

@@ -1,4 +1,4 @@
-import { useEffect, RefObject } from "react";
+import { useEffect, useState, RefObject } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -11,7 +11,7 @@ type AnimationType =
   | "slideRight"
   | "zoomIn"
   | "counter"
-  | "slowZoom"; // ✅ slowZoom eklendi
+  | "slowZoom";
 
 interface AnimationOptions {
   animation?: AnimationType;
@@ -25,10 +25,11 @@ interface AnimationOptions {
   suffix?: string;
 }
 
-function useGsapAnimation(
+// ✅ useGsapAnimation artık bir custom React Hook!
+const useGsapAnimation = (
   target: RefObject<HTMLElement | null> | string,
   options: AnimationOptions = {}
-) {
+) => {
   const {
     animation = "fadeIn",
     delay = 0,
@@ -41,10 +42,8 @@ function useGsapAnimation(
     suffix = "%",
   } = options;
 
-  const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
-    if (isMobile) return;
 
     const elements =
       typeof target === "string"
@@ -54,6 +53,8 @@ function useGsapAnimation(
         : [];
 
     elements.forEach((element, index) => {
+      element.style.opacity = "1";
+
       if (animation === "counter") {
         const count = { value: 0 };
         ScrollTrigger.create({
@@ -72,17 +73,6 @@ function useGsapAnimation(
               },
             });
           },
-        });
-        return;
-      }
-
-      if (animation === "slowZoom") {
-        gsap.to(element, {
-          scale: 1.15, // Yakınlaştırma oranı
-          duration: 2, // Süreyi uzun tutarak yavaş efekt sağlanır
-          ease: "power1.inOut",
-          repeat: -1, // Sürekli tekrarlayan
-          yoyo: true, // Geri sararak eski haline döner
         });
         return;
       }
@@ -133,6 +123,7 @@ function useGsapAnimation(
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [
+  
     target,
     animation,
     delay,
@@ -144,6 +135,6 @@ function useGsapAnimation(
     counterEndValue,
     suffix,
   ]);
-}
+};
 
 export default useGsapAnimation;
