@@ -50,6 +50,8 @@ const DesktopCart = () => {
   };
 
   const handleCheckout = async () => {
+
+    router.push(`/${locale}/checkout`);
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
     console.log("📩 Müşteri E-Posta:", customerEmail);
@@ -365,18 +367,18 @@ const DesktopCart = () => {
                 {/* Place Order Button */}  
 
                 <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  onClick={() => router.push(`/${locale}/checkout`)}
-                  disabled={
-                    selectedItems.length === 0 ||
-                    !customerName.trim() ||
-                    !customerEmail.trim()
-                  }
-                >
-                  {t("placeOrder")}
-                </Button>
+  variant="contained"
+  color="primary"
+  fullWidth
+  onClick={handleCheckout} // 📌 Burada fonksiyonu çağırıyoruz!
+  disabled={
+    selectedItems.length === 0 ||
+    !customerName.trim() ||
+    !customerEmail.trim()
+  }
+>
+  {t("placeOrder")}
+</Button>;
               </Box>
             </Grid2>
           )}

@@ -23,7 +23,7 @@ import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { supabase } from "@/lib/api/supabaseClient";
 import { generateOrderEmail } from "@/utils/emailTemplates";
 import { useCart } from "@/context/CartContext";
-import { Link } from "@/i18n/routing";
+import { useRouter } from "next/navigation";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
@@ -36,7 +36,8 @@ const MobileCart = () => {
   const locale = useLocale();
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
-
+  const router = useRouter();
+  
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
@@ -61,7 +62,7 @@ const MobileCart = () => {
   };
 
   const handleCheckout = async () => {
-
+    router.push(`/${locale}/checkout`);
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
     console.log("📩 Müşteri E-Posta:", customerEmail);
@@ -104,7 +105,7 @@ const MobileCart = () => {
         fileUrl: uploadedFileUrls[index] || "Dosya Yok",
       })),
     };
-  
+
     console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
 
     const lineItems = selectedCartItems.map((item) => ({
@@ -146,34 +147,30 @@ const MobileCart = () => {
         console.error("❌ Slack gönderme hatası:", error);
       });
 
-      const emailContent = generateOrderEmail({
-        customerName,
-        customerEmail,
-        items: selectedCartItems.map((item, index) => ({
-          fileName: item.fileName,
-          material: item.material,
-          thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
-          quantity: item.quantity,
-          price:
-            locale === "en"
-              ? `$${item.priceUSD} USD`
-              : `${item.priceTL} TL`,
-          fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
-        })),
-      });
-      
-      await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emailContent),
-      });
-      console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
+    const emailContent = generateOrderEmail({
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        fileName: item.fileName,
+        material: item.material,
+        thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+        quantity: item.quantity,
+        price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+      })),
+    });
 
-  // ✅ Checkout’a yönlendir
-  localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(emailContent),
+    });
+    console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
 
-      
-/*
+    // ✅ Checkout’a yönlendir
+    localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+
+    /*
     console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
     const response = await fetch("/api/shopify/createDraftOrder", {
       method: "POST",
@@ -204,7 +201,6 @@ const MobileCart = () => {
       {isLoading && (
         <Box sx={styles.loading}>
           <CircularProgress size={60} color="primary" />
-        
         </Box>
       )}
 
@@ -227,15 +223,14 @@ const MobileCart = () => {
           {cartItems.map((item, index) => {
             return (
               <Card
-              key={index}
-              sx={{
-                ...styles.cartCard,
-                border: selectedItems.includes(index)
-                  ? "2px solid blue"
-                  : "1px solid #ddd",
-              }}
-            >
-            
+                key={index}
+                sx={{
+                  ...styles.cartCard,
+                  border: selectedItems.includes(index)
+                    ? "2px solid blue"
+                    : "1px solid #ddd",
+                }}
+              >
                 <Box sx={styles.itemHeader}>
                   <Typography variant="body1" fontWeight="bold">
                     {truncateText(item.fileName)}
@@ -278,7 +273,7 @@ const MobileCart = () => {
                         sx={styles.svg}
                       />
                     </Box>
-                  ): (
+                  ) : (
                     <Box
                       sx={{
                         width: "100px",
@@ -290,7 +285,7 @@ const MobileCart = () => {
                         borderRadius: "8px",
                       }}
                     >
-                      <Icon name="image"  />
+                      <Icon name="image" />
                     </Box>
                   )}
 
@@ -389,27 +384,31 @@ const MobileCart = () => {
 
       {cartItems.length > 0 && (
         <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
-          <Button variant="contained" color="secondary" onClick={clearCart}>
+        {/*  <Button variant="contained" color="secondary" onClick={clearCart}>
             {t("clearCart")}
+          </Button> */}
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={() => setModalOpen(true)}
+            disabled={selectedItems.length === 0}
+          >
+            {t("placeOrder")}
           </Button>
-          <Link href= "/checkout">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleCheckout}
-                  fullWidth
 
-                  disabled={selectedItems.length === 0}
-                >
-                  {t("placeOrder")}
-                </Button>
-                </Link>
           <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-            <Box sx={styles.modal} >
-              <Typography variant="buttonExtraBold"sx={{ display: "block", mb: 1 }} >
+            <Box sx={styles.modal}>
+              <Typography
+                variant="buttonExtraBold"
+                sx={{ display: "block", mb: 1 }}
+              >
                 {t("customerDetails")}
               </Typography>
-              <Typography variant="bodySmall" sx={{ display: "block", mb: 2, color: "text.secondary" }} >
+              <Typography
+                variant="bodySmall"
+                sx={{ display: "block", mb: 2, color: "text.secondary" }}
+              >
                 {t("supportInfo")}
               </Typography>
 
@@ -425,6 +424,7 @@ const MobileCart = () => {
               <TextField
                 fullWidth
                 label="Email Address"
+                
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 sx={{ mb: 2 }}
@@ -432,10 +432,11 @@ const MobileCart = () => {
 
               {/* Buttons to Proceed */}
               <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-                <Button
+               {/*     <Button
                   variant="outlined"
                   color="secondary"
                   fullWidth
+                  disabled={!customerName.trim() || !customerEmail.trim()}
                   onClick={() => {
                     setModalOpen(false);
                     handleCheckout(); // Proceed without details
@@ -443,10 +444,12 @@ const MobileCart = () => {
                 >
                   {t("skipAndCheckout")}
                 </Button>
+                */}
                 <Button
                   variant="contained"
                   color="primary"
                   fullWidth
+                  disabled={!customerName.trim() || !customerEmail.trim()}
                   onClick={() => {
                     setModalOpen(false);
                     handleCheckout(); // Proceed with details
@@ -454,6 +457,8 @@ const MobileCart = () => {
                 >
                   {t("continueWithInfo")}
                 </Button>
+
+                
               </Stack>
             </Box>
           </Modal>
