@@ -24,34 +24,27 @@
     "desc": "Yüksek kalite standartlarında lazer kesim ve mühendislik çözümleri sunan uzman bir ekibiz. Her adımda güvenilir destek sağlıyoruz.",
     "heading": "Üst Düzey ",
     "highlight": "Lazer Kesim",
-    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız."  
+    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız."
   },
 
   "Services": {
-    
-      "title": "Ne Yapıyoruz?",
-      "heading": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
-      "description": "Uzmanlığımız hassas mühendisliktir. Lazer kesimden özel üretime kadar yüksek kalite, verimlilik ve doğruluk sağlayarak projelerinizi en iyi şekilde gerçekleştiriyoruz.",
-      "laserCutting": {
-        "title": "Lazer Kesim Hizmeti",
-        "description": "Çeşitli malzemeler için temiz ve hassas kesimler sunan, hızlı işlem süresiyle yüksek hassasiyetli lazer kesim hizmeti."
-      
-    
-    
-      },
-      "cncMachining": {
-        "title": "CNC İşleme Hizmeti",
-        "description": "Karmaşık parçalar için hassas CNC işleme."
-      },
-      "customFabrication": {
-        "title": "Özel Metal İmalatı",
-        "description": "İhtiyaçlarınıza özel metal üretimi."
-      }
-
-    
-},
-"Arcade": 
-  {
+    "title": "Ne Yapıyoruz?",
+    "heading": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
+    "description": "Uzmanlığımız hassas mühendisliktir. Lazer kesimden özel üretime kadar yüksek kalite, verimlilik ve doğruluk sağlayarak projelerinizi en iyi şekilde gerçekleştiriyoruz.",
+    "laserCutting": {
+      "title": "Lazer Kesim Hizmeti",
+      "description": "Çeşitli malzemeler için temiz ve hassas kesimler sunan, hızlı işlem süresiyle yüksek hassasiyetli lazer kesim hizmeti."
+    },
+    "cncMachining": {
+      "title": "CNC İşleme Hizmeti",
+      "description": "Karmaşık parçalar için hassas CNC işleme."
+    },
+    "customFabrication": {
+      "title": "Özel Metal İmalatı",
+      "description": "İhtiyaçlarınıza özel metal üretimi."
+    }
+  },
+  "Arcade": {
     "section": "Naıl Çalışır",
     "title": "Lazer Kesim Siparişlerinizi Kolayca Oluşturun",
     "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesim siparişinizi kolayca tamamlayın.",
@@ -62,18 +55,17 @@
     "supportButton": "Destek Al",
     "info": " Tasarla. Yükle. Kestir!"
   },
-"HeroSection":
-{
-  "badge": "Hızlı ve Kolay",
-  "title": "Özel Kesim Parçalarınızı Hazırlayın",
-  "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesimle üretilmiş parçalarınızı kolayca sipariş edin. İster tek parça ister seri üretim, tamamen size özel üretim.",
-  "ctaTitle": "Hemen online teklif alın",
-  "slogan": "Tasarlayın, biz üretelim!",
-  "button": "Dosya Yükle"
-},
-"metadata": {
-  "description": "Online lazer kesim."
-},
+  "HeroSection": {
+    "badge": "Hızlı ve Kolay",
+    "title": "Özel Kesim Parçalarınızı Hazırlayın",
+    "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesimle üretilmiş parçalarınızı kolayca sipariş edin. İster tek parça ister seri üretim, tamamen size özel üretim.",
+    "ctaTitle": "Hemen online teklif alın",
+    "slogan": "Tasarlayın, biz üretelim!",
+    "button": "Dosya Yükle"
+  },
+  "metadata": {
+    "description": "Online lazer kesim."
+  },
 
   "Footer": {
     "brand": "Draw to Cut",
@@ -129,8 +121,8 @@
     }
   },
   "Advantages": {
-  "whyChooseUs": "Neden Bizi Seçmelisiniz?",
-  "subtitle": "Sizin Vizyonunuz, Bizim Zanaatkarlığımız",
+    "whyChooseUs": "Neden Bizi Seçmelisiniz?",
+    "subtitle": "Sizin Vizyonunuz, Bizim Zanaatkarlığımız",
     "highSpeed": {
       "title": "Yüksek Hızda Üretim",
       "description": "Son teknoloji lazer kesim makineleri kullanarak 2dtocut, anında sac metal fiyatlandırması ve 7 iş gününden başlayan teslim süreleriyle bitmiş parçalar üretmenizi sağlar."
@@ -291,13 +283,13 @@
   },
   "Archivements": {
     "title": "Yolculuğumuz & Büyümemiz",
-      "subTitle": "Deneyim, başarı ve gelişim.",
-      "description": "Her geçen gün gelişen ve büyüyen bir vizyon.",
+    "subTitle": "Deneyim, başarı ve gelişim.",
+    "description": "Her geçen gün gelişen ve büyüyen bir vizyon.",
     "experience": "Deneyim",
     "ourWorker": "Çalışanlarımız",
     "companyPartner": "Şirket Ortakları",
     "happyClients": "Mutlu Müşteriler"
-     },
+  },
   "ExampleWorks": {
     "ourWork": "Çalışmalarımız",
     "workingGallery": "Çalışma Galerisi",
@@ -306,20 +298,18 @@
     "title": "Galeri"
   },
 
-
-    "MaterialSection": {
-      "title": "LAZER KESİM",
-      "subtitle": "Lazer kesim ile hangi malzemeleri kesebiliriz?",
-      "description": "Lazer kesim teknolojisi, farklı metallerin temiz kenarlar ve yüksek hassasiyetle kesilmesini sağlar.",
-      "materials": {
-        "0": "Karbon Çelik",
-        "1": "Alüminyum",
-        "2": "Paslanmaz Çelik"
-      },
-      "button": "Bize Ulaşın"
+  "MaterialSection": {
+    "title": "LAZER KESİM",
+    "subtitle": "Lazer kesim ile hangi malzemeleri kesebiliriz?",
+    "description": "Lazer kesim teknolojisi, farklı metallerin temiz kenarlar ve yüksek hassasiyetle kesilmesini sağlar.",
+    "materials": {
+      "0": "Karbon Çelik",
+      "1": "Alüminyum",
+      "2": "Paslanmaz Çelik"
     },
+    "button": "Bize Ulaşın"
+  },
 
-  
   "ExamplePage": {
     "title": "Örnek Çalışmalarımız",
     "description": "Hassas işlenmiş lazer kesim tasarımlardan oluşan koleksiyonumuzu keşfedin"
@@ -484,6 +474,10 @@
   "Step3": {
     "title": "Ek Hizmetler",
     "description": "Aşağıdan ek hizmetleri seçebilirsiniz. Boya için özel renk girişi yapabilirsiniz.",
+    "modalTitle": "Tebrikler!",
+    "modalDescription": "Ürününüz sepete eklendi",
+    "homeButton": "AnaSayfa",
+    "cartButton": "Sepet",
     "extraServices": [
       {
         "key": "bending",
@@ -543,5 +537,27 @@
       }
     ],
     "readMore": "Devamını Oku"
+  },
+  "CheckoutPage": {
+    "contact": "İletişim",
+    "emailOrPhone": "E-Posta veya Telefon",
+    "payment": "Ödeme",
+    "creditCard": "Kredi Kartı (İyzico)",
+    "bankTransfer": "Banka Havalesi / EFT",
+    "billingAddress": "Fatura Adresi",
+    "fullName": "Ad Soyad",
+    "address": "Adres",
+    "city": "Şehir",
+    "postalCode": "Posta Kodu",
+    "orderSummary": "Sipariş Özeti",
+    "price": "Fiyat",
+    "total": "Toplam",
+    "completeOrder": "Siparişi Tamamla",
+    "quantity": "Adet",
+    "loading": "Yükleniyor...",
+    "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
+    "orderReceived": "Siparişiniz Alındı!",
+    "orderConfirmationMessage": "Ödemeniz için sizinle en kısa sürede iletişime geçilecektir.",
+    "close": "Kapat"
   }
 }

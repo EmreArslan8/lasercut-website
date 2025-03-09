@@ -23,6 +23,7 @@ import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { supabase } from "@/lib/api/supabaseClient";
 import { generateOrderEmail } from "@/utils/emailTemplates";
 import { useCart } from "@/context/CartContext";
+import { Link } from "@/i18n/routing";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
@@ -58,129 +59,146 @@ const MobileCart = () => {
       )
     );
   };
+
   const handleCheckout = async () => {
-    setIsLoading(true); // Start loading
-    try {
-      console.log("🟢 Checkout started...");
-      const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
-      console.log("🟢 Seçilen Ürünler:", selectedCartItems);
+    console.log("🟢 Sipariş işlemi başladı...");
+    console.log("📩 Müşteri Adı:", customerName);
+    console.log("📩 Müşteri E-Posta:", customerEmail);
 
-      const uploadedFileUrls = await Promise.all(
-        selectedCartItems.map(async (item) => {
-          if (!item.file) return null;
-          const filePath = `orders/${Date.now()}_${item.file.name
-            .replace(/\s+/g, "_")
-            .toLowerCase()}`;
-          const { error } = await supabase.storage
-            .from("uploaded-files")
-            .upload(filePath, item.file);
-          if (error) {
-            console.error("❌ Dosya yükleme hatası:", error.message);
-            throw new Error(error.message);
-          }
-          const { data } = supabase.storage
-            .from("uploaded-files")
-            .getPublicUrl(filePath);
-          console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
-          return data.publicUrl;
-        })
-      );
+    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
 
-      console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+    console.log("🟢 Seçilen Ürünler:", selectedCartItems);
 
-      const lineItems = selectedCartItems.map((item) => ({
-        title: item.fileName || "Unnamed Product",
-        quantity: item.quantity,
-        price: item.priceUSD || "0.00",
-        properties: [
-          { name: "Material", value: item.material },
-          { name: "Thickness", value: item.thickness },
-        ],
-      }));
-
-      const productDetails = {
-        name: customerName,
-        email: customerEmail,
-        items: selectedCartItems.map((item, index) => ({
-          material: item.material,
-          thickness: item.thickness,
-          quantity: item.quantity,
-          price:
-            locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-          fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
-        })),
-      };
-
-      console.log("🟢 Ürün Detayları:", productDetails);
-
-      // **1️⃣ Slack'e Bildirim Gönder**
-      console.log("🟡 Slack'e gönderiliyor...");
-      await fetch("/api/send-slack", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productDetails),
+    const uploadedFileUrls = await Promise.all(
+      selectedCartItems.map(async (item) => {
+        if (!item.file) return null;
+        const filePath = `orders/${Date.now()}_${item.file.name
+          .replace(/\s+/g, "_")
+          .toLowerCase()}`;
+        const { error } = await supabase.storage
+          .from("uploaded-files")
+          .upload(filePath, item.file);
+        if (error) {
+          console.error("❌ Dosya yükleme hatası:", error.message);
+          throw new Error(error.message);
+        }
+        const { data } = supabase.storage
+          .from("uploaded-files")
+          .getPublicUrl(filePath);
+        console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
+        return data.publicUrl;
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("🟢 Slack yanıtı:", data);
-        })
-        .catch((error) => {
-          console.error("❌ Slack gönderme hatası:", error);
-        });
+    );
 
-        const emailContent = generateOrderEmail({
-          customerName,
-          customerEmail,
-          items: selectedCartItems.map((item, index) => ({
-            fileName: item.fileName,
-            material: item.material,
-            thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
-            quantity: item.quantity,
-            price:
-              locale === "en"
-                ? `$${item.priceUSD} USD`
-                : `${item.priceTL} TL`,
-            fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
-          })),
-        });
-        
-        await fetch("/api/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(emailContent),
-        });
+    console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
 
-      console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
-      const response = await fetch("/api/shopify/createDraftOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lineItems,
-          userData: {
-            name: customerName,
-            email: customerEmail,
-            fileUrl: uploadedFileUrls[0] || "",
-            productDetails: JSON.stringify(productDetails),
-          },
-        }),
+    const checkoutData = {
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || "Dosya Yok",
+      })),
+    };
+  
+    console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
+
+    const lineItems = selectedCartItems.map((item) => ({
+      title: item.fileName || "Unnamed Product",
+      quantity: item.quantity,
+      price: item.priceUSD || "0.00",
+      properties: [
+        { name: "Material", value: item.material },
+        { name: "Thickness", value: item.thickness },
+      ],
+    }));
+
+    const productDetails = {
+      name: customerName,
+      email: customerEmail,
+      items: selectedCartItems.map((item, index) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
+      })),
+    };
+
+    console.log("🟢 Ürün Detayları:", productDetails);
+
+    // **1️⃣ Slack'e Bildirim Gönder**
+    console.log("🟡 Slack'e gönderiliyor...");
+    await fetch("/api/send-slack", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productDetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("🟢 Slack yanıtı:", data);
+      })
+      .catch((error) => {
+        console.error("❌ Slack gönderme hatası:", error);
       });
 
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
+      const emailContent = generateOrderEmail({
+        customerName,
+        customerEmail,
+        items: selectedCartItems.map((item, index) => ({
+          fileName: item.fileName,
+          material: item.material,
+          thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
+          quantity: item.quantity,
+          price:
+            locale === "en"
+              ? `$${item.priceUSD} USD`
+              : `${item.priceTL} TL`,
+          fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
+        })),
+      });
+      
+      await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailContent),
+      });
+      console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
 
+  // ✅ Checkout’a yönlendir
+  localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+
+      
+/*
+    console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
+    const response = await fetch("/api/shopify/createDraftOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lineItems,
+        userData: {
+          name: customerName,
+          email: customerEmail,
+          fileUrl: uploadedFileUrls[0] || "",
+          productDetails: JSON.stringify(productDetails),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("❌ Shopify sipariş hatası:", await response.text());
+    } else {
       const data = await response.json();
-      console.log("🟢 Shopify Order Created:", data);
-
-      // Redirect the user
+      console.log("🟢 Shopify siparişi başarıyla oluşturuldu.");
       window.location.href = data.draft_order.invoice_url;
-    } catch (error) {
-      console.error("❌ Checkout Error:", error);
-    } finally {
-      setIsLoading(false); // Stop loading when done
     }
+      */
   };
+
   return (
     <Stack sx={styles.cartContainer}>
       {isLoading && (
@@ -374,14 +392,18 @@ const MobileCart = () => {
           <Button variant="contained" color="secondary" onClick={clearCart}>
             {t("clearCart")}
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setModalOpen(true)} // Open modal
-            disabled={selectedItems.length === 0}
-          >
-            {t("placeOrder")}
-          </Button>
+          <Link href= "/checkout">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleCheckout}
+                  fullWidth
+
+                  disabled={selectedItems.length === 0}
+                >
+                  {t("placeOrder")}
+                </Button>
+                </Link>
           <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
             <Box sx={styles.modal} >
               <Typography variant="buttonExtraBold"sx={{ display: "block", mb: 1 }} >

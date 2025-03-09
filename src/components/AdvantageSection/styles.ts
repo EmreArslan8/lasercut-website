@@ -8,15 +8,19 @@ const styles = {
     color: "white",
   },
   title: {
-    variant: "h4",
     textAlign: "center",
-    mb: 6,
+    mb: 2,
+  },
+  subTitle: {
+    textAlign: "center",
+    mb: 4,
   },
   gridContainer: {
-    spacing: 4,
-    justifyContent: "center",
-    maxWidth: "lg",
-    mx: "auto",
+    direction: { xs: "row", sm: "column" },        
+   gap: 2,
+   alignItems: { xs: "center", sm: "flex-start" },
+   p: 3, 
+   height: "100%"
   },
   card: {
     height: "100%",
@@ -35,22 +39,6 @@ const styles = {
     borderRadius: "12px",
     background: "linear-gradient(135deg, #016fbf, #3f8efc, #00c6ff)",
     flexShrink: 0, // ✅ Daralmayı engelle
-  },
-  textGroup: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    mt: 2,
-    height: 64, // ✅ İkonla hizalama için
-    ml: { xs: 2, sm: 0 }, // ✅ Mobilde ikon ile boşluk bırak
-    textAlign: { xs: "left", sm: "center", md: "left" }, // ✅ sm'de ortala
-  },
-  titleText: {
-    variant: "h6",
-    fontWeight: "bold",
-  },
-  descriptionText: {
-    variant: "body2",
   },
 };
 

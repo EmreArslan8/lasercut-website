@@ -16,7 +16,7 @@ const styles = {
     px: 2,
     py: 1,
     borderRadius: "50px",
-    fontSize: "18px",
+    fontSize: "16px",
     textTransform: "uppercase",
     color: palette.customPrimary[700],
     mb: 2,
@@ -28,7 +28,7 @@ const styles = {
   },
   heading: {
     fontWeight: 700,
-    fontSize: { xs: "28px", md: "36px" },
+    fontSize: { xs: "24px", md: "36px" },
     lineHeight: 1.3,
     textAlign: {  xs: "left" },
 

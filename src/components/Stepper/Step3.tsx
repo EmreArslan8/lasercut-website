@@ -41,7 +41,7 @@ const Step3 = ({
   };
 
   const router = useRouter();
-  const locale = useLocale()
+  const locale = useLocale();
   useEffect(() => {
     if (isModalOpen) {
       const timeout = setTimeout(() => {
@@ -209,63 +209,42 @@ const Step3 = ({
         >
           {t("buttons.confirm")}
         </Button>
-
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-  <Box
-    sx={{
-      width: { xs: 320, sm: 440 },
-      bgcolor: "white",
-      p: 4,
-      mx: "auto",
-      my: "20vh",
-      boxShadow: 24,
-      textAlign: "center",
+      <Box
+        sx={{
+          width: { xs: 320, sm: 440 },
+          bgcolor: "white",
+          p: 4,
+          mx: "auto",
+          my: "20vh",
+          boxShadow: 24,
+          textAlign: "center",
+          borderRadius: 2,
+        }}
+      >
+        <Icon name="check_circle" sx={{ fontSize: 60, color: "green", mb: 2 }} />
 
-    }}
-  >
-    <Icon name="check_circle" sx={{ fontSize: 60, color: "green", mb: 2 }} />
+        <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
+          🎉 {t("modalTitle")}
+        </Typography>
 
-    <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
-      🎉 Congratulations!
-    </Typography>
+        <Typography variant="body1" sx={{ color: "text.secondary", mb: 4 }}>
+          {t("modalDescription")}
+        </Typography>
 
-    <Typography variant="body1" sx={{ color: "text.secondary", mb: 4 }}>
-      Your product has been successfully added to the cart.
-    </Typography>
+        <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 3 }}>
+          <Button variant="outlined" fullWidth onClick={handleGoHome}>
+            {t("homeButton")}
+          </Button>
 
-    <Stack
-  direction={{ xs: "column", sm: "row" }}
-  spacing={2}
-  justifyContent="center"
-  sx={{ mt: 3 }}
->
-  <Button
-    variant="outlined"
-    fullWidth 
-    onClick={handleGoHome}
-
-
-  >
-    Home
-  </Button>
-
-  <Link href="/cart" passHref>
-    <Button
-      variant="contained"
-      color="primary"
-      fullWidth 
-   
-
-    >
-      Go to Cart
-    </Button>
-  </Link>
-</Stack>
-
-  </Box>
-</Modal>
-
-
+          <Link href="/cart" passHref legacyBehavior>
+            <Button variant="contained" color="primary" fullWidth>
+              {t("cartButton")}
+            </Button>
+          </Link>
+        </Stack>
+      </Box>
+    </Modal>
       </Box>
     </Box>
   );

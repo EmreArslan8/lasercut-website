@@ -12,7 +12,7 @@ const achievements = [
 ];
 
 const Archivements = () => {
-  const t = useTranslations("Archivements");
+  const t = useTranslations("Archivements"); 
 
   return (
     <Box sx={styles.wrapper}>
@@ -27,19 +27,9 @@ const Archivements = () => {
             return (
               <Grid key={index} item xs={6} md={3} textAlign="center">
                 {/* Sayı Animasyonu */}
-                <motion.span
-                  {...useFramerAnimations("slideUp").animation}
-                  style={{ fontSize: "2rem", fontWeight: "bold", color: "#1976D2" }}
-                >
-                  {`${count}${item.suffix}`}
-                </motion.span>
-
+             
                 {/* Açıklamalar */}
-                <motion.div {...useFramerAnimations("slideLeft").animation}>
-                  <Typography sx={{ fontSize: "1rem", color: "#333" }}>
-                    {t(item.key)}
-                  </Typography>
-                </motion.div>
+               
               </Grid>
             );
           })}

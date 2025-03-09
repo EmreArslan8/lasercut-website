@@ -5,7 +5,7 @@ const styles = {
     width: "100%",
     display: "flex",
     justifyContent: "center",
-    py: { xs: 0, sm: 2, md: 8 },
+    py: { xs: 2, sm: 2, md: 8 },
   },
   badgeTitleContainer: {
     display: { xs: "block", md: "none" },

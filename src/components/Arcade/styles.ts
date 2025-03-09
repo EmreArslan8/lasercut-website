@@ -9,7 +9,7 @@ const styles = {
     fontWeight: "bold",
     textAlign: "center",
     mb: 1,
-    fontSize: { xs: "14px", md: "22px" },
+    fontSize: { xs: "18px", md: "22px" },
     bgColor: "white"
   },
   title: {
@@ -20,15 +20,15 @@ const styles = {
     fontSize: { xs: "24px", md: "32px" },
   },
   description: {
-    mb: 4,
+    mb: {xs: 1, md: 4},
     textAlign: "center",
     maxWidth: 600,
     mx: "auto",
-    fontSize: { xs: "14px", md: "18px" },
+    fontSize: { xs: "16px", md: "20px" },
   },
   frameWrapper: {
     position: "relative",
-    paddingBottom: "calc(51.80159256801593% + 1px)",
+    paddingBottom: "calc(51.80159256801593% + 41px)",
     height: 0,
     width: {xs: "100%", md: "80%"},
     m: "0 auto",

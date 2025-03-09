@@ -4,7 +4,15 @@ import { useAnimation } from "framer-motion";
 /**
  * Framer Motion animasyon türlerini içeren type
  */
-type AnimationType = "fadeIn" | "slideUp" | "slideLeft" | "slideRight" | "zoomIn" | "slowZoom" | "counter";
+type AnimationType =
+  | "fadeIn"
+  | "slideUp"
+  | "slideLeft"
+  | "slideRight"
+  | "zoomIn"
+  | "slowZoom"
+  | "counter"
+  | "hoverTap"; // ✅ Yeni animasyon eklendi
 
 /**
  * 🎯 Framer Motion kullanarak farklı animasyonları yöneten hook.
@@ -59,6 +67,11 @@ export const useFramerAnimations = (type: AnimationType, endValue?: number, dura
     slowZoom: {
       animate: { scale: [1, 1.1, 1] },
       transition: { duration: 2, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" },
+    },
+    hoverTap: {
+      whileHover: { scale: 1.05, y: -8 }, // ✅ Hover'da büyütüp yukarı kaydır
+      whileTap: { scale: 0.95 }, // ✅ Tıklayınca küçült
+      transition: { type: "spring", stiffness: 400, damping: 10 },
     },
     counter: {},
   };

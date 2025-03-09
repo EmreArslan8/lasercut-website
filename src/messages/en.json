@@ -71,22 +71,18 @@
     "button": "Upload File"
   },
 
- 
-    "MaterialSection": {
-      "title": "LASER CUTTING",
-      "subtitle": "What materials can we cut with laser cutting?",
-      "description": "Laser cutting technology allows us to precisely cut a variety of metals.",
-      "materials": {
-        "0": "Mild Steel",
-        "1": "Aluminum",
-        "2": "Stainless Steel"
-      },
-      "button": "Contact Us"
-
+  "MaterialSection": {
+    "title": "LASER CUTTING",
+    "subtitle": "What materials can we cut with laser cutting?",
+    "description": "Laser cutting technology allows us to precisely cut a variety of metals.",
+    "materials": {
+      "0": "Mild Steel",
+      "1": "Aluminum",
+      "2": "Stainless Steel"
+    },
+    "button": "Contact Us"
   },
-  
 
-  
   "Footer": {
     "brand": "Draw to Cut",
     "copyright": "Copyright® 2025.",
@@ -135,8 +131,8 @@
     }
   },
   "Advantages": {
-  "whyChooseUs": "Why Choose Us",
-  "subtitle": "Your Vision, Our Craftsmanship",
+    "whyChooseUs": "Why Choose Us",
+    "subtitle": "Your Vision, Our Craftsmanship",
     "highSpeed": {
       "title": "High-Speed Manufacturing",
       "description": "Using state-of-the-art laser cutting machines, 2dtocut enables you to produce finished parts with instant sheet metal pricing and lead times starting from 7 business days."
@@ -477,6 +473,10 @@
   "Step3": {
     "title": "Additional Services",
     "description": "You can select additional services below. For painting, you can enter a custom color.",
+    "modalTitle": "Congratulations!",
+    "modalDescription": "Your product has been successfully added to the cart.",
+    "homeButton": "Home",
+    "cartButton": "Go to Cart",
     "extraServices": [
       {
         "key": "bending",
@@ -535,5 +535,27 @@
       }
     ],
     "readMore": "Read More"
+  },
+  "CheckoutPage": {
+    "contact": "Contact",
+    "emailOrPhone": "Email or Phone",
+    "payment": "Payment",
+    "creditCard": "Credit Card (İyzico)",
+    "bankTransfer": "Bank Transfer / EFT",
+    "billingAddress": "Billing Address",
+    "fullName": "Full Name",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "orderSummary": "Order Summary",
+    "price": "Price",
+    "total": "Total",
+    "completeOrder": "Complete Order",
+    "quantity": "Part",
+    "loading": "Yükleniyor...",
+    "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
+    "orderReceived": "Congratulations! Your transaction has been received.",
+    "orderConfirmationMessage": "You will be contacted for payment.",
+      "close": "close"
   }
 }

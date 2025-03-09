@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
@@ -10,9 +10,10 @@ import useScreen from "@/lib/hooks/useScreen";
 import { useTranslations } from "next-intl";
 import theme from "@/theme/theme";
 import styles from "./styles";
-import useGsapAnimation from "@/lib/hooks/useGsapAnimation";
 import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
+import { motion } from "framer-motion";
+import { useFramerAnimations } from "@/lib/hooks/useFramerAnimation";
 
 const images = [
   { id: 1, src: "/static/images/cnc1.jpg", alt: "Laser Cut Example 1" },
@@ -23,27 +24,14 @@ const images = [
 
 const BannerSlider = ({}: {}) => {
   const { isMobile } = useScreen();
-  const titleRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const counterRef = useRef<HTMLSpanElement>(null);
+
   const t = useTranslations("Banner");
   const [videoOpen, setVideoOpen] = useState(false);
   const { setDrawerOpen } = useDrawer();
-
-  useGsapAnimation(titleRef, { animation: "slideRight", delay: 0.3 });
-  useGsapAnimation(textRef, { animation: "slideLeft", delay: 0.4 });
-  useGsapAnimation(buttonRef, { animation: "slideUp", delay: 0.6 });
-  useGsapAnimation(imageRef, { animation: "zoomIn", duration: 2 });
-  useGsapAnimation(counterRef, {
-    animation: "counter",
-    counterEndValue: 98,
-    duration: 2,
-    delay: 0.5,
-    suffix: "%",
-    ease: "power1.out",
-  });
+  const { count } = useFramerAnimations("counter", 98);
+  const titleAnimation = useFramerAnimations("slideRight");
+  const buttonAnimation = useFramerAnimations("hoverTap");
+  const descAnimation = useFramerAnimations("slideLeft");
 
   const settings = {
     dots: false,
@@ -70,7 +58,7 @@ const BannerSlider = ({}: {}) => {
       <Box sx={styles.sliderBox}>
         <Slider {...settings}>
           {images.map((image) => (
-            <Box ref={imageRef} key={image.id} sx={styles.slide}>
+            <Box key={image.id} sx={styles.slide}>
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -95,7 +83,11 @@ const BannerSlider = ({}: {}) => {
         >
           <Grid2 size={{ xs: 12, md: 7 }}>
             <Box textAlign={{ xs: "center", md: "left" }}>
-              <Typography ref={titleRef} variant="h1" sx={styles.title}>
+              <Typography
+                component={motion.h1}
+                {...titleAnimation.animation}
+                sx={styles.title}
+              >
                 {t("titleStart")} <br />
                 <Box
                   component="span"
@@ -105,14 +97,12 @@ const BannerSlider = ({}: {}) => {
                 </Box>{" "}
                 {t("titleEnd")}
               </Typography>
-
               <Button
-                ref={buttonRef}
+                component={motion.button} // ✅ Framer Motion ile entegre
+                {...buttonAnimation.animation} // ✅ Hook'tan gelen animasyon
                 variant="contained"
                 size="large"
-                onClick={() => {
-                  setDrawerOpen(true);
-                }}
+                onClick={() => setDrawerOpen(true)}
                 sx={styles.button}
               >
                 {t("quickQuote")}
@@ -120,7 +110,11 @@ const BannerSlider = ({}: {}) => {
             </Box>
           </Grid2>
           <Box flex={1} sx={styles.rightGrid}>
-            <Typography ref={textRef} variant="h6" sx={{ mb: 3 }}>
+            <Typography
+              component={motion.h6}
+              {...descAnimation.animation}
+              sx={{ mb: 3 }}
+            >
               {t("description")}
             </Typography>
             <Grid2 size={{ xs: 12, md: 5 }}>
@@ -170,8 +164,8 @@ const BannerSlider = ({}: {}) => {
                     </Box>
                   </Box>
                 </Modal>
-                <Typography ref={counterRef} sx={styles.counter}>
-                  0%
+                <Typography component={motion.span} sx={styles.counter}>
+                  {count}%
                 </Typography>
                 <Box>
                   <Typography
