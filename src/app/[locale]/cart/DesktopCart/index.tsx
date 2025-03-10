@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   List,
   ListItem,
@@ -27,6 +27,7 @@ import Icon from "@/components/common/Icon";
 import { useCart } from "@/context/CartContext";
 import router, { useRouter } from "next/navigation";
 import { Link } from "@/i18n/routing";
+import TermsModal from "@/components/TermsModal";
 
 const DesktopCart = () => {
   const { cartItems, setCartItems } = useCart();
@@ -42,6 +43,7 @@ const DesktopCart = () => {
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
   const router = useRouter();
+  const [isTermsOpen, setTermsOpen] = useState(false);
 
   const handleCloseModal = () => setModalOpen(false);
 
@@ -50,7 +52,6 @@ const DesktopCart = () => {
   };
 
   const handleCheckout = async () => {
-
     router.push(`/${locale}/checkout`);
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
@@ -325,7 +326,6 @@ const DesktopCart = () => {
                 >
                   {t("supportInfo")}
                 </Typography>
-
                 <TextField
                   fullWidth
                   label="Full Name"
@@ -338,7 +338,6 @@ const DesktopCart = () => {
                   helperText={nameError ? "Full Name is required" : ""} // Uyarı mesajı
                   sx={{ mb: 2 }}
                 />
-
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -351,34 +350,43 @@ const DesktopCart = () => {
                   helperText={emailError ? "Email Address is required" : ""}
                   sx={{ mb: 2 }}
                 />
-
                 {/* Total Price */}
                 <Typography sx={styles.totalPrice}>
                   {t("totalAmount")}:{" "}
                   {calculateTotalPrice(selectedItems, cartItems, locale)}
                 </Typography>
-
                 {/* Terms & Conditions */}
                 <Stack direction="row" alignItems="center" sx={styles.terms}>
                   <Checkbox color="primary" />
-                  <Typography variant="bodySmall">{t("policyText")}</Typography>
+
+                  <Typography
+                    variant="bodySmall"
+                    sx={{ textDecoration: "underline", cursor: "pointer" }}
+                    onClick={() => setTermsOpen(true)} // ✅ Tıklandığında modal aç
+                  >
+                    {t("policyText")}
+                  </Typography>
+
+                  <TermsModal
+                    open={isTermsOpen}
+                    onClose={() => setTermsOpen(false)}
+                  />
                 </Stack>
-
-                {/* Place Order Button */}  
-
+                {/* Place Order Button */}
                 <Button
-  variant="contained"
-  color="primary"
-  fullWidth
-  onClick={handleCheckout} // 📌 Burada fonksiyonu çağırıyoruz!
-  disabled={
-    selectedItems.length === 0 ||
-    !customerName.trim() ||
-    !customerEmail.trim()
-  }
->
-  {t("placeOrder")}
-</Button>;
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handleCheckout}
+                  disabled={
+                    selectedItems.length === 0 ||
+                    !customerName.trim() ||
+                    !customerEmail.trim()
+                  }
+                >
+                  {t("placeOrder")}
+                </Button>
+                ;
               </Box>
             </Grid2>
           )}

@@ -209,21 +209,7 @@ const ContactPage = () => {
           </Button>
 
           {/* Instagram */}
-          <Button
-            component="a"
-            href="https://instagram.com/your-profile"
-            target="_blank"
-            startIcon={<InstagramIcon />}
-            variant="contained"
-            color="primary"
-            sx={{
-              textTransform: "none",
-              borderRadius: "20px",
-              px: 3,
-            }}
-          >
-            Instagram
-          </Button>
+         
 
         </Box>
       </Box>

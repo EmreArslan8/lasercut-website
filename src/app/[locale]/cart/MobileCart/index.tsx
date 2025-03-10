@@ -24,6 +24,7 @@ import { supabase } from "@/lib/api/supabaseClient";
 import { generateOrderEmail } from "@/utils/emailTemplates";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
+import TermsModal from "@/components/TermsModal";
 
 const MobileCart = () => {
   const { cartItems, clearCart, setCartItems } = useCart();
@@ -37,7 +38,8 @@ const MobileCart = () => {
   const extraServicesMap = t.raw("extraServicesList") as Record<string, string>;
   const materialsMap = t.raw("materialsList") as Record<string, string>;
   const router = useRouter();
-  
+  const [isTermsOpen, setTermsOpen] = useState(false);
+
   const handleRemoveItem = (index: number) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
@@ -374,17 +376,30 @@ const MobileCart = () => {
       )}
       {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
       {cartItems.length > 0 && (
-        <Box sx={{ mt: 3, textAlign: "right" }}>
+        <Box sx={{ mt: 3, textAlign: "left" }}>
           <Typography sx={styles.totalPrice}>
             {t("totalAmount")}:{" "}
             {calculateTotalPrice(selectedItems, cartItems, locale)}
           </Typography>
         </Box>
       )}
+      <Stack direction="row" alignItems="center" sx={styles.terms}>
+        <Checkbox color="primary" />
+
+        <Typography
+          variant="bodySmall"
+          sx={{ textDecoration: "underline", cursor: "pointer" }}
+          onClick={() => setTermsOpen(true)} // ✅ Tıklandığında modal aç
+        >
+          {t("policyText")}
+        </Typography>
+
+        <TermsModal open={isTermsOpen} onClose={() => setTermsOpen(false)} />
+      </Stack>
 
       {cartItems.length > 0 && (
         <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
-        {/*  <Button variant="contained" color="secondary" onClick={clearCart}>
+          {/*  <Button variant="contained" color="secondary" onClick={clearCart}>
             {t("clearCart")}
           </Button> */}
           <Button
@@ -424,7 +439,6 @@ const MobileCart = () => {
               <TextField
                 fullWidth
                 label="Email Address"
-                
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 sx={{ mb: 2 }}
@@ -432,7 +446,7 @@ const MobileCart = () => {
 
               {/* Buttons to Proceed */}
               <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-               {/*     <Button
+                {/*     <Button
                   variant="outlined"
                   color="secondary"
                   fullWidth
@@ -457,8 +471,6 @@ const MobileCart = () => {
                 >
                   {t("continueWithInfo")}
                 </Button>
-
-                
               </Stack>
             </Box>
           </Modal>

@@ -45,7 +45,7 @@
     }
   },
   "Arcade": {
-    "section": "Naıl Çalışır",
+    "section": "Nasıl Çalışır",
     "title": "Lazer Kesim Siparişlerinizi Kolayca Oluşturun",
     "description": "Tasarım dosyanızı yükleyin, ölçülerinizi belirleyin ve lazer kesim siparişinizi kolayca tamamlayın.",
     "button1": "Dxf Dosyaları",
@@ -274,6 +274,24 @@
       "Stainless Steel 316L": "Paslanmaz Sac 316L"
     }
   },
+
+    "termsAndConditions": {
+      "title": "Hüküm ve Koşullar",
+      "description": "Platformumuz üzerinden sipariş vermeden önce lütfen hüküm ve koşulları dikkatlice okuyunuz. Satın alma işlemini tamamladığınızda, bu koşulları kabul etmiş sayılırsınız.",
+      "orderProcessing": "🔹 Sipariş İşleme: Siparişler, ödeme onayı alındıktan sonra işleme alınır. Herhangi bir değişiklik yapılması gerekiyorsa, üretim başlamadan önce talep edilmelidir. Üretim başladıktan sonra yapılan değişiklikler ek maliyet doğurabilir.",
+      "paymentMethods": "🔹 Ödeme Yöntemleri: Iyzico üzerinden kredi kartı ödemelerini ve doğrudan banka havalesini kabul ediyoruz. Banka havalesiyle yapılan ödemelerde, üretim ödeme onayından sonra başlar. Doğru miktarın yatırıldığından emin olun, eksik veya fazla ödemeler siparişinizin gecikmesine neden olabilir.",  
+      "pricingPolicy": "🔹 Fiyatlandırma Politikası: Fiyatlar, malzeme maliyetleri ve işleme süresine bağlı olarak değişiklik gösterebilir. Sipariş onayından önce kesin fiyatlandırma sağlanır. Onay sonrası ek hizmet talepleri ek ücrete tabi olabilir.",
+      "revisionRequests": "🔹 Revizyon Talepleri: Tasarımlarda yapılacak değişiklikler, üretim süreci başlamadan önce bildirilmelidir. Üretim başladıktan sonra değişiklikler ancak ek ücretle mümkün olabilir.",
+      "orderCancellations": "🔹 Sipariş İptali: Siparişler, ödeme yapıldıktan sonraki 24 saat içinde iptal edilebilir. Bu sürenin sonunda üretim süreci başlar ve iptal mümkün olmayabilir.",
+      "refundPolicy": "🔹 İade Politikası: Yalnızca hatalı veya yanlış gönderilen ürünler için iade işlemi yapılabilir. Özel kesim malzemeler iade edilemez. Sipariş vermeden önce detayları dikkatlice kontrol ediniz.",
+      "privacyPolicy": "🔹 Gizlilik Politikası: Kişisel verileriniz güvenli bir şekilde saklanır ve yasal zorunluluklar dışında üçüncü taraflarla paylaşılmaz. Ödeme işlemleri güvenlik için şifrelenmiştir.",
+      "deliverySafety": "🔹 Teslimat & Güvenlik:",
+      "gloves": "✔️ Kesilmiş metal parçaları eldivenle taşıyınız. Lazer kesim sonrası bazı parçaların kenarları keskin olabilir ve dikkatsiz temas yaralanmalara neden olabilir.",
+      "sharpEdges": "✔️ Keskin Köşeler: Kesim sonrası bazı tasarımlarda keskin köşeler veya ince detaylar bulunabilir. Güvenlik önlemlerine dikkat ediniz.",
+      "liabilityDisclaimer": "🔹 Sorumluluk Reddi: Yanlış kullanım veya üçüncü taraf kargo hizmetleri nedeniyle oluşan hasarlardan sorumlu değiliz. Ürünü teslim alırken herhangi bir hasar fark ederseniz, derhal kargo firmasına bildiriniz ve fotoğraflarla belgelenmesini sağlayınız.", 
+      "finalAgreement": "🔹 Son Onay: Siparişinizi tamamladığınızda, bu hüküm ve koşulları kabul etmiş sayılırsınız. Herhangi bir sorunuz varsa, sipariş vermeden önce bizimle iletişime geçin."
+    },
+  
   "WpButton": {
     "buttonText": " WhatsApp Destek"
   },
@@ -388,7 +406,7 @@
     "errorMessage": "Bir hata oluştu. Lütfen tekrar deneyin.",
     "socialMedia": {
       "title": "Bizi Sosyal Medyada Takip Edin",
-      "description": "Güncel haberler ve fırsatlar için sosyal medya hesaplarımızı takip edin! WhatsApp ve Instagram üzerinden bizimle iletişim kurabilirsiniz.",
+      "description": "Güncel haberler ve fırsatlar için sosyal medya hesaplarımızı takip edin! WhatsApp üzerinden bizimle iletişim kurabilirsiniz.",
       "whatsapp": "WhatsApp",
       "instagram": "Instagram"
     },

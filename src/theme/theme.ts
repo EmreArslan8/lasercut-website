@@ -156,6 +156,10 @@ export const palette = {
     g3r: 'linear-gradient(68.75deg, #8A32A8 0%, #E872D0 99.99%)',
     g4: `linear-gradient(120deg, #D9F4FF, #8ED9FF, #009EFF)`, // Yeni custom gradient 1
     g5: `linear-gradient(120deg, #80C9F1, #006BB3, #004A8D)`, // Daha koyu tonlar
+    g6: `radial-gradient(circle at bottom center, #3975ca 20%, #a9c7ff 50%, #d0ddf0 80%),
+            linear-gradient(to bottom, #f5f7fa 0%, #e6ecf3 40%, #d0ddf0 70%),
+            background: linear-gradient(to bottom, #ffffff 0%, #e6f0ff 40%, #c2d9ff 70%, #a0c0ff 100%);
+`,
 
 
 
@@ -176,7 +180,6 @@ const breakpoints = {
     lg: 1200,
     xl: 1920,
   },
-  customMaxWidth: 1400, 
 };
 
 const theme = createTheme(

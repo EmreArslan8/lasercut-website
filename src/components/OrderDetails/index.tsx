@@ -12,14 +12,14 @@ import {
 } from "@mui/material";
 
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import { useCart } from "../context/CartContext";
 import { useRouter } from "next/navigation";
 import useScreen from "@/lib/hooks/useScreen";
 import { useLocale, useTranslations } from "next-intl";
-import MaterialCardList from "./MaterialCarousel";
 import theme from "@/theme/theme";
 import capitalize from "@/utils/capitalize";
 import { calculatePrice } from "@/utils/calculatePrice";
+import { useCart } from "@/context/CartContext";
+import MaterialCardList from "../MaterialCarousel";
 
 interface Material {
   key: string;

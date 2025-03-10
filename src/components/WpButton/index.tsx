@@ -17,8 +17,8 @@ const WhatsAppButton = () => {
       rel="noopener noreferrer"
       sx={{
         position: "fixed",
-        bottom: 140,
-        right: 20, 
+        bottom: 40,
+        right: {xs: 40, md: 20},
         zIndex: 100, 
         display: "flex",
         alignItems: "center",

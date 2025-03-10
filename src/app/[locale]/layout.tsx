@@ -1,19 +1,14 @@
 import { NextIntlClientProvider } from "next-intl";
-
 import { getMessages } from "next-intl/server";
-import { ReactNode } from "react";
 import { getTranslations } from 'next-intl/server';
 import ThemeRegistry from "@/theme/ThemeRegistery";
 import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from "next/font/google";
-
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import { CartProvider } from "@/context/CartContext";
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CookieConsent from "@/components/CookieConsent";
 import { DrawerProvider } from "@/context/DrawerContext";
 import { Locale } from "@/i18n";
 
@@ -66,7 +61,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={Plus_Jakarta_Sans.className}>
+      <body className={Plus_Jakarta_Sans.className} style={{overflowX: 'hidden'}}>
         <NextIntlClientProvider messages={messages}>
           <ThemeRegistry>
             <CartProvider>

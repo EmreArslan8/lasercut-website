@@ -10,7 +10,7 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import { Facebook, Twitter, YouTube, Pinterest, WhatsApp, X } from "@mui/icons-material";
+import { Facebook, YouTube, WhatsApp, X } from "@mui/icons-material";
 import Image from "next/image";
 import { palette } from "@/theme/theme";
 

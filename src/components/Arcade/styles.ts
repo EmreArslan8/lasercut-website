@@ -1,4 +1,4 @@
-import theme from "@/theme/theme";
+import theme, { palette } from "@/theme/theme";
 
 const styles = {
   wrapper: { width: "100%", py: 8 },
@@ -8,29 +8,52 @@ const styles = {
     textTransform: "uppercase",
     fontWeight: "bold",
     textAlign: "center",
-    mb: 1,
-    fontSize: { xs: "18px", md: "22px" },
-    bgColor: "white"
+    zIndex: 100,
+    mb: {xs: 1, md: 3},
+    bgColor: "white",
+    fontSize: {xs: "24px", sm: "20px", md: "24px"}
   },
   title: {
     fontWeight: "bold",
-    mb: 2,
     color: "#222",
     textAlign: "center",
     fontSize: { xs: "24px", md: "32px" },
   },
   description: {
-    mb: {xs: 1, md: 4},
+    mb: { xs: 1, md: 4 },
     textAlign: "center",
     maxWidth: 600,
     mx: "auto",
     fontSize: { xs: "16px", md: "20px" },
   },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 2,
+    mb: { xs: 6, md: 6 },
+  },
+  sectionWrapper: {
+    maxWidth: "lg",
+    m: "0 auto",
+    backgroundColor: {sm: "#f5f5f5", },
+    background: { md: `linear-gradient(180deg, #ffffff 0%, #eef2ff 30%, #c7d2fe 60%, #60a5fa 90%)`},
+    pb: {xs:0 , md: 3 },
+    pt: 1,
+    py: {xs:0 , md: 3 },
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRadius: 1,
+  },
   frameWrapper: {
     position: "relative",
-    paddingBottom: "calc(51.80159256801593% + 41px)",
+    paddingBottom: {
+      xs: "calc(75%)",
+      sm: "calc(65.5%)",
+      md: "calc(56%)",
+    },
     height: 0,
-    width: {xs: "100%", md: "80%"},
+    width: { xs: "100%", md: "85%" },
     m: "0 auto",
   },
   iframe: {
@@ -42,64 +65,59 @@ const styles = {
     colorScheme: "light",
   },
 
+  paperWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    mt: { xs: 2, md: 6 },
+  },
+  paper: {
+    display: "flex",
+    flexDirection: { xs: "column", md: "row" },
+    alignItems: "center",
+    justifyContent: "space-between",
+    textAlign: { xs: "center", md: "left" },
+    p: { xs: 2, md: 4 },
+    gap: { xs: 2, md: 4 },
+    borderRadius: 4,
+    width: "100%",
+    maxWidth: "900px",
+    mx: "auto",
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: { xs: "center", md: "flex-start" },
+    textAlign: { xs: "center", md: "left" },
+    gap: { xs: 1, md: 2 },
+  },
+  title2: {
+    fontWeight: "bold",
+    mb: 2,
+  },
+  buttonGroup: {
+    display: "flex",
+    flexDirection: { xs: "column", md: "row" },
+    gap: { xs: 1, md: 2 },
+    width: "100%",
+    alignItems: "center",
+    justifyContent: { xs: "center", md: "flex-start" },
+  },
+  description2: {
+    fontSize: { xs: "16px", md: "18px" },
+    color: "text.secondary",
+    fontWeight: "bold",
+    mt: 2,
+  },
+  paperImage: {
+    width: { xs: "140px", md: "180px" },
+    height: "auto",
+    flexShrink: 0,
+    flex: { xs: 6, md: 8 },
+    ml: { md: "auto" },
+  },
+};
 
-    paperWrapper: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      mt: { xs: 2, md: 6 },
-    },
-    paper: {
-      display: "flex",
-      flexDirection: { xs: "column", md: "row" },
-      alignItems: "center",
-      justifyContent: "space-between",
-      textAlign: { xs: "center", md: "left" },
-      p: { xs: 2, md: 4 },
-      gap: { xs: 2, md: 4 },
-      borderRadius: 4,
-      width: "100%",
-      maxWidth: "900px",
-      mx: "auto",
-    },
-    content: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: { xs: "center", md: "flex-start" },
-      textAlign: { xs: "center", md: "left" },
-      gap: { xs: 1, md: 2 },
-      flex: { xs: 6, md: 4 },
-    },
-    title2: {
-      fontWeight: "bold",
-      mb: 2,
-    },
-    buttonGroup: {
-      display: "flex",
-      flexDirection: { xs: "column", md: "row" },
-      gap: { xs: 1, md: 2 },
-      width: "100%",
-      alignItems: "center",
-      justifyContent: { xs: "center", md: "flex-start" },
-    },
-    description2: {
-      fontSize: { xs: "16px", md: "18px" },
-      color: "text.secondary",
-      fontWeight: "bold",
-      mt: 2,
-    },
-    paperImage: {
-      width: { xs: "140px", md: "180px" },
-      height: "auto",
-      flexShrink: 0,
-      flex: { xs: 6, md: 8 },
-      ml: { md: "auto" },
-    },
-  };
-  
-
-  
-  export default styles;
-  
+export default styles;

@@ -1,8 +1,35 @@
+
 const styles = {
-  button: {
-    px: 1,
-    fontSize: 12,
-    gap: 0.5,
+  mobileButton: {
+    borderRadius: "50%",
+    "&:hover": {
+      backgroundColor: "grey.300",
+    },
+  },
+  desktopButton: {
+    borderRadius: "50px",
+    padding: "4px 4px",
+    backgroundColor: "grey.100",
+    display: "flex",
+    alignItems: "center",
+    gap: 1,
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "grey.300",
+    },
+  },
+  icon: {
+    fontSize: 24,
+    color: {xs: "white", md: "black"}
+  },
+  languageText: {
+    fontWeight: 500,
+    fontSize: "14px",
+    color: "black",
+  },
+  flag: {
+    objectFit: "cover",
+    borderRadius: "2px",
   },
 };
 

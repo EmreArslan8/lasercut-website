@@ -66,7 +66,7 @@ const styles = {
     fontWeight: "bold",
     lineHeight: 1.2,
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-    fontSize: { xs: "28px", sm: "36px", md: "42px", lg: "54px" },
+    fontSize: { xs: "32px", sm: "36px", md: "42px", lg: "54px" },
   },
   button: {
     mt: 6,

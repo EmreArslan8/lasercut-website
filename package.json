@@ -33,6 +33,7 @@
     "react-dom": "^18.2.0",
     "react-phone-input-2": "^2.15.1",
     "react-photo-album": "^2.2.1",
+    "react-remark": "^2.1.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
     "yet-another-react-lightbox": "^3.21.7"

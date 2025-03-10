@@ -18,12 +18,12 @@ const services = [
   {
     key: "laserCutting",
     image:
-      "https://images.unsplash.com/photo-1625464733746-f884014c73bc?q=80&w=2804&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1615286922420-c6b348ffbd62?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "cncMachining",
     image:
-      "https://images.unsplash.com/photo-1615286922420-c6b348ffbd62?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1625464733746-f884014c73bc?q=80&w=2804&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "customFabrication",
@@ -38,8 +38,8 @@ const ServiceCards = () => {
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Stack >
-      <Container maxWidth="xl"  sx={styles.container}>
+    <Stack>
+      <Container maxWidth="xl" sx={styles.container}>
         <Typography variant="h6" sx={styles.sectionTitle}>
           {t("title")}
         </Typography>

@@ -92,7 +92,8 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 9999, // Ensure it appears above everything
-  }
+  },
+  terms: { mt: 2 },
 };
 
 export default styles;

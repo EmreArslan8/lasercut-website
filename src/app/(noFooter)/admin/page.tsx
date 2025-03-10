@@ -154,7 +154,7 @@ const AdminPanel = () => {
         </Toolbar>
       </AppBar>
       {/* Content */}
-      <Box sx={{ padding: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+      <Box sx={{ padding: "24px", maxWidth: "100vw", margin: "0 auto" }}>
         {/* Search Bar */}
         <Box sx={{ marginBottom: "24px", position: "relative" }}>
           <TextField

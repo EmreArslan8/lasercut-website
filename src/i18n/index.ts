@@ -6,8 +6,6 @@ import { getRequestConfig } from "next-intl/server";
 export const locales = ["en", "tr"] as const;
 export type Locale = (typeof locales)[number];
 
-
-
 export const getMessages = async (locale: Locale = "en") => {
   const defaultMessages = {
     common: (await import("./dictionaries/en/common.json")).default,

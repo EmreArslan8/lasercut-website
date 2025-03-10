@@ -53,7 +53,7 @@
     "title": "Discover the process step by step with our interactive guide.",
     "description": "Please select the file format you want to upload",
     "button1": "Dxf Files",
-    "button2": "Image",
+    "button2": "Image or PDF",
     "paperTitle": "Get started now and create your laser cutting order!",
     "offerButton": "Get a Free Quote",
     "supportButton": "Get Support",
@@ -286,6 +286,23 @@
       "Stainless Steel 316L": "Stainless Steel 316L"
     }
   },
+  "termsAndConditions": {
+    "title": "Terms and Conditions",
+    "description": "Please carefully read the terms and conditions before placing an order on our platform. By completing a purchase, you agree to these conditions.",
+    "orderProcessing": "🔹 Order Processing: Orders are processed after payment confirmation. If any changes are required, they must be requested before production begins. Changes made after production may incur additional costs.",
+    "paymentMethods": "🔹 Payment Methods: We accept credit card payments via Iyzico and direct bank transfers. For bank transfers, production will begin after payment confirmation. Ensure the correct amount is transferred, as underpayments or overpayments may delay your order.",
+    "pricingPolicy": "🔹 Pricing Policy: Prices are subject to change based on material costs and processing time. A final quote is provided before order confirmation. Additional services requested after confirmation may require an extra charge.",
+    "revisionRequests": "🔹 Revision Requests: Modifications to designs after submission must be communicated before processing. Once the production process starts, changes cannot be made without additional costs.",
+    "orderCancellations": "🔹 Order Cancellations: Orders can be canceled within 24 hours after payment. After this period, production begins, and cancellations may not be possible.",
+    "refundPolicy": "🔹 Refund Policy: Refunds are only available for defective or incorrect items. Custom-cut materials cannot be returned. Please check the details carefully before placing an order.",
+    "privacyPolicy": "🔹 Privacy Policy: Your personal data is securely stored and not shared with third parties except for legal obligations. Payment transactions are encrypted for security.",
+    "deliverySafety": "🔹 Delivery & Safety:",
+    "gloves": "✔️ Handle cut metal parts with gloves. Some edges may be sharp after laser cutting, and careless contact can cause injuries.",
+    "sharpEdges": "✔️ Sharp Edges: Some designs may have sharp corners or fine details after cutting. Please take necessary safety precautions.",
+    "liabilityDisclaimer": "🔹 Liability Disclaimer: We are not responsible for damages caused by improper handling or third-party delivery services. If damage is noticed upon receipt, report it immediately to the courier and document with photos.",
+    "finalAgreement": "🔹 Final Agreement: By completing your order, you acknowledge and agree to these terms and conditions. If you have any concerns, contact us before placing an order."
+  },
+
   "WpButton": {
     "buttonText": "WhatsApp Support"
   },
@@ -387,7 +404,7 @@
     "errorMessage": "An error occurred. Please try again.",
     "socialMedia": {
       "title": "Follow Us on Social Media",
-      "description": "Follow our social media accounts for updates and special offers! You can contact us via WhatsApp and Instagram.",
+      "description": "Follow our social media accounts for updates and special offers! You can contact us via WhatsApp.",
       "whatsapp": "WhatsApp",
       "instagram": "Instagram"
     },
@@ -556,6 +573,6 @@
     "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
     "orderReceived": "Congratulations! Your transaction has been received.",
     "orderConfirmationMessage": "You will be contacted for payment.",
-      "close": "close"
+    "close": "close"
   }
 }
