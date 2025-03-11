@@ -28,7 +28,7 @@ const HeroSection = () => {
             src={
               mdDown
                 ? "/static/images/smsection.jpeg"
-                : "/static/images/mdsection.jpeg"
+                : "/static/images/hero-section-2.jpg"
             }
             alt="technical parts"
             fill

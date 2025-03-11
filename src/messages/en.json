@@ -96,6 +96,7 @@
   "File": {
     "title": "Upload your models",
     "drawerTitle": "Uploading your CAD is the best way to get an instant quote",
+    "description": "You can easily upload image files (JPG, PNG, JPEG) as well as PDF, DXF, and STP formats.",
     "drawerInfo": "Your design is safe! Any design uploaded to 2dtocut.com is secure, and you retain 100% of the intellectual property rights.",
     "uploadFile": "Upload File",
     "congratulations": "Congratulations!",

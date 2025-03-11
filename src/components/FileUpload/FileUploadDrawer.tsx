@@ -86,8 +86,11 @@ const FileUploadDrawer = ({
           )
         ) : (
           <Box sx={{ textAlign: "center", maxWidth: "950px", margin: "auto" }}>
-            <Typography variant="h2" sx={{ mb: 10 }}>
+            <Typography variant="h2" sx={{ mb: 1, mt: 6 }}>
               {t("title")}
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4 }}>
+              {t("description")}
             </Typography>
             <Box
               sx={styles.dropZone(isDragging)}

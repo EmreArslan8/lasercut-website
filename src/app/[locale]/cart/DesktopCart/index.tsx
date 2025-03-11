@@ -139,7 +139,7 @@ const DesktopCart = () => {
         .then((data) => console.log("🟢 Slack yanıtı:", data))
         .catch((error) => console.error("❌ Slack gönderme hatası:", error));
 
-      /*
+
   
       const emailContent = generateOrderEmail({
         customerName,
@@ -159,7 +159,7 @@ const DesktopCart = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(emailContent),
       });
-  */
+
       console.log("🟢 Kullanıcı Checkout sayfasına yönlendiriliyor...");
       router.push(`/${locale}/checkout`);
     } catch (error) {

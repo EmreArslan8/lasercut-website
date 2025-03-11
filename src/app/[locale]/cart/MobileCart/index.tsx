@@ -157,7 +157,7 @@ const MobileCart = () => {
         fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
       })),
     });
-    /*
+    
     await fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -165,7 +165,6 @@ const MobileCart = () => {
     });
     console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
 
-*/
       proceedToCheckout(); // ✅ Checkout’a seçili ürünleri gönderiyoruz
       router.push(`/${locale}/checkout`);
 

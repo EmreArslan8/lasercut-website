@@ -79,7 +79,8 @@
   },
   "File": {
     "title": "Modelinizi Yükleyin",
-    "drawerTitle": "CAD dosyanızı yüklemek anlık teklif almanın en iyi yoludur",
+    "drawerTitle": "Tasarım dosyanızı yüklemek anlık teklif almanın en iyi yoludur",
+    "description": "Resim dosyaları (JPG, PNG, JPEG) yanı sıra PDF, DXF ve STP formatlarını da kolayca yükleyebilirsiniz.",
     "drawerInfo": "Tasarımınız güvende! 2dtocut.com'a yüklenen tüm tasarımlar güvenlidir ve fikri mülkiyet haklarının %100'üne sahip olursunuz",
     "uploadFile": "Dosya yükle",
     "congratulations": "Tebrikler!",

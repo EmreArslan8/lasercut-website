@@ -21,7 +21,7 @@ const styles = {
     fontWeight: "bold",
   },
   container: {
-    width: "85%",
+    width: "90%",
     maxWidth: "lg",
     display: "flex",
     flexDirection: { xs: "column", md: "row" },
@@ -31,10 +31,10 @@ const styles = {
     m: "0 auto",
     height: { md: "400px" },
   },
-  imageWrapper: {
+  imageWrapper: {   
     flex: 1,
     position: "relative",
-    aspectRatio: { xs: "16 / 9", md: 1 },
+    aspectRatio: { xs: "16 / 9", md: 1},
     height: "100%",
     minWidth: { xs: 300, md: "auto" }, // Mobilde genişlik 300px
     minHeight: { xs: 300, md: "auto" },
