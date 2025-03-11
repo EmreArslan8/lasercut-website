@@ -18,8 +18,10 @@ import { useLocale, useTranslations } from "next-intl";
 import theme from "@/theme/theme";
 import capitalize from "@/utils/capitalize";
 import { calculatePrice } from "@/utils/calculatePrice";
-import { useCart } from "@/context/CartContext";
+import { useShop } from "@/context/ShopContext";
 import MaterialCardList from "../MaterialCarousel";
+import styles from "./styles";
+import Icon from "../common/Icon";
 
 interface Material {
   key: string;
@@ -44,7 +46,7 @@ interface DisplayFilesProps {
 }
 
 const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
-  const { setCartItems } = useCart();
+  const { setCartItems } = useShop();
   const [, setDrawerOpen] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState("Black Sheet");
   const [thickness, setThickness] = useState("1");
@@ -151,21 +153,11 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
 
   return (
     <Stack direction="row">
-      <Box
-        sx={{ flex: 7, padding: 3, position: "relative", overflowY: "auto" }}
-      >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
-          <InsertDriveFileIcon sx={{ fontSize: 40 }} />
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 600,
-              wordBreak: "break-word",
-              whiteSpace: "normal",
-              overflow: "visible",
-            }}
-          >
-            {files[selectedFileIndex]?.name}
+      <Box sx={styles.mainContent}>
+        <Box sx={styles.fileHeader}>
+          <Icon name="upload_file" sx={{ fontSize: 40 }} />
+          <Typography variant="h5" sx={styles.fileName}>
+            {files[0]?.name}
           </Typography>
         </Box>
 
@@ -204,6 +196,18 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               onChange={(e) => setWidth(e.target.value)}
               fullWidth
               error={errors.width}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ ml: 1, color: theme.palette.text.secondary }}
+                    >
+                      mm
+                    </Typography>
+                  ),
+                },
+              }}
             />
             <TextField
               label={t("height")}
@@ -211,6 +215,18 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               onChange={(e) => setHeight(e.target.value)}
               fullWidth
               error={errors.height}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ ml: 1, color: theme.palette.text.secondary }}
+                    >
+                      mm
+                    </Typography>
+                  ),
+                },
+              }}
             />
           </Box>
 
@@ -264,9 +280,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: isSmallScreen ? "column" : "row", // Mobilde dikey, masaüstünde yatay düzen
-                  alignItems: isSmallScreen ? "stretch" : "center", // Mobilde tam genişlikte hizalama
-                  gap: 1, // Elemanlar arası boşluk
+                  flexDirection: isSmallScreen ? "column" : "row",
+                  alignItems: isSmallScreen ? "stretch" : "center",
+                  gap: 1, 
                 }}
               >
                 {coating.startsWith("painted") ? (
@@ -285,7 +301,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
                     <Button
                       onClick={() => handleFieldChange("coating", "unpainted")} // Unpainted'e geçiş
                       variant="outlined"
-                      fullWidth={isSmallScreen} // Mobilde tam genişlik
+                      fullWidth={isSmallScreen} 
                     >
                       {t("unpainted")}
                     </Button>
@@ -318,7 +334,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               id="bending"
               checked={bending}
               onChange={(e) => setBending(e.target.checked)}
-              style={{ transform: "scale(1.5)", width: "12px", height: "12px" }} // Checkbox büyütme
+              style={{ transform: "scale(1.5)", width: "16px", height: "16px" }} 
             />
             <Typography variant="h5" sx={{ ml: 2 }}>
               {t("bendingService")}
@@ -353,7 +369,9 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
             flex: 3,
             background: theme.palette.grey[100],
             padding: 3,
+            mt: 7,
             overflowY: "auto",
+            maxHeight: "90vh",
           }}
         >
           <MaterialCardList

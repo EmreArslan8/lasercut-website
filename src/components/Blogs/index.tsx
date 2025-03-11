@@ -1,84 +1,76 @@
 "use client";
 
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
-import styles from "./styles";
 import Link from "../common/Link";
-
-
-const blogPosts = [
-    {
-        id: "1",
-        "title": "How to Easy Engineering",
-        "slug": "how-to-easy-engineering",
-       "image": "/static/images/cnc1.jpg",
-        "excerpt": "Discover simple steps to streamline your engineering processes and increase efficiency.",
-        "content": "Engineering doesn't have to be complicated. With the right tools and methodologies, you can simplify your workflow and achieve better results.",
-        "date": "March 4, 2024"
-      },
-      {
-        id: "2",
-        "title": "The Future of Laser Cutting",
-        "slug": "the-future-of-laser-cutting",
-        "image": "/static/images/cnc1.jpg",
-        "excerpt": "Explore how laser cutting is transforming industries with precision and speed.",
-        "content": "Laser cutting technology is advancing rapidly, enabling manufacturers to create complex designs with unprecedented accuracy.",
-        "date": "February 20, 2024"
-      },
-      {
-        id: "3",
-        "title": "Maximizing Productivity in Fabrication",
-        "slug": "maximizing-productivity-in-fabrication",
-        "image": "/static/images/cnc1.jpg",
-        "excerpt": "Boost your fabrication process with these expert tips and techniques.",
-        "content": "Optimizing your fabrication process is key to staying competitive. Reduce waste, save time, and deliver top-quality results.",
-        "date": "January 15, 2024"
-      }
-    
-];
+import { useTranslations } from "next-intl";
+import styles from "./styles";
 
 const BlogPost = () => {
+  const t = useTranslations("Blog");
+
+  const posts = t.raw("posts") as Array<{
+    title: string;
+    slug: string;
+    mainImage: string;
+    excerpt: string;
+    date: string;
+  }>;
+
   return (
     <Box sx={styles.wrapper}>
       <Container>
-        <Typography variant="h6" sx={styles.subTitle}>
-          BLOG POST
+      <Typography variant="h6" sx={styles.title}>
+         {t("title")}
         </Typography>
-        <Typography variant="h3" sx={styles.title}>
-          READ OUR BLOG
-        </Typography>
-        <Typography variant="body1" sx={styles.desc}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-          tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+        <Typography variant="h2" sx={styles.subTitle}>
+        {t("subTitle")}
         </Typography>
 
-        <Grid container spacing={4}>
-          {blogPosts.map((post) => (
-            <Grid key={post.id} item xs={12} md={4}>
-              <Box>
-                <Box sx={styles.imageWrapper}>
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
+        {/* Eğer blog postları yoksa, mesaj göster */}
+        {posts.length === 0 ? (
+          <Typography variant="h5" color="textSecondary" textAlign="center">
+            No blog posts available.
+          </Typography>
+        ) : (
+          <Grid2 container spacing={4}>
+            {posts.map((post) => (
+              <Grid2 key={post.slug} size= {{xs: 12, md: 4}}>
+                  <Box sx={styles.cardContainer}>
+                  <Box sx={styles.imageWrapper}>
+                    <Image
+                      src={post.mainImage}
+                      alt={post.title}
+                      fill
+                      style={{
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  </Box>
+
+                  {/* Kart İçeriği */}
+                  <Box sx={styles.cardContent}>
+                  <Typography variant="h6" sx={styles.cardTitle}>
+                      {post.title}
+                    </Typography>
+                    <Typography variant="body2" sx={styles.cardDesc}>
+                      {post.excerpt}
+                    </Typography>
+                    <Box sx={styles.readMoreButton}>
+                      <Link href={`/blog/${post.slug}`}>
+                        <Button variant="text" color="primary">
+                          Read More →
+                        </Button>
+                      </Link>
+                    </Box>
+                  </Box>
                 </Box>
-                <Typography variant="h6" sx={styles.cardTitle}>
-                  {post.title}
-                </Typography>
-                <Typography variant="body2" sx={styles.cardDesc}>
-                  {post.excerpt}
-                </Typography>
-                <Link href={`/blog/${post.slug}`}>
-                  <Button variant="text" sx={styles.readMoreButton}>
-                    Read More
-                  </Button>
-                </Link>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
+              </Grid2>
+            ))}
+          </Grid2>
+        )}
       </Container>
     </Box>
   );

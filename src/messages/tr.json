@@ -530,32 +530,87 @@
     "priceUSD": "Price information will be given after ordering"
   },
 
-  "Blog": {
-    "posts": [
-      {
-        "title": "Kolay Mühendislik Nasıl Yapılır",
-        "slug": "how-to-easy-engineering",
-        "excerpt": "Mühendislik süreçlerinizi kolaylaştırmak ve verimliliği artırmak için basit adımları keşfedin.",
-        "content": "Mühendislik karmaşık olmak zorunda değil. Doğru araçlar ve yöntemlerle iş akışınızı basitleştirebilir ve daha iyi sonuçlar alabilirsiniz.",
-        "date": "4 Mart 2024"
-      },
-      {
-        "title": "Lazer Kesimin Geleceği",
-        "slug": "the-future-of-laser-cutting",
-        "excerpt": "Lazer kesimin hassasiyet ve hız ile sektörleri nasıl dönüştürdüğünü keşfedin.",
-        "content": "Lazer kesim teknolojisi hızla gelişiyor ve üreticilerin benzersiz hassasiyetle karmaşık tasarımlar oluşturmasını sağlıyor.",
-        "date": "20 Şubat 2024"
-      },
-      {
-        "title": "İmalatta Verimlilik Nasıl Artırılır",
-        "slug": "maximizing-productivity-in-fabrication",
-        "excerpt": "İmalat sürecinizi bu uzman ipuçları ve tekniklerle geliştirin.",
-        "content": "Rekabetçi kalabilmek için imalat süreçlerinizi optimize etmek önemlidir. Atıkları azaltın, zamandan tasarruf edin ve yüksek kaliteli sonuçlar sunun.",
-        "date": "15 Ocak 2024"
-      }
-    ],
-    "readMore": "Devamını Oku"
+
+    "Blog": {
+      "title": "BLOG",
+      "subTitle": "Blogumuzu Okuyun",
+      "posts": [
+        {
+          "title": "Mühendisliği Kolaylaştırmanın Yolları",
+          "slug": "how-to-easy-engineering",
+          "excerpt": "Mühendislik süreçlerinizi kolaylaştırmanın ve verimliliği artırmanın basit adımlarını keşfedin.",
+          "content": [
+            "Mühendislik uzun süredir karmaşıklıkla ilişkilendirilen bir alan olmuştur. Ürünlerin ve yapıların düzgün çalışmasını sağlamak için kapsamlı hesaplamalar, ayrıntılı tasarımlar ve titiz testler gereklidir. Ancak, teknoloji ilerledikçe, iş akışındaki iyileştirmeler ve stratejik planlamalar mühendisliği önemli ölçüde daha basit ve erişilebilir hale getirebilir.",
+            "Son yıllarda mühendislikteki en büyük gelişmelerden biri otomasyonun yükselişi olmuştur. Artık mühendislerin tüm hesaplamaları manuel olarak yapmalarına gerek yok; gelişmiş yazılımlar büyük veri kümelerini saniyeler içinde analiz edebilir ve insan emeğinden çok daha hızlı ve doğru sonuçlar üretebilir."
+          ],
+          "date": "4 Mart 2024",
+          "mainImage": "https://images.unsplash.com/photo-1455165814004-1126a7199f9b?q=80&w=2940&auto=format&fit=crop",
+          "highlight": "Mühendislik süreçlerinizi kolaylaştırmanın ve verimliliği artırmanın basit adımlarını keşfedin.",
+          "highlightContent": "Mühendislik uzun süredir karmaşıklıkla ilişkilendirilen bir alan olmuştur. Ürünlerin ve yapıların düzgün çalışmasını sağlamak için kapsamlı hesaplamalar, ayrıntılı tasarımlar ve titiz testler gereklidir...",
+          "leftImage": "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2940&auto=format&fit=crop",
+          "rightImage": "https://images.unsplash.com/photo-1581092335331-5e00ac65e934?q=80&w=2940&auto=format&fit=crop",
+          "leftImageCaption": "Endüstriyel projeler için hassas kesim yapan dairesel testere.",
+          "rightImageCaption": "Bir atölyede egzoz borularını kaynak yapan işçi.",
+          "belowImagesText": [
+            "Modern mühendislik teknikleri, üretim ve inşaat süreçlerini her zamankinden daha verimli hale getirmiştir. En son teknoloji ve otomasyonu kullanarak, şirketler üretim hatlarını optimize edebilir ve iş gücü maliyetlerini azaltabilir.",
+            "Nitelikli mühendislere olan talep, özellikle havacılık, otomotiv ve yenilenebilir enerji gibi sektörlerde hızla artmaktadır.",
+            "Endüstriler akıllı üretimi benimserken, yapay zeka ve makine öğreniminin entegrasyonu giderek yaygınlaşmaktadır.",
+            "Eğitim ve sürekli beceri gelişimi, mühendislerin hızla değişen iş piyasasında rekabetçi kalabilmeleri için hayati önem taşımaktadır.",
+            "Sonuç olarak, modern mühendisliğin amacı, verimliliği artırırken en yüksek kalite standartlarını koruyacak yenilikçi çözümler üretmektir."
+          ]
+        },
+        {
+          "title": "Lazer Kesimin Geleceği",
+          "slug": "the-future-of-laser-cutting",
+          "excerpt": "Lazer kesimin endüstrileri nasıl dönüştürdüğünü, hassasiyet ve hız sağladığını keşfedin.",
+          "content": [
+            "Lazer kesim, üretim ve imalat endüstrilerini kökten değiştirmiştir ve benzersiz bir hassasiyet, hız ve verimlilik sunmaktadır. Teknoloji gelişmeye devam ederken, yeni yenilikler lazer kesimin geleceğini şekillendiriyor ve uygulama alanlarını genişletiyor.",
+            "Lazer kesimdeki en önemli gelişmelerden biri fiber lazer teknolojisine geçiş olmuştur. Fiber lazerler, geleneksel CO2 lazerlere göre daha enerji verimlidir ve daha az enerji tüketerek daha yüksek kesim hızları sunar."
+          ],
+          "date": "20 Şubat 2024",
+          "mainImage": "/static/images/banner5.avif",
+          "highlight": "Lazer kesim, eşsiz hassasiyet ve hızla üretimi dönüştürüyor.",
+          "highlightContent": "Fiber lazer teknolojisi ve yapay zeka destekli otomasyon, lazer kesimi her zamankinden daha verimli hale getiriyor...",
+          "leftImage": "/static/images/banner3.webp",
+          "rightImage": "/static/images/banner2.webp",
+          "leftImageCaption": "Endüstriyel uygulamalarda yüksek hassasiyetli fiber lazer kesim.",
+          "rightImageCaption": "Bir üretim tesisinde otomatik lazer kesim makinesi.",
+          "belowImagesText": [
+            "Yapay zeka destekli lazer kesim sistemlerinin yükselişi, endüstrilerin daha yüksek hassasiyet seviyelerine ulaşmasını sağladı.",
+            "Otomasyon ve bulut tabanlı kontrol sistemleri sayesinde fabrikalar artık lazer kesimi uzaktan yönetebilir ve iş akışlarını gerçek zamanlı olarak optimize edebilir.",
+            "Lazer kesim, elektrikli araç (EV) batarya üretiminde kritik bir rol oynamaktadır ve batarya bileşenlerinin yüksek hassasiyetle üretilmesini sağlamaktadır.",
+            "Sürdürülebilirlik, yeni lazer teknolojileriyle enerji tüketimini ve malzeme israfını azaltarak önemli bir odak noktası haline geldi.",
+            "Gelecekte, yapay zeka destekli izleme sistemleri ile gerçek zamanlı hata tespitini içeren daha büyük gelişmeler beklenmektedir."
+          ]
+        },
+        {
+          "title": "İmalatta Verimliliği Maksimuma Çıkarma",
+          "slug": "maximizing-productivity-in-fabrication",
+          "excerpt": "İmalat sürecinizi geliştirmek için uzman ipuçlarını ve teknikleri keşfedin.",
+          "content": [
+            "Üretim ve imalat endüstrileri, yüksek kalite standartlarını korurken verimliliği artırma baskısı altındadır. Maliyetleri azaltmak, üretimi artırmak ve rekabet avantajını sürdürmek isteyen şirketler için üretkenliği maksimize etmek hayati önem taşımaktadır.",
+            "Verimliliği artırmanın en etkili yollarından biri otomasyondur. CNC makineleri, robotik kaynak kolları ve lazer kesim sistemlerinin entegrasyonu, imalat süreçlerinde insan hatalarını önemli ölçüde azaltabilir ve üretim hızını artırabilir."
+          ],
+          "date": "15 Ocak 2024",
+          "mainImage": "/static/images/main-fabrication.webp",
+          "highlight": "Otomasyon ve yalın üretim, imalat verimliliğini en üst düzeye çıkarmanın anahtarıdır.",
+          "highlightContent": "CNC makineleri, robotik kaynak sistemleri ve IoT destekli bakım süreçleri sektörü dönüştürüyor...",
+          "leftImage": "/static/images/benefits.jpg",
+          "rightImage": "/static/images/blog3-3.jpg",
+          "leftImageCaption": "Yüksek hassasiyetli CNC işleme, endüstriyel üretim verimliliğini artırıyor.",
+          "rightImageCaption": "Modern bir imalat atölyesinde hassas kaynak işlemi yapan teknisyen.",
+          "belowImagesText": [
+            "Akıllı üretim sistemleri, IoT destekli izleme çözümleri ile arıza sürelerini azaltarak verimliliği artırıyor.",
+            "Yalın üretim prensipleri, atıkları ortadan kaldırarak ve üretim planlamasını optimize ederek maliyet artışı olmadan üretimi artırıyor.",
+            "Nitelikli iş gücü eğitimi, gelişmiş imalat teknolojilerine ayak uydurmak ve makinelerin optimum çalışmasını sağlamak için kritik öneme sahiptir.",
+            "Yapay zeka ve kestirimci bakım sistemleri, makinelerdeki arızaları önleyerek beklenmedik üretim kesintilerini önlüyor.",
+            "Gelecekteki imalat trendleri, otomasyon, sürdürülebilirlik ve hızlı prototiplemenin entegrasyonuna odaklanmaktadır."
+          ]
+        }
+      ],
+      "readMore": "Devamını Oku"
   },
+  
   "CheckoutPage": {
     "contact": "İletişim",
     "emailOrPhone": "E-Posta veya Telefon",

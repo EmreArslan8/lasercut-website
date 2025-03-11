@@ -6,11 +6,9 @@ import { Plus_Jakarta_Sans as _Plus_Jakarta_Sans } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
-import { CartProvider } from "@/context/CartContext";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { DrawerProvider } from "@/context/DrawerContext";
 import { Locale } from "@/i18n";
+import { ShopProvider } from "@/context/ShopContext";
 
 export const dynamicParams = true;
 
@@ -64,13 +62,13 @@ export default async function RootLayout({
       <body className={Plus_Jakarta_Sans.className} style={{overflowX: 'hidden'}}>
         <NextIntlClientProvider messages={messages}>
           <ThemeRegistry>
-            <CartProvider>
+        <ShopProvider>
             <DrawerProvider>
-              <Header />
+             
               <main>{children}</main>
-              <Footer />
+              
               </DrawerProvider>
-            </CartProvider>
+              </ShopProvider>
           </ThemeRegistry>
         </NextIntlClientProvider>
         <SpeedInsights />
@@ -94,7 +92,7 @@ export const generateMetadata = async ({ params: { locale } }: { params: { local
       description: t('description'),
       images: [
         {
-          url: '/static/images/logo7.png',
+          url: '/static/images/useShop.png',
           alt: '2dtocut',
           width: 1200,
           height: 630,

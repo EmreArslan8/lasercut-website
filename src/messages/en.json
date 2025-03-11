@@ -527,32 +527,89 @@
     "priceTL": "Price information will be given after ordering",
     "priceUSD": "Price information will be given after ordering"
   },
-  "Blog": {
-    "posts": [
-      {
-        "title": "How to Easy Engineering",
-        "slug": "how-to-easy-engineering",
-        "excerpt": "Discover simple steps to streamline your engineering processes and increase efficiency.",
-        "content": "Engineering doesn't have to be complicated. With the right tools and methodologies, you can simplify your workflow and achieve better results.",
-        "date": "March 4, 2024"
-      },
-      {
-        "title": "The Future of Laser Cutting",
-        "slug": "the-future-of-laser-cutting",
-        "excerpt": "Explore how laser cutting is transforming industries with precision and speed.",
-        "content": "Laser cutting technology is advancing rapidly, enabling manufacturers to create complex designs with unprecedented accuracy.",
-        "date": "February 20, 2024"
-      },
-      {
-        "title": "Maximizing Productivity in Fabrication",
-        "slug": "maximizing-productivity-in-fabrication",
-        "excerpt": "Boost your fabrication process with these expert tips and techniques.",
-        "content": "Optimizing your fabrication process is key to staying competitive. Reduce waste, save time, and deliver top-quality results.",
-        "date": "January 15, 2024"
-      }
-    ],
-    "readMore": "Read More"
-  },
+
+    "Blog": {
+      "title": "BLOG POST",
+      "subTitle": "Read Our Blog",
+      "posts": [
+        {
+          "title": "How to Easy Engineering",
+          "slug": "how-to-easy-engineering",
+          "excerpt": "Discover simple steps to streamline your engineering processes and increase efficiency.",
+          "content": [
+            "Engineering has long been associated with complexity, requiring extensive calculations, detailed designs, and rigorous testing to ensure that products and structures function correctly. However, advancements in technology, workflow improvements, and strategic planning can make engineering significantly simpler and more accessible.",
+            "One of the biggest improvements in engineering over the past few decades has been the rise of automation. Engineers no longer have to perform all calculations manually; sophisticated software can analyze massive datasets in seconds, producing accurate results far faster than human effort."
+          ],
+          "date": "March 4, 2024",
+          "mainImage": "https://images.unsplash.com/photo-1455165814004-1126a7199f9b?q=80&w=2940&auto=format&fit=crop",
+          "highlight": "Discover simple steps to streamline your engineering processes and increase efficiency.",
+          "highlightContent": "Engineering has long been associated with complexity, requiring extensive calculations, detailed designs, and rigorous testing to ensure that products and structures function correctly...",
+          "leftImage": "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2940&auto=format&fit=crop",
+          "rightImage": "https://images.unsplash.com/photo-1581092335331-5e00ac65e934?q=80&w=2940&auto=format&fit=crop",
+          "leftImageCaption": "Circular saw in action, precision cutting for industrial projects.",
+          "rightImageCaption": "Worker welding exhaust pipes together in a fabrication workshop.",
+          "belowImagesText": [
+            "Modern engineering techniques have revolutionized the industry, making manufacturing and construction processes more efficient than ever before. By leveraging cutting-edge technology and automation, companies can optimize production lines and reduce labor costs.",
+            "The demand for skilled engineers continues to grow, particularly in industries such as aerospace, automotive, and renewable energy.",
+            "As industries embrace smart manufacturing, the integration of AI and machine learning is becoming increasingly common.",
+            "Education and continuous skill development remain vital for engineers to stay competitive in a rapidly changing job market.",
+            "Ultimately, the goal of modern engineering is to create innovative solutions that enhance productivity while maintaining the highest quality standards."
+          ]
+        },
+        {
+          "title": "The Future of Laser Cutting",
+          "slug": "the-future-of-laser-cutting",
+          "excerpt": "Explore how laser cutting is transforming industries with precision and speed.",
+          "content": [
+            "Laser cutting has transformed the manufacturing and fabrication industries, providing an unprecedented level of precision, speed, and efficiency. The technology continues to evolve, with new advancements shaping its future and expanding its applications.",
+            "One of the most significant improvements in laser cutting is the shift towards fiber laser technology. Fiber lasers are more energy-efficient than traditional CO2 lasers, offering higher cutting speeds with reduced power consumption."
+          ],
+          "date": "February 20, 2024",
+          "mainImage": "/static/images/banner5.avif",
+          "highlight": "Laser cutting is revolutionizing manufacturing with unmatched precision and speed.",
+          "highlightContent": "Fiber laser technology and AI-driven automation are making laser cutting more efficient than ever...",
+          "leftImage": "/static/images/banner3.webp",
+          "rightImage": "/static/images/banner2.webp",
+          "leftImageCaption": "High-precision fiber laser cutting in industrial applications.",
+          "rightImageCaption": "Automated laser cutting machine in a manufacturing plant.",
+          "belowImagesText": [
+            "The rise of AI-driven laser cutting systems has allowed industries to achieve greater levels of precision.",
+            "With automation and cloud-based control systems, factories can now manage laser cutting remotely and optimize workflows in real-time.",
+            "Laser cutting plays a crucial role in electric vehicle (EV) battery production, ensuring high-precision manufacturing of battery components.",
+            "Sustainability remains a major focus, with newer laser technologies reducing energy consumption and material waste.",
+            "In the future, we can expect even greater advancements, including real-time defect detection using AI-powered monitoring systems."
+          ]
+        },
+        {
+          "title": "Maximizing Productivity in Fabrication",
+          "slug": "maximizing-productivity-in-fabrication",
+          "excerpt": "Boost your fabrication process with these expert tips and techniques.",
+          "content": [
+            "Manufacturing and fabrication industries are under constant pressure to improve efficiency while maintaining high-quality standards. Maximizing productivity is essential for companies that want to reduce costs, increase output, and maintain a competitive edge.",
+            "One of the most effective ways to improve productivity is through automation. By integrating CNC machines, robotic welding arms, and laser cutting systems, fabrication shops can significantly reduce human error and increase production speed."
+          ],
+          "date": "January 15, 2024",
+          "mainImage": "/static/images/main-fabrication.webp",
+          "highlight": "Automation and lean manufacturing are key to maximizing productivity in fabrication.",
+          "highlightContent": "CNC machines, robotic welding, and IoT-driven maintenance are transforming the industry...",
+          "leftImage": "/static/images/benefits.jpg",
+          "rightImage":  "/static/images/blog3-3.jpg",
+          "leftImageCaption": "High-precision CNC machining enhancing industrial manufacturing efficiency",
+          "rightImageCaption": "Skilled technician performing precision welding in a modern fabrication workshop.",
+          "belowImagesText": [
+            "Smart manufacturing is driving efficiency in fabrication, with IoT-enabled monitoring systems reducing downtime.",
+            "Lean manufacturing principles help eliminate waste and optimize production schedules, increasing output without raising costs.",
+            "Skilled workforce training is essential for keeping up with advanced fabrication technologies and ensuring optimal machine operation.",
+            "AI and predictive maintenance are reducing machine failures, allowing companies to avoid costly unexpected downtime.",
+            "Future trends in fabrication focus on integrating automation, sustainability, and rapid prototyping to streamline production."
+          ]
+        }
+      ],
+      "readMore": "Read More"
+    },
+
+  
+
   "CheckoutPage": {
     "contact": "Contact",
     "emailOrPhone": "Email or Phone",

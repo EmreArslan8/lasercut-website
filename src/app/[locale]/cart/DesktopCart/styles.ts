@@ -1,7 +1,7 @@
 const styles = {
-    cartContainer: { my: 4, overflow: "hidden", pl: 2, mt: 20 , mb: 30 },
+    cartContainer: { my: 4, overflow: "hidden", pl: 2,  },
     cartItemsSection: { width: "100%" },
-    emptyCart: { textAlign: "center", mt: 5, alignItems: "center" },
+    emptyCart: { textAlign: "center", mt: 5, alignItems: "center", height: "60vh" },
     emptyIcon: { fontSize: 220, color: "#bbb" },
    // buttonGroup: { display: "flex", justifyContent: "center", gap: 2, marginTop: 2, },
     cartItem: {
@@ -36,7 +36,7 @@ const styles = {
     summaryBox: { p: 3,  borderRadius: "8px", display: "block" },
     summaryText: { fontSize: 24, fontWeight: "bold", mb: 2 },
     totalPrice: { fontSize: 18, fontWeight: "bold", mt: 1 },
-    terms: { mt: 2 },
+    terms: { my: 2 },
     termsText: { fontSize: 14 },
     checkoutButton: { mt: 2 },
     modal: { display: "flex", alignItems: "center", justifyContent: "center" },

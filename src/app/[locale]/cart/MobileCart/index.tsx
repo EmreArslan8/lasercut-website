@@ -22,14 +22,22 @@ import { truncateText } from "@/utils/truncateText";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { supabase } from "@/lib/api/supabaseClient";
 import { generateOrderEmail } from "@/utils/emailTemplates";
-import { useCart } from "@/context/CartContext";
+import { useShop } from "@/context/ShopContext";
 import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
+import { ShoppingCart } from "lucide-react";
 
 const MobileCart = () => {
-  const { cartItems, clearCart, setCartItems } = useCart();
+  const {
+    cartItems,
+    setCartItems,
+    selectedItems,
+    toggleSelectItem,
+    toggleSelectAll,
+    getSelectedItems,
+    proceedToCheckout,
+  } = useShop();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -44,32 +52,30 @@ const MobileCart = () => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
 
-  const handleQuantityChange = (
-    index: number,
-    type: "increase" | "decrease"
-  ) => {
+  const handleQuantityChange = (index: number, type: "increase" | "decrease") => {
     setCartItems((prevItems) =>
       prevItems.map((item, i) =>
         i === index
-          ? {
-              ...item,
-              quantity:
-                type === "increase"
-                  ? item.quantity + 1
-                  : Math.max(1, item.quantity - 1),
-            }
+          ? { ...item, quantity: type === "increase" ? item.quantity + 1 : Math.max(1, item.quantity - 1) }
           : item
       )
     );
   };
 
+
   const handleCheckout = async () => {
-    router.push(`/${locale}/checkout`);
+
+
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
     console.log("📩 Müşteri E-Posta:", customerEmail);
 
-    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+    const selectedCartItems = getSelectedItems();
+    if (selectedCartItems.length === 0) {
+      console.error("❌ Hiç ürün seçilmedi!");
+      return;
+    }
+
 
     console.log("🟢 Seçilen Ürünler:", selectedCartItems);
 
@@ -109,16 +115,6 @@ const MobileCart = () => {
     };
 
     console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
-
-    const lineItems = selectedCartItems.map((item) => ({
-      title: item.fileName || "Unnamed Product",
-      quantity: item.quantity,
-      price: item.priceUSD || "0.00",
-      properties: [
-        { name: "Material", value: item.material },
-        { name: "Thickness", value: item.thickness },
-      ],
-    }));
 
     const productDetails = {
       name: customerName,
@@ -161,7 +157,7 @@ const MobileCart = () => {
         fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
       })),
     });
-
+    /*
     await fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -169,8 +165,11 @@ const MobileCart = () => {
     });
     console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
 
-    // ✅ Checkout’a yönlendir
-    localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
+*/
+      proceedToCheckout(); // ✅ Checkout’a seçili ürünleri gönderiyoruz
+      router.push(`/${locale}/checkout`);
+
+    
 
     /*
     console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
@@ -214,7 +213,7 @@ const MobileCart = () => {
       )}
       {cartItems.length === 0 ? (
         <Stack sx={styles.emptyCart}>
-          <Icon name="add_shopping_cart" fontSize={120} />
+          <ShoppingCart size={100} />
           <Typography variant="h6">{t("cartInfo")}</Typography>
           <Button variant="contained" color="primary" href="/" size="medium">
             {t("button")}
@@ -238,17 +237,10 @@ const MobileCart = () => {
                     {truncateText(item.fileName)}
                   </Typography>
                   <Checkbox
-                    checked={selectedItems.includes(index)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedItems((prev) => [...prev, index]);
-                      } else {
-                        setSelectedItems((prev) =>
-                          prev.filter((itemIndex) => itemIndex !== index)
-                        );
-                      }
-                    }}
-                  />
+                        checked={selectedItems.includes(index)} // ✅ Yalnızca bu ürün seçili mi?
+                        onChange={() => toggleSelectItem(index)} // ✅ Seçme fonksiyonunu çağır
+                      />
+
                 </Box>
 
                 <Box sx={styles.productLayout}>
@@ -372,18 +364,7 @@ const MobileCart = () => {
               </Card>
             );
           })}
-        </List>
-      )}
-      {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
-      {cartItems.length > 0 && (
-        <Box sx={{ mt: 3, textAlign: "left" }}>
-          <Typography sx={styles.totalPrice}>
-            {t("totalAmount")}:{" "}
-            {calculateTotalPrice(selectedItems, cartItems, locale)}
-          </Typography>
-        </Box>
-      )}
-      <Stack direction="row" alignItems="center" sx={styles.terms}>
+           <Stack direction="row" alignItems="center" sx={styles.terms}>
         <Checkbox color="primary" />
 
         <Typography
@@ -396,6 +377,18 @@ const MobileCart = () => {
 
         <TermsModal open={isTermsOpen} onClose={() => setTermsOpen(false)} />
       </Stack>
+        </List>
+      )}
+      {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
+      {cartItems.length > 0 && (
+        <Box sx={{ mt: 3, textAlign: "left" }}>
+          <Typography sx={styles.totalPrice}>
+            {t("totalAmount")}:{" "}
+            {calculateTotalPrice(selectedItems, cartItems, locale)}
+          </Typography>
+        </Box>
+      )}
+     
 
       {cartItems.length > 0 && (
         <Stack direction="column" spacing={2} sx={{ mt: 4 }}>

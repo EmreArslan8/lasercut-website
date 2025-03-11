@@ -16,7 +16,7 @@ const TermsModal = ({ open, onClose }: TermsModalProps) => {
   return (
     <Modal open={open} onClose={onClose} disableScrollLock>
       <Box sx={styles.wrapper}>
-        <Icon name="close" fontSize={52} onClick={onClose} sx={styles.closeIcon}/>
+        <Icon name="close" fontSize={32} onClick={onClose} sx={styles.closeIcon}/>
         <Typography variant="h5" sx={styles.title}> {t("title")} </Typography>
         <Typography variant="body1" sx={styles.description}>  {t("description")}
         </Typography>

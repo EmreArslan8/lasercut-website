@@ -1,7 +1,7 @@
 import theme from "@/theme/theme";
 
 const styles = {
-  cartContainer: { p: 2, mt: 19 },
+  cartContainer: { p: 2, height: "70vh" },
   emptyCart: {
    gap: 5,
     alignItems: "center",
@@ -9,7 +9,8 @@ const styles = {
     p: 4,
     borderRadius: "8px",
     textAlign: "center",
-    mt: 5,
+    my: 5,
+    height: "90vh"
     
   },
   cartCard: {

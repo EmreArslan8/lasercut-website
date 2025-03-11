@@ -8,7 +8,7 @@ import Step3 from "./Step3";
 
 import { useTranslations } from "next-intl";
 import { calculatePrice } from "@/utils/calculatePrice";
-import { useCart } from "@/context/CartContext";
+import { useShop } from "@/context/ShopContext";
 
 const DXFStepper = ({
   svg,
@@ -26,7 +26,7 @@ const DXFStepper = ({
 
 }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const { addToCart} = useCart();
+  const { addToCart} = useShop();
   const t = useTranslations("File");
   const [priceTL, setPriceTL] = useState<string>("0.00");
   const [priceUSD, setPriceUSD] = useState<string>("0.00");

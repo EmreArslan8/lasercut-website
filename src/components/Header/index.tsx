@@ -17,17 +17,17 @@ import { palette } from "@/theme/theme";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useTranslations } from "next-intl";
 import Icon from "../common/Icon";
-import { useCart } from "@/context/CartContext";
 import { usePathname } from "next/navigation";
 import { useDrawer } from "@/context/DrawerContext";
 import Link from "../common/Link";
 import styles from "./styles";
+import { useShop } from "@/context/ShopContext";
 
 const navLinks = ["examples", "about-us", "faq", "contact"];
 
 const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
   const { mdDown, isMobile } = useScreen();
-  const { cartItems } = useCart();
+  const { cartItems } = useShop();
   const t = useTranslations("Header");
   const [menuOpen, setMenuOpen] = useState(false);
   const { setDrawerOpen } = useDrawer();

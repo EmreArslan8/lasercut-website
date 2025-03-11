@@ -7,13 +7,11 @@ import {
   Typography,
   Box,
   Button,
-  Modal,
   Checkbox,
   Stack,
   Divider,
   Grid2,
   TextField,
-  IconButton,
   Tooltip,
 } from "@mui/material";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
@@ -24,16 +22,23 @@ import { supabase } from "@/lib/api/supabaseClient";
 import { calculateTotalPrice } from "@/utils/calculatePrice";
 import { generateOrderEmail } from "@/utils/emailTemplates";
 import Icon from "@/components/common/Icon";
-import { useCart } from "@/context/CartContext";
-import router, { useRouter } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
+import { useShop } from "@/context/ShopContext";
+import { ShoppingCart } from "lucide-react";
 
 const DesktopCart = () => {
-  const { cartItems, setCartItems } = useCart();
+  const {
+    cartItems,
+    setCartItems,
+    selectedItems,
+    toggleSelectItem,
+    toggleSelectAll,
+    getSelectedItems,
+    proceedToCheckout,
+  } = useShop();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSuccessOpen, setSuccessOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const t = useTranslations("CartPage");
@@ -48,152 +53,125 @@ const DesktopCart = () => {
   const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
-    setCartItems((prevItems: any[]) => prevItems.filter((_, i) => i !== index));
+    setCartItems((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleCheckout = async () => {
-    router.push(`/${locale}/checkout`);
-    console.log("🟢 Sipariş işlemi başladı...");
-    console.log("📩 Müşteri Adı:", customerName);
-    console.log("📩 Müşteri E-Posta:", customerEmail);
-    if (!customerName.trim()) setNameError(true);
-    if (!customerEmail.trim()) setEmailError(true);
-    if (!customerName.trim() || !customerEmail.trim()) return;
+    try {
+      if (!customerName.trim()) {
+        setNameError(true);
+        return;
+      }
+      if (!customerEmail.trim()) {
+        setEmailError(true);
+        return;
+      }
 
-    const selectedCartItems = selectedItems.map((index) => cartItems[index]);
+      const selectedCartItems = getSelectedItems();
+      if (selectedCartItems.length === 0) {
+        console.error("❌ Hiç ürün seçilmedi!");
+        return;
+      }
 
-    console.log("🟢 Seçilen Ürünler:", selectedCartItems);
+      console.log("🟢 Sipariş işlemi başladı...");
+      console.log("📩 Müşteri Adı:", customerName);
+      console.log("📩 Müşteri E-Posta:", customerEmail);
+      console.log("🟢 Seçilen Ürünler:", selectedCartItems);
 
-    const uploadedFileUrls = await Promise.all(
-      selectedCartItems.map(async (item) => {
-        if (!item.file) return null;
-        const filePath = `orders/${Date.now()}_${item.file.name
-          .replace(/\s+/g, "_")
-          .toLowerCase()}`;
-        const { error } = await supabase.storage
-          .from("uploaded-files")
-          .upload(filePath, item.file);
-        if (error) {
-          console.error("❌ Dosya yükleme hatası:", error.message);
-          throw new Error(error.message);
-        }
-        const { data } = supabase.storage
-          .from("uploaded-files")
-          .getPublicUrl(filePath);
-        console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
-        return data.publicUrl;
+      // Seçili ürünleri checkout için kaydet
+      proceedToCheckout();
+
+      // 🟡 Dosya yükleme işlemi
+      const uploadedFileUrls = await Promise.all(
+        selectedCartItems.map(async (item) => {
+          if (!item.file) return null; // ✅ Eğer file yoksa direkt null dön
+
+          // ✅ `file` varsa, güvenli şekilde `file.name` kullan
+          const fileName = item.file?.name
+            ? item.file.name.replace(/\s+/g, "_").toLowerCase()
+            : `file_${Date.now()}`;
+
+          const filePath = `orders/${Date.now()}_${fileName}`;
+          const { error } = await supabase.storage
+            .from("uploaded-files")
+            .upload(filePath, item.file);
+
+          if (error) {
+            console.error("❌ Dosya yükleme hatası:", error.message);
+            throw new Error(error.message);
+          }
+
+          const { data } = supabase.storage
+            .from("uploaded-files")
+            .getPublicUrl(filePath);
+          console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
+
+          return data.publicUrl;
+        })
+      );
+
+      console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+
+  
+      const productDetails = {
+        name: customerName,
+        email: customerEmail,
+        items: selectedCartItems.map((item, index) => ({
+          material: item.material,
+          thickness: item.thickness,
+          quantity: item.quantity,
+          price:
+            locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+          fileUrl: uploadedFileUrls[index] || "Dosya Yok",
+        })),
+      };
+
+      console.log("🟢 Ürün Detayları:", productDetails);
+
+      // **1️⃣ Slack'e Bildirim Gönder**
+      console.log("🟡 Slack'e gönderiliyor...");
+      await fetch("/api/send-slack", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productDetails),
       })
-    );
+        .then((res) => res.json())
+        .then((data) => console.log("🟢 Slack yanıtı:", data))
+        .catch((error) => console.error("❌ Slack gönderme hatası:", error));
 
-    console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
-
-    const checkoutData = {
-      customerName,
-      customerEmail,
-      items: selectedCartItems.map((item, index) => ({
-        material: item.material,
-        thickness: item.thickness,
-        quantity: item.quantity,
-        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-        fileUrl: uploadedFileUrls[index] || "Dosya Yok",
-      })),
-    };
-
-    console.log("🟢 Checkout’a Gidecek Veriler:", checkoutData);
-
-    const lineItems = selectedCartItems.map((item) => ({
-      title: item.fileName || "Unnamed Product",
-      quantity: item.quantity,
-      price: item.priceUSD || "0.00",
-      properties: [
-        { name: "Material", value: item.material },
-        { name: "Thickness", value: item.thickness },
-      ],
-    }));
-
-    const productDetails = {
-      name: customerName,
-      email: customerEmail,
-      items: selectedCartItems.map((item, index) => ({
-        material: item.material,
-        thickness: item.thickness,
-        quantity: item.quantity,
-        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-        fileUrl: uploadedFileUrls[index] || "Dosya Yok", // Dosya URL'sini ekledik
-      })),
-    };
-
-    console.log("🟢 Ürün Detayları:", productDetails);
-
-    // **1️⃣ Slack'e Bildirim Gönder**
-    console.log("🟡 Slack'e gönderiliyor...");
-    await fetch("/api/send-slack", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productDetails),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("🟢 Slack yanıtı:", data);
-      })
-      .catch((error) => {
-        console.error("❌ Slack gönderme hatası:", error);
+      /*
+  
+      const emailContent = generateOrderEmail({
+        customerName,
+        customerEmail,
+        items: selectedCartItems.map((item, index) => ({
+          fileName: item.fileName,
+          material: item.material,
+          thickness: Number(item.thickness),
+          quantity: item.quantity,
+          price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+          fileUrl: uploadedFileUrls[index] || undefined,
+        })),
       });
-
-    const emailContent = generateOrderEmail({
-      customerName,
-      customerEmail,
-      items: selectedCartItems.map((item, index) => ({
-        fileName: item.fileName,
-        material: item.material,
-        thickness: Number(item.thickness), // ✅ Burada sayı formatına çevirdik
-        quantity: item.quantity,
-        price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
-        fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
-      })),
-    });
-
-    await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(emailContent),
-    });
-    console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
-
-    // ✅ Checkout’a yönlendir
-    localStorage.setItem("checkoutData", JSON.stringify(checkoutData)); // Checkout sayfasına veri taşımak için
-
-    /*
-    console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
-    const response = await fetch("/api/shopify/createDraftOrder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        lineItems,
-        userData: {
-          name: customerName,
-          email: customerEmail,
-          fileUrl: uploadedFileUrls[0] || "",
-          productDetails: JSON.stringify(productDetails),
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("❌ Shopify sipariş hatası:", await response.text());
-    } else {
-      const data = await response.json();
-      console.log("🟢 Shopify siparişi başarıyla oluşturuldu.");
-      window.location.href = data.draft_order.invoice_url;
+  
+      await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailContent),
+      });
+  */
+      console.log("🟢 Kullanıcı Checkout sayfasına yönlendiriliyor...");
+      router.push(`/${locale}/checkout`);
+    } catch (error) {
+      console.error("❌ Hata oluştu:", error);
     }
-      */
   };
 
   return (
     <Stack sx={styles.cartContainer}>
       {cartItems.length === 0 ? (
         <Stack spacing={5} sx={styles.emptyCart}>
-          <AddShoppingCart sx={styles.emptyIcon} />
+            <ShoppingCart size={200} />
           <Typography variant="h5">{t("cartInfo")}</Typography>
           <Button variant="outlined" color="primary" href="/" size="medium">
             {t("button")}
@@ -216,16 +194,10 @@ const DesktopCart = () => {
                   <Box key={index}>
                     <ListItem sx={styles.cartItem}>
                       <Checkbox
-                        checked={selectedItems.includes(index)}
-                        onChange={(e) => {
-                          setSelectedItems((prev) =>
-                            e.target.checked
-                              ? [...prev, index]
-                              : prev.filter((i) => i !== index)
-                          );
-                        }}
-                        sx={styles.checkbox}
+                        checked={selectedItems.includes(index)} // ✅ Yalnızca bu ürün seçili mi?
+                        onChange={() => toggleSelectItem(index)} // ✅ Seçme fonksiyonunu çağır
                       />
+
                       {item.svg && (
                         <Box sx={styles.svgContainer}>
                           <Box

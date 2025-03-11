@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useShop } from "@/context/ShopContext"; // ✅ ShopContext'ten veriyi al
+import { useRouter } from "next/navigation";
 import {
   TextField,
   Button,
@@ -17,23 +19,12 @@ import {
   Skeleton,
 } from "@mui/material";
 
-interface CheckoutItem {
-  material: string;
-  thickness: number;
-  quantity: number;
-  price: string | number;
-}
-
-interface CheckoutData {
-  customerName: string;
-  customerEmail: string;
-  items: CheckoutItem[];
-}
-
 const CheckoutPageView = () => {
   const t = useTranslations("CheckoutPage");
-  const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { checkoutItems, clearCheckout } = useShop(); // ✅ Checkout ürünlerini çek
+  const router = useRouter();
+
+  // Müşteri bilgileri için state
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -42,20 +33,10 @@ const CheckoutPageView = () => {
   const [paymentMethod, setPaymentMethod] = useState("credit_card");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      const data = localStorage.getItem("checkoutData");
-      if (data) {
-        const parsedData = JSON.parse(data);
-        setCheckoutData(parsedData);
-        setCustomerName(parsedData.customerName || "");
-        setCustomerEmail(parsedData.customerEmail || "");
-      }
-      setLoading(false);
-    }, 6000);
-  }, []);
+  // Eğer checkoutItems boşsa, kullanıcıyı sepete yönlendir
+ 
 
   const isFormValid = customerName && customerEmail && address && city && postalCode;
 
@@ -66,56 +47,69 @@ const CheckoutPageView = () => {
       setOrderPlaced(true);
       setModalOpen(true);
     }
+
+    // ✅ Sipariş tamamlandığında checkout temizleniyor
+    clearCheckout();
   };
 
   return (
-    <Stack sx={{ py: 20, px: { xs: 2, md: 6 }, maxWidth: "1000px", margin: "auto" }}>
+    <Stack sx={{ py: 5, px: { xs: 2, md: 6 }, maxWidth: "1000px", margin: "auto" }}>
       <Grid container spacing={3}>
         {/* Sol Taraf - Müşteri Bilgileri & Ödeme */}
         <Grid item xs={12} md={6}>
           <Paper sx={{ padding: 3 }}>
             <Typography variant="h6" gutterBottom>{t("contact")}</Typography>
-            {loading ? (
-              <Skeleton variant="rectangular" height={56} sx={{ mb: 2 }} />
-            ) : (
-              <TextField fullWidth label={t("emailOrPhone")} value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} sx={{ mt: 1 }} />
-            )}
+            <TextField
+              fullWidth
+              label={t("emailOrPhone")}
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+              sx={{ mt: 1 }}
+            />
 
             <Divider sx={{ my: 2 }} />
 
             <Typography variant="h6" gutterBottom>{t("payment")}</Typography>
-            {loading ? (
-              <Skeleton variant="rectangular" height={80} sx={{ mb: 2 }} />
-            ) : (
-              <RadioGroup value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                <FormControlLabel value="credit_card" control={<Radio />} label={t("creditCard")} />
-                <FormControlLabel value="bank_transfer" control={<Radio />} label={t("bankTransfer")} />
-              </RadioGroup>
-            )}
+            <RadioGroup value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+              <FormControlLabel value="credit_card" control={<Radio />} label={t("creditCard")} />
+              <FormControlLabel value="bank_transfer" control={<Radio />} label={t("bankTransfer")} />
+            </RadioGroup>
 
             <Divider sx={{ my: 2 }} />
 
             <Typography variant="h6" gutterBottom>{t("billingAddress")}</Typography>
-            {loading ? (
-              <>
-                <Skeleton variant="rectangular" height={56} sx={{ mb: 2 }} />
-                <Skeleton variant="rectangular" height={56} sx={{ mb: 2 }} />
-                <Skeleton variant="rectangular" height={56} sx={{ mb: 2 }} />
-              </>
-            ) : (
-              <>
-                <TextField fullWidth label={t("fullName")} value={customerName} onChange={(e) => setCustomerName(e.target.value)} sx={{ mt: 1 }} />
-                <TextField fullWidth label={t("address")} value={address} onChange={(e) => setAddress(e.target.value)} sx={{ mt: 1 }} />
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                  <Grid item xs={6}>
-                    <TextField fullWidth label={t("city")} value={city} onChange={(e) => setCity(e.target.value)} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField fullWidth label={t("postalCode")} value={postalCode} onChange={(e) => setPostalCode(e.target.value)} />
-                  </Grid>
-                </Grid>
-              </>
-            )}
+            <TextField
+              fullWidth
+              label={t("fullName")}
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              sx={{ mt: 1 }}
+            />
+            <TextField
+              fullWidth
+              label={t("address")}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              sx={{ mt: 1 }}
+            />
+            <Grid container spacing={2} sx={{ mt: 1 }}>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  label={t("city")}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  fullWidth
+                  label={t("postalCode")}
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
 
@@ -123,23 +117,17 @@ const CheckoutPageView = () => {
         <Grid item xs={12} md={6}>
           <Paper sx={{ padding: 3, backgroundColor: "#f9f9f9" }}>
             <Typography variant="h6" gutterBottom>{t("orderSummary")}</Typography>
-            {loading ? (
-              <>
-                <Skeleton variant="text" height={30} sx={{ mb: 1 }} />
-                <Skeleton variant="text" height={30} sx={{ mb: 1 }} />
-                <Skeleton variant="text" height={30} sx={{ mb: 1 }} />
-              </>
-            ) : (
-              checkoutData?.items.map((item, index) => (
-                <Stack key={index} direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
-                  <Typography>{item.material} - {item.thickness}mm - {item.quantity}    {t("quantity")}</Typography>
-                  <Typography sx={{ fontWeight: "bold" }}>{parseFloat(item.price as string).toFixed(2)} USD</Typography>
-                </Stack>
-              ))
-            )}
+            {checkoutItems.map((item, index) => (
+              <Stack key={index} direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
+                <Typography>{item.material} - {item.thickness}mm - {item.quantity} {t("quantity")}</Typography>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {parseFloat(item.priceUSD || "0").toFixed(2)} USD
+                </Typography>
+              </Stack>
+            ))}
             <Divider sx={{ my: 2 }} />
             <Typography variant="h6" sx={{ textAlign: "right", fontWeight: "bold" }}>
-              {loading ? <Skeleton variant="text" height={30} width="50%" /> : `${t("total")}: ${checkoutData?.items.reduce((sum, item) => sum + parseFloat(item.price as string) * item.quantity, 0).toFixed(2)} USD`}
+              {`${t("total")}: ${checkoutItems.reduce((sum, item) => sum + parseFloat(item.priceUSD || "0") * item.quantity, 0).toFixed(2)} USD`}
             </Typography>
             <Button
               variant="contained"
@@ -147,7 +135,7 @@ const CheckoutPageView = () => {
               fullWidth
               sx={{ mt: 3 }}
               onClick={handleCheckout}
-              disabled={!isFormValid || loading}
+              disabled={!isFormValid}
             >
               {t("completeOrder")}
             </Button>
