@@ -229,6 +229,7 @@
   "CartPage": {
     "cartInfo": "Sepetinde ürün bulunmamaktadır.Bir sipariş oluştumak için ana sayfaya dönün",
     "button": "Ana Sayfa'ya dönün",
+    "backHomeText": "Ya da yeni sipariş oluşturmak için" ,
     "cartTitle1": "Sepet",
     "cartTitle2": "Ürün",
     "selectProducts": "Lütfen sipariş edeceğiniz ürün veya ürünleri seçin",

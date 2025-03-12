@@ -239,6 +239,7 @@
     "title": "Cart",
     "cartInfo": "Your cart is empty. To create an order back to home page",
     "button": "Back To Home",
+    "backHomeText": "Or, to create a new order" ,
     "cartTitle1": "Cart",
     "cartTitle2": "Order",
     "selectProducts": "Please select the product(s) you want to order",

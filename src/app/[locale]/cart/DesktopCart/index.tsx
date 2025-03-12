@@ -25,7 +25,6 @@ import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
 import { useShop } from "@/context/ShopContext";
 import { ShoppingCart } from "lucide-react";
-import { Link } from "@/i18n";
 
 const DesktopCart = () => {
   const {
@@ -49,7 +48,6 @@ const DesktopCart = () => {
   const materialsMap = t.raw("materialsList") as Record<string, string>;
   const router = useRouter();
   const [isTermsOpen, setTermsOpen] = useState(false);
-
 
   const handleRemoveItem = (index: number) => {
     setCartItems((prev) => prev.filter((_, i) => i !== index));
@@ -111,7 +109,6 @@ const DesktopCart = () => {
 
       console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
 
-  
       const productDetails = {
         name: customerName,
         email: customerEmail,
@@ -138,8 +135,6 @@ const DesktopCart = () => {
         .then((data) => console.log("🟢 Slack yanıtı:", data))
         .catch((error) => console.error("❌ Slack gönderme hatası:", error));
 
-
-  
       const emailContent = generateOrderEmail({
         customerName,
         customerEmail,
@@ -148,16 +143,17 @@ const DesktopCart = () => {
           material: item.material,
           thickness: Number(item.thickness),
           quantity: item.quantity,
-          price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+          price:
+            locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
           fileUrl: uploadedFileUrls[index] || undefined,
         })),
       });
-  
-    //  await fetch("/api/send-email", {
-   //     method: "POST",
-   //     headers: { "Content-Type": "application/json" },
-  //      body: JSON.stringify(emailContent),
-  //    });
+
+       await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emailContent),
+         });
 
       console.log("🟢 Kullanıcı Checkout sayfasına yönlendiriliyor...");
       router.push(`/${locale}/checkout`);
@@ -170,7 +166,7 @@ const DesktopCart = () => {
     <Stack sx={styles.cartContainer}>
       {cartItems.length === 0 ? (
         <Stack spacing={5} sx={styles.emptyCart}>
-            <ShoppingCart size={200} />
+          <ShoppingCart size={200} />
           <Typography variant="h5">{t("cartInfo")}</Typography>
           <Button variant="outlined" color="primary" href="/" size="medium">
             {t("button")}
@@ -353,13 +349,18 @@ const DesktopCart = () => {
                   {t("placeOrder")}
                 </Button>
               
-                <Button variant="outlined" color="primary" onClick={() => {
-  console.log("Ana sayfaya yönlendiriliyor...");
-  router.push('/');
-}}>
-  ← Alışverişe Devam Et
-</Button>
- 
+                <Typography align="center" sx={{ mt: 1, color: "gray" }}>
+                  {t("backHomeText")}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  color="primary"
+                  sx={{ mt: 1 }} 
+                  onClick={() => router.push("/")}
+                >
+                  {t("button")}
+                </Button>
               </Box>
             </Grid2>
           )}
