@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Slider from "react-slick";
+import Slider, { LazyLoadTypes } from "react-slick";
 import Image from "next/image";
 import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
 import "slick-carousel/slick/slick.css";
@@ -24,7 +24,6 @@ const images = [
 
 const BannerSlider = ({}: {}) => {
   const { isMobile } = useScreen();
-
   const t = useTranslations("Banner");
   const [videoOpen, setVideoOpen] = useState(false);
   const { setDrawerOpen } = useDrawer();
@@ -43,6 +42,7 @@ const BannerSlider = ({}: {}) => {
     autoplaySpeed: 5000,
     fade: false,
     arrows: false,
+    lazyLoad: "ondemand" as LazyLoadTypes, 
   };
 
   const handleVideoOpen = () => {
@@ -149,6 +149,7 @@ const BannerSlider = ({}: {}) => {
                       <iframe
                         width="100%"
                         height="100%"
+                        loading="lazy"
                         src="https://www.youtube.com/embed/3lLfXX9Xu-0?si=9UGG5xE4u3IAyHsQ"
                         title="YouTube video player"
                         frameBorder="0"
