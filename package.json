@@ -22,7 +22,6 @@
     "deepmerge": "^4.3.1",
     "dxf": "^5.2.0",
     "formik": "^2.4.6",
-    "framer-motion": "^12.4.7",
     "gsap": "^3.12.7",
     "libphonenumber-js": "^1.11.17",
     "lucide-react": "^0.477.0",
@@ -48,6 +47,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-slick": "^0.23.13",
+    "@types/webpack-bundle-analyzer": "^4.7.0",
     "typescript": "^5.7.3"
   }
 }
