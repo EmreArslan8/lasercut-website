@@ -16,13 +16,12 @@ import {
   Divider,
   Stack,
   Modal,
-  Skeleton,
 } from "@mui/material";
 
 const CheckoutPageView = () => {
   const t = useTranslations("CheckoutPage");
   const { checkoutItems, clearCheckout } = useShop(); // ✅ Checkout ürünlerini çek
-  const router = useRouter();
+
 
   // Müşteri bilgileri için state
   const [customerName, setCustomerName] = useState("");

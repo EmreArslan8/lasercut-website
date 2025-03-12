@@ -1,9 +1,9 @@
-import dynamic from "next/dynamic";
+import CheckoutPageView from "./view";
 
-const CheckoutPageView = dynamic(() => import("./view"), { ssr: false });
-
-const CheckoutPage = () => {
-  return <CheckoutPageView />;
+export const metadata = {
+  title: "🛒",
 };
 
-export default CheckoutPage;
+export default function CheckoutPage() {
+  return <CheckoutPageView />;
+}

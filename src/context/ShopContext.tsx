@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+
 interface CartItem {
   fileName: string;
   material: string;
@@ -38,6 +39,7 @@ interface ShopContextProps {
   clearCheckout: () => void; 
 }
 
+
 const ShopContext = createContext<ShopContextProps | undefined>(undefined);
 
 export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -50,11 +52,6 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (storedCart) {
       const parsedCart = JSON.parse(storedCart) as CartItem[];
       setCartItemsState(parsedCart);
-    }
-
-    const storedCheckout = localStorage.getItem("checkoutItems");
-    if (storedCheckout) {
-      setCheckoutItems(JSON.parse(storedCheckout));
     }
   }, []);
 
