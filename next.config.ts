@@ -5,32 +5,12 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "flagcdn.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "example-cdn.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "demo8.eightheme.com",
-        port: "",
-        pathname: "/**",
-      },
-    
+    domains: [
+      "flagcdn.com",
+      "example-cdn.com",
+      "images.unsplash.com",
+      "demo8.eightheme.com",
+      "cdn.shopify.com" // Shopify CDN eklendi
     ],
   },
 };

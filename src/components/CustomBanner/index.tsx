@@ -16,10 +16,10 @@ import { motion } from "framer-motion";
 import { useFramerAnimations } from "@/lib/hooks/useFramerAnimation";
 
 const images = [
-  { id: 1, src: "/static/images/cnc2.jpg", alt: "Laser Cut Example 1" },
-  { id: 2, src: "/static/images/cnc3.jpg", alt: "Laser Cut Example 2" },
-  { id: 3, src: "/static/images/cnc1.jpg", alt: "Laser Cut Example 3" },
-  { id: 4, src: "/static/images/cnc4.jpg", alt: "Laser Cut Example 4" },
+  { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc1.webp?v=1741792760", alt: "Laser Cut Example 1" },
+  { id: 2, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc2.webp?v=1741792766", alt: "Laser Cut Example 2" },
+  { id: 3, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc3.webp?v=1741792770", alt: "Laser Cut Example 3" },
+  { id: 4, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc4.webp?v=1741792773", alt: "Laser Cut Example 4" },
 ];
 
 const BannerSlider = ({}: {}) => {
@@ -63,6 +63,7 @@ const BannerSlider = ({}: {}) => {
                 src={image.src}
                 alt={image.alt}
                 fill
+                priority
                 style={{
                   objectFit: "cover",
                   height: "100%",
