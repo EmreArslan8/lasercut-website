@@ -26,6 +26,8 @@ import { useShop } from "@/context/ShopContext";
 import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
 import { ShoppingCart } from "lucide-react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const MobileCart = () => {
   const {
@@ -52,20 +54,29 @@ const MobileCart = () => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
 
-  const handleQuantityChange = (index: number, type: "increase" | "decrease") => {
+  const handleQuantityChange = (
+    index: number,
+    type: "increase" | "decrease"
+  ) => {
     setCartItems((prevItems) =>
       prevItems.map((item, i) =>
         i === index
-          ? { ...item, quantity: type === "increase" ? item.quantity + 1 : Math.max(1, item.quantity - 1) }
+          ? {
+              ...item,
+              quantity:
+                type === "increase"
+                  ? item.quantity + 1
+                  : Math.max(1, item.quantity - 1),
+            }
           : item
       )
     );
   };
 
-
-  const handleCheckout = async () => {
-
-
+  const handleCheckout = async (values: {
+    customerName: string;
+    customerEmail: string;
+  }) => {
     console.log("🟢 Sipariş işlemi başladı...");
     console.log("📩 Müşteri Adı:", customerName);
     console.log("📩 Müşteri E-Posta:", customerEmail);
@@ -76,15 +87,15 @@ const MobileCart = () => {
       return;
     }
 
-
     console.log("🟢 Seçilen Ürünler:", selectedCartItems);
 
     const uploadedFileUrls = await Promise.all(
       selectedCartItems.map(async (item) => {
         if (!item.file) return null;
-        const filePath = `orders/${Date.now()}_${item.file.name
-          .replace(/\s+/g, "_")
-          .toLowerCase()}`;
+        const fileName = item.file?.name
+          ? item.file.name.replace(/\s+/g, "_").toLowerCase()
+          : "unknown_file";
+        const filePath = `orders/${Date.now()}_${fileName}`;
         const { error } = await supabase.storage
           .from("uploaded-files")
           .upload(filePath, item.file);
@@ -157,18 +168,17 @@ const MobileCart = () => {
         fileUrl: uploadedFileUrls[index] || undefined, // null yerine undefined verelim
       })),
     });
-    
+    /*
     await fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(emailContent),
     });
+      */
     console.log("🟢 Kullanıcı Checkout sayfasına yönlendirilecek...");
 
-      proceedToCheckout(); // ✅ Checkout’a seçili ürünleri gönderiyoruz
-      router.push(`/${locale}/checkout`);
-
-    
+    proceedToCheckout(); // ✅ Checkout’a seçili ürünleri gönderiyoruz
+    router.push(`/${locale}/checkout`);
 
     /*
     console.log("🟡 Shopify sipariş taslağı oluşturuluyor...");
@@ -195,6 +205,28 @@ const MobileCart = () => {
     }
       */
   };
+
+  const formik = useFormik({
+    initialValues: {
+      customerName: "",
+      customerEmail: "",
+    },
+    validationSchema: Yup.object({
+      customerName: Yup.string()
+        .min(3, "Name must be at least 3 characters")
+        .required("Name is required"),
+      customerEmail: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+    }),
+    onSubmit: async (values) => {
+      console.log("✅ Form geçerli, checkout işlemi başlatılıyor...");
+      console.log("📝 Formik Values:", values);
+
+      setModalOpen(false); // ✅ Modalı kapat
+      handleCheckout(values); // ✅ Parametre olarak `values` gönder
+    },
+  });
 
   return (
     <Stack sx={styles.cartContainer}>
@@ -236,10 +268,9 @@ const MobileCart = () => {
                     {truncateText(item.fileName)}
                   </Typography>
                   <Checkbox
-                        checked={selectedItems.includes(index)} // ✅ Yalnızca bu ürün seçili mi?
-                        onChange={() => toggleSelectItem(index)} // ✅ Seçme fonksiyonunu çağır
-                      />
-
+                    checked={selectedItems.includes(index)} // ✅ Yalnızca bu ürün seçili mi?
+                    onChange={() => toggleSelectItem(index)} // ✅ Seçme fonksiyonunu çağır
+                  />
                 </Box>
 
                 <Box sx={styles.productLayout}>
@@ -340,7 +371,7 @@ const MobileCart = () => {
                   )}
                 </Box>
 
-                {/* Ürün Fiyatı - Sağ Alt */}
+             
                 <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
                   <Box>
                     <Typography variant="buttonExtraBold" sx={styles.itemPrice}>
@@ -363,19 +394,22 @@ const MobileCart = () => {
               </Card>
             );
           })}
-           <Stack direction="row" alignItems="center" sx={styles.terms}>
-        <Checkbox color="primary" />
+          <Stack direction="row" alignItems="center" sx={styles.terms}>
+            <Checkbox color="primary" />
 
-        <Typography
-          variant="bodySmall"
-          sx={{ textDecoration: "underline", cursor: "pointer" }}
-          onClick={() => setTermsOpen(true)} // ✅ Tıklandığında modal aç
-        >
-          {t("policyText")}
-        </Typography>
+            <Typography
+              variant="bodySmall"
+              sx={{ textDecoration: "underline", cursor: "pointer" }}
+              onClick={() => setTermsOpen(true)} // ✅ Tıklandığında modal aç
+            >
+              {t("policyText")}
+            </Typography>
 
-        <TermsModal open={isTermsOpen} onClose={() => setTermsOpen(false)} />
-      </Stack>
+            <TermsModal
+              open={isTermsOpen}
+              onClose={() => setTermsOpen(false)}
+            />
+          </Stack>
         </List>
       )}
       {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}
@@ -387,7 +421,6 @@ const MobileCart = () => {
           </Typography>
         </Box>
       )}
-     
 
       {cartItems.length > 0 && (
         <Stack direction="column" spacing={2} sx={{ mt: 4 }}>
@@ -418,27 +451,58 @@ const MobileCart = () => {
               >
                 {t("supportInfo")}
               </Typography>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!formik.isValid) {
+                    formik.setTouched({
+                      customerName: true,
+                      customerEmail: true,
+                    });
+                    return;
+                  }
+                  formik.handleSubmit(e);
+                }}
+              >
+                {/* İsim Alanı */}
+                <TextField
+                  fullWidth
+                  label="Full Name"
+                  name="customerName"
+                  value={formik.values.customerName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.customerName &&
+                    Boolean(formik.errors.customerName)
+                  }
+                  helperText={
+                    formik.touched.customerName && formik.errors.customerName
+                  }
+                  sx={{ mb: 2 }}
+                />
 
-              <TextField
-                fullWidth
-                label="Full Name"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                sx={{ mb: 2 }}
-              />
+                {/* E-posta Alanı */}
+                <TextField
+                  fullWidth
+                  label="Email Address"
+                  name="customerEmail"
+                  value={formik.values.customerEmail}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.customerEmail &&
+                    Boolean(formik.errors.customerEmail)
+                  }
+                  helperText={
+                    formik.touched.customerEmail && formik.errors.customerEmail
+                  }
+                  sx={{ mb: 2 }}
+                />
 
-              {/* Email Input */}
-              <TextField
-                fullWidth
-                label="Email Address"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                sx={{ mb: 2 }}
-              />
-
-              {/* Buttons to Proceed */}
-              <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
-                {/*     <Button
+                {/* Buttons to Proceed */}
+                <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+                  {/*     <Button
                   variant="outlined"
                   color="secondary"
                   fullWidth
@@ -451,19 +515,16 @@ const MobileCart = () => {
                   {t("skipAndCheckout")}
                 </Button>
                 */}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  disabled={!customerName.trim() || !customerEmail.trim()}
-                  onClick={() => {
-                    setModalOpen(false);
-                    handleCheckout(); // Proceed with details
-                  }}
-                >
-                  {t("continueWithInfo")}
-                </Button>
-              </Stack>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    type="submit" // ✅ Buton Formik'in handleSubmit işlemini tetikler
+                  >
+                    {t("continueWithInfo")}
+                  </Button>
+                </Stack>
+              </form>
             </Box>
           </Modal>
         </Stack>

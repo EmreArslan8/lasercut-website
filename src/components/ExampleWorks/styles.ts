@@ -26,7 +26,7 @@ const styles = {
     fontWeight: "bold",
     textAlign: "center",
     mb: 2,
-    fontSize:  { xs: "24px", md: "45px" },
+
   },
   sectionDescription: {
     color: "text.secondary",
@@ -35,7 +35,7 @@ const styles = {
     mx: "auto",
     mb: 4,
     px: { xs: "16px" },
-    fontSize: { xs: "16px", md: "17px" },
+    fontSize: { xs: "16px" },
   },
   slideBox: {
     position: "relative",

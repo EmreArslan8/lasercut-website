@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, Dispatch, SetStateAction} from "react";
+import { useState, useEffect } from "react";
 import { Box, Stepper, Step, StepLabel } from "@mui/material";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
-
 import { useTranslations } from "next-intl";
 import { calculatePrice } from "@/utils/calculatePrice";
 import { useShop } from "@/context/ShopContext";
@@ -16,27 +15,24 @@ const DXFStepper = ({
   height,
   fileName,
   file,
-
 }: {
   svg: string;
   width: string;
   height: string;
   fileName: string;
   file: File;
-
 }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const { addToCart} = useShop();
+  const { addToCart } = useShop();
   const t = useTranslations("File");
   const [priceTL, setPriceTL] = useState<string>("0.00");
   const [priceUSD, setPriceUSD] = useState<string>("0.00");
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // ✅ Merkezi state
+
   const [stepData, setStepData] = useState({
     fileName,
     file,
-    dimensions: { width, height, unit: "mm" as "mm" | "inch" },
+    dimensions: { width, height }, 
     material: "",
     thickness: "",
     quantity: 1,
@@ -48,21 +44,27 @@ const DXFStepper = ({
 
   const [isReadyToAdd, setIsReadyToAdd] = useState(false);
 
-  // Add to cart once everything is ready
   useEffect(() => {
     if (isReadyToAdd) {
       console.log("🚀 Güncellenmiş stepData ile sepete ekleniyor:", stepData);
-      addToCart({ ...stepData, priceTL, priceUSD });
-      setIsReadyToAdd(false); 
+      addToCart({
+        ...stepData,
+        dimensions: { ...stepData.dimensions, unit: "mm" }, 
+        priceTL,
+        priceUSD
+      });
+      setIsReadyToAdd(false);
     }
   }, [isReadyToAdd, addToCart, stepData, priceTL, priceUSD]);
   
 
+
   const updateStepData = async (data: Partial<typeof stepData>) => {
     setStepData((prev) => {
       const newData = { ...prev, ...data };
+      console.log("🛠 Yeni Güncellenmiş stepData:", newData);
 
-      // Fiyatları güncelle
+      // ✅ Fiyatları güncelle
       calculatePrice(newData)
         .then(({ priceTL, priceUSD }) => {
           console.log("✅ Hesaplanan Fiyat (TL):", priceTL);
@@ -70,11 +72,11 @@ const DXFStepper = ({
           setPriceTL(priceTL);
           setPriceUSD(priceUSD);
 
-          // Fiyatı `stepData` içine ekleyelim
+          // ✅ Güncellenmiş fiyatları `stepData` içine ekleyelim
           setStepData((prev) => ({
             ...prev,
-            priceTL: priceTL,
-            priceUSD: priceUSD,
+            priceTL,
+            priceUSD,
           }));
         })
         .catch((error) => console.error("❌ Fiyat Hesaplama Hatası:", error));
@@ -115,18 +117,14 @@ const DXFStepper = ({
           svg={svg}
           width={stepData.dimensions.width}
           height={stepData.dimensions.height}
-          unit={stepData.dimensions.unit}
           onNext={() => {
             console.log("✅ Step 1 Tamamlandı! Ölçüler:", stepData.dimensions);
             handleNext();
           }}
           onDimensionsChange={(w, h) =>
             updateStepData({
-              dimensions: { ...stepData.dimensions, width: w, height: h },
+              dimensions: { width: w, height: h },
             })
-          }
-          onUnitChange={(unit) =>
-            updateStepData({ dimensions: { ...stepData.dimensions, unit } })
           }
         />
       )}
@@ -153,7 +151,6 @@ const DXFStepper = ({
       {activeStep === 2 && (
         <Step3
           svg={svg}
-        
           onBack={handleBack}
           onConfirm={handleConfirmOrder}
           dispatch={(payload) => {

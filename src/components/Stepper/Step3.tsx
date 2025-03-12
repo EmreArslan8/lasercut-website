@@ -16,10 +16,10 @@ import {
   Modal,
 } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import { useRouter } from "next/navigation";
+import Link from "../common/Link";
 
 const Step3 = ({
   svg,
@@ -40,8 +40,12 @@ const Step3 = ({
     setDrawerOpen(false);
   };
 
+ 
+
+
   const router = useRouter();
   const locale = useLocale();
+
   useEffect(() => {
     if (isModalOpen) {
       const timeout = setTimeout(() => {
@@ -50,6 +54,14 @@ const Step3 = ({
       return () => clearTimeout(timeout);
     }
   }, [isModalOpen]);
+
+  const handleGoToCart = () => {
+    router.push(`/${locale}/cart`);
+    setTimeout(() => {
+      setDrawerOpen(false); // Sonra Drawer'ı kapat
+    }, 50); // Küçük bir gecikme ile ana sayfanın görünmesini engelle
+  };
+
 
   const handleConfirm = () => setModalOpen(true);
 
@@ -237,11 +249,11 @@ const Step3 = ({
             {t("homeButton")}
           </Button>
 
-          <Link href="/cart" passHref legacyBehavior>
-            <Button variant="contained" color="primary" fullWidth>
+        
+            <Button variant="contained" color="primary"  fullWidth  onClick={handleGoToCart}>
               {t("cartButton")}
             </Button>
-          </Link>
+         
         </Stack>
       </Box>
     </Modal>

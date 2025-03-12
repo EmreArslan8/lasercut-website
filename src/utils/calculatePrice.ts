@@ -16,10 +16,6 @@ export const calculatePrice = async (stepData: {
 
   console.log("🔄 Fiyat Hesaplama Başlıyor...");
 
-  if (!(material in materialDensities)) {
-    console.error("❌ Geçersiz malzeme:", material);
-    return { priceTL: "0.00", priceUSD: "0.00" };
-  }
 
   const density = materialDensities[material];
   const rawPrice = materialUnitPrices[material] ?? 0;

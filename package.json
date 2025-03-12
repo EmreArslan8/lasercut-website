@@ -14,13 +14,14 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.3.1",
     "@mui/material": "^6.3.1",
-    "@next/bundle-analyzer": "^15.2.0",
+    "@next/bundle-analyzer": "^15.2.2",
     "@supabase/supabase-js": "^2.47.10",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "cookies-next": "^5.1.0",
     "deepmerge": "^4.3.1",
     "dxf": "^5.2.0",
+    "formik": "^2.4.6",
     "framer-motion": "^12.4.7",
     "gsap": "^3.12.7",
     "libphonenumber-js": "^1.11.17",
@@ -36,7 +37,8 @@
     "react-remark": "^2.1.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
-    "yet-another-react-lightbox": "^3.21.7"
+    "yet-another-react-lightbox": "^3.21.7",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -14,7 +14,6 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
@@ -26,6 +25,7 @@ import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
 import { useShop } from "@/context/ShopContext";
 import { ShoppingCart } from "lucide-react";
+import { Link } from "@/i18n";
 
 const DesktopCart = () => {
   const {
@@ -50,7 +50,6 @@ const DesktopCart = () => {
   const router = useRouter();
   const [isTermsOpen, setTermsOpen] = useState(false);
 
-  const handleCloseModal = () => setModalOpen(false);
 
   const handleRemoveItem = (index: number) => {
     setCartItems((prev) => prev.filter((_, i) => i !== index));
@@ -154,11 +153,11 @@ const DesktopCart = () => {
         })),
       });
   
-      await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emailContent),
-      });
+    //  await fetch("/api/send-email", {
+   //     method: "POST",
+   //     headers: { "Content-Type": "application/json" },
+  //      body: JSON.stringify(emailContent),
+  //    });
 
       console.log("🟢 Kullanıcı Checkout sayfasına yönlendiriliyor...");
       router.push(`/${locale}/checkout`);
@@ -176,11 +175,6 @@ const DesktopCart = () => {
           <Button variant="outlined" color="primary" href="/" size="medium">
             {t("button")}
           </Button>
-          {/*  drawer açma butonu
-         <Button variant="contained" color="primary" onClick={openDrawer} size="medium">
-              Add Parts
-            </Button>
-             */}
         </Stack>
       ) : (
         <Grid2 container spacing={3}>
@@ -358,7 +352,14 @@ const DesktopCart = () => {
                 >
                   {t("placeOrder")}
                 </Button>
-                ;
+              
+                <Button variant="outlined" color="primary" onClick={() => {
+  console.log("Ana sayfaya yönlendiriliyor...");
+  router.push('/');
+}}>
+  ← Alışverişe Devam Et
+</Button>
+ 
               </Box>
             </Grid2>
           )}
