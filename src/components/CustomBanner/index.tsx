@@ -16,9 +16,9 @@ import { motion } from "framer-motion";
 import { useFramerAnimations } from "@/lib/hooks/useFramerAnimation";
 
 const images = [
-  { id: 1, src: "/static/images/cnc1.jpg", alt: "Laser Cut Example 1" },
-  { id: 2, src: "/static/images/cnc2.jpg", alt: "Laser Cut Example 2" },
-  { id: 3, src: "/static/images/cnc3.jpg", alt: "Laser Cut Example 3" },
+  { id: 1, src: "/static/images/cnc2.jpg", alt: "Laser Cut Example 1" },
+  { id: 2, src: "/static/images/cnc3.jpg", alt: "Laser Cut Example 2" },
+  { id: 3, src: "/static/images/cnc1.jpg", alt: "Laser Cut Example 3" },
   { id: 4, src: "/static/images/cnc4.jpg", alt: "Laser Cut Example 4" },
 ];
 

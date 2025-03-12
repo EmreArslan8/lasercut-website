@@ -1,10 +1,12 @@
 import Icon from '../Icon';
-import { Button, Stack } from '@mui/material';
-import { ReactNode, useRef } from 'react';
+
+import { useRef } from 'react';
 import Slider, { Settings as ReactSlickSliderSettings } from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import styles from './styles';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 interface CustomSliderProps extends ReactSlickSliderSettings {}
 
