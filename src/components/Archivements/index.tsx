@@ -1,14 +1,14 @@
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
-import { useFramerAnimations } from "@/lib/hooks/useFramerAnimation";
+import Counter from "../common/Counter";
+import { palette } from "@/theme/theme";
 
 const achievements = [
-  { value: 3, suffix: "Y+", key: "experience" },
-  { value: 25, suffix: "+", key: "ourWorker" },
-  { value: 5, suffix: "+", key: "companyPartner" },
-  { value: 100, suffix: "+", key: "happyClients" },
+  { start: 0, end: 3, suffix: "+" as const, key: "experience" },
+  { start: 0, end: 25, suffix: "+" as const, key: "ourWorker" },
+  { start: 0, end: 5, suffix: "+" as const, key: "companyPartner" },
+  { start: 0, end: 100, suffix: "+" as const, key: "happyClients" },
 ];
 
 const Archivements = () => {
@@ -17,32 +17,27 @@ const Archivements = () => {
   return (
     <Box sx={styles.wrapper}>
       <Container>
-        <Typography variant="h6" sx={styles.title}>{t("title")}</Typography>
-        <Typography variant="h2" sx={styles.subTitle}>{t("subTitle")}</Typography>
-        <Typography variant="h6" sx={styles.description}>{t("description")}</Typography>
+        <Typography variant="h6" sx={styles.title}>
+          {t("title")}
+        </Typography>
+        <Typography variant="h2" sx={styles.subTitle}>
+          {t("subTitle")}
+        </Typography>
+        <Typography variant="h6" sx={styles.description}>
+          {t("description")}
+        </Typography>
         <Grid container spacing={4} justifyContent="center">
-          {achievements.map((item, index) => {
-            const { count } = useFramerAnimations("counter", item.value);
+          {achievements.map((item, index) => (
+            <Grid key={index} item xs={6} md={3} textAlign="center">
+              {/* ✅ Sayı Animasyonu */}
+              <Counter start={item.start} end={item.end} duration={3000} fontSize="2rem"  color="#1976D2" suffix={item.suffix} />
 
-            return (
-              <Grid key={index} item xs={6} md={3} textAlign="center">
-                {/* Sayı Animasyonu */}
-                <motion.span
-                  {...useFramerAnimations("slideUp").animation}
-                  style={{ fontSize: "2rem", fontWeight: "bold", color: "#1976D2" }}
-                >
-                  {`${count}${item.suffix}`}
-                </motion.span>
-
-                {/* Açıklamalar */}
-                <motion.div {...useFramerAnimations("slideLeft").animation}>
-                  <Typography sx={{ fontSize: "1rem", color: "#333" }}>
-                    {t(item.key)}
-                  </Typography>
-                </motion.div>
-              </Grid>
-            );
-          })}
+              {/* ✅ Açıklamalar */}
+              <Typography>
+                {t(item.key)}
+              </Typography>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </Box>

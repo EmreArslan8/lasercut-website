@@ -67,25 +67,47 @@ const styles = {
     lineHeight: 1.2,
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
     fontSize: { xs: "32px", sm: "36px", md: "42px", lg: "54px" },
+    opacity: 0,
+    transform: "translateX(-50px)",
+    animation: "slideRight 1s ease-in-out forwards",
+    "@keyframes slideRight": {
+      from: { opacity: 0, transform: "translateX(-50px)" },
+      to: { opacity: 1, transform: "translateX(0)" },
+    },
   },
   button: {
-    mt: 6,
     fontSize: "18px",
+    mt: 6,
     fontWeight: "bold",
     borderRadius: 1,
     background: palette.gradient.g5,
-    transition:
-      "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease",
-    transform: "translateY(0)",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    opacity: 0, // Başlangıçta görünmez
+    transform: "translateY(0)", // Başlangıç pozisyonu
+    transition: "opacity 0.8s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+
+    animation: "fadeIn 1s ease-in-out forwards", // 🎯 Animasyonu çalıştırır ve kalıcı hale getirir
+    "@keyframes fadeIn": {
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+    },
+
     "&:hover": {
-      transform: "translateY(-8px)",
-      boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.15)",
+      transform: "translateY(-15px)", // Hover'da yukarı kayma efekti
+      boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.15)", // Hover gölgelendirme efekti
     },
   },
-
   rightGrid: {
     display: { xs: "none", md: "block" },
+  },
+  description: {
+    mb: 3,
+    opacity: 0,
+    transform: "translateX(50px)",
+    animation: "slideLeft 0.5s ease-in-out forwards",
+    "@keyframes slideLeft": {
+      from: { opacity: 0, transform: "translateX(50px)" },
+      to: { opacity: 1, transform: "translateX(0)" },
+    },
   },
   rightStack: {
     justifyContent: { xs: "center", md: "left" },

@@ -54,13 +54,20 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
     >
       <Stack direction="row" sx={styles.headerContainer}>
         <Link href="/" passHref onClick={() => setDrawerOpen(false)}>
-        <Image src="/static/images/logo7.png" alt="Company Logo" {...logoSize} style={styles.logo} />
+          <Image
+            src="/static/images/logo7.png"
+            alt="Company Logo"
+            {...logoSize}
+            priority // ✅ Logo öncelikli yükleniyor
+            loading="eager" // ✅ Tarayıcı tarafından hemen yüklenmesi sağlanıyor
+            style={styles.logo}
+          />
         </Link>
 
         {mdDown ? (
           <Stack direction="row" alignItems="center" spacing={1}>
             <Badge badgeContent={cartItems?.length ?? 0} sx={styles.badge}>
-            <Link href="/cart" style={{ display: "flex", alignItems: "center" }}>
+              <Link href="/cart" style={{ display: "flex", alignItems: "center" }}>
                 <Icon name="shopping_bag" color="white" sx={styles.menuIcon} />
               </Link>
             </Badge>
@@ -79,7 +86,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
             <Stack direction="row" alignItems="center" spacing={2}>
               <Badge badgeContent={cartItems.length} sx={{ cursor: "pointer" }}>
                 <Link href="/cart">
-                <Icon name="shopping_bag" color="white" sx={{ fontSize: 36 }} />
+                  <Icon name="shopping_bag" color="white" sx={{ fontSize: 36 }} />
                 </Link>
               </Badge>
               <LanguageSwitcher />
@@ -92,7 +99,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
         <Collapse in={menuOpen} timeout="auto" unmountOnExit>
           <List sx={styles.menuList}>
             {navLinks.map((key) => (
-              <Link key={key} href={`/${key}`} passHref style={styles.link} onClick={() => setMenuOpen(false)} >
+              <Link key={key} href={`/${key}`} passHref style={styles.link} onClick={() => setMenuOpen(false)}>
                 <ListItemButton>
                   <ListItemText primary={t(key)} />
                 </ListItemButton>
