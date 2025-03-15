@@ -1,9 +1,13 @@
+import { CartItem } from "@/lib/api/types";
 import { getExchangeRate } from "./getExchangeRate";
 import {
   materialDensities,
   materialUnitPrices,
   laborCosts,
 } from "@/constants/materials";
+
+
+
 
 export const calculatePrice = async (stepData: {
   dimensions: { width: string; height: string };
@@ -92,23 +96,26 @@ export const calculatePrice = async (stepData: {
     priceUSD: finalPriceUSD.toFixed(2),
   };
 };
-
 export const calculateTotalPrice = (
-  selectedItems: number[],
-  cartItems: any[],
+  selectedItems: string[],
+  cartItems: CartItem[],
   locale: string
 ) => {
   if (selectedItems.length === 0) {
     return locale === "en" ? "$0.00 USD" : "0.00 TL";
   }
 
-  const total = selectedItems.reduce((sum, index) => {
-    const price =
-      locale === "en"
-        ? Number(cartItems[index]?.priceUSD) || 0
-        : Number(cartItems[index]?.priceTL) || 0;
+  const total = selectedItems.reduce((sum, id) => {
+    // ✅ `id` bazlı ürünü bul
+    const item = cartItems.find((item) => item.id === id);
 
-    return sum + price * (cartItems[index]?.quantity || 1);
+    if (!item) return sum; // ✅ Eğer ürün bulunamazsa (hata varsa), toplamı değiştirme
+
+    const price = locale === "en"
+      ? Number(item.priceUSD) || 0
+      : Number(item.priceTL) || 0;
+
+    return sum + price * (item.quantity || 1);
   }, 0);
 
   return locale === "en" ? `$${total.toFixed(2)} USD` : `${total.toFixed(2)} TL`;

@@ -11,7 +11,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig: NextConfig = withBundleAnalyzer({
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: [
       "flagcdn.com",

@@ -47,7 +47,7 @@ const Footer = () => {
             <Typography variant="body2" sx={{ mb: 2 }}>
               Copyright® 2025.
             </Typography>
-            <Typography variant="body2">design@2dtocut.com</Typography>
+            <Typography variant="body2">design@drawtocut.com</Typography>
             <Typography variant="body2">+90 505 520 75 11</Typography>
             <Box sx={{ display: "flex", gap: 1 }}>
               <IconButton sx={{ color: "#fff" }}>

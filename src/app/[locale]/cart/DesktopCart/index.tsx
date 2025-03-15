@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   List,
   ListItem,
@@ -17,14 +17,15 @@ import {
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
-import { supabase } from "@/lib/api/supabaseClient";
-import { calculateTotalPrice } from "@/utils/calculatePrice";
-import { generateOrderEmail } from "@/utils/emailTemplates";
-import Icon from "@/components/common/Icon";
 import { useRouter } from "next/navigation";
-import TermsModal from "@/components/TermsModal";
 import { useShop } from "@/context/ShopContext";
 import { ShoppingCart } from "lucide-react";
+import { CartItem } from "@/lib/api/types";
+import { generateOrderEmail } from "@/utils/emailTemplates";
+import TermsModal from "@/components/TermsModal";
+import { calculateTotalPrice } from "@/utils/calculatePrice";
+import Icon from "@/components/common/Icon";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 const DesktopCart = () => {
   const {
@@ -32,10 +33,14 @@ const DesktopCart = () => {
     setCartItems,
     selectedItems,
     toggleSelectItem,
-    toggleSelectAll,
     getSelectedItems,
     proceedToCheckout,
+    removeFromCart,
+    fetchCartFromAPI,
   } = useShop();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSuccessOpen, setSuccessOpen] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -48,112 +53,50 @@ const DesktopCart = () => {
   const materialsMap = t.raw("materialsList") as Record<string, string>;
   const router = useRouter();
   const [isTermsOpen, setTermsOpen] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const isProductsSelected = getSelectedItems().length > 0;
 
-  const handleRemoveItem = (index: number) => {
-    setCartItems((prev) => prev.filter((_, i) => i !== index));
+
+  const validateEmailFormat = (email: string): boolean => {
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return emailRegex.test(email);
   };
 
   const handleCheckout = async () => {
-    try {
-      if (!customerName.trim()) {
-        setNameError(true);
-        return;
-      }
-      if (!customerEmail.trim()) {
-        setEmailError(true);
-        return;
-      }
+    console.log("🟢 handleCheckout TETİKLENDİ");
 
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      if (!validateCustomerInfo()) {
+        setIsLoading(false);
+        return;
+      }
       const selectedCartItems = getSelectedItems();
       if (selectedCartItems.length === 0) {
         console.error("❌ Hiç ürün seçilmedi!");
         return;
       }
 
-      console.log("🟢 Sipariş işlemi başladı...");
-      console.log("📩 Müşteri Adı:", customerName);
-      console.log("📩 Müşteri E-Posta:", customerEmail);
-      console.log("🟢 Seçilen Ürünler:", selectedCartItems);
-
-      // Seçili ürünleri checkout için kaydet
-      proceedToCheckout();
-
-      // 🟡 Dosya yükleme işlemi
-      const uploadedFileUrls = await Promise.all(
-        selectedCartItems.map(async (item) => {
-          if (!item.file) return null; // ✅ Eğer file yoksa direkt null dön
-
-          // ✅ `file` varsa, güvenli şekilde `file.name` kullan
-          const fileName = item.file?.name
-            ? item.file.name.replace(/\s+/g, "_").toLowerCase()
-            : `file_${Date.now()}`;
-
-          const filePath = `orders/${Date.now()}_${fileName}`;
-          const { error } = await supabase.storage
-            .from("uploaded-files")
-            .upload(filePath, item.file);
-
-          if (error) {
-            console.error("❌ Dosya yükleme hatası:", error.message);
-            throw new Error(error.message);
-          }
-
-          const { data } = supabase.storage
-            .from("uploaded-files")
-            .getPublicUrl(filePath);
-          console.log(`🟢 Dosya yüklendi: ${data.publicUrl}`);
-
-          return data.publicUrl;
-        })
+      console.log("🟢 Seçili ürünler LocalStorage'a kaydediliyor...");
+      localStorage.setItem(
+        "selectedCartItems",
+        JSON.stringify(selectedCartItems)
       );
 
-      console.log("🟢 Yüklenen Dosyalar:", uploadedFileUrls);
+      console.log("🟢 Sipariş işlemi başladı...");
+      const newCheckoutId = await proceedToCheckout();
+      if (!newCheckoutId) {
+        console.error("❌ Checkout ID alınamadı!");
+        return;
+      }
 
-      const productDetails = {
-        name: customerName,
-        email: customerEmail,
-        items: selectedCartItems.map((item, index) => ({
-          material: item.material,
-          thickness: item.thickness,
-          quantity: item.quantity,
-          price:
-            locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-          fileUrl: uploadedFileUrls[index] || "Dosya Yok",
-        })),
-      };
 
-      console.log("🟢 Ürün Detayları:", productDetails);
+      localStorage.setItem("checkoutId", newCheckoutId);
 
-      // **1️⃣ Slack'e Bildirim Gönder**
-      console.log("🟡 Slack'e gönderiliyor...");
-      await fetch("/api/send-slack", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productDetails),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("🟢 Slack yanıtı:", data))
-        .catch((error) => console.error("❌ Slack gönderme hatası:", error));
-
-      const emailContent = generateOrderEmail({
-        customerName,
-        customerEmail,
-        items: selectedCartItems.map((item, index) => ({
-          fileName: item.fileName,
-          material: item.material,
-          thickness: Number(item.thickness),
-          quantity: item.quantity,
-          price:
-            locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
-          fileUrl: uploadedFileUrls[index] || undefined,
-        })),
-      });
-
-       await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(emailContent),
-         });
+      await sendSlackNotification(selectedCartItems);
+      await sendEmailNotification(selectedCartItems);
 
       console.log("🟢 Kullanıcı Checkout sayfasına yönlendiriliyor...");
       router.push(`/${locale}/checkout`);
@@ -162,9 +105,91 @@ const DesktopCart = () => {
     }
   };
 
+  const validateCustomerInfo = (): boolean => {
+    let valid = true;
+    console.log("Validating customer info...");
+    if (!customerName.trim()) {
+      setNameError(true);
+      console.log("Validation failed: Customer Name is empty");
+      valid = false;
+    }
+    if (!customerEmail.trim() || !validateEmailFormat(customerEmail)) {
+      setEmailError(true);
+      console.log("Validation failed: Customer Email is empty or invalid");
+      valid = false;
+    }
+    if (!acceptedTerms) {
+      console.log("Validation failed: Terms not accepted");
+      valid = false;
+    }
+    console.log("Validation result:", valid);
+    return valid;
+  };
+
+  const sendSlackNotification = async (selectedCartItems: CartItem[]) => {
+    const productDetails = {
+      name: customerName,
+      email: customerEmail,
+      items: selectedCartItems.map((item) => ({
+        material: item.material,
+        thickness: item.thickness,
+        quantity: item.quantity,
+        price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: item.fileUrl || "Dosya Yok", // ✅ `fileUrl` artık cartItems içinde var!
+      })),
+    };
+
+    console.log("🟡 Slack'e gönderiliyor...");
+    await fetch("/api/send-slack", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productDetails),
+    });
+  };
+
+  const sendEmailNotification = async (selectedCartItems: CartItem[]) => {
+    const emailContent = generateOrderEmail({
+      customerName,
+      customerEmail,
+      items: selectedCartItems.map((item) => ({
+        fileName: item.fileName,
+        material: item.material,
+        thickness: Number(item.thickness),
+        quantity: item.quantity,
+        price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
+        fileUrl: item.fileUrl || undefined, // ✅ `fileUrl` artık cartItems içinde var!
+      })),
+    });
+
+    console.log("📧 E-Posta gönderiliyor...");
+    await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(emailContent),
+    });
+  };
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      setIsLoading(false);
+    } else {
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartSessId = localStorage.getItem("cart_sess_id"); // Sizin mantığınıza göre değişebilir
+    if (cartSessId) {
+      fetchCartFromAPI(cartSessId).finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, [fetchCartFromAPI]);
+
   return (
     <Stack sx={styles.cartContainer}>
-      {cartItems.length === 0 ? (
+      {isLoading ? (
+        // 1) Yükleniyor Ekranı
+        <LoadingOverlay loading={true} />
+      ) : cartItems.length === 0 ? (
         <Stack spacing={5} sx={styles.emptyCart}>
           <ShoppingCart size={200} />
           <Typography variant="h5">{t("cartInfo")}</Typography>
@@ -184,8 +209,11 @@ const DesktopCart = () => {
                   <Box key={index}>
                     <ListItem sx={styles.cartItem}>
                       <Checkbox
-                        checked={selectedItems.includes(index)} // ✅ Yalnızca bu ürün seçili mi?
-                        onChange={() => toggleSelectItem(index)} // ✅ Seçme fonksiyonunu çağır
+                        checked={selectedItems.includes(item.id)}
+                        onChange={() => {
+                          console.log("Tıklanan ID:", item.id);
+                          toggleSelectItem(item.id);
+                        }}
                       />
 
                       {item.svg && (
@@ -199,10 +227,11 @@ const DesktopCart = () => {
 
                       <Box sx={styles.itemDetails}>
                         <Typography variant="h4">
-                          {item.fileName.length > 25
+                          {item.fileName && item.fileName.length > 25
                             ? `${item.fileName.substring(0, 25)}...`
                             : item.fileName}
                         </Typography>
+
                         <Typography sx={styles.textSecondary}>
                           {t("material")}:{" "}
                           {materialsMap[item.material] || item.material}
@@ -221,7 +250,6 @@ const DesktopCart = () => {
                                   )
                                   .join(", ")
                               : t("none")}{" "}
-                            {/* Replace "none" with the appropriate translation key */}
                           </Typography>
                         )}
                         {item.coating && (
@@ -254,7 +282,7 @@ const DesktopCart = () => {
                       </Box>
                       <Icon
                         name="delete"
-                        onClick={() => handleRemoveItem(index)}
+                        onClick={() => removeFromCart(item.id)}
                         sx={styles.deleteIcon}
                       />
                     </ListItem>
@@ -294,12 +322,18 @@ const DesktopCart = () => {
                   value={customerName}
                   onChange={(e) => {
                     setCustomerName(e.target.value);
-                    setNameError(false); // Kullanıcı giriş yaptığında hata sıfırlanır
+                    setNameError(false);
                   }}
-                  error={nameError} // Eğer boşsa kırmızı border
-                  helperText={nameError ? "Full Name is required" : ""} // Uyarı mesajı
-                  sx={{ mb: 2 }}
+                  onBlur={() => {
+                    if (!customerName.trim()) {
+                      setNameError(true);
+                    }
+                  }}
+                  error={nameError}
+                  helperText={nameError ? t("fullNameError") : ""}
+                  sx={{ my: 1 }}
                 />
+
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -308,47 +342,61 @@ const DesktopCart = () => {
                     setCustomerEmail(e.target.value);
                     setEmailError(false);
                   }}
+                  onBlur={() => {
+                    if (!customerEmail.trim()) {
+                      setEmailError(true);
+                    }
+                  }}
                   error={emailError}
-                  helperText={emailError ? "Email Address is required" : ""}
-                  sx={{ mb: 2 }}
+                  helperText={emailError ? t("emailError") : ""}
+                  sx={{ my: 1 }}
                 />
+
                 {/* Total Price */}
                 <Typography sx={styles.totalPrice}>
                   {t("totalAmount")}:{" "}
                   {calculateTotalPrice(selectedItems, cartItems, locale)}
                 </Typography>
                 {/* Terms & Conditions */}
-                <Stack direction="row" alignItems="center" sx={styles.terms}>
-                  <Checkbox color="primary" />
-
-                  <Typography
-                    variant="bodySmall"
-                    sx={{ textDecoration: "underline", cursor: "pointer" }}
-                    onClick={() => setTermsOpen(true)} // ✅ Tıklandığında modal aç
-                  >
-                    {t("policyText")}
-                  </Typography>
-
-                  <TermsModal
-                    open={isTermsOpen}
-                    onClose={() => setTermsOpen(false)}
-                  />
+                <Stack spacing={1} sx={{ p: 1 }}>
+                  <Stack direction="row" alignItems="center">
+                    <Checkbox
+                      color="primary"
+                      checked={acceptedTerms}
+                      onChange={(e) => setAcceptedTerms(e.target.checked)}
+                      sx={{ ml: -2 }}
+                    />
+                    <Typography
+                      variant="bodySmall"
+                      sx={{ textDecoration: "underline", cursor: "pointer" }}
+                      onClick={() => setTermsOpen(true)}
+                    >
+                      {t("policyText")}
+                    </Typography>
+                    <TermsModal
+                      open={isTermsOpen}
+                      onClose={() => setTermsOpen(false)}
+                    />
+                  </Stack>
+                  {!acceptedTerms && (
+                    <Typography variant="caption" color="error">
+                      {t("fillRequiredFields")}
+                    </Typography>
+                  )}
                 </Stack>
+
                 {/* Place Order Button */}
                 <Button
                   variant="contained"
                   color="primary"
                   fullWidth
                   onClick={handleCheckout}
-                  disabled={
-                    selectedItems.length === 0 ||
-                    !customerName.trim() ||
-                    !customerEmail.trim()
-                  }
+                  disabled={loading || !isProductsSelected || !acceptedTerms}
+
                 >
                   {t("placeOrder")}
                 </Button>
-              
+
                 <Typography align="center" sx={{ mt: 1, color: "gray" }}>
                   {t("backHomeText")}
                 </Typography>
@@ -356,7 +404,7 @@ const DesktopCart = () => {
                   variant="outlined"
                   fullWidth
                   color="primary"
-                  sx={{ mt: 1 }} 
+                  sx={{ mt: 1 }}
                   onClick={() => router.push("/")}
                 >
                   {t("button")}

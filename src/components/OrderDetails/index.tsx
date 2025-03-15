@@ -9,9 +9,10 @@ import {
   TextField,
   Button,
   Stack,
+  CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { useRouter } from "next/navigation";
 import useScreen from "@/lib/hooks/useScreen";
 import { useLocale, useTranslations } from "next-intl";
@@ -22,6 +23,7 @@ import { useShop } from "@/context/ShopContext";
 import MaterialCardList from "../MaterialCarousel";
 import styles from "./styles";
 import Icon from "../common/Icon";
+import { uploadFileToSupabase } from "@/utils/uploadFile";
 
 interface Material {
   key: string;
@@ -46,7 +48,7 @@ interface DisplayFilesProps {
 }
 
 const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
-  const { setCartItems } = useShop();
+  const { addToCart, updateCartItem } = useShop();
   const [, setDrawerOpen] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState("Black Sheet");
   const [thickness, setThickness] = useState("1");
@@ -65,6 +67,8 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
     height: false,
   });
   const [selectedFileIndex] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const router = useRouter();
   const t = useTranslations("OrderDetails");
   const { isMobile, isTablet } = useScreen();
@@ -96,16 +100,25 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
   };
 
   const handleAddToCart = async () => {
+    if (isSubmitting) return;
     if (!validateForm()) return;
-
+    
+    setIsSubmitting(true);
+    setUploadError(null);
+  
     const coatingValue = coating.startsWith("painted")
       ? `painted ${capitalize(coating.replace("painted ", ""))}`
       : coating;
-
+  
     const extraServices = [];
     if (bending) extraServices.push("bending");
     if (coating.startsWith("painted")) extraServices.push("painting");
-
+  
+    // Dosya yüklemesini hemen başlat, promise'i sakla
+    const fileUploadPromise = files[selectedFileIndex]
+      ? uploadFileToSupabase(files[selectedFileIndex])
+      : Promise.resolve(null);
+  
     try {
       const priceResult = await calculatePrice({
         dimensions: { width, height },
@@ -114,11 +127,14 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
         quantity: parseInt(quantity, 10),
         extraServices,
       });
-
+  
       console.log("Fiyat Sonucu (TL):", priceResult.priceTL);
       console.log("Fiyat Sonucu (USD):", priceResult.priceUSD);
-
+  
+      // Geçici ID oluştur
+      const tempId = `temp-${crypto.randomUUID()}`;
       const newCartItem = {
+        id: tempId,
         fileName: files[selectedFileIndex]?.name || t("noFileName"),
         file: files[selectedFileIndex],
         material: selectedMaterial,
@@ -134,16 +150,27 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
         extraServices,
         priceTL: priceResult.priceTL,
         priceUSD: priceResult.priceUSD,
+        fileUrl: null,
       };
-
-      setCartItems((prevItems) => [...prevItems, newCartItem]);
-      setDrawerOpen(false);
-
+  
+      // Sepete optimistik ekleme
+      await addToCart(newCartItem);
+  
+      // Kullanıcıyı hemen sepete yönlendir
       router.push(`/${locale}/cart`);
+  
+      // Dosya yüklemesi sonucunu bekleyin ve öğeyi güncelleyin
+      const fileUrl = await fileUploadPromise;
+      if (fileUrl) {
+        updateCartItem(tempId, { fileUrl });
+      }
     } catch (error) {
-      console.error("Fiyat hesaplama hatası:", error);
+      console.error("Fiyat hesaplama veya ekleme hatası:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+  
 
   const isSmallScreen = isMobile || isTablet;
 
@@ -231,7 +258,6 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
           </Box>
 
           <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-            {/* Kalınlık Section */}
             <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
                 {t("thickness")}
@@ -258,7 +284,6 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               />
             </Box>
 
-            {/* Adet Section */}
             <Box sx={{ flex: 1 }}>
               <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>
                 {t("quantity")}
@@ -282,26 +307,23 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
                   display: "flex",
                   flexDirection: isSmallScreen ? "column" : "row",
                   alignItems: isSmallScreen ? "stretch" : "center",
-                  gap: 1, 
+                  gap: 1,
                 }}
               >
                 {coating.startsWith("painted") ? (
                   <>
                     <TextField
                       onChange={(e) =>
-                        handleFieldChange(
-                          "coating",
-                          `painted ${e.target.value}`
-                        )
+                        handleFieldChange("coating", `painted ${e.target.value}`)
                       }
                       fullWidth
                       error={errors.coating}
                       helperText={errors.coating ? t("requiredField") : ""}
                     />
                     <Button
-                      onClick={() => handleFieldChange("coating", "unpainted")} // Unpainted'e geçiş
+                      onClick={() => handleFieldChange("coating", "unpainted")}
                       variant="outlined"
-                      fullWidth={isSmallScreen} 
+                      fullWidth={isSmallScreen}
                     >
                       {t("unpainted")}
                     </Button>
@@ -309,9 +331,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
                 ) : (
                   <Select
                     value={coating}
-                    onChange={(e) =>
-                      handleFieldChange("coating", e.target.value)
-                    }
+                    onChange={(e) => handleFieldChange("coating", e.target.value)}
                     fullWidth
                     displayEmpty
                     error={errors.coating}
@@ -334,7 +354,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
               id="bending"
               checked={bending}
               onChange={(e) => setBending(e.target.checked)}
-              style={{ transform: "scale(1.5)", width: "16px", height: "16px" }} 
+              style={{ transform: "scale(1.5)", width: "16px", height: "16px" }}
             />
             <Typography variant="h5" sx={{ ml: 2 }}>
               {t("bendingService")}
@@ -359,9 +379,16 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
           size="large"
           sx={{ mt: 3 }}
           onClick={handleAddToCart}
+          disabled={isSubmitting}
         >
-          {t("addToCart")}
+          {isSubmitting ? <CircularProgress size={24} color="inherit" /> : t("addToCart")}
         </Button>
+
+        {uploadError && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {uploadError}
+          </Alert>
+        )}
       </Box>
       {!isSmallScreen && (
         <Box
@@ -380,6 +407,16 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
           />
         </Box>
       )}
+
+       <Snackbar
+        open={isSubmitting}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        // İsteğe bağlı: autoHideDuration kullanmayabilir veya uzun bir süre verebilirsiniz
+      >
+        <Alert severity="info" variant="filled" sx={{ width: "100%" }}>
+        {t("uploadInProgress")}
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 };

@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    console.log("📩 API isteği alındı!");
+
 
     const { subject, text, html, recipients } = await req.json();
     

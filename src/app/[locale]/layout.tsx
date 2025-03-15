@@ -78,12 +78,9 @@ export default async function RootLayout({
   );
 }
 
-export const generateMetadata = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+export const generateMetadata = async ({ params }: { params: { locale: Locale } }) => {
+  const { locale } = await Promise.resolve(params);
   const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  // LOG EKLEYELİM
-  console.log(`📢 Locale: ${locale}`);
-  console.log(`🔍 Metadata Description:`, t('description'));
 
   return {
     title: {  default: '2dtocut', template: '%s | 2dtocut', },

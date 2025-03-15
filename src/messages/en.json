@@ -196,6 +196,7 @@
     "bendingService": "I want bending service",
     "width": "Width",
     "height": "Height",
+    "uploadInProgress": "The system is uploading the file, please wait...",
     "materials": [
       {
         "key": "Aluminum",
@@ -286,7 +287,10 @@
       "ST37-K / S235JR": "ST37-K / S235JR",
       "Stainless Steel 304": "Stainless Steel 304",
       "Stainless Steel 316L": "Stainless Steel 316L"
-    }
+    },
+    "fillRequiredFields": "Please fill in all required fields and accept the terms.",
+    "fullNameError": "Full Name must be at least 3 characters.",
+    "emailError": "Please enter a valid email address."
   },
   "termsAndConditions": {
     "title": "Terms and Conditions",
@@ -632,6 +636,7 @@
     "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
     "orderReceived": "Congratulations! Your transaction has been received.",
     "orderConfirmationMessage": "You will be contacted for payment.",
-    "close": "close"
+    "close": "close",
+    "loadingMessage":  "loading.."
   }
 }

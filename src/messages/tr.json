@@ -187,6 +187,7 @@
     "bendingService": "Büküm hizmeti istiyorum",
     "width": "Genişlik",
     "height": "Uzunluk",
+     "uploadInProgress": "Sistem dosyayı yüklüyor, lütfen bekleyin...",
     "materials": [
       {
         "key": "Aluminum",
@@ -274,7 +275,10 @@
       "ST37-K / S235JR": "ST37-K / S235JR",
       "Stainless Steel 304": "Paslanmaz Sac 304",
       "Stainless Steel 316L": "Paslanmaz Sac 316L"
-    }
+    },
+    "fillRequiredFields": "Lütfen gerekli alanları doldurun ve kullanım şartlarını kabul edin.",
+    "fullNameError": "Ad Soyad en az 3 karakter olmalıdır.",
+    "emailError": "Lütfen geçerli bir e-posta adresi giriniz."
   },
 
     "termsAndConditions": {
@@ -633,6 +637,7 @@
     "errorLoading": "Sipariş verileri yüklenirken hata oluştu.",
     "orderReceived": "Siparişiniz Alındı!",
     "orderConfirmationMessage": "Ödemeniz için sizinle en kısa sürede iletişime geçilecektir.",
-    "close": "Kapat"
+    "close": "Kapat",
+     "loadingMessage":  "Yükleniyor.."
   }
 }

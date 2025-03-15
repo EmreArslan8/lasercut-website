@@ -48,6 +48,7 @@ const DXFStepper = ({
     if (isReadyToAdd) {
       console.log("🚀 Güncellenmiş stepData ile sepete ekleniyor:", stepData);
       addToCart({
+        id: `temp-${Date.now()}`,
         ...stepData,
         dimensions: { ...stepData.dimensions, unit: "mm" }, 
         priceTL,
