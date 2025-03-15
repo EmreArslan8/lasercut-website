@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Slider, { LazyLoadTypes } from "react-slick";
+import {  useState } from "react";
+import Slider from "react-slick";
 import Image from "next/image";
 import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
 import "slick-carousel/slick/slick.css";
@@ -14,27 +14,18 @@ import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import Counter from "../common/Counter";
 
-const images = [
-  {
-    id: 1,
-    src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc1.webp?v=1741792760",
-    alt: "Laser Cut Example 1",
-  },
-  {
-    id: 2,
-    src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc2.webp?v=1741792766",
-    alt: "Laser Cut Example 2",
-  },
-  {
-    id: 3,
-    src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc3.webp?v=1741792770",
-    alt: "Laser Cut Example 3",
-  },
-  {
-    id: 4,
-    src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/cnc4.webp?v=1741792773",
-    alt: "Laser Cut Example 4",
-  },
+const desktopImages = [
+  { id: 1, src: "/static/images/banner-desktop-1.webp", alt: "Laser Cut Desktop 1" },
+  { id: 2, src: "/static/images/banner-desktop-2.webp", alt: "Laser Cut Desktop 2" },
+  { id: 3, src: "/static/images/banner-desktop-3.webp", alt: "Laser Cut Desktop 3" },
+  { id: 4, src: "/static/images/banner-desktop-4.webp", alt: "Laser Cut Desktop 4" },
+];
+
+const mobileImages = [
+  { id: 1, src: "/static/images/banner-mobile-1.webp", alt: "Laser Cut Mobile 1" },
+  { id: 2, src: "/static/images/banner-mobile-2.webp", alt: "Laser Cut Mobile 2" },
+  { id: 3, src: "/static/images/banner-mobile-3.webp", alt: "Laser Cut Mobile 3" },
+  { id: 4, src: "/static/images/banner-mobile-4.webp", alt: "Laser Cut Mobile 4" },
 ];
 
 const BannerSlider = () => {
@@ -42,7 +33,6 @@ const BannerSlider = () => {
   const t = useTranslations("Banner");
   const [videoOpen, setVideoOpen] = useState(false);
   const { setDrawerOpen } = useDrawer();
-  const count = 98;
 
   const settings = {
     dots: false,
@@ -59,11 +49,10 @@ const BannerSlider = () => {
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
 
+  const images = isMobile ? mobileImages : desktopImages;
+
   return (
     <>
-      {/* ✅ İlk görselin preload edilmesi */}
-      <link rel="preload" as="image" href={images[0].src} />
-
       <Stack sx={styles.wrapper}>
         <Box sx={styles.sliderBox}>
           <Slider {...settings}>
@@ -73,8 +62,8 @@ const BannerSlider = () => {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  priority={index === 0} // ✅ Sadece ilk görsel öncelikli yüklenecek
-                  loading={index === 0 ? "eager" : "lazy"} // ✅ İlk görsel hemen, diğerleri lazy
+                  priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
                   style={{ objectFit: "cover", height: "100%", width: "100%" }}
                 />
               </Box>
@@ -86,22 +75,27 @@ const BannerSlider = () => {
           <Grid2 container spacing={5} alignItems="center" justifyContent="space-between">
             <Grid2 size={{ xs: 12, md: 7 }}>
               <Box textAlign={{ xs: "center", md: "left" }}>
-              <Typography component="p" sx={styles.title}>
+                <Typography component="p" sx={styles.title}>
                   {t("titleStart")} <br />
                   <Box component="span" sx={{ color: theme.palette.primary.main }}>
                     {t("titleHighlight")}
                   </Box>{" "}
                   {t("titleEnd")}
-             </Typography>
+                </Typography>
 
-                <Button  variant="contained" size="large" onClick={() => setDrawerOpen(true)} sx={styles.button}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => setDrawerOpen(true)}
+                  sx={styles.button}
+                >
                   {t("quickQuote")}
                 </Button>
               </Box>
             </Grid2>
 
             <Box flex={1} sx={styles.rightGrid}>
-              <Typography component= "p" variant="h6" sx={styles.description}>
+              <Typography component="p" variant="h6" sx={styles.description}>
                 {t("description")}
               </Typography>
 
@@ -111,7 +105,13 @@ const BannerSlider = () => {
                     <Box sx={styles.playButtonWrapper}>
                       <Box sx={styles.ripple1} />
                       <Box sx={styles.ripple2} />
-                      <svg viewBox="0 0 24 24" width="30" height="30" xmlns="http://www.w3.org/2000/svg" fill="#2979FF">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="30"
+                        height="30"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#2979FF"
+                      >
                         <polygon points="5,3 19,12 5,21" />
                       </svg>
                     </Box>
@@ -130,13 +130,7 @@ const BannerSlider = () => {
                           frameBorder="0"
                           allow="autoplay; encrypted-media"
                           allowFullScreen
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                          }}
+                          style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                         ></iframe>
                       </Box>
                     </Box>

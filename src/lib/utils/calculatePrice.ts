@@ -6,9 +6,6 @@ import {
   laborCosts,
 } from "@/constants/materials";
 
-
-
-
 export const calculatePrice = async (stepData: {
   dimensions: { width: string; height: string };
   material: string;
@@ -19,7 +16,6 @@ export const calculatePrice = async (stepData: {
   const { dimensions, material, thickness, quantity, extraServices } = stepData;
 
   console.log("🔄 Fiyat Hesaplama Başlıyor...");
-
 
   const density = materialDensities[material];
   const rawPrice = materialUnitPrices[material] ?? 0;
@@ -111,12 +107,13 @@ export const calculateTotalPrice = (
 
     if (!item) return sum; // ✅ Eğer ürün bulunamazsa (hata varsa), toplamı değiştirme
 
-    const price = locale === "en"
-      ? Number(item.priceUSD) || 0
-      : Number(item.priceTL) || 0;
+    const price =
+      locale === "en" ? Number(item.priceUSD) || 0 : Number(item.priceTL) || 0;
 
     return sum + price * (item.quantity || 1);
   }, 0);
 
-  return locale === "en" ? `$${total.toFixed(2)} USD` : `${total.toFixed(2)} TL`;
+  return locale === "en"
+    ? `$${total.toFixed(2)} USD`
+    : `${total.toFixed(2)} TL`;
 };

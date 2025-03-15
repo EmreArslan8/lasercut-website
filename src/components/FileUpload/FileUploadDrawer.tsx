@@ -13,7 +13,7 @@ import styles from "./styles";
 import Stepper from "../Stepper";
 import OrderDetails from "../OrderDetails";
 import Icon from "../common/Icon";
-import { truncateText } from "@/utils/truncateText";
+import { truncateText } from "@/lib/utils/truncateText";
 import { useDrawer } from "@/context/DrawerContext";
 
 interface FileUploadDrawerProps {

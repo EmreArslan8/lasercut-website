@@ -1,41 +1,69 @@
-import { Box, Button, Grid, Grid2, Stack, Typography } from "@mui/material";
-import { CheckCircle } from "lucide-react";
+"use client";
+
+import { Box, Button, Grid, Stack, Typography, IconButton } from "@mui/material";
+import { CheckCircle, PlayCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
 import Link from "../common/Link";
 import useScreen from "@/lib/hooks/useScreen";
+import { useState } from "react";
+import Image from "next/image";
+import Icon from "../common/Icon";
 
 const MaterialSection = () => {
   const t = useTranslations("MaterialSection");
-  const isMobile = useScreen();
-  // ✅ Diziyi döngüyle alarak bir array oluşturuyoruz
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const {isMobile , mdUp}= useScreen();
+  const thumbnailHeight = mdUp ? 400 : 200;
+
   const materials = Object.keys(t.raw("materials")).map((key) =>
     t(`materials.${key}`)
   );
 
+  const handleVideoLoad = () => setVideoLoaded(true);
+
   return (
     <Box sx={styles.wrapper}>
-      <Grid2 container spacing={isMobile ? 0 : 4}  alignItems="center">
-        <Grid2 size={{ xs: 12, md: 6 }}>
-          <Box
-            component="video"
-            src="https://cdn.shopify.com/videos/c/o/v/658e2511bd5447d993fe3505c670fa24.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            sx={styles.video}
-          />
-        </Grid2>
+      <Grid container spacing={isMobile ? 0 : 4} alignItems="center">
+        <Grid item xs={12} md={6} sx={{ position: "relative" }}>
+          {!videoLoaded ? (
+            <Box sx={{ position: "relative", cursor: "pointer" }} onClick={handleVideoLoad}>
+              <Image
+                src="/static/images/banner2.webp"
+                alt="Video Thumbnail"
+                width={570}
+                height={thumbnailHeight}
+                style={{ width: "100%", height: "auto", borderRadius: 8 }}
+              />
+              <Icon
+              name="play_arrow"
+              fontSize={30}
+                sx={{ position: "absolute", bottom: 16, left: 16, bgcolor: "rgba(0,0,0,0.6)", color: "#fff" }}
+        
+             / >
+                
+              
+            </Box>
+          ) : (
+            <Box
+              component="video"
+              src="https://cdn.shopify.com/videos/c/o/v/658e2511bd5447d993fe3505c670fa24.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              sx={styles.video}
+            />
+          )}
+        </Grid>
 
         {/* Text Content */}
-        <Grid2 size={{ xs: 12, md: 6 }}>
+        <Grid item xs={12} md={6}>
           <Stack spacing={3} sx={styles.textContent}>
             <Typography variant="h3" sx={styles.title}>
-              {" "}
-              {t("title")}{" "}
+              {t("title")}
             </Typography>
-            <Typography variant="h2">{t("subtitle")} </Typography>
+            <Typography variant="h2">{t("subtitle")}</Typography>
             <Typography sx={styles.description}>{t("description")}</Typography>
             {materials.length > 0 ? (
               <Grid container spacing={2}>
@@ -52,15 +80,15 @@ const MaterialSection = () => {
               <Typography color="error">Materials data is missing!</Typography>
             )}
             <Link href="/contact">
-            <Button variant="contained" sx={styles.button}>
-              {t("button")}
-            </Button>
+              <Button variant="contained" sx={styles.button}>
+                {t("button")}
+              </Button>
             </Link>
           </Stack>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Box>
   );
-}
+};
 
 export default MaterialSection;

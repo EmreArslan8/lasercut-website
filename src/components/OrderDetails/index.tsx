@@ -17,13 +17,13 @@ import { useRouter } from "next/navigation";
 import useScreen from "@/lib/hooks/useScreen";
 import { useLocale, useTranslations } from "next-intl";
 import theme from "@/theme/theme";
-import capitalize from "@/utils/capitalize";
-import { calculatePrice } from "@/utils/calculatePrice";
 import { useShop } from "@/context/ShopContext";
 import MaterialCardList from "../MaterialCarousel";
 import styles from "./styles";
 import Icon from "../common/Icon";
-import { uploadFileToSupabase } from "@/utils/uploadFile";
+import { uploadFileToSupabase } from "@/lib/utils/uploadFile";
+import capitalize from "@/lib/utils/capitalize";
+import { calculatePrice } from "@/lib/utils/calculatePrice";
 
 interface Material {
   key: string;

@@ -18,13 +18,13 @@ import { useEffect, useState } from "react";
 import styles from "./styles";
 import Icon from "@/components/common/Icon";
 import { useLocale, useTranslations } from "next-intl";
-import { truncateText } from "@/utils/truncateText";
-import { calculateTotalPrice } from "@/utils/calculatePrice";
-import { generateOrderEmail } from "@/utils/emailTemplates";
+import { calculateTotalPrice } from "@/lib/utils/calculatePrice";
 import { CartItem, useShop } from "@/context/ShopContext";
 import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
 import { ShoppingCart } from "lucide-react";
+import { generateOrderEmail } from "@/lib/utils/emailTemplates";
+import { truncateText } from "@/lib/utils/truncateText";
 
 const MobileCart = () => {
   const {
@@ -77,7 +77,6 @@ const MobileCart = () => {
       setIsLoading(false);
     }
   }, [fetchCartFromAPI]);
-
 
   const handleQuantityChange = (
     index: number,
@@ -373,32 +372,32 @@ const MobileCart = () => {
               </Card>
             );
           })}
-            <Stack spacing={1} sx={{ p: 1 }}>
-                  <Stack direction="row" alignItems="center">
-                    <Checkbox
-                      color="primary"
-                      checked={acceptedTerms}
-                      onChange={(e) => setAcceptedTerms(e.target.checked)}
-                      sx={{ ml: -2 }}
-                    />
-                    <Typography
-                      variant="bodySmall"
-                      sx={{ textDecoration: "underline", cursor: "pointer" }}
-                      onClick={() => setTermsOpen(true)}
-                    >
-                      {t("policyText")}
-                    </Typography>
-                    <TermsModal
-                      open={isTermsOpen}
-                      onClose={() => setTermsOpen(false)}
-                    />
-                  </Stack>
-                  {!acceptedTerms && (
-                    <Typography variant="caption" color="error">
-                      {t("fillRequiredFields")}
-                    </Typography>
-                  )}
-                </Stack>
+          <Stack spacing={1} sx={{ p: 1 }}>
+            <Stack direction="row" alignItems="center">
+              <Checkbox
+                color="primary"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                sx={{ ml: -2 }}
+              />
+              <Typography
+                variant="bodySmall"
+                sx={{ textDecoration: "underline", cursor: "pointer" }}
+                onClick={() => setTermsOpen(true)}
+              >
+                {t("policyText")}
+              </Typography>
+              <TermsModal
+                open={isTermsOpen}
+                onClose={() => setTermsOpen(false)}
+              />
+            </Stack>
+            {!acceptedTerms && (
+              <Typography variant="caption" color="error">
+                {t("fillRequiredFields")}
+              </Typography>
+            )}
+          </Stack>
         </List>
       )}
       {/* Toplam Sepet Bedeli (Her Zaman Gösterilecek) */}

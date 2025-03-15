@@ -3,14 +3,13 @@ import { supabase } from "@/lib/api/supabaseClient";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL; // .env.local'den al
 
 export const uploadFileToSupabase = async (file: File, onProgress?: (progress: number) => void) => {
-
   if (!SUPABASE_URL) {
     console.error("🚨 Supabase URL bulunamadı! .env.local dosyanızı kontrol edin.");
     return null;
   }
-   // Örneğin:
-   if (onProgress) {
-    onProgress(50); // örnek ilerleme değeri
+
+  if (onProgress) {
+    onProgress(50); // Örnek ilerleme değeri
   }
 
   const bucketName = "uploaded-files";
@@ -37,6 +36,13 @@ export const uploadFileToSupabase = async (file: File, onProgress?: (progress: n
     return null;
   }
 
-  console.log(`✅ Dosya başarıyla yüklendi: ${folderPath}/${fileName}`);
-  return `${SUPABASE_URL}/storage/v1/object/public/${bucketName}/${folderPath}/${fileName}`;
+  // ✅ Supabase'den yüklenen dosyanın detaylarını alalım
+  const { data: fileData } = await supabase
+    .storage
+    .from(bucketName)
+    .getPublicUrl(`${folderPath}/${fileName}`);
+
+  console.log("🌍 Alınan Public URL:", fileData.publicUrl);
+
+  return fileData.publicUrl;
 };

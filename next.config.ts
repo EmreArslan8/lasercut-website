@@ -13,12 +13,37 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig: NextConfig = withBundleAnalyzer({
   reactStrictMode: false,
   images: {
-    domains: [
-      "flagcdn.com",
-      "example-cdn.com",
-      "images.unsplash.com",
-      "demo8.eightheme.com",
-      "cdn.shopify.com"
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "example-cdn.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "demo8.eightheme.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   webpack(config: { optimization: { usedExports: boolean; sideEffects: boolean; }; }) {

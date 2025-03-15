@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartSessionId } from "@/lib/hooks/useCartSessionId";
-import { uploadFileToSupabase } from "@/utils/uploadFile";
+import { uploadFileToSupabase } from "@/lib/utils/uploadFile";
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 export interface CartItem {
@@ -102,36 +102,44 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error("🚨 Sepet ID'si bulunamadı!");
       return;
     }
-
+  
     let fileUrl = item.fileUrl || null;
+  
     if (item.file) {
-      fileUrl = null;
+      console.log("📤 Dosya yükleme başlıyor...");
+      try {
+        fileUrl = await uploadFileToSupabase(item.file);
+        console.log(`✅ Dosya yüklendi: ${fileUrl}`);
+      } catch (err) {
+        console.error("🚨 Dosya yükleme hatası:", err);
+        fileUrl = "upload_failed";
+      }
     }
-
-    // Geçici ID (optimistik UI için)
+  
+    // 🎯 Optimistik UI için geçici ID oluşturuluyor
     const tempId = `temp-${Date.now()}`;
-    const optimisticCartItem: CartItem = { 
-      ...item, 
-      fileUrl, 
+    const optimisticCartItem: CartItem = {
+      ...item,
+      fileUrl, // ✅ **Artık Supabase’den gelen URL atanıyor**
       id: tempId,
       updatedAt: new Date().toISOString(),
     };
-
-    // Optimistik ekleme: UI hemen güncelleniyor
+  
+    // 🚀 **Optimistik UI: Kullanıcıya anında göster**
     setCartItems((prevItems) => [...prevItems, optimisticCartItem]);
-
+  
     try {
-      // API çağrısı: Veritabanı auto-increment id üretecek
+      console.log("📡 API'ye istek gönderiliyor...");
       const response = await fetch("/api/cart/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...optimisticCartItem, cart_sess_id: cartSessionId }),
       });
+  
       const data = await response.json();
-
+  
       if (data.success) {
         console.log(`✅ Sepete eklendi: ${data.data.id}`);
-        // Optimistik öğe, gerçek id ile güncelleniyor.
         setCartItems((prevItems) =>
           prevItems.map((i) =>
             i.id === tempId ? { ...i, id: data.data.id, updatedAt: new Date().toISOString() } : i
@@ -145,26 +153,9 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error("🚨 API Hatası:", error);
       setCartItems((prevItems) => prevItems.filter((i) => i.id !== tempId));
     }
-
-    if (item.file) {
-      uploadFileToSupabase(item.file)
-        .then((uploadedUrl) => {
-          setCartItems((prevItems) =>
-            prevItems.map((i) =>
-              i.id === tempId ? { ...i, fileUrl: uploadedUrl, updatedAt: new Date().toISOString() } : i
-            )
-          );
-        })
-        .catch((err) => {
-          console.error("Dosya yükleme hatası:", err);
-          setCartItems((prevItems) =>
-            prevItems.map((i) =>
-              i.id === tempId ? { ...i, fileUrl: "upload_failed", updatedAt: new Date().toISOString() } : i
-            )
-          );
-        });
-    }
   };
+  
+
 
   const clearCart = () => {
     setCartItemsState([]);

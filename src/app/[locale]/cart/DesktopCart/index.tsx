@@ -21,9 +21,9 @@ import { useRouter } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
 import { ShoppingCart } from "lucide-react";
 import { CartItem } from "@/lib/api/types";
-import { generateOrderEmail } from "@/utils/emailTemplates";
+import { generateOrderEmail } from "@/lib/utils/emailTemplates";
 import TermsModal from "@/components/TermsModal";
-import { calculateTotalPrice } from "@/utils/calculatePrice";
+import { calculateTotalPrice } from "@/lib/utils/calculatePrice";
 import Icon from "@/components/common/Icon";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 
@@ -56,7 +56,6 @@ const DesktopCart = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const isProductsSelected = getSelectedItems().length > 0;
 
-
   const validateEmailFormat = (email: string): boolean => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return emailRegex.test(email);
@@ -79,6 +78,8 @@ const DesktopCart = () => {
         return;
       }
 
+      console.log("Seçili Ürünler:", selectedCartItems);
+
       console.log("🟢 Seçili ürünler LocalStorage'a kaydediliyor...");
       localStorage.setItem(
         "selectedCartItems",
@@ -91,7 +92,6 @@ const DesktopCart = () => {
         console.error("❌ Checkout ID alınamadı!");
         return;
       }
-
 
       localStorage.setItem("checkoutId", newCheckoutId);
 
@@ -139,6 +139,8 @@ const DesktopCart = () => {
       })),
     };
 
+    console.log(selectedCartItems);
+
     console.log("🟡 Slack'e gönderiliyor...");
     await fetch("/api/send-slack", {
       method: "POST",
@@ -160,6 +162,8 @@ const DesktopCart = () => {
         fileUrl: item.fileUrl || undefined, // ✅ `fileUrl` artık cartItems içinde var!
       })),
     });
+
+    console.log("📦 Cart Items:", cartItems);
 
     console.log("📧 E-Posta gönderiliyor...");
     await fetch("/api/send-email", {
@@ -211,7 +215,7 @@ const DesktopCart = () => {
                       <Checkbox
                         checked={selectedItems.includes(item.id)}
                         onChange={() => {
-                          console.log("Tıklanan ID:", item.id);
+                          console.log("seçili ürün:", item);
                           toggleSelectItem(item.id);
                         }}
                       />
@@ -392,7 +396,6 @@ const DesktopCart = () => {
                   fullWidth
                   onClick={handleCheckout}
                   disabled={loading || !isProductsSelected || !acceptedTerms}
-
                 >
                   {t("placeOrder")}
                 </Button>
