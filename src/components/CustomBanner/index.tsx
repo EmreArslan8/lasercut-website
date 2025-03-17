@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
@@ -15,17 +15,17 @@ import { useDrawer } from "@/context/DrawerContext";
 import Counter from "../common/Counter";
 
 const desktopImages = [
-  { id: 1, src: "/static/images/banner-desktop-1.webp", alt: "Laser Cut Desktop 1" },
-  { id: 2, src: "/static/images/banner-desktop-2.webp", alt: "Laser Cut Desktop 2" },
-  { id: 3, src: "/static/images/banner-desktop-3.webp", alt: "Laser Cut Desktop 3" },
-  { id: 4, src: "/static/images/banner-desktop-4.webp", alt: "Laser Cut Desktop 4" },
+  { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467", alt: "Laser Cut Desktop 1" },
+  { id: 2, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-2.webp?v=1742229466", alt: "Laser Cut Desktop 2" },
+  { id: 3, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-3.webp?v=1742229468", alt: "Laser Cut Desktop 3" },
+  { id: 4, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-4.webp?v=1742229467", alt: "Laser Cut Desktop 4" },
 ];
 
 const mobileImages = [
-  { id: 1, src: "/static/images/banner-mobile-1.webp", alt: "Laser Cut Mobile 1" },
-  { id: 2, src: "/static/images/banner-mobile-2.webp", alt: "Laser Cut Mobile 2" },
-  { id: 3, src: "/static/images/banner-mobile-3.webp", alt: "Laser Cut Mobile 3" },
-  { id: 4, src: "/static/images/banner-mobile-4.webp", alt: "Laser Cut Mobile 4" },
+  { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-1.webp?v=1742229564", alt: "Laser Cut Mobile 1" },
+  { id: 2, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-2.webp?v=1742229461", alt: "Laser Cut Mobile 2" },
+  { id: 3, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-4.webp?v=1742229463", alt: "Laser Cut Mobile 3" },
+  { id: 4, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-4.webp?v=1742229463", alt: "Laser Cut Mobile 4" },
 ];
 
 const BannerSlider = () => {
@@ -49,6 +49,8 @@ const BannerSlider = () => {
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
 
+  // Cihaz tipine göre farklı resim dizisi seçimi:
+  // (Eğer isMobile true ise mobilImages, değilse desktopImages kullanılacak)
   const images = isMobile ? mobileImages : desktopImages;
 
   return (
@@ -62,15 +64,21 @@ const BannerSlider = () => {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  priority={index === 0}
+                  priority={index === 0} // İlk resim için yüksek öncelik
                   loading={index === 0 ? "eager" : "lazy"}
-                  style={{ objectFit: "cover", height: "100%", width: "100%" }}
+                  // sizes özniteliği: mobilde 800px, geniş ekranlarda 2000px kullanılacak
+                  sizes="(max-width: 600px) 800px, 2000px"
+                  style={{ objectFit: "cover" }}
+                  // (Opsiyonel) İlk resim için placeholder blur ekleyebilirsiniz
+                  placeholder={index === 0 ? "blur" : "empty"}
+                  blurDataURL="/path/to/low-quality-placeholder.webp"
                 />
               </Box>
             ))}
           </Slider>
         </Box>
 
+        {/* Diğer slider içerikleri */}
         <Box sx={styles.contentBox(isMobile)}>
           <Grid2 container spacing={5} alignItems="center" justifyContent="space-between">
             <Grid2 size={{ xs: 12, md: 7 }}>
@@ -82,7 +90,6 @@ const BannerSlider = () => {
                   </Box>{" "}
                   {t("titleEnd")}
                 </Typography>
-
                 <Button
                   variant="contained"
                   size="large"
@@ -93,12 +100,10 @@ const BannerSlider = () => {
                 </Button>
               </Box>
             </Grid2>
-
             <Box flex={1} sx={styles.rightGrid}>
               <Typography component="p" variant="h6" sx={styles.description}>
                 {t("description")}
               </Typography>
-
               <Grid2 size={{ xs: 12, md: 5 }}>
                 <Stack direction="row" sx={styles.rightStack}>
                   <Button onClick={handleVideoOpen}>
@@ -116,7 +121,6 @@ const BannerSlider = () => {
                       </svg>
                     </Box>
                   </Button>
-
                   <Modal open={videoOpen} onClose={handleVideoClose}>
                     <Box sx={styles.modal}>
                       <Icon name="close" onClick={handleVideoClose} sx={styles.closeIcon} />
