@@ -2,13 +2,16 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.2dtocut.com";
-  const locales = ["tr", "en"]; // Desteklenen diller
+  const locales = ["en", "tr"]; // Desteklenen diller
   const pages = [
     "/",
-    "/about",
-    "/services",
+    "/about-us",
+    "/examples",
+    "/faq",
     "/contact",
-    "/products",
+    "/blog/how-to-easy-engineering",
+    "blog/the-future-of-laser-cutting",
+    "blog/maximizing-productivity-in-fabrication",
   ];
 
   // 🔹 URLs değişkenine açık bir tür tanımlıyoruz.
