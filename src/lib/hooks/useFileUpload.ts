@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { useCart } from "@/context/CartContext";
+import { useShop } from "@/context/ShopContext";
 
 interface UploadResult {
   success: boolean;
@@ -25,7 +25,7 @@ const sanitizeFileName = (fileName: string) => {
 const useFileUpload = (): UseFileUploadReturn => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isDxf, setIsDxf] = useState(false);
-  const { cartItems } = useCart();
+  const { cartItems } = useShop();
   
 
   const uploadFiles = async (

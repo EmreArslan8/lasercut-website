@@ -1,17 +1,7 @@
+import { fadeIn, ripple, slideRight } from "@/lib/utils/animations";
 import theme from "@/theme/theme";
-import { keyframes } from "@mui/material";
 import { palette } from "@/theme/theme";
 
-const rippleAnimation = keyframes`
-0% {
-  transform: scale(1);
-  opacity: 0.6;
-}
-100% {
-  transform: scale(2.5);
-  opacity: 0;
-}
-`;
 
 const styles = {
   wrapper: {
@@ -23,13 +13,13 @@ const styles = {
     "& .slick-slide": {
       margin: "0 !important",
       padding: "0 !important",
-      height: { xs: "500px ",md: "700px !important"},
+      height: { xs: "500px ", md: "700px !important" },
     },
   },
   slide: {
     position: "relative",
     width: "100%",
-    height:{xs: "500px", md: "700px"},
+    height: { xs: "500px", md: "700px" },
     overflow: "hidden",
     "&::after": {
       content: '""',
@@ -52,7 +42,7 @@ const styles = {
     justifyContent: "center",
     px: isMobile ? 2 : 6,
     color: "#fff",
-    margin: "0 auto", 
+    margin: "0 auto",
     mx: "auto", // Ortalamak için
     pt: { xs: 4, md: 8 }, // Üst-alt boşluk (isteğe bağlı  // Ortalamak için
   }),
@@ -66,26 +56,35 @@ const styles = {
     fontWeight: "bold",
     lineHeight: 1.2,
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
-    fontSize: { xs: "28px", sm: "36px", md: "42px", lg: "54px" },
+    fontSize: { xs: "32px", sm: "36px", md: "42px", lg: "54px" },
+    opacity: 0,
+    transform: "translateX(-50px)",
+    animation: `${slideRight} 1s ease-in-out forwards`,
   },
   button: {
-    mt: 6,
     fontSize: "18px",
+    mt: 6,
     fontWeight: "bold",
     borderRadius: 1,
     background: palette.gradient.g5,
+    opacity: 0, // Başlangıçta görünmez
+    transform: "translateY(0)", // Başlangıç pozisyonu
     transition:
-      "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease",
-    transform: "translateY(0)",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+      "opacity 0.8s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+    animation: `${fadeIn} 1s ease-in-out forwards`,
     "&:hover": {
-      transform: "translateY(-8px)",
-      boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.15)",
+      transform: "translateY(-15px)", // Hover'da yukarı kayma efekti
+      boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.15)", // Hover gölgelendirme efekti
     },
   },
-
   rightGrid: {
     display: { xs: "none", md: "block" },
+  },
+  description: {
+    mb: 3,
+    opacity: 0,
+    transform: "translateX(50px)",
+    animation: `${slideRight} 0.5s ease-in-out forwards`,
   },
   rightStack: {
     justifyContent: { xs: "center", md: "left" },
@@ -118,7 +117,7 @@ const styles = {
     height: "100%",
     borderRadius: "50%",
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-    animation: `${rippleAnimation} 2.5s infinite ease-out`,
+    animation: `${ripple} 2.5s infinite ease-out`,
   },
   ripple2: {
     position: "absolute",
@@ -126,7 +125,7 @@ const styles = {
     height: "100%",
     borderRadius: "50%",
     backgroundColor: "rgba(255, 255, 255, 0.3)",
-    animation: `${rippleAnimation} 2.5s infinite ease-out`,
+    animation: `${ripple} 2.5s infinite ease-out`,
     animationDelay: "1.25s",
   },
   modal: {

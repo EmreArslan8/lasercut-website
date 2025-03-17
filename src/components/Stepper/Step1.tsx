@@ -20,18 +20,14 @@ const Step1 = ({
   svg,
   width,
   height,
-  unit,
   onNext,
   onDimensionsChange,
-  onUnitChange,
 }: {
   svg: string;
   width: string;
   height: string;
-  unit: "mm" | "inch";
   onNext: () => void;
   onDimensionsChange: (width: string, height: string) => void;
-  onUnitChange: (unit: "mm" | "inch") => void;
 }) => {
   const t = useTranslations("Step1");
   const [editableWidth, setEditableWidth] = useState(width);
@@ -40,17 +36,12 @@ const Step1 = ({
 
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditableWidth(e.target.value);
-    onDimensionsChange(e.target.value, editableHeight); // ✅ Ana state'e güncelle
+    onDimensionsChange(e.target.value, editableHeight);
   };
 
   const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditableHeight(e.target.value);
-    onDimensionsChange(editableWidth, e.target.value); // ✅ Ana state'e güncelle
-  };
-
-  const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newUnit = e.target.value as "mm" | "inch";
-    onUnitChange(newUnit); // ✅ Ana state'e güncelle
+    onDimensionsChange(editableWidth, e.target.value);
   };
 
   const handleNextClick = () => {
@@ -63,35 +54,34 @@ const Step1 = ({
   };
 
   return (
-    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2, }}>
+    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>{t("title")}</Typography>
       <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>{t("description")}</Typography>
 
       {/* 🔹 SVG Görseli */}
       <Box
-  dangerouslySetInnerHTML={{ __html: svg }}
-  sx={{
-    width: { xs: "100%", sm: "60%" }, // xs ekranlarda %60, sm ve üstünde %40
-    height: "auto",
-    mb: 2,
-  }}
-/>
+        dangerouslySetInnerHTML={{ __html: svg }}
+        sx={{
+          width: { xs: "100%", sm: "60%" },
+          height: "auto",
+          mb: 2,
+        }}
+      />
 
-
-      {/* 🔹 Ölçü Girişleri */}
-      <Box sx={{ display: "flex", gap: 2, alignItems: "center", justifyContent: "center" }}>
+      {/* 🔹 Ölçü Girişleri + MM Birimi Aynı Satırda */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <TextField label={t("width")} variant="outlined" value={editableWidth} onChange={handleWidthChange} sx={{ width: "120px" }} />
         <TextField label={t("height")} variant="outlined" value={editableHeight} onChange={handleHeightChange} sx={{ width: "120px" }} />
-      </Box>
 
-      {/* 🔹 Ölçü Birimi */}
-      <RadioGroup row value={unit} onChange={handleUnitChange}>
-        <FormControlLabel value="inch" control={<Radio />} label={t("inch")} />
-        <FormControlLabel value="mm" control={<Radio />} label={t("mm")} />
-      </RadioGroup>
+        {/* MM Radio Butonu (Sadece Görsel) */}
+        <RadioGroup row value="mm">
+          <FormControlLabel value="mm" control={<Radio  />} label={t("mm")} />
+        </RadioGroup>
+      </Box>
 
       <Button variant="contained" color="primary" onClick={handleNextClick} sx={{ mt: 2 }}>{t("next")}</Button>
 
+      {/* ✅ Onay Diyaloğu */}
       <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>
         <DialogTitle>{t("confirmTitle")}</DialogTitle>
         <DialogContent>
@@ -99,7 +89,7 @@ const Step1 = ({
             {t("confirmMessage", {
               width: editableWidth,
               height: editableHeight,
-              unit,
+              unit: "mm", // ✅ Birim sabitlendi
             })}
           </Typography>
           <Box
@@ -112,7 +102,7 @@ const Step1 = ({
             }}
           >
             <Typography>
-              {editableWidth} {unit}
+              {editableWidth} mm
             </Typography>
             <Box
               sx={{
@@ -127,7 +117,7 @@ const Step1 = ({
                   textAlign: "right",
                 }}
               >
-                {editableHeight} {unit}
+                {editableHeight} mm
               </Typography>
             </Box>
           </Box>

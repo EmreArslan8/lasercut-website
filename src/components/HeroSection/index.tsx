@@ -25,11 +25,7 @@ const HeroSection = () => {
       <Box sx={styles.container}>
         <Box sx={styles.imageWrapper}>
           <Image
-            src={
-              mdDown
-                ? "/static/images/smsection.jpeg"
-                : "/static/images/mdsection.jpeg"
-            }
+            src={"/static/images/hero-section-2.jpg"}
             alt="technical parts"
             fill
             style={{ objectFit: "cover" }}

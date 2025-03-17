@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
     // JSON verisini yalnızca bir kez oku
     const body = await req.json();
-    console.log("📩 API'ye Gelen Veri:", body);
+  
 
     const { orderId, name, email, phone, items } = body; // Değişkenlere ata
 
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       text: `📢 *Yeni Sipariş Geldi!*\n🆔 *Sipariş ID:* ${orderId || "Bilinmiyor"}\n👤 *Müşteri:* ${name}\n📧 *E-Posta:* ${email}\n📞 *Telefon:* ${phone || "Belirtilmemiş"}\n📦 **Sipariş İçeriği:**\n${itemsText}`
     };
 
-    console.log("✅ Slack Mesajı Gönderiliyor:", message);
+   
 
     const response = await fetch(webhookUrl, {
       method: "POST",

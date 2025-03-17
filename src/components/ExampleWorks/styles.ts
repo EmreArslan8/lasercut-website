@@ -26,7 +26,7 @@ const styles = {
     fontWeight: "bold",
     textAlign: "center",
     mb: 2,
-    fontSize:  { xs: "24px", md: "45px" },
+
   },
   sectionDescription: {
     color: "text.secondary",
@@ -35,7 +35,7 @@ const styles = {
     mx: "auto",
     mb: 4,
     px: { xs: "16px" },
-    fontSize: { xs: "12px", md: "17px" },
+    fontSize: { xs: "16px" },
   },
   slideBox: {
     position: "relative",
@@ -85,7 +85,7 @@ const styles = {
     alignItems: "center",
     height: "80vh",
     width: "100%",
-    maxWidth: "1200px",
+    maxWidth: "100vw",
     overflow: "hidden",
   },
   navigateButton: {
@@ -107,9 +107,6 @@ const styles = {
     cursor: "pointer",
     textTransform: "uppercase",
     border: "none",
-    ":hover": {
-      backgroundColor: theme.palette.error.dark,
-    },
   },
 };
 

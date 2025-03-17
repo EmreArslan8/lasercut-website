@@ -14,12 +14,7 @@ interface FileUploadProps {
 
 const allowedExtensions = [".jpg", ".jpeg", ".png", ".pdf", ".dxf", ".stp"];
 
-const FileUpload = ({
-  onFileUpload,
-  files = [],
-  setUploadedFiles,
-}: FileUploadProps) => {
-  const t = useTranslations("File");
+const FileUpload = ({ onFileUpload, files = [] }: FileUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null!);
   const [isDragging, setIsDragging] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -43,7 +38,7 @@ const FileUpload = ({
     if (invalidFiles.length > 0) {
       const invalidFileNames = invalidFiles.map((file) => file.name).join(", ");
       setSnackbarMessage(
-        `Şu dosyalar desteklenmiyor: ${invalidFileNames}. Lütfen yalnızca izin verilen türleri yükleyin: ${allowedExtensions.join(
+        `The following files are not supported: ${invalidFileNames}. Please only upload allowed types: ${allowedExtensions.join(
           ", "
         )}`
       );
@@ -51,12 +46,6 @@ const FileUpload = ({
     }
 
     return validFiles;
-  };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-    setUploadedFiles([]);
-    setSvgData(null);
   };
 
   const uploadDXFFile = async (file: File) => {
@@ -132,6 +121,7 @@ const FileUpload = ({
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert severity="warning">{snackbarMessage}</Alert>
       </Snackbar>

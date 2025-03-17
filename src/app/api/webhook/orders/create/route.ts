@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { data: pendingOrder, error: pendingOrderError } = await supabase
-      .from("pending_orders")
+      .from("ers")
       .select("*")
       .eq("draft_order_id", draftOrderId)
       .single();

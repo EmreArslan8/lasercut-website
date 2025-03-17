@@ -13,7 +13,7 @@ import styles from "./styles";
 import Stepper from "../Stepper";
 import OrderDetails from "../OrderDetails";
 import Icon from "../common/Icon";
-import { truncateText } from "@/utils/truncateText";
+import { truncateText } from "@/lib/utils/truncateText";
 import { useDrawer } from "@/context/DrawerContext";
 
 interface FileUploadDrawerProps {
@@ -86,8 +86,11 @@ const FileUploadDrawer = ({
           )
         ) : (
           <Box sx={{ textAlign: "center", maxWidth: "950px", margin: "auto" }}>
-            <Typography variant="h2" sx={{ mb: 10 }}>
+            <Typography variant="h2" sx={{ mb: 1, mt: 6 }}>
               {t("title")}
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4 }}>
+              {t("description")}
             </Typography>
             <Box
               sx={styles.dropZone(isDragging)}

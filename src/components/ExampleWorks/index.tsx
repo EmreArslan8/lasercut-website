@@ -9,7 +9,6 @@ import useScreen from "@/lib/hooks/useScreen";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
 import Icon from "../common/Icon";
-import theme from "@/theme/theme";
 import CustomSlider from "../common/CustomSlider";
 import { Link } from "@/i18n";
 
@@ -51,7 +50,7 @@ const ExampleSlider = () => {
         <Typography variant="h6" sx={styles.sectionTitle}>
           {t("ourWork")}
         </Typography>
-        <Typography sx={styles.sectionHeading}>
+        <Typography variant= "h2" sx={styles.sectionHeading}>
           {t("workingGallery")}
         </Typography>
         <Typography variant="body1" sx={styles.sectionDescription}>
@@ -71,6 +70,7 @@ const ExampleSlider = () => {
                 alt={item.title}
                 fill
                 style={{ objectFit: "cover", borderRadius: "12px" }}
+                loading= "lazy"
               />
             </Box>
           ))}
