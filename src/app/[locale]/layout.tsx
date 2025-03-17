@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { DrawerProvider } from "@/context/DrawerContext";
 import { ShopProvider } from "@/context/ShopContext";
 import { Locale } from "@/i18n";
+import useScreen from "@/lib/hooks/useScreen";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -24,12 +25,18 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: Locale };
 }) {
-  const { locale } = await Promise.resolve(params);
+  // Önce params nesnesini await ediyoruz
+  const awaitedParams = await Promise.resolve(params);
+  const { locale } = awaitedParams;
+
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        
+
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
@@ -40,20 +47,11 @@ export default async function RootLayout({
           rel="stylesheet"
         />
 
-        <link
-          rel="preconnect"
-          href="https://cdn.shopify.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="https://cdn.shopify.com" crossOrigin="anonymous" />
       </head>
 
-      <body
-        className={plusJakartaSans.className}
-        style={{ overflowX: "hidden" }}
-      >
-        <NextIntlClientProvider
-          messages={await getMessages({ locale: params.locale })}
-        >
+      <body className={plusJakartaSans.className} style={{ overflowX: "hidden" }}>
+        <NextIntlClientProvider messages={messages}>
           <ThemeRegistry>
             <ShopProvider>
               <DrawerProvider>
@@ -75,10 +73,10 @@ export const generateMetadata = async ({
 }: {
   params: { locale: Locale };
 }) => {
-  const t = await getTranslations({
-    locale: params.locale,
-    namespace: "metadata",
-  });
+  // Params'i await edip destructure ediyoruz
+  const awaitedParams = await Promise.resolve(params);
+  const { locale } = awaitedParams;
+  const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
     metadataBase: new URL("https://www.2dtocut.com"),
@@ -86,14 +84,11 @@ export const generateMetadata = async ({
     description: t("description"),
     openGraph: {
       description: t("description"),
-      images: [
-        {
-          url: "/static/images/useShop.png",
-          alt: "2dtocut",
-          width: 1200,
-          height: 630,
-        },
-      ],
+      icons: {
+    icon: "/favicon.png", // 512x512 önerilir
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png", // Apple cihazlar için
+  },
     },
   };
 };
