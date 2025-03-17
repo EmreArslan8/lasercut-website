@@ -64,14 +64,12 @@ const BannerSlider = () => {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  priority={index === 0} // İlk resim için yüksek öncelik
+                  priority={index === 0} 
                   loading={index === 0 ? "eager" : "lazy"}
-                  // sizes özniteliği: mobilde 800px, geniş ekranlarda 2000px kullanılacak
                   sizes="(max-width: 600px) 800px, 2000px"
                   style={{ objectFit: "cover" }}
-                  // (Opsiyonel) İlk resim için placeholder blur ekleyebilirsiniz
-                  placeholder={index === 0 ? "blur" : "empty"}
-                  blurDataURL="/path/to/low-quality-placeholder.webp"
+           
+                
                 />
               </Box>
             ))}

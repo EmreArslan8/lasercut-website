@@ -1,20 +1,13 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages  } from "next-intl/server";
 import ThemeRegistry from "@/theme/ThemeRegistery";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { DrawerProvider } from "@/context/DrawerContext";
 import { ShopProvider } from "@/context/ShopContext";
 import { Locale } from "@/i18n";
-import { Metadata } from "next";
+import plusJakartaSans from "@/fonts/plusJakartaSans";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  fallback: ["Helvetica", "Arial", "sans-serif"],
-});
 
 export const dynamicParams = true;
 
@@ -78,7 +71,11 @@ export default async function RootLayout({
   );
 }
 
-export const generateMetadata = async ({ params: { locale } }: { params: { locale: Locale } }) => {
+
+export const generateMetadata = async ({ params }: { params: { locale: Locale } }) => {
+  // params'ı await ediyoruz
+  const awaitedParams = await Promise.resolve(params);
+  const locale = awaitedParams.locale;
   return {
     title: "2dtocut | CNC Cutting Solutions",
     description: "High-quality CNC cutting services for your business needs.",
