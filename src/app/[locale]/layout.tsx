@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { DrawerProvider } from "@/context/DrawerContext";
 import { ShopProvider } from "@/context/ShopContext";
 import { Locale } from "@/i18n";
-import useScreen from "@/lib/hooks/useScreen";
+import { Metadata } from "next";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -78,26 +78,36 @@ export default async function RootLayout({
   );
 }
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { locale: Locale };
-}) => {
-  const awaitedParams = await Promise.resolve(params);
-  const { locale } = awaitedParams;
-  const t = await getTranslations({ locale, namespace: "metadata" });
-
+export const generateMetadata = async ({ params: { locale } }: { params: { locale: Locale } }) => {
   return {
-    metadataBase: new URL("https://www.2dtocut.com"),
-    title: { default: "2dtocut", template: "%s | 2dtocut" },
-    description: t("description"),
+    title: "2dtocut | CNC Cutting Solutions",
+    description: "High-quality CNC cutting services for your business needs.",
     icons: {
-      icon: "/favicon.png", // 512x512 önerilir
+      icon: "/favicon.ico", // Varsayılan favicon
       shortcut: "/favicon.ico",
-      apple: "/favicon.png", // Apple cihazlar için
+      apple: "/apple-touch-icon.png", // Apple Touch için 512x512
+      other: [
+        { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
+        { rel: "icon", type: "image/png", sizes: "192x192", url: "/android-chrome-192x192.png" },
+        { rel: "icon", type: "image/png", sizes: "512x512", url: "/android-chrome-512x512.png" },
+      ],
     },
+    manifest: "/site.webmanifest",
     openGraph: {
-      description: t("description"),
+      title: "2dtocut | CNC Cutting Solutions",
+      description: "Providing high-quality CNC cutting solutions.",
+      url: "https://www.2dtocut.com",
+      siteName: "2dtocut",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "2dtocut CNC Cutting",
+        },
+      ],
+      type: "website",
     },
   };
 };
