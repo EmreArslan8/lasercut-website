@@ -34,6 +34,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
+      <meta name="google-site-verification" content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
