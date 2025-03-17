@@ -35,7 +35,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
 
         <link
           rel="preconnect"
@@ -47,10 +49,17 @@ export default async function RootLayout({
           rel="stylesheet"
         />
 
-        <link rel="preconnect" href="https://cdn.shopify.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://cdn.shopify.com"
+          crossOrigin="anonymous"
+        />
       </head>
 
-      <body className={plusJakartaSans.className} style={{ overflowX: "hidden" }}>
+      <body
+        className={plusJakartaSans.className}
+        style={{ overflowX: "hidden" }}
+      >
         <NextIntlClientProvider messages={messages}>
           <ThemeRegistry>
             <ShopProvider>
@@ -73,7 +82,6 @@ export const generateMetadata = async ({
 }: {
   params: { locale: Locale };
 }) => {
-  // Params'i await edip destructure ediyoruz
   const awaitedParams = await Promise.resolve(params);
   const { locale } = awaitedParams;
   const t = await getTranslations({ locale, namespace: "metadata" });
@@ -82,13 +90,13 @@ export const generateMetadata = async ({
     metadataBase: new URL("https://www.2dtocut.com"),
     title: { default: "2dtocut", template: "%s | 2dtocut" },
     description: t("description"),
+    icons: {
+      icon: "/favicon.png", // 512x512 önerilir
+      shortcut: "/favicon.ico",
+      apple: "/favicon.png", // Apple cihazlar için
+    },
     openGraph: {
       description: t("description"),
-      icons: {
-    icon: "/favicon.png", // 512x512 önerilir
-    shortcut: "/favicon.ico",
-    apple: "/favicon.png", // Apple cihazlar için
-  },
     },
   };
 };
