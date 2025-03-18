@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages  } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 import ThemeRegistry from "@/theme/ThemeRegistery";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -7,7 +7,6 @@ import { DrawerProvider } from "@/context/DrawerContext";
 import { ShopProvider } from "@/context/ShopContext";
 import { Locale } from "@/i18n";
 import plusJakartaSans from "@/fonts/plusJakartaSans";
-
 
 export const dynamicParams = true;
 
@@ -27,7 +26,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-      <meta name="google-site-verification" content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM" />
+        <meta
+          name="google-site-verification"
+          content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -39,7 +41,7 @@ export default async function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL@400..700,0..1&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL@400..700,0..1&display=swap"
           rel="stylesheet"
         />
 
@@ -71,8 +73,11 @@ export default async function RootLayout({
   );
 }
 
-
-export const generateMetadata = async ({ params }: { params: { locale: Locale } }) => {
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { locale: Locale };
+}) => {
   // params'ı await ediyoruz
   const awaitedParams = await Promise.resolve(params);
   const locale = awaitedParams.locale;
@@ -84,10 +89,30 @@ export const generateMetadata = async ({ params }: { params: { locale: Locale } 
       shortcut: "/favicon.ico",
       apple: "/apple-touch-icon.png", // Apple Touch için 512x512
       other: [
-        { rel: "icon", type: "image/png", sizes: "16x16", url: "/favicon-16x16.png" },
-        { rel: "icon", type: "image/png", sizes: "32x32", url: "/favicon-32x32.png" },
-        { rel: "icon", type: "image/png", sizes: "192x192", url: "/android-chrome-192x192.png" },
-        { rel: "icon", type: "image/png", sizes: "512x512", url: "/android-chrome-512x512.png" },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "16x16",
+          url: "/favicon-16x16.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "32x32",
+          url: "/favicon-32x32.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "192x192",
+          url: "/android-chrome-192x192.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "512x512",
+          url: "/android-chrome-512x512.png",
+        },
       ],
     },
     manifest: "/site.webmanifest",

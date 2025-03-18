@@ -12,6 +12,30 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = withBundleAnalyzer({
   reactStrictMode: false,
+  async headers() {
+    return [
+      {
+        // /fonts klasöründeki tüm dosyalar için uzun süreli cache
+        source: "/fonts/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // /images klasöründeki tüm dosyalar için
+        source: "/images/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

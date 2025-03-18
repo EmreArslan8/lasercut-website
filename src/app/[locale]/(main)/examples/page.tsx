@@ -224,21 +224,7 @@ const PhotoGallery = () => {
       </Typography>
 
       {/* Full-width 24th Image */}
-      <Box sx={{ width: "100%", borderRadius: "8px", overflow: "hidden" }}>
-        <Image
-          src="/static/images/example24.jpeg"
-          alt="Example 24"
-          width={1599} // Görselin gerçek genişlik değeri
-          height={899} // Görselin gerçek yükseklik değeri
-          style={{
-            width: "100%",
-            height: "auto",
-            objectFit: "cover",
-            cursor: "pointer",
-          }} // Stillendirme
-          onClick={() => handlePhotoClick(23)}
-        />
-      </Box>
+     
 
       {/* Photo Album */}
       <PhotoAlbum

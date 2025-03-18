@@ -14,19 +14,13 @@ import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import Counter from "../common/Counter";
 
-const desktopImages = [
+const images = [
   { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467", alt: "Laser Cut Desktop 1" },
   { id: 2, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-2.webp?v=1742229466", alt: "Laser Cut Desktop 2" },
   { id: 3, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-3.webp?v=1742229468", alt: "Laser Cut Desktop 3" },
   { id: 4, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-4.webp?v=1742229467", alt: "Laser Cut Desktop 4" },
 ];
 
-const mobileImages = [
-  { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-1.webp?v=1742229564", alt: "Laser Cut Mobile 1" },
-  { id: 2, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-2.webp?v=1742229461", alt: "Laser Cut Mobile 2" },
-  { id: 3, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-4.webp?v=1742229463", alt: "Laser Cut Mobile 3" },
-  { id: 4, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-mobile-4.webp?v=1742229463", alt: "Laser Cut Mobile 4" },
-];
 
 const BannerSlider = () => {
   const { isMobile } = useScreen();
@@ -49,10 +43,6 @@ const BannerSlider = () => {
   const handleVideoOpen = () => setVideoOpen(true);
   const handleVideoClose = () => setVideoOpen(false);
 
-  // Cihaz tipine göre farklı resim dizisi seçimi:
-  // (Eğer isMobile true ise mobilImages, değilse desktopImages kullanılacak)
-  const images = isMobile ? mobileImages : desktopImages;
-
   return (
     <>
       <Stack sx={styles.wrapper}>
@@ -64,12 +54,10 @@ const BannerSlider = () => {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  priority={index === 0} 
+                  priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
-                  sizes="(max-width: 600px) 800px, 2000px"
+                  sizes="(max-width: 600px) 100vw, 2000px"
                   style={{ objectFit: "cover" }}
-           
-                
                 />
               </Box>
             ))}
