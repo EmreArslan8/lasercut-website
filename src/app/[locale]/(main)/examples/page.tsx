@@ -237,9 +237,9 @@ const PhotoGallery = () => {
           alt={photo.alt}
           width={photo.width}
           height={photo.height}
-          priority={index < 8}
-          fetchPriority={index < 8 ? "high" : "low"}
-          loading={index < 8 ? "eager" : "lazy"}
+          priority={index < 4}
+          fetchPriority={index < 4 ? "high" : "low"}
+          loading={index < 4 ? "eager" : "lazy"}
           style={{ objectFit: "cover", width: "100%", height: "auto" }}
           sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
