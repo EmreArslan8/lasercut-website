@@ -30,7 +30,6 @@ export default async function RootLayout({
           name="google-site-verification"
           content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
@@ -38,6 +37,10 @@ export default async function RootLayout({
           rel="preconnect"
           href="https://cdn.shopify.com"
           crossOrigin="anonymous"
+        />
+        <link
+          rel="canonical"
+          href={`https://www.2dtocut.com/${params.locale}`}
         />
       </head>
 

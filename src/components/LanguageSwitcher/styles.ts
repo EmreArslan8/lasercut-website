@@ -18,10 +18,6 @@ const styles = {
       backgroundColor: "grey.300",
     },
   },
-  icon: {
-    fontSize: 24,
-    color: {xs: "white", md: "black"}
-  },
   languageText: {
     fontWeight: 500,
     fontSize: "14px",
