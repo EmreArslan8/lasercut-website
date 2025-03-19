@@ -9,7 +9,6 @@ import {
   Box,
   Paper,
   Grid2,
-  Grid,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
@@ -20,52 +19,57 @@ import { Link } from "@/i18n";
 
 const Arcade = () => {
   const [selectedFrame, setSelectedFrame] = useState<"dxf" | "image">("dxf");
+  const [iframeLoaded, setIframeLoaded] = useState(false); // 🚀 iframe'in yüklenmesini kontrol eder
   const t = useTranslations("Arcade");
   const { mdUp } = useScreen();
   const { setDrawerOpen } = useDrawer();
+
+  const handleLoadIframe = (frame: "dxf" | "image") => {
+    setSelectedFrame(frame);
+    if (!iframeLoaded) {
+      setIframeLoaded(true);
+    }
+  };
 
   return (
     <Stack sx={styles.wrapper}>
       <Container maxWidth="xl" sx={styles.container}>
         <Typography variant="h2" sx={styles.title}>
-          {" "}
-          {t("title")}{" "}
+          {t("title")}
         </Typography>
         <Typography variant="subtitle1" sx={styles.description}>
-          {" "}
-          {t("description")}{" "}
+          {t("description")}
         </Typography>
         <Stack direction="row" sx={styles.buttonContainer}>
           <Button
-            variant={selectedFrame === "dxf" ? "contained" : "outlined"}
+            variant="outlined"
             color="primary"
             size="medium"
-            onClick={() => setSelectedFrame("dxf")}
+            onClick={() => handleLoadIframe("dxf")}
           >
             {t("button1")}
           </Button>
 
           <Button
-            variant={selectedFrame === "image" ? "contained" : "outlined"}
+            variant="outlined"
             size="medium"
             color="primary"
-            onClick={() => setSelectedFrame("image")}
+            onClick={() => handleLoadIframe("image")}
           >
             {t("button2")}
           </Button>
         </Stack>
+
         <Box sx={styles.sectionWrapper}>
-          {/* Başlık */}
           <Typography variant="h2" sx={styles.sectionTitle}>
             {t("section")}
           </Typography>
 
-          {/* Frame Wrapper */}
           <Box sx={styles.frameWrapper}>
-            {selectedFrame === "dxf" && (
+            {iframeLoaded && selectedFrame === "dxf" && (
               <iframe
                 src="https://demo.arcade.software/cprLdNTLy15i72nFanYS?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-                title="2dcut.com"
+                title="2dtocut.com"
                 frameBorder="0"
                 loading="lazy"
                 allowFullScreen
@@ -80,7 +84,7 @@ const Arcade = () => {
                 }}
               />
             )}
-            {selectedFrame === "image" && (
+            {iframeLoaded && selectedFrame === "image" && (
               <iframe
                 src="https://demo.arcade.software/03BAKVkURRqW995ny5B5?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
                 frameBorder="0"
@@ -104,7 +108,6 @@ const Arcade = () => {
           <Stack sx={styles.paperWrapper}>
             <Paper elevation={3} sx={styles.paper}>
               <Grid2 container spacing={2} alignItems="center">
-                {/* 📌 Sol Taraf (Başlık + Açıklama + Butonlar) */}
                 <Grid2 size={{ xs: 12, md: 8 }} sx={styles.content}>
                   <Typography variant="h5" sx={styles.title2}>
                     {t("paperTitle")}
@@ -128,7 +131,6 @@ const Arcade = () => {
                   </Typography>
                 </Grid2>
 
-                {/* 📌 Sağ Taraf (Resim - Hep Sağda) */}
                 <Grid2 size={{ xs: 12, md: 4 }} sx={styles.paperImage}>
                   <Image
                     src="/static/images/upload.svg"

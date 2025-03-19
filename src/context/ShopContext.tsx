@@ -56,13 +56,23 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // İlk yüklemede, localStorage'deki verileri okuyoruz.
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
+  
     if (storedCart) {
-      setCartItemsState(JSON.parse(storedCart));
+      setCartItemsState(JSON.parse(storedCart)); // ✅ Eğer localStorage doluysa, API çağırma
+    } else {
+    
+      const sessionId = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("cart_sess_id="))
+        ?.split("=")[1];
+  
+      if (sessionId) {
+        fetchCartFromAPI(sessionId); 
+      }
     }
-    if (cartSessionId) {
-      fetchCartFromAPI(cartSessionId);
-    }
-  }, [cartSessionId]);
+  }, []); // 🔥 BAĞIMLILIK YOK! Sadece ilk render'da çalışır.
+  
+  
 
   const fetchCartFromAPI = async (cartSessId: string): Promise<void> => {
     try {
@@ -204,7 +214,6 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const updated = prev.includes(id)
         ? prev.filter((i) => i !== id)
         : [...prev, id];
-      console.log("Seçili Ürünler Güncellendi:", updated);
       return updated;
     });
   };

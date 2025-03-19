@@ -3,16 +3,16 @@
 import { useState } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import { Box, Stack, Typography, Button, Modal, Grid2 } from "@mui/material";
+import { Box, Stack, Typography, Button, Modal, Grid2, IconButton } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useScreen from "@/lib/hooks/useScreen";
 import { useTranslations } from "next-intl";
 import theme from "@/theme/theme";
 import styles from "./styles";
-import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import Counter from "../common/Counter";
+import { X } from "lucide-react";
 
 const images = [
   { id: 1, src: "https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467", alt: "Laser Cut Desktop 1" },
@@ -109,7 +109,8 @@ const BannerSlider = () => {
                   </Button>
                   <Modal open={videoOpen} onClose={handleVideoClose}>
                     <Box sx={styles.modal}>
-                      <Icon name="close" onClick={handleVideoClose} sx={styles.closeIcon} />
+                      <IconButton onClick={handleVideoClose} sx={styles.closeIcon} > <X />
+                        </IconButton>
                       <Box sx={{ position: "relative", paddingTop: "56.25%" }}>
                         <iframe
                           width="100%"

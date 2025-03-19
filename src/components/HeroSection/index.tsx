@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { Box, Button, Typography, Stack, Grid2 } from "@mui/material";
-import { palette } from "@/theme/theme";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
-import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import useScreen from "@/lib/hooks/useScreen";
+import { CloudUpload  } from "lucide-react";
 
 const HeroSection = () => {
   const t = useTranslations("HeroSection");
@@ -53,7 +52,7 @@ const HeroSection = () => {
                   sx={styles.button}
                 >
                   {t("button")}
-                  <Icon name="publish" sx={styles.icon} />
+                  <CloudUpload style={{ marginLeft: "8px" }}/>
                 </Button>
               </Grid2>
             </Grid2>
@@ -78,7 +77,7 @@ const HeroSection = () => {
                   sx={styles.button}
                 >
                   {t("button")}
-                  <Icon name="publish" sx={styles.icon} />
+                  <CloudUpload style={{ marginLeft: "8px" }}/>
                 </Button>
               </Box>
             </Stack>

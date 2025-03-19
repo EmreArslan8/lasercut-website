@@ -7,14 +7,15 @@ import {
   Typography,
   LinearProgress,
   Button,
+  IconButton,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
 import Stepper from "../Stepper";
 import OrderDetails from "../OrderDetails";
-import Icon from "../common/Icon";
 import { truncateText } from "@/lib/utils/truncateText";
 import { useDrawer } from "@/context/DrawerContext";
+import { Upload, X } from "lucide-react";
 
 interface FileUploadDrawerProps {
   files: File[];
@@ -59,7 +60,9 @@ const FileUploadDrawer = ({
       PaperProps={{ sx: styles.drawer }}
     >
       <Box sx={styles.drawerContent}>
-      <Icon name="close"  sx={styles.closeButton} onClick={() => setDrawerOpen(false)} />
+      <IconButton sx={styles.closeButton} onClick={() => setDrawerOpen(false)} >
+         <X size={36} />
+         </IconButton>
         {uploadedFile ? (
           isLoading ? (
             <Stack alignItems="center" sx={{ mt: 2 }}>
@@ -105,8 +108,8 @@ const FileUploadDrawer = ({
               <Stack spacing={3} alignItems="center">
                 <Typography variant="h6">{t("drawerTitle")}</Typography>
                 <Typography variant="body">{t("uploadDescription")}</Typography>
-                <Button variant="contained" size="large">
-                  <Icon name="upload" sx={{ fontSize: 22 }} />
+                <Button variant="contained" size="large" sx={{gap: 1}}>
+                <Upload />
                   {t("uploadFile")}
                 </Button>
               </Stack>

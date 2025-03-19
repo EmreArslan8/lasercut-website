@@ -9,6 +9,7 @@ import {
   ListItemButton,
   ListItemText,
   Button,
+  IconButton,
 } from "@mui/material";
 
 import Image from "next/image";
@@ -16,12 +17,12 @@ import useScreen from "@/lib/hooks/useScreen";
 import { palette } from "@/theme/theme";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useTranslations } from "next-intl";
-import Icon from "../common/Icon";
 import { usePathname } from "next/navigation";
 import { useDrawer } from "@/context/DrawerContext";
 import Link from "../common/Link";
 import styles from "./styles";
 import { useShop } from "@/context/ShopContext";
+import { Menu, ShoppingBag } from "lucide-react";
 
 const navLinks = ["examples", "about-us", "faq", "contact"];
 
@@ -66,13 +67,26 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
 
         {mdDown ? (
           <Stack direction="row" alignItems="center" spacing={1}>
-            <Badge badgeContent={cartItems?.length ?? 0} sx={styles.badge}>
-              <Link href="/cart" style={{ display: "flex", alignItems: "center" }}>
-                <Icon name="shopping_bag" color="white" sx={styles.menuIcon} />
+            <Badge
+              badgeContent={cartItems?.length ?? 0}
+              color="primary"
+              sx={styles.badge}
+            >
+              <Link
+                href="/cart"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <ShoppingBag color="white" size={24} />
               </Link>
             </Badge>
             <LanguageSwitcher />
-            <Icon name="menu" color="white" onClick={() => setMenuOpen(!menuOpen)} />
+            <IconButton
+              size="small"
+              sx={{ padding: 0, minWidth: "auto" }}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <Menu color="white" size={24} />
+            </IconButton>
           </Stack>
         ) : (
           <Stack direction="row" alignItems="center" spacing={4}>
@@ -84,9 +98,15 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
               ))}
             </Stack>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Badge badgeContent={cartItems.length} sx={{ cursor: "pointer" }}>
+              <Badge
+                badgeContent={cartItems.length}
+                color="primary"
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
                 <Link href="/cart">
-                  <Icon name="shopping_bag" color="white" sx={{ fontSize: 36 }} />
+                  <ShoppingBag color="white" size={36} />
                 </Link>
               </Badge>
               <LanguageSwitcher />
@@ -99,7 +119,13 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
         <Collapse in={menuOpen} timeout="auto" unmountOnExit>
           <List sx={styles.menuList}>
             {navLinks.map((key) => (
-              <Link key={key} href={`/${key}`} passHref style={styles.link} onClick={() => setMenuOpen(false)}>
+              <Link
+                key={key}
+                href={`/${key}`}
+                passHref
+                style={styles.link}
+                onClick={() => setMenuOpen(false)}
+              >
                 <ListItemButton>
                   <ListItemText primary={t(key)} />
                 </ListItemButton>

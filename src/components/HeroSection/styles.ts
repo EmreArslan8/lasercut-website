@@ -80,10 +80,7 @@ const styles = {
     bgcolor: "white",
     color: "primary.main",
     borderRadius: 1,
-    mt: 2
-  },
-  icon: {
-    ml: 0.5,
+    mt: 2,
   },
 };
 

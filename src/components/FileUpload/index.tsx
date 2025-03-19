@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
-import { useTranslations } from "next-intl";
 import FileUploadDrawer from "./FileUploadDrawer";
 import { useDrawer } from "@/context/DrawerContext";
 

@@ -1,19 +1,18 @@
 "use client";
 
-import { Box, Button, Grid, Stack, Typography, IconButton } from "@mui/material";
-import { CheckCircle, PlayCircle } from "lucide-react";
+import { Box, Button, Grid2, Stack, Typography } from "@mui/material";
+import { CheckCircle, Play } from "lucide-react";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
 import Link from "../common/Link";
 import useScreen from "@/lib/hooks/useScreen";
 import { useState } from "react";
 import Image from "next/image";
-import Icon from "../common/Icon";
 
 const MaterialSection = () => {
   const t = useTranslations("MaterialSection");
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const {isMobile , mdUp}= useScreen();
+  const { isMobile, mdUp } = useScreen();
   const thumbnailHeight = mdUp ? 400 : 200;
 
   const materials = Object.keys(t.raw("materials")).map((key) =>
@@ -24,10 +23,13 @@ const MaterialSection = () => {
 
   return (
     <Box sx={styles.wrapper}>
-      <Grid container spacing={isMobile ? 0 : 4} alignItems="center">
-        <Grid item xs={12} md={6} sx={{ position: "relative" }}>
+      <Grid2 container spacing={isMobile ? 0 : 4} alignItems="center">
+        <Grid2 size={{ xs: 12, md: 6 }} sx={{ position: "relative" }}>
           {!videoLoaded ? (
-            <Box sx={{ position: "relative", cursor: "pointer" }} onClick={handleVideoLoad}>
+            <Box
+              sx={{ position: "relative", cursor: "pointer" }}
+              onClick={handleVideoLoad}
+            >
               <Image
                 src="/static/images/banner2.webp"
                 alt="Video Thumbnail"
@@ -35,14 +37,15 @@ const MaterialSection = () => {
                 height={thumbnailHeight}
                 style={{ width: "100%", height: "auto", borderRadius: 8 }}
               />
-              <Icon
-              name="play_arrow"
-              fontSize={30}
-                sx={{ position: "absolute", bottom: 16, left: 16, bgcolor: "rgba(0,0,0,0.6)", color: "#fff" }}
-        
-             / >
-                
-              
+              <Play
+                fontSize={30}
+                style={{
+                  position: "absolute",
+                  bottom: 16,
+                  left: 16,
+                  color: "#fff",
+                }}
+              />
             </Box>
           ) : (
             <Box
@@ -55,10 +58,10 @@ const MaterialSection = () => {
               sx={styles.video}
             />
           )}
-        </Grid>
+        </Grid2>
 
         {/* Text Content */}
-        <Grid item xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <Stack spacing={3} sx={styles.textContent}>
             <Typography variant="h3" sx={styles.title}>
               {t("title")}
@@ -66,16 +69,16 @@ const MaterialSection = () => {
             <Typography variant="h2">{t("subtitle")}</Typography>
             <Typography sx={styles.description}>{t("description")}</Typography>
             {materials.length > 0 ? (
-              <Grid container spacing={2}>
+              <Grid2 container spacing={2}>
                 {materials.map((item, index) => (
-                  <Grid item xs={6} key={index}>
+                  <Grid2 size={{ xs: 6 }} key={index}>
                     <Stack direction="row" spacing={1} alignItems="center">
                       <CheckCircle size={30} color="#006FBF" />
                       <Typography variant="body2">{item}</Typography>
                     </Stack>
-                  </Grid>
+                  </Grid2>
                 ))}
-              </Grid>
+              </Grid2>
             ) : (
               <Typography color="error">Materials data is missing!</Typography>
             )}
@@ -85,8 +88,8 @@ const MaterialSection = () => {
               </Button>
             </Link>
           </Stack>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };

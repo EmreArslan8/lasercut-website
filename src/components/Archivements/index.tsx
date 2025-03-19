@@ -2,7 +2,7 @@ import { Box, Container, Typography, Grid } from "@mui/material";
 import { useTranslations } from "next-intl";
 import styles from "./styles";
 import Counter from "../common/Counter";
-import { palette } from "@/theme/theme";
+
 
 const achievements = [
   { start: 0, end: 3, suffix: "+" as const, key: "experience" },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   List,
   ListItem,
@@ -13,36 +13,30 @@ import {
   Grid2,
   TextField,
   Tooltip,
+  IconButton,
 } from "@mui/material";
 import styles from "./styles";
 import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
-import { ShoppingCart } from "lucide-react";
+import { Info, ShoppingCart, Trash2} from "lucide-react";
 import { CartItem } from "@/lib/api/types";
 import { generateOrderEmail } from "@/lib/utils/emailTemplates";
 import TermsModal from "@/components/TermsModal";
 import { calculateTotalPrice } from "@/lib/utils/calculatePrice";
-import Icon from "@/components/common/Icon";
-import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 const DesktopCart = () => {
   const {
     cartItems,
-    setCartItems,
     selectedItems,
     toggleSelectItem,
     getSelectedItems,
     proceedToCheckout,
     removeFromCart,
-    fetchCartFromAPI,
   } = useShop();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isSuccessOpen, setSuccessOpen] = useState(false);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const t = useTranslations("CartPage");
@@ -63,9 +57,6 @@ const DesktopCart = () => {
 
   const handleCheckout = async () => {
     console.log("🟢 handleCheckout TETİKLENDİ");
-
-    if (isLoading) return;
-    setIsLoading(true);
 
     try {
       if (!validateCustomerInfo()) {
@@ -94,6 +85,8 @@ const DesktopCart = () => {
       }
 
       localStorage.setItem("checkoutId", newCheckoutId);
+      console.log("🔍 Seçili Ürünler:", selectedCartItems);
+      console.log("🔍 Checkout ID:", newCheckoutId);
 
       await sendSlackNotification(selectedCartItems);
       await sendEmailNotification(selectedCartItems);
@@ -172,28 +165,10 @@ const DesktopCart = () => {
       body: JSON.stringify(emailContent),
     });
   };
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      setIsLoading(false);
-    } else {
-    }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const cartSessId = localStorage.getItem("cart_sess_id"); // Sizin mantığınıza göre değişebilir
-    if (cartSessId) {
-      fetchCartFromAPI(cartSessId).finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [fetchCartFromAPI]);
 
   return (
     <Stack sx={styles.cartContainer}>
-      {isLoading ? (
-        // 1) Yükleniyor Ekranı
-        <LoadingOverlay loading={true} />
-      ) : cartItems.length === 0 ? (
+      {cartItems.length === 0 ? (
         <Stack spacing={5} sx={styles.emptyCart}>
           <ShoppingCart size={200} />
           <Typography variant="h5">{t("cartInfo")}</Typography>
@@ -279,16 +254,17 @@ const DesktopCart = () => {
                               ).toFixed(2)} TL`}
                           <Tooltip title={t("itemPriceInfo")} arrow>
                             <Box sx={styles.itemPrice}>
-                              <Icon name="info" fontSize={16} color="gray" />
+                            <Info size={16} color="gray" />
                             </Box>
                           </Tooltip>
                         </Typography>
                       </Box>
-                      <Icon
-                        name="delete"
+                      <IconButton
                         onClick={() => removeFromCart(item.id)}
                         sx={styles.deleteIcon}
-                      />
+                      >
+                        <Trash2 />
+                      </IconButton>
                     </ListItem>
                     {index < cartItems.length - 1 && (
                       <Divider sx={styles.divider} />
@@ -388,14 +364,12 @@ const DesktopCart = () => {
                     </Typography>
                   )}
                 </Stack>
-
-                {/* Place Order Button */}
                 <Button
                   variant="contained"
                   color="primary"
                   fullWidth
                   onClick={handleCheckout}
-                  disabled={loading || !isProductsSelected || !acceptedTerms}
+                  disabled={!isProductsSelected || !acceptedTerms}
                 >
                   {t("placeOrder")}
                 </Button>

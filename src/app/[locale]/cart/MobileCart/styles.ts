@@ -59,7 +59,6 @@ const styles = {
   deleteButton: {
     display: "flex",
     alignItems: "center",
-    gap: 0.5,
     mt: 1,
     cursor: "pointer",
     color: "error.main",

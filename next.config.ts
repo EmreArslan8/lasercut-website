@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-  openAnalyzer: false, // Tarayıcıda açmasını engelle
+  openAnalyzer: true, // Tarayıcıda açmasını engelle
   generateStatsFile: true, // JSON dosyası oluştur
   statsFilename: "webpack-stats.json", // JSON dosya adı
 });

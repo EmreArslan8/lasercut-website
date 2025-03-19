@@ -13,8 +13,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useScreen from "@/lib/hooks/useScreen";
 import { useLocale } from "next-intl";
-import Icon from "../common/Icon";
 import styles from "./styles";
+import { ChevronDown, Globe } from "lucide-react";
 
 const LanguageSwitcher = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -51,16 +51,16 @@ const LanguageSwitcher = () => {
       {/* 🔹 Mobilde yalnızca IconButton */}
       {mdDown ? (
         <IconButton onClick={handleMenuOpen} sx={styles.mobileButton}>
-          <Icon name="language" sx={styles.icon} />
+        <Globe color="white" />
         </IconButton>
       ) : (
-        // 🔹 Masaüstünde tam genişlikte dil değiştirme butonu
+
         <Box onClick={handleMenuOpen} sx={styles.desktopButton}>
-          <Icon name="language" sx={styles.icon} />
+          <Globe color="black"/>
           <Typography sx={styles.languageText}>
             {locale.toUpperCase()}
           </Typography>
-          <Icon name="keyboard_arrow_down" color="black" />
+          <ChevronDown color="black" />
         </Box>
       )}
 

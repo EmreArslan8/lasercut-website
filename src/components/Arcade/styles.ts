@@ -1,4 +1,4 @@
-import theme, { palette } from "@/theme/theme";
+import theme from "@/theme/theme";
 
 const styles = {
   wrapper: { width: "100%", py: 8 },

@@ -1,5 +1,3 @@
-import { palette } from "@/theme/theme";
-
 const styles = {
   wrapper: {
     maxWidth: "lg",

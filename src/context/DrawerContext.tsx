@@ -1,7 +1,7 @@
 // contexts/DrawerContext.tsx
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const DrawerContext = createContext<{
   isDrawerOpen: boolean;

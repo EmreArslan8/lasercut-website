@@ -20,10 +20,10 @@ import theme from "@/theme/theme";
 import { useShop } from "@/context/ShopContext";
 import MaterialCardList from "../MaterialCarousel";
 import styles from "./styles";
-import Icon from "../common/Icon";
 import { uploadFileToSupabase } from "@/lib/utils/uploadFile";
 import capitalize from "@/lib/utils/capitalize";
 import { calculatePrice } from "@/lib/utils/calculatePrice";
+import { FolderInput  } from "lucide-react";
 
 interface Material {
   key: string;
@@ -49,7 +49,6 @@ interface DisplayFilesProps {
 
 const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
   const { addToCart, updateCartItem } = useShop();
-  const [, setDrawerOpen] = useState(true);
   const [selectedMaterial, setSelectedMaterial] = useState("Black Sheet");
   const [thickness, setThickness] = useState("1");
   const [quantity, setQuantity] = useState("1");
@@ -182,7 +181,7 @@ const OrderDetails: React.FC<DisplayFilesProps> = ({ files }) => {
     <Stack direction="row">
       <Box sx={styles.mainContent}>
         <Box sx={styles.fileHeader}>
-          <Icon name="upload_file" sx={{ fontSize: 40 }} />
+        <FolderInput size={40} />
           <Typography variant="h5" sx={styles.fileName}>
             {files[0]?.name}
           </Typography>

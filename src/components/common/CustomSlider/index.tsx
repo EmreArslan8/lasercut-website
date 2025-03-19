@@ -1,12 +1,12 @@
-import Icon from '../Icon';
 
-import { useRef } from 'react';
-import Slider, { Settings as ReactSlickSliderSettings } from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-import styles from './styles';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { useRef } from "react";
+import Slider, { Settings as ReactSlickSliderSettings } from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import styles from "./styles";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CustomSliderProps extends ReactSlickSliderSettings {}
 
@@ -34,18 +34,12 @@ const CustomSlider = ({
       >
         {children}
       </Slider>
-      <Button
-  onClick={goToPrevSlide}
-  sx={styles.prevButton}
->
-  <Icon name="chevron_left" fontSize={30} />
-</Button>
-<Button
-  onClick={goToNextSlide}
-  sx={styles.nextButton}
->
-  <Icon name="chevron_right" fontSize={30} />
-</Button>
+      <Button onClick={goToPrevSlide} sx={styles.prevButton}>
+        <ChevronLeft size={30} />
+      </Button>
+      <Button onClick={goToNextSlide} sx={styles.nextButton}>
+        <ChevronRight size={30} />
+      </Button>
     </Stack>
   );
 };

@@ -47,7 +47,7 @@ export default function NotFoundPage() {
           </Box>
         </Typography>
         <Typography sx={{ maxWidth: 500, mb: 4, color: "text.secondary" }}>
-          Sorry, the page you are looking for doesn't exist, has been moved, or
+          Sorry, the page you are looking for doesn&apos;t exist, has been moved, or
           is temporarily unavailable. Please return to the homepage.
         </Typography>
         <Link href="/">

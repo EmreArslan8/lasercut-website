@@ -12,7 +12,6 @@ import {
 import Image from "next/image";
 import styles from "./styles";
 import { useTranslations } from "next-intl";
-import { defaultMaxWidth } from "@/theme/theme";
 
 const services = [
   {

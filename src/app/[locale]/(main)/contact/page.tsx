@@ -10,7 +10,6 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { useTranslations } from "next-intl";
 

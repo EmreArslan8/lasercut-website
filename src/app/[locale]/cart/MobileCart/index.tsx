@@ -12,17 +12,17 @@ import {
   Modal,
   TextField,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./styles";
-import Icon from "@/components/common/Icon";
 import { useLocale, useTranslations } from "next-intl";
 import { calculateTotalPrice } from "@/lib/utils/calculatePrice";
 import { CartItem, useShop } from "@/context/ShopContext";
 import { useRouter } from "next/navigation";
 import TermsModal from "@/components/TermsModal";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Image, Minus, Plus, Trash, Info } from "lucide-react";
 import { generateOrderEmail } from "@/lib/utils/emailTemplates";
 import { truncateText } from "@/lib/utils/truncateText";
 
@@ -35,7 +35,6 @@ const MobileCart = () => {
     getSelectedItems,
     proceedToCheckout,
     removeFromCart,
-    fetchCartFromAPI,
   } = useShop();
   const [isModalOpen, setModalOpen] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -56,27 +55,6 @@ const MobileCart = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return emailRegex.test(email);
   };
-
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      setIsLoading(false);
-    } else {
-      // Eğer context boşsa, localStorage'den veriyi okuyabilirsiniz.
-      const storedCart = localStorage.getItem("cart");
-      if (storedCart) {
-        setCartItems(JSON.parse(storedCart));
-      }
-    }
-  }, [cartItems, setCartItems]);
-
-  useEffect(() => {
-    const cartSessId = localStorage.getItem("cart_sess_id");
-    if (cartSessId) {
-      fetchCartFromAPI(cartSessId).finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
-    }
-  }, [fetchCartFromAPI]);
 
   const handleQuantityChange = (
     index: number,
@@ -170,7 +148,7 @@ const MobileCart = () => {
         thickness: item.thickness,
         quantity: item.quantity,
         price: locale === "en" ? `${item.priceUSD} USD` : `${item.priceTL} TL`,
-        fileUrl: item.fileUrl || "Dosya Yok", // ✅ `fileUrl` artık cartItems içinde var!
+        fileUrl: item.fileUrl || "Dosya Yok",
       })),
     };
 
@@ -288,30 +266,35 @@ const MobileCart = () => {
                         borderRadius: "8px",
                       }}
                     >
-                      <Icon name="image" />
+                      <Image />
                     </Box>
                   )}
 
                   <Box sx={styles.quantityContainer}>
                     <Box sx={styles.quantityBox}>
-                      <Icon
-                        name="remove"
+                      <IconButton
+                        sx={{ p: 0.5 }}
                         onClick={() => handleQuantityChange(index, "decrease")}
-                      />
+                      >
+                        <Minus />
+                      </IconButton>
                       <Typography variant="h3">{item.quantity}</Typography>
-                      <Icon
-                        name="add"
+                      <IconButton
+                        sx={{ p: 0.5 }}
                         onClick={() => handleQuantityChange(index, "increase")}
-                      />
+                      >
+                        <Plus />
+                      </IconButton>
                     </Box>
                     <Box
                       sx={styles.deleteButton}
                       onClick={() => removeFromCart(item.id)}
                     >
-                      <Icon
-                        name="delete"
-                        sx={{ color: "error", fontSize: 16 }}
-                      />
+                      <IconButton
+                        sx={{ color: "error", fontSize: 16, pr: 0.5 }}
+                      >
+                        <Trash size={16} strokeWidth={3} color="#e84121" />
+                      </IconButton>
                       <Typography
                         variant="body2"
                         fontWeight="bold"
@@ -363,7 +346,7 @@ const MobileCart = () => {
                           ).toFixed(2)} TL`}
                       <Tooltip title={t("itemPriceInfo")} arrow>
                         <Box sx={styles.itemPrice}>
-                          <Icon name="info" fontSize={12} color="gray" />
+                          <Info size={16} color="gray" />
                         </Box>
                       </Tooltip>
                     </Typography>

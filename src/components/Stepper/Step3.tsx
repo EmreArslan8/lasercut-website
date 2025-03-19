@@ -16,10 +16,9 @@ import {
   Modal,
 } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
-import Icon from "../common/Icon";
 import { useDrawer } from "@/context/DrawerContext";
 import { useRouter } from "next/navigation";
-import Link from "../common/Link";
+import { CircleCheckBig } from "lucide-react";
 
 const Step3 = ({
   svg,
@@ -40,9 +39,6 @@ const Step3 = ({
     setDrawerOpen(false);
   };
 
- 
-
-
   const router = useRouter();
   const locale = useLocale();
 
@@ -61,7 +57,6 @@ const Step3 = ({
       setDrawerOpen(false); // Sonra Drawer'ı kapat
     }, 50); // Küçük bir gecikme ile ana sayfanın görünmesini engelle
   };
-
 
   const handleConfirm = () => setModalOpen(true);
 
@@ -222,41 +217,53 @@ const Step3 = ({
           {t("buttons.confirm")}
         </Button>
         <Modal open={isModalOpen} onClose={() => setModalOpen(false)}>
-      <Box
-        sx={{
-          width: { xs: 320, sm: 440 },
-          bgcolor: "white",
-          p: 4,
-          mx: "auto",
-          my: "20vh",
-          boxShadow: 24,
-          textAlign: "center",
-          borderRadius: 2,
-        }}
-      >
-        <Icon name="check_circle" sx={{ fontSize: 60, color: "green", mb: 2 }} />
+          <Box
+            sx={{
+              width: { xs: 320, sm: 440 },
+              bgcolor: "white",
+              p: 4,
+              mx: "auto",
+              my: "20vh",
+              boxShadow: 24,
+              textAlign: "center",
+              borderRadius: 2,
+            }}
+          >
+            <CircleCheckBig
+              size={120}
+              color="green"
+              style={{ marginBottom: 2 }}
+            />
 
-        <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
-          🎉 {t("modalTitle")}
-        </Typography>
+            <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>
+              🎉 {t("modalTitle")}
+            </Typography>
 
-        <Typography variant="body1" sx={{ color: "text.secondary", mb: 4 }}>
-          {t("modalDescription")}
-        </Typography>
+            <Typography variant="body1" sx={{ color: "text.secondary", mb: 4 }}>
+              {t("modalDescription")}
+            </Typography>
 
-        <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 3 }}>
-          <Button variant="outlined" fullWidth onClick={handleGoHome}>
-            {t("homeButton")}
-          </Button>
+            <Stack
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+              sx={{ mt: 3 }}
+            >
+              <Button variant="outlined" fullWidth onClick={handleGoHome}>
+                {t("homeButton")}
+              </Button>
 
-        
-            <Button variant="contained" color="primary"  fullWidth  onClick={handleGoToCart}>
-              {t("cartButton")}
-            </Button>
-         
-        </Stack>
-      </Box>
-    </Modal>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handleGoToCart}
+              >
+                {t("cartButton")}
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
       </Box>
     </Box>
   );
