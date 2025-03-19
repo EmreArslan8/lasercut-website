@@ -10,8 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/faq",
     "/contact",
     "/blog/how-to-easy-engineering",
-    "blog/the-future-of-laser-cutting",
-    "blog/maximizing-productivity-in-fabrication",
+    "/blog/the-future-of-laser-cutting",
+    "/blog/maximizing-productivity-in-fabrication",
   ];
 
   // 🔹 URLs değişkenine açık bir tür tanımlıyoruz.
