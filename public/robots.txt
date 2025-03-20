@@ -1,6 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Sitemaps
-Sitemap: https://www.2dtocut.com/sitemap.xml
