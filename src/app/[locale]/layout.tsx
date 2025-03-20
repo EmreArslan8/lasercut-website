@@ -38,10 +38,8 @@ export default async function RootLayout({
           href="https://cdn.shopify.com"
           crossOrigin="anonymous"
         />
-        <link
-          rel="canonical"
-          href={`https://www.2dtocut.com/${params.locale}`}
-        />
+        <link rel="preload" href="https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467&q=75" />
+ 
       </head>
 
       <body

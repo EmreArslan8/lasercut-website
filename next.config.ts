@@ -15,6 +15,19 @@ const nextConfig: NextConfig = withBundleAnalyzer({
   async headers() {
     return [
       {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow", 
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, must-revalidate",
+          },
+        ],
+      },
+      {
         // /fonts klasöründeki tüm dosyalar için uzun süreli cache
         source: "/fonts/(.*)",
         headers: [
