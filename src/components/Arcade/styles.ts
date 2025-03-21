@@ -12,7 +12,6 @@ const styles = {
     mb: { xs: 1, md: 3 },
     bgColor: "white",
     fontSize: { xs: "24px", sm: "20px", md: "24px" },
-    display: { xs: "none", sm: "block" },
   },
   buttonDescription: {
     mb: { xs: 3, md: 2 },
@@ -20,7 +19,6 @@ const styles = {
     maxWidth: 600,
     mx: "auto",
     fontSize: { xs: "16px", md: "20px" },
-    display: { xs: "none", sm: "block" },
   },
   title: {
     fontWeight: "bold",

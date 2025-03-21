@@ -22,7 +22,7 @@ const Arcade = () => {
   const [selectedFrame, setSelectedFrame] = useState<"dxf" | "image">("dxf");
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const t = useTranslations("Arcade");
-  const { mdUp } = useScreen();
+  const { isMobile, mdUp } = useScreen();
   const { setDrawerOpen } = useDrawer();
 
   const handleFrameChange = (frame: "dxf" | "image") => {
@@ -43,12 +43,16 @@ const Arcade = () => {
         </Typography>
 
         <Box sx={styles.sectionWrapper}>
-          <Typography variant="h2" sx={styles.sectionTitle}>
-            {t("section")}
-          </Typography>
-          <Typography variant="h5" sx={styles.buttonDescription}>
-            Click button to learn how it works
-          </Typography>
+          {!isMobile && (
+            <>
+              <Typography variant="h2" sx={styles.sectionTitle}>
+                {t("section")}
+              </Typography>
+              <Typography variant="h5" sx={styles.buttonDescription}>
+                Click button to learn how it works
+              </Typography>
+            </>
+          )}
 
           <Stack direction="row" sx={styles.buttonContainer}>
             <Button
