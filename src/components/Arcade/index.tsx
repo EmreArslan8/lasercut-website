@@ -16,15 +16,16 @@ import useScreen from "@/lib/hooks/useScreen";
 import Image from "next/image";
 import { useDrawer } from "@/context/DrawerContext";
 import { Link } from "@/i18n";
+import ArcadePlaceholder from "../ArcadePlaceholder";
 
 const Arcade = () => {
   const [selectedFrame, setSelectedFrame] = useState<"dxf" | "image">("dxf");
-  const [iframeLoaded, setIframeLoaded] = useState(false); // 🚀 iframe'in yüklenmesini kontrol eder
+  const [iframeLoaded, setIframeLoaded] = useState(false);
   const t = useTranslations("Arcade");
   const { mdUp } = useScreen();
   const { setDrawerOpen } = useDrawer();
 
-  const handleLoadIframe = (frame: "dxf" | "image") => {
+  const handleFrameChange = (frame: "dxf" | "image") => {
     setSelectedFrame(frame);
     if (!iframeLoaded) {
       setIframeLoaded(true);
@@ -40,32 +41,36 @@ const Arcade = () => {
         <Typography variant="subtitle1" sx={styles.description}>
           {t("description")}
         </Typography>
-        <Stack direction="row" sx={styles.buttonContainer}>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="medium"
-            onClick={() => handleLoadIframe("dxf")}
-          >
-            {t("button1")}
-          </Button>
-
-          <Button
-            variant="outlined"
-            size="medium"
-            color="primary"
-            onClick={() => handleLoadIframe("image")}
-          >
-            {t("button2")}
-          </Button>
-        </Stack>
 
         <Box sx={styles.sectionWrapper}>
           <Typography variant="h2" sx={styles.sectionTitle}>
             {t("section")}
           </Typography>
+          <Typography variant="h5" sx={styles.buttonDescription}>
+            Click button to learn how it works
+          </Typography>
 
-          <Box sx={styles.frameWrapper}>
+          <Stack direction="row" sx={styles.buttonContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="medium"
+              onClick={() => handleFrameChange("dxf")}
+            >
+              {t("button1")}
+            </Button>
+            <Button
+              variant="outlined"
+              size="medium"
+              color="primary"
+              onClick={() => handleFrameChange("image")}
+            >
+              {t("button2")}
+            </Button>
+          </Stack>
+
+          <Box sx={styles.frameWrapper} suppressHydrationWarning>
+            {!iframeLoaded && <ArcadePlaceholder />}
             {iframeLoaded && selectedFrame === "dxf" && (
               <iframe
                 src="https://demo.arcade.software/cprLdNTLy15i72nFanYS?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"

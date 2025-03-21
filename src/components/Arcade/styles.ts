@@ -11,13 +11,23 @@ const styles = {
     zIndex: 100,
     mb: {xs: 1, md: 3},
     bgColor: "white",
-    fontSize: {xs: "24px", sm: "20px", md: "24px"}
+    fontSize: {xs: "24px", sm: "20px", md: "24px"},
+    display: { xs: "none", sm: "block" }, 
+  },
+  buttonDescription: {
+    mb: { xs: 3, md: 2 },
+    textAlign: "center",
+    maxWidth: 600,
+    mx: "auto",
+    fontSize: { xs: "16px", md: "20px" },
+    display: { xs: "none", sm: "block" }, 
   },
   title: {
     fontWeight: "bold",
     color: "#222",
     textAlign: "center",
     fontSize: { xs: "24px", md: "32px" },
+    mb: 2
   },
   description: {
     mb: { xs: 1, md: 4 },
@@ -30,7 +40,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     gap: 2,
-    mb: { xs: 6, md: 6 },
+
   },
   sectionWrapper: {
     maxWidth: "lg",
@@ -39,7 +49,7 @@ const styles = {
     background: { md: `linear-gradient(180deg, #ffffff 0%, #eef2ff 30%, #c7d2fe 60%, #60a5fa 90%)`},
     pb: {xs:0 , md: 3 },
     pt: 1,
-    py: {xs:0 , md: 3 },
+    py: {xs:2 , md: 3 },
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -53,9 +63,10 @@ const styles = {
       md: "calc(56%)",
     },
     height: 0,
-    width: { xs: "100%", md: "85%" },
+    width: { xs: "100%", },
     m: "0 auto",
   },
+
   iframe: {
     position: "absolute",
     top: 0,
