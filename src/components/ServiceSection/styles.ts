@@ -4,6 +4,7 @@ const styles = {
   container: {
     pb: 6,
     px: { xs: 2, md: 4 },
+pt:{ xs: 8, md: 1 },
   },
   sectionTitle: {
     color: theme.palette.primary.dark,

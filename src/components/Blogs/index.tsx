@@ -59,7 +59,7 @@ const BlogPost = () => {
                       {post.excerpt}
                     </Typography>
                     <Box sx={styles.readMoreButton}>
-                      <Link href={`/blog/${post.slug}`}>
+                      <Link href={`blog/${post.slug}`}>
                         <Button variant="text" color="primary">
                           Read More →
                         </Button>

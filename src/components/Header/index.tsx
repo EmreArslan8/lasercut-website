@@ -73,7 +73,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
               sx={styles.badge}
             >
               <Link
-                href="/cart"
+                href="cart"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <ShoppingBag color="white" size={24} />
@@ -92,7 +92,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
           <Stack direction="row" alignItems="center" spacing={4}>
             <Stack direction="row" spacing={3}>
               {navLinks.map((key) => (
-                <Link key={key} href={`/${key}`}>
+                <Link key={key} href={`${key}`}>
                   <Button sx={styles.button}>{t(key)}</Button>
                 </Link>
               ))}
@@ -105,7 +105,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
                   cursor: "pointer",
                 }}
               >
-                <Link href="/cart">
+                <Link href="cart">
                   <ShoppingBag color="white" size={36} />
                 </Link>
               </Badge>

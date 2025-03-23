@@ -38,7 +38,12 @@ export default async function RootLayout({
           href="https://cdn.shopify.com"
           crossOrigin="anonymous"
         />
-        <link rel="preload" href="https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467&q=75" />
+<link 
+  rel="preload" 
+  as="image"
+  href="https://cdn.shopify.com/s/files/1/0653/1602/8497/files/banner-desktop-1.webp?v=1742229467&q=75"
+/>
+
  
       </head>
 
