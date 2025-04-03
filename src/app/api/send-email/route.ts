@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     });
 
     const result = await transporter.sendMail({
-      from: process.env.GMAIL_USER,
+      from: `"2dtocut" <${process.env.GMAIL_USER}>`,
       to: recipientEmail,
       subject,
       text,

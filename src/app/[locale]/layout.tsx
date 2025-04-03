@@ -71,16 +71,32 @@ export const generateMetadata = async ({
 }: {
   params: { locale: Locale };
 }) => {
-  // params'ı await ediyoruz
   const awaitedParams = await Promise.resolve(params);
   const locale = awaitedParams.locale;
+
+  const baseUrl = "https://www.2dtocut.com";
+  const currentPath = `/${locale}`; // bu örnekte sadece /en veya /tr gibi
+  const canonicalUrl = `${baseUrl}${currentPath}`;
+
   return {
     title: "2dtocut | CNC Cutting Solutions",
     description: "High-quality CNC cutting services for your business needs.",
+    metadataBase: new URL(baseUrl),
+
+    alternates: {
+      canonical: locale === 'en' ? `${baseUrl}/en` : `${baseUrl}/${locale}`,
+      languages: {
+        en: `${baseUrl}/en`,
+        tr: `${baseUrl}/tr`,
+        "x-default": `${baseUrl}`, // otomatik yönlendirme yapılan sayfa
+      }
+    },
+    
+
     icons: {
-      icon: "/favicon.ico", // Varsayılan favicon
+      icon: "/favicon.ico",
       shortcut: "/favicon.ico",
-      apple: "/apple-touch-icon.png", // Apple Touch için 512x512
+      apple: "/apple-touch-icon.png",
       other: [
         {
           rel: "icon",
@@ -108,12 +124,13 @@ export const generateMetadata = async ({
         },
       ],
     },
+
     manifest: "/site.webmanifest",
-    metadataBase: new URL("https://2dtocut.com"),
+
     openGraph: {
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
-      url: "https://www.2dtocut.com",
+      url: canonicalUrl,
       siteName: "2dtocut",
       images: [
         {
@@ -127,3 +144,4 @@ export const generateMetadata = async ({
     },
   };
 };
+
