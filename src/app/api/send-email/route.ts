@@ -3,84 +3,46 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
+    const { subject, text, html } = await req.json();
 
+    // 🔒 Burada sabit alıcıyı belirliyoruz
+    const recipientEmail = process.env.GMAIL_USER;
 
-    const { subject, text, html, recipients } = await req.json();
-    
-    // **📌 Alıcı listesi belirle (eğer dışarıdan bir alıcı belirtilmemişse .env içindekileri kullan)**
-    const recipientEmails = recipients || [
-      process.env.GMAIL_USER,
-      process.env.MAIL_USER,
-    ].filter(Boolean); // `undefined` olanları kaldır
-
-    console.log("📩 Gönderilecek e-posta adresleri:", recipientEmails);
-
-    if (recipientEmails.length === 0) {
+    if (!subject || !text || !html) {
       return NextResponse.json(
-        { error: "At least one recipient email is required" },
+        { error: "Eksik veri: subject, text ve html zorunludur." },
         { status: 400 }
       );
     }
 
-    // **📌 Gmail ve Hotmail için ayrı transporter oluştur**
-    const gmailTransporter = process.env.GMAIL_USER
-      ? nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_PASS,
-          },
-        })
-      : null;
-      const mailTransporter = process.env.GMAIL_USER
-      ? nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS,
-          },
-        })
-      : null;
+    console.log("📩 Gönderilecek e-posta adresi:", recipientEmail);
 
-    // **📌 E-posta gönderme fonksiyonu**
-    const sendEmail = async (transporter: nodemailer.Transporter | null, user: string | undefined) => {
-      if (!transporter || !user) return null;
-      try {
-        return await transporter.sendMail({
-          from: user,
-          to: recipientEmails,
-          subject,
-          text,
-          html,
-        });
-      } catch (error) {
-        console.error(`🚨 ${user} için e-posta gönderme hatası:`, error);
-        return null;
-      }
-    };
-
-    // **📌 Aynı anda Gmail ve Hotmail'e e-posta gönder**
-    const [gmailResult, hotmailResult] = await Promise.all([
-      sendEmail(gmailTransporter, process.env.GMAIL_USER),
-      sendEmail(mailTransporter, process.env.TMAIL_USER),
-    ]);
-
-    console.log("✅ E-postalar gönderildi:", { gmailResult, hotmailResult });
-
-    return NextResponse.json({ message: "Emails sent successfully!" });
-  } catch (error: unknown) {
-    console.error(
-      "🚨 API Hatası:",
-      error instanceof Error ? error.message : "Unknown error",
-      error instanceof Error ? error.stack : ""
-    );
-    return NextResponse.json(
-      {
-        error: `Failed to send emails: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`,
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
+    });
+
+    const result = await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: recipientEmail,
+      subject,
+      text,
+      html,
+    });
+
+    console.log(`✅ Mail gönderildi: ${process.env.GMAIL_USER} -> ${recipientEmail}`);
+    console.log("📦 SMTP yanıtı:", result.response);
+
+    return NextResponse.json({ message: "E-posta başarıyla gönderildi." });
+  } catch (error: any) {
+    console.error("🚨 Mail gönderme hatası:", error.message);
+    return NextResponse.json(
+      { error: "Mail gönderilemedi", details: error.message },
       { status: 500 }
     );
   }
 }
+

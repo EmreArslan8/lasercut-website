@@ -152,19 +152,34 @@ const DesktopCart = () => {
         thickness: Number(item.thickness),
         quantity: item.quantity,
         price: locale === "en" ? `$${item.priceUSD} USD` : `${item.priceTL} TL`,
-        fileUrl: item.fileUrl || undefined, // ✅ `fileUrl` artık cartItems içinde var!
+        fileUrl: item.fileUrl || undefined,
       })),
     });
-
-    console.log("📦 Cart Items:", cartItems);
-
+  
+    console.log("📦 E-posta içeriği hazırlanıyor...");
     console.log("📧 E-Posta gönderiliyor...");
-    await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(emailContent),
-    });
+  
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailContent),
+      });
+  
+      const result = await res.json();
+  
+      if (res.ok) {
+        console.log("✅ E-posta başarıyla gönderildi!");
+        console.log("📬 API Yanıtı:", result);
+      } else {
+        console.error("❌ E-posta gönderim hatası (API status):", res.status);
+        console.error("🧾 Hata detayı:", result?.error || result);
+      }
+    } catch (err) {
+      console.error("🚨 Fetch sırasında beklenmeyen hata:", err);
+    }
   };
+  
 
   return (
     <Stack sx={styles.cartContainer}>
