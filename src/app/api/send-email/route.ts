@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     // **📌 Alıcı listesi belirle (eğer dışarıdan bir alıcı belirtilmemişse .env içindekileri kullan)**
     const recipientEmails = recipients || [
       process.env.GMAIL_USER,
-      process.env.HOTMAIL_USER,
+      process.env.MAIL_USER,
     ].filter(Boolean); // `undefined` olanları kaldır
 
     console.log("📩 Gönderilecek e-posta adresleri:", recipientEmails);
@@ -32,18 +32,12 @@ export async function POST(req: Request) {
           },
         })
       : null;
-
-    const hotmailTransporter = process.env.HOTMAIL_USER
+      const mailTransporter = process.env.GMAIL_USER
       ? nodemailer.createTransport({
-          host: "smtp.office365.com",
-          port: 587,
-          secure: false,
+          service: "gmail",
           auth: {
-            user: process.env.HOTMAIL_USER,
-            pass: process.env.HOTMAIL_PASS,
-          },
-          tls: {
-            ciphers: "SSLv3",
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS,
           },
         })
       : null;
@@ -68,7 +62,7 @@ export async function POST(req: Request) {
     // **📌 Aynı anda Gmail ve Hotmail'e e-posta gönder**
     const [gmailResult, hotmailResult] = await Promise.all([
       sendEmail(gmailTransporter, process.env.GMAIL_USER),
-      sendEmail(hotmailTransporter, process.env.HOTMAIL_USER),
+      sendEmail(mailTransporter, process.env.TMAIL_USER),
     ]);
 
     console.log("✅ E-postalar gönderildi:", { gmailResult, hotmailResult });

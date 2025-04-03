@@ -82,7 +82,7 @@ const MaterialSection = () => {
             ) : (
               <Typography color="error">Materials data is missing!</Typography>
             )}
-            <Link href="/contact">
+            <Link href="contact">
               <Button variant="contained" sx={styles.button}>
                 {t("button")}
               </Button>
