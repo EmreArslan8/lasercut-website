@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
         product: {
           title: productTitle,
           status: 'active',
+          tags: 'custom_only', 
           variants: [
             {
               price: finalPrice.toString(),

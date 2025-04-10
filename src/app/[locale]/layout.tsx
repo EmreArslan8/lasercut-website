@@ -73,22 +73,18 @@ export const generateMetadata = async ({
 }) => {
   const awaitedParams = await Promise.resolve(params);
   const locale = awaitedParams.locale;
-
   const baseUrl = "https://www.2dtocut.com";
-  const currentPath = `/${locale}`; // bu örnekte sadece /en veya /tr gibi
-  const canonicalUrl = `${baseUrl}${currentPath}`;
+
 
   return {
     title: "2dtocut | CNC Cutting Solutions",
     description: "High-quality CNC cutting services for your business needs.",
     metadataBase: new URL(baseUrl),
-
     alternates: {
-      canonical: locale === 'en' ? `${baseUrl}/en` : `${baseUrl}/${locale}`,
       languages: {
         en: `${baseUrl}/en`,
         tr: `${baseUrl}/tr`,
-        "x-default": `${baseUrl}`, // otomatik yönlendirme yapılan sayfa
+        "x-default": `${baseUrl}`, 
       }
     },
     
@@ -130,7 +126,6 @@ export const generateMetadata = async ({
     openGraph: {
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
-      url: canonicalUrl,
       siteName: "2dtocut",
       images: [
         {
