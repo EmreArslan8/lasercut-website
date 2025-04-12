@@ -31,6 +31,8 @@ export default async function RootLayout({
           content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"
         />
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="9x2GwqPcLFH+H/ak0ZjndA" async></script>
+        <link rel="icon" href="/favicon.ico?v=2" />
+        <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
@@ -59,7 +61,6 @@ export default async function RootLayout({
             </ShopProvider>
           </ThemeRegistry>
         </NextIntlClientProvider>
-
         <SpeedInsights />
         <Analytics />
       </body>
@@ -76,23 +77,23 @@ export const generateMetadata = async ({
   const locale = awaitedParams.locale;
   const baseUrl = "https://www.2dtocut.com";
 
-
   return {
     title: "2dtocut | CNC Cutting Solutions",
-    description: "High-quality CNC cutting services for your business needs.",
+    description:
+      "Precision CNC cutting services tailored to your industry. We deliver high-quality laser and plasma cutting for metal, wood, and plastic with fast turnaround and expert support.",    
     metadataBase: new URL(baseUrl),
+
     alternates: {
       languages: {
         en: `${baseUrl}/en`,
         tr: `${baseUrl}/tr`,
-        "x-default": `${baseUrl}`, 
-      }
+        "x-default": `${baseUrl}`,
+      },
     },
-    
 
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
+      icon: "/favicon.ico?v=2",
+      shortcut: "/favicon.ico?v=2",
       apple: "/apple-touch-icon.png",
       other: [
         {
@@ -122,12 +123,14 @@ export const generateMetadata = async ({
       ],
     },
 
-    manifest: "/site.webmanifest",
+    manifest: "/site.webmanifest?v=2",
 
     openGraph: {
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
       siteName: "2dtocut",
+      url: baseUrl,
+      type: "website",
       images: [
         {
           url: "/og-image.png",
@@ -136,8 +139,18 @@ export const generateMetadata = async ({
           alt: "2dtocut CNC Cutting",
         },
       ],
-      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: "2dtocut | CNC Cutting Solutions",
+      description: "Providing high-quality CNC cutting solutions.",
+      images: ["/og-image.png"],
+    },
+    verification: {
+      google: "OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM",
     },
   };
 };
+
 
