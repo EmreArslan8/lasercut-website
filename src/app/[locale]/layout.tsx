@@ -30,6 +30,7 @@ export default async function RootLayout({
           name="google-site-verification"
           content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"
         />
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="9x2GwqPcLFH+H/ak0ZjndA" async></script>
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
