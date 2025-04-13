@@ -81,7 +81,7 @@ const photos = [
     alt: "Example 11",
   },
   {
-    src: "/static/images/example12.jpg",
+    src: "/static/images/example12.webp",
     width: 1600,
     height: 1200,
     alt: "Example 12",
