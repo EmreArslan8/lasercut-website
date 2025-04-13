@@ -5,21 +5,40 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://www.2dtocut.com/</loc>
+    <loc>https://www.2dtocut.com/en/</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
-    <changefreq>daily</changefreq>
+        <changefreq>daily</changefreq>
     <priority>1</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/" />
   </url>
-
+  <!-- Homepage (TR) -->
+  <url>
+    <loc>https://www.2dtocut.com/tr/</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/" />
+  </url>
   <!-- About Us -->
   <url>
-    <loc>https://www.2dtocut.com/about-us</loc>
+    <loc>https://www.2dtocut.com/en/about-us</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/about-us" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/about-us" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/about-us" />
+  </url>
+
+  <url>
+    <loc>https://www.2dtocut.com/tr/about-us</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/about-us" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/about-us" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/about-us" />
@@ -27,21 +46,40 @@
 
   <!-- Examples -->
   <url>
-    <loc>https://www.2dtocut.com/examples</loc>
+    <loc>https://www.2dtocut.com/en/examples</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/examples" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/examples" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/examples" />
   </url>
 
-  <!-- FAQ -->
-  <url>
-    <loc>https://www.2dtocut.com/faq</loc>
+ <url>
+    <loc>https://www.2dtocut.com/tr/examples</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/examples" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/examples" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/examples" />
+  </url>
+  <!-- FAQ -->
+   <url>
+    <loc>https://www.2dtocut.com/en/faq</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+     <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/faq" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/faq" />
+  </url>
+
+  <url>
+    <loc>https://www.2dtocut.com/tr/faq</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/faq" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/faq" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/faq" />
@@ -51,10 +89,20 @@
   <url>
     <loc>https://www.2dtocut.com/en/blog/how-to-easy-engineering</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/how-to-easy-engineering" />
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/how-to-easy-engineering" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/how-to-easy-engineering" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/how-to-easy-engineering" />
+  </url>
+
+  <url>
+    <loc>https://www.2dtocut.com/tr/blog/how-to-easy-engineering</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/how-to-easy-engineering" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/how-to-easy-engineering" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/how-to-easy-engineering" />
   </url>
 
@@ -62,10 +110,20 @@
   <url>
     <loc>https://www.2dtocut.com/en/blog/the-future-of-laser-cutting</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/the-future-of-laser-cutting" />
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/the-future-of-laser-cutting" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/the-future-of-laser-cutting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/the-future-of-laser-cutting" />
+  </url>
+
+  <url>
+    <loc>https://www.2dtocut.com/tr/blog/the-future-of-laser-cutting</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/the-future-of-laser-cutting" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/the-future-of-laser-cutting" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/the-future-of-laser-cutting" />
   </url>
 
@@ -73,10 +131,20 @@
   <url>
     <loc>https://www.2dtocut.com/en/blog/maximizing-productivity-in-fabrication</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/maximizing-productivity-in-fabrication" />
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/maximizing-productivity-in-fabrication" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/maximizing-productivity-in-fabrication" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/maximizing-productivity-in-fabrication" />
+  </url>
+
+  <url>
+    <loc>https://www.2dtocut.com/tr/blog/maximizing-productivity-in-fabrication</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/blog/maximizing-productivity-in-fabrication" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/blog/maximizing-productivity-in-fabrication" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/blog/maximizing-productivity-in-fabrication" />
   </url>
 
