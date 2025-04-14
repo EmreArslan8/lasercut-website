@@ -79,8 +79,8 @@ export const generateMetadata = async ({
 
   return {
     title: "2dtocut | CNC Cutting Solutions",
-    description:
-      "Precision CNC cutting services tailored to your industry. We deliver high-quality laser and plasma cutting for metal, wood, and plastic with fast turnaround and expert support.",    
+    description: 
+      "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..",    
     metadataBase: new URL(baseUrl),
 
     alternates: {

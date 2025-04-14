@@ -69,7 +69,7 @@ const BannerSlider = () => {
           <Grid2 container spacing={5} alignItems="center" justifyContent="space-between">
             <Grid2 size={{ xs: 12, md: 7 }}>
               <Box textAlign={{ xs: "center", md: "left" }}>
-                <Typography component="p" sx={styles.title}>
+                <Typography component="h1" sx={styles.title}>
                   {t("titleStart")} <br />
                   <Box component="span" sx={{ color: theme.palette.primary.main }}>
                     {t("titleHighlight")}

@@ -3,9 +3,9 @@
 import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import Image from "next/image";
-import Link from "next/link";
 import { useDrawer } from "@/context/DrawerContext";
 import useScreen from "@/lib/hooks/useScreen";
+import { Link } from "@/i18n/routing";
 
 const CheckoutHeader = () => {
   const { setDrawerOpen } = useDrawer();
