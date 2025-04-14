@@ -5,23 +5,23 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://www.2dtocut.com/en/</loc>
+    <loc>https://www.2dtocut.com/en</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
         <changefreq>daily</changefreq>
     <priority>1</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en" />
   </url>
   <!-- Homepage (TR) -->
   <url>
-    <loc>https://www.2dtocut.com/tr/</loc>
+    <loc>https://www.2dtocut.com/tr</loc>
     <lastmod>2025-03-19T14:45:53.437Z</lastmod>
         <changefreq>daily</changefreq>
     <priority>1</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/ />
   </url>
   <!-- About Us -->
   <url>
@@ -63,6 +63,26 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/examples" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/examples" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/examples" />
+  </url>
+    <!-- CONTACT-->
+   <url>
+    <loc>https://www.2dtocut.com/en/contact</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/contact" />
+  </url>
+  <!-- Homepage (TR) -->
+  <url>
+    <loc>https://www.2dtocut.com/tr/contact</loc>
+    <lastmod>2025-03-19T14:45:53.437Z</lastmod>
+        <changefreq>daily</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.2dtocut.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.2dtocut.com/tr/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.2dtocut.com/en/contact" />
   </url>
   <!-- FAQ -->
    <url>
