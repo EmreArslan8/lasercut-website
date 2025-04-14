@@ -15,17 +15,30 @@ const Link = (
 ) => {
   const styles = useStyles();
 
-  return props.href ? (
+  const getNormalizedHref = () => {
+    if (!props.href) return '#';
+    if (props.href.startsWith('http')) return props.href;
+
+    // "/" sadece ana sayfa olarak bırak, başka her şeyi normalize et
+    if (props.href === '/') return '/';
+
+    const normalized = props.href.startsWith('/')
+      ? props.href
+      : `/${props.href}`;
+
+    return normalized.replace(/\/+$/, ''); // sondaki slash(lar) silinir
+  };
+
+  return (
     <I18NLink
       {...props}
-      href={props.href.startsWith('http') ? props.href : `/${props.href}`}
+      href={getNormalizedHref()}
       style={{ ...styles.link(props.colored), ...props.style }}
     >
       {props.children}
     </I18NLink>
-  ) : (
-    <>{props.children}</>
   );
 };
+
 
 export default Link;

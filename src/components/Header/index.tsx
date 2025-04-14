@@ -22,7 +22,7 @@ import { useDrawer } from "@/context/DrawerContext";
 import styles from "./styles";
 import { useShop } from "@/context/ShopContext";
 import { Menu, ShoppingBag } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import Link from "../common/Link";
 
 const navLinks = ["examples", "about-us", "faq", "contact"];
 
@@ -60,7 +60,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
             src="/static/images/logo7.png"
             alt="Company Logo"
             {...logoSize}
-            priority // ✅ Logo öncelikli yükleniyor
+            priority 
             loading="eager" // ✅ Tarayıcı tarafından hemen yüklenmesi sağlanıyor
             style={styles.logo}
           />
