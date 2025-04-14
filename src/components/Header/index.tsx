@@ -16,13 +16,13 @@ import Image from "next/image";
 import useScreen from "@/lib/hooks/useScreen";
 import { palette } from "@/theme/theme";
 import LanguageSwitcher from "../LanguageSwitcher";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useDrawer } from "@/context/DrawerContext";
-import Link from "../common/Link";
 import styles from "./styles";
 import { useShop } from "@/context/ShopContext";
 import { Menu, ShoppingBag } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 const navLinks = ["examples", "about-us", "faq", "contact"];
 
@@ -37,6 +37,7 @@ const Header = ({ isTransparent = false }: { isTransparent?: boolean }) => {
     width: isMobile ? 120 : 200,
     height: isMobile ? 50 : 100,
   };
+
 
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname === "/en" || pathname === "/tr";
