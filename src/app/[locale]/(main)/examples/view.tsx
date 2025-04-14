@@ -253,7 +253,6 @@ const PhotoGalleryView = () => {
       sx={{ maxWidth: "lg", mx: "auto", px: 2, py: 4, mb: 10, mt: 20 }}
     >
       <Typography
-        component="p"
         variant="h1"
         textAlign="center"
         suppressHydrationWarning

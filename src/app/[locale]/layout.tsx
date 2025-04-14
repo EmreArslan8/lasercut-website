@@ -80,7 +80,7 @@ export const generateMetadata = async ({
   return {
     title: "2dtocut | CNC Cutting Solutions",
     description: 
-      "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..",    
+      "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..Get a free quote today!",    
     metadataBase: new URL(baseUrl),
 
     alternates: {

@@ -25,7 +25,7 @@ const FaqPageView = () => {
 
   return (
     <Box sx={styles.wrapper}>
-      <Typography variant="h2" sx={styles.title}>
+      <Typography variant="h1" sx={styles.title}>
         {t("title")}
       </Typography>
 

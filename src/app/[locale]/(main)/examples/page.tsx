@@ -1,7 +1,7 @@
 import PhotoGalleryView from "./view";
 
 export const metadata = {
-  title: "Examples",
+  title: "CNC Laser Cutting Examples | 2dtocut Precision Showcase",
 };
 
 export default function PhotoGalleryPage() {

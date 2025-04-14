@@ -1,7 +1,7 @@
 import FaqPageView from "./view";
 
 export const metadata = {
-  title: "Frequently Asked Questions"
+  title: "FAQ | CNC Laser Cutting Questions & Answers"
 };
 
 export default function FaqPage() {
