@@ -2,13 +2,11 @@ import BlogPostPage from './view';
 import { getMessages } from 'next-intl/server';
 import { Locale } from '@/i18n';
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { slug: string; locale: Locale };
-}) => {
-  const { slug, locale } = params;
+export const generateMetadata = async (props: any) => {
+  const { slug, locale } = props.params as { slug: string; locale: Locale };
+
   const messages = await getMessages({ locale });
+
   // Blog yazıları t("posts") -> array
   const posts = ((messages as any).Blog?.posts ?? []) as Array<{
     slug: string;

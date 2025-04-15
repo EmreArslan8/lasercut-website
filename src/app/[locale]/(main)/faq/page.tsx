@@ -1,6 +1,9 @@
+import { Locale } from "@/i18n";
 import FaqPageView from "./view";
+import { Metadata } from "next";
 
-export const generateMetadata = ({ params }: { params: { locale: string } }) => {
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { locale } = props.params as { locale: Locale };
   const base = 'https://www.2dtocut.com';
   const slug = 'faq';
 
@@ -9,7 +12,7 @@ export const generateMetadata = ({ params }: { params: { locale: string } }) => 
     description:
     "Find answers to frequently asked questions about our CNC laser cutting services. Learn more about process, delivery, and materials.",
   alternates: {
-    canonical: `${base}/${params.locale}/${slug}`,
+    canonical: `${base}/${locale}/${slug}`,
     languages: {
       en: `${base}/en/${slug}`,
       tr: `${base}/tr/${slug}`,

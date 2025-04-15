@@ -1,6 +1,10 @@
+import { Locale } from "@/i18n";
 import PhotoGalleryView from "./view";
+import { Metadata } from "next";
 
-export const generateMetadata = ({ params }: { params: { locale: string } }) => {
+
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { locale } = props.params as { locale: Locale };
   const base = 'https://www.2dtocut.com';
   const slug = 'examples';
 
@@ -9,7 +13,7 @@ export const generateMetadata = ({ params }: { params: { locale: string } }) => 
     description:
     "Explore examples of CNC laser cut projects by 2dtocut. Precision metal cutting, quality design, and clean finishing.",
   alternates: {
-    canonical: `${base}/${params.locale}/${slug}`,
+    canonical: `${base}/${locale}/${slug}`,
     languages: {
       en: `${base}/en/${slug}`,
       tr: `${base}/tr/${slug}`,

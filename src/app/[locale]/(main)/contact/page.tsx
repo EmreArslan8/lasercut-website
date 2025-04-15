@@ -1,6 +1,10 @@
+import { Locale } from "@/i18n";
 import ContactPageView from "./view";
+import { Metadata } from "next";
 
-export const generateMetadata = ({ params }: { params: { locale: string } }) => {
+
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { locale } = props.params as { locale: Locale };
   const base = 'https://www.2dtocut.com';
   const slug = 'contact';
 
@@ -9,7 +13,7 @@ export const generateMetadata = ({ params }: { params: { locale: string } }) => 
     description:
       "Have questions? Contact our team for personalized CNC laser cutting support and inquiries.",
   alternates: {
-    canonical: `${base}/${params.locale}/${slug}`,
+    canonical: `${base}/${locale}/${slug}`,
     languages: {
       en: `${base}/en/${slug}`,
       tr: `${base}/tr/${slug}`,
