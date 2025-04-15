@@ -87,7 +87,7 @@ export const generateMetadata = async ({
       languages: {
         en: `${baseUrl}/en`,
         tr: `${baseUrl}/tr`,
-        "x-default": `${baseUrl}`,
+        "x-default": `${baseUrl}/en`,
       },
     },
 

@@ -25,6 +25,7 @@ import TermsModal from "@/components/TermsModal";
 import { ShoppingCart, Image, Minus, Plus, Trash, Info } from "lucide-react";
 import { generateOrderEmail } from "@/lib/utils/emailTemplates";
 import { truncateText } from "@/lib/utils/truncateText";
+import { Link } from "@/i18n/routing";
 
 const MobileCart = () => {
   const {
@@ -190,7 +191,7 @@ const MobileCart = () => {
         </Box>
       )}
 
-      <Typography variant="h2" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         {t("cartTitle1")} ({cartItems.length} {t("cartTitle2")})
       </Typography>
       {cartItems.length > 1 && (
@@ -200,9 +201,10 @@ const MobileCart = () => {
         <Stack sx={styles.emptyCart}>
           <ShoppingCart size={100} />
           <Typography variant="h6">{t("cartInfo")}</Typography>
-          <Button variant="contained" color="primary" href="/" size="medium">
+          <Link href= "/">  <Button variant="contained" color="primary" size="medium">
             {t("button")}
           </Button>
+          </Link>
         </Stack>
       ) : (
         <List sx={{ mt: 2 }}>

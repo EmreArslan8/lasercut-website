@@ -1,7 +1,7 @@
 import CheckoutPageView from "./view";
 
 export const metadata = {
-  title: "🛒",
+  title: "💳",
 };
 
 export default function CheckoutPage() {

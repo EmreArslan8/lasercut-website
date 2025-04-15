@@ -187,14 +187,15 @@ const DesktopCart = () => {
         <Stack spacing={5} sx={styles.emptyCart}>
           <ShoppingCart size={200} />
           <Typography variant="h5">{t("cartInfo")}</Typography>
-          <Button variant="outlined" color="primary" href="/" size="medium">
+       <Link href= "/">  <Button variant="outlined" color="primary" size="medium">
             {t("button")}
           </Button>
+          </Link> 
         </Stack>
       ) : (
         <Grid2 container spacing={3}>
           <Grid2 size={{ xs: 12, md: 8 }} sx={styles.cartItemsSection}>
-            <Typography variant="h3" sx={styles.cartTitle}>
+            <Typography variant="h1" sx={styles.cartTitle}>
               {t("cartTitle1")}
             </Typography>
             <Box sx={styles.cartBox}>

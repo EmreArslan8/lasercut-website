@@ -11,7 +11,7 @@ const styles = {
       px: 1,
       py: 2,
     },
-    cartTitle: { marginLeft: 7},
+    cartTitle: { marginLeft: 7, fontSize: "24px! important"},
     cartBox: { overflowX: "auto",width: "100%", },
     list: { mt: 2, border: "none", p: 0 },
     checkbox: { mr: 1 },

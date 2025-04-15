@@ -18,6 +18,10 @@ export async function generateMetadata(props: any): Promise<Metadata> {
         'x-default': `${base}/en/${slug}`,
       },
     },
+    robots: {
+      index: false,
+      follow: true,
+    }
   };
 }
 
