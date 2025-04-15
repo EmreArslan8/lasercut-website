@@ -82,8 +82,8 @@ export const generateMetadata = async ({
     description: 
       "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..Get a free quote today!",    
     metadataBase: new URL(baseUrl),
-
     alternates: {
+      canonical: `${baseUrl}/${locale}`,
       languages: {
         en: `${baseUrl}/en`,
         tr: `${baseUrl}/tr`,
