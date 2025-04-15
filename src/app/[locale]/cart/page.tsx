@@ -1,19 +1,27 @@
-"use client";
+import { Locale } from "@/i18n";
+import { Metadata } from "next";
+import CartPageView from "./view";
 
-import useScreen from "@/lib/hooks/useScreen";
-import MobileCart from "./MobileCart";
-import DesktopCart from "./DesktopCart";
-import Loading from "./loading"; // ✅ Loading bileşenini import ettik
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { locale } = props.params as { locale: Locale };
+  const base = 'https://www.2dtocut.com';
+  const slug = 'cart';
 
-const Cart = () => {
-  const { isMobile } = useScreen();
+  return {
+    title: '🛒 Shopping Cart | CNC Laser Parts | 2dtocut',
+    description: 'Review your cart, update quantities, and checkout easily with our CNC laser cutting solutions. Fast delivery, precision cuts. Get a free quote today!',
+    alternates: {
+      canonical: `${base}/${locale}/${slug}`,
+      languages: {
+        en: `${base}/en/${slug}`,
+        tr: `${base}/tr/${slug}`,
+        'x-default': `${base}/en/${slug}`,
+      },
+    },
+  };
+}
 
-  return (
-    <>
-      <Loading /> 
-      {isMobile ? <MobileCart /> : <DesktopCart />}
-    </>
-  );
-};
 
-export default Cart;
+export default function CartPage() {
+  return <CartPageView />;
+}

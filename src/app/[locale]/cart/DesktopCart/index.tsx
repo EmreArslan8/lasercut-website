@@ -20,11 +20,12 @@ import theme from "@/theme/theme";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useShop } from "@/context/ShopContext";
-import { Info, ShoppingCart, Trash2} from "lucide-react";
+import { Info, ShoppingCart, Trash2 } from "lucide-react";
 import { CartItem } from "@/lib/api/types";
 import { generateOrderEmail } from "@/lib/utils/emailTemplates";
 import TermsModal from "@/components/TermsModal";
 import { calculateTotalPrice } from "@/lib/utils/calculatePrice";
+import { Link } from "@/i18n/routing";
 
 const DesktopCart = () => {
   const {
@@ -155,19 +156,19 @@ const DesktopCart = () => {
         fileUrl: item.fileUrl || undefined,
       })),
     });
-  
+
     console.log("📦 E-posta içeriği hazırlanıyor...");
     console.log("📧 E-Posta gönderiliyor...");
-  
+
     try {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(emailContent),
       });
-  
+
       const result = await res.json();
-  
+
       if (res.ok) {
         console.log("✅ E-posta başarıyla gönderildi!");
         console.log("📬 API Yanıtı:", result);
@@ -179,7 +180,6 @@ const DesktopCart = () => {
       console.error("🚨 Fetch sırasında beklenmeyen hata:", err);
     }
   };
-  
 
   return (
     <Stack sx={styles.cartContainer}>
@@ -269,7 +269,7 @@ const DesktopCart = () => {
                               ).toFixed(2)} TL`}
                           <Tooltip title={t("itemPriceInfo")} arrow>
                             <Box sx={styles.itemPrice}>
-                            <Info size={16} color="gray" />
+                              <Info size={16} color="gray" />
                             </Box>
                           </Tooltip>
                         </Typography>
@@ -392,15 +392,16 @@ const DesktopCart = () => {
                 <Typography align="center" sx={{ mt: 1, color: "gray" }}>
                   {t("backHomeText")}
                 </Typography>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  color="primary"
-                  sx={{ mt: 1 }}
-                  onClick={() => router.push("/")}
-                >
-                  {t("button")}
-                </Button>
+                <Link href="/">
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    color="primary"
+                    sx={{ mt: 1 }}
+                  >
+                    {t("button")}
+                  </Button>
+                </Link>
               </Box>
             </Grid2>
           )}
