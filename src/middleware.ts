@@ -43,5 +43,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|favicon.ico|robots.txt|.*\\..*).*)'],
+  matcher: ['/((?!_next|favicon_v2.ico|robots.txt|.*\\..*).*)'],
 };

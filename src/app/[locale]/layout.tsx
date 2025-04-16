@@ -31,10 +31,10 @@ export default async function RootLayout({
           content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"
         />
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="9x2GwqPcLFH+H/ak0ZjndA" async></script>
-        <link rel="icon" href="/favicon.ico?v=2" />
-        <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
+        <link rel="icon" href="/favicon_v2.ico" />
+        <link rel="shortcut icon" href="/favicon_v2.ico" type="image/x-icon" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon_v2.ico" />
         <link rel="apple-touch-icon" href="/favicon.png" />
         <link
           rel="preconnect"
@@ -92,8 +92,8 @@ export const generateMetadata = async ({
     },
 
     icons: {
-      icon: "/favicon.ico?v=2",
-      shortcut: "/favicon.ico?v=2",
+      icon: "/favicon_v2.ico",
+      shortcut: "/favicon_v2.ico",
       apple: "/apple-touch-icon.png",
       other: [
         {
@@ -122,9 +122,7 @@ export const generateMetadata = async ({
         },
       ],
     },
-
-    manifest: "/site.webmanifest?v=2",
-
+    manifest: "/site.webmanifest",
     openGraph: {
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
