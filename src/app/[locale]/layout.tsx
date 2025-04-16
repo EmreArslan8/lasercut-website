@@ -129,11 +129,10 @@ export const generateMetadata = async ({
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
       siteName: "2dtocut",
-      url: baseUrl,
       type: "website",
       images: [
         {
-          url: "/og-image.png",
+          url: "/ogBanner.webp",
           width: 1200,
           height: 630,
           alt: "2dtocut CNC Cutting",
@@ -145,7 +144,7 @@ export const generateMetadata = async ({
       card: "summary_large_image",
       title: "2dtocut | CNC Cutting Solutions",
       description: "Providing high-quality CNC cutting solutions.",
-      images: ["/og-image.png"],
+      images: ["/ogBanner.webp"],
     },
     verification: {
       google: "OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM",

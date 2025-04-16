@@ -11,7 +11,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
   return {
     title: "Contact Us | Get in Touch with 2dtocut Today",
     description:
-      "Have questions? Contact our team for personalized CNC laser cutting support and inquiries.",
+      "Need help? Reach out to our team for expert CNC laser cutting support, guidance, and answers to all your inquiries..",
   alternates: {
     canonical: `${base}/${locale}/${slug}`,
     languages: {
