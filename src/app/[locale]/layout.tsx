@@ -18,10 +18,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         {isProduction && (
-          <meta
-            name="google-site-verification"
-            content="n6n2EfCF4_xpwn238Hwy0W5Vddi-Yq55wh052uDHDZk"
-          />
+          <meta name="google-site-verification" content="n6n2EfCF4_xpwn238Hwy0W5Vddi-Yq55wh052uDHDZk" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
