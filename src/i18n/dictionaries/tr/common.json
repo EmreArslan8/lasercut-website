@@ -1,0 +1,99 @@
+{
+  "label": "Türkçe",
+  "cart": "Sepet {numItems, plural, =0 {} other {(#)}}",
+  "cartModalTitle": "Alışveriş sepetiniz",
+  "account": "Hesabım",
+  "categories": "Kategoriler",
+  "home": "Ana sayfa",
+  "routes": {
+    "orders": "Siparişlerim",
+    "settings": "Ayarlar"
+  },
+  "faq": "Sık Sorulan Sorular",
+  "about": "Hakkımızda",
+  "returnPolicy": "İade Politikası",
+  "terms": "Şartlar ve Koşullar",
+  "help": "Yardım",
+  "contactSupport": "Destek Al",
+  "logout": "Oturumu Kapat",
+  "back": "Geri",
+  "languages": {
+    "en": "English",
+    "he": "עברית",
+    "ru": "Русский",
+    "uz": "O'zbekcha",
+    "tr": "Türkçe"
+  },
+  "regions": {
+    "placeholder": "Ülke seçin",
+    "uz": "Özbekistan",
+    "ww": "Global"
+  },
+  "search": "Ara",
+  "searchInputPlaceholder": "{smUp, select, true {Ürün, marka, kategori} other {Ürün}} arayın...",
+  "address": {
+    "addresses": "Adresler",
+    "defaultCardLabel": "Adres",
+    "addressInputLabel": "Adres",
+    "name": "Adres Etiketi",
+    "namePlaceholder": "Ev, İş, vs.",
+    "nameDefaultValue": "Adresim",
+    "contactName": "Alıcı adı",
+    "contactPhone": "Telefon numarası",
+    "phoneCode": "Ülke kodu",
+    "phoneNumber": "Telefon numarası",
+    "email": "Alıcı email adresi",
+    "taxNumber": "Kimlik Numarası",
+    "lines": "Adres",
+    "postcode": "Posta kodu",
+    "district": "İlçe",
+    "city": "Şehir",
+    "state": "Eyalet",
+    "stateOptional": "Eyalet (Opsiyonel)",
+    "countryCode": "Ülke",
+    "viewMore": "Daha Fazla Görüntüle",
+    "errors": {
+      "hasErrors": "Aşağıdaki alanlar hata içeriyor",
+      "minChars": "Lütfen en az {minChars} karakter giriniz."
+    },
+    "pageTitle": "Adres Defteri",
+    "addAddress": "Yeni Adres Ekle",
+    "addAddressSubmitButton": "Adres Ekle",
+    "addAddressSuccess": "Adres Eklendi.",
+    "addAddressError": "Bir sunucu hatası oluştu, lütfen tekrar deneyin.",
+    "ok": "Tamam",
+    "goBack": "Geri dön",
+    "deleteTitle": "Sil?",
+    "deleteCancel": "İptal",
+    "deleteConfirm": "Sil",
+    "editTitle": "Adres düzenle",
+    "editSaveButton": "Değişiklikleri kaydet",
+    "editSuccess": "Adres değiştirildi.",
+    "editError": "Bir sunucu hatası oluştu, lütfen tekrar deneyin.",
+    "latinCharsOnly": "Lütfen yalnızca Latin karakterleri kullanın",
+    "taxNumberHelper": "Kimlik numaramı (PINFL) nasıl bulurum?"
+  },
+  "errorPage": {
+    "title": "Bir sorun oluştu",
+    "body": "Şu anda bu sayfayı yüklerken sorun yaşıyoruz.\n\nTekrar deneyebilir veya hata devam ederse bizimle iletişime geçebilirsiniz.",
+    "tryAgain": "Tekrar Dene"
+  },
+  "notFoundPage": {
+    "title": "Aradığınız sayfayı bulamadık",
+    "body": "Çok aradık ama bu sayfayı bulamadık.\n\nBu bir 404 hatasıdır.",
+    "tryAgain": "Ana sayfaya dön"
+  },
+  "settings": {
+    "account": {
+      "cardTitle": "Hesabım",
+      "logout": "Oturumu Kapat",
+      "changePassword": "Parola Değiştir"
+    }
+  },
+  "noOptions": "Hiçbir seçenek bulunamadı.",
+  "metadata": {
+    "description": "2dtocut ile tarzınızı bulun."
+  },
+  "contactUs": "Bize Ulaşın",
+  "viewInvoice": "Faturayı görüntüle"
+}

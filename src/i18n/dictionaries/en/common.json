@@ -1,0 +1,158 @@
+{
+  "label": "English",
+  "cart": "Cart {numItems, plural, =0 {} other {(#)}}",
+  "cartModalTitle": "Your shopping cart",
+  "account": "Account",
+  "categories": "Categories",
+  "home": "Home",
+  "routes": {
+    "orders": "My Orders",
+    "settings": "Settings"
+  },
+  "faq": "FAQ",
+  "about": "About",
+  "returnPolicy": "Return Policy",
+  "delivery": "Delivery",
+  "terms": "Terms and Conditions",
+  "help": "Help",
+  "contactSupport": "Contact Support",
+  "logout": "Log Out",
+  "back": "Back",
+  "languages": {
+    "en": "English",
+    "he": "עברית",
+    "ru": "Русский",
+    "uz": "O'zbekcha",
+    "tr": "Türkçe"
+  },
+  "regions": {
+    "placeholder": "Select country",
+    "uz": "Uzbekistan",
+    "ww": "Global",
+    "ng": "Nigeria",
+    "be": "Belgium",
+    "de": "Germany",
+    "gb": "United Kingdom",
+    "nl": "Netherlands",
+    "ng": "Nigeria"
+  },
+  "countries": {
+    "uzbekistan": {
+      "tashkent": "Tashkent",
+      "samarkand": "Samarkand",
+      "bukhara": "Bukhara",
+      "khiva": "Khiva",
+      "andijan": "Andijan",
+      "fergana": "Fergana",
+      "namangan": "Namangan",
+      "nukus": "Nukus",
+      "kokand": "Kokand",
+      "karshi": "Karshi",
+      "navoi": "Navoi",
+      "termez": "Termiz",
+      "chirchiq": "Chirchiq",
+      "gulistan": "Gulistan",
+      "jizzakh": "Jizzakh",
+      "margilan": "Margilan"
+    }
+  },
+  "search": "Search",
+  "searchInputPlaceholder": "Search for {smUp, select, true {products, brands, categories...} other {products...}}",
+  "clearHistory": "Clear",
+  "searchHistory": "Your recent searches",
+  "address": {
+    "addresses": "Addresses",
+    "defaultCardLabel": "Address",
+    "addressInputLabel": "Address",
+    "name": "Address label",
+    "namePlaceholder": "Home, Work, etc.",
+    "nameDefaultValue": "My Address",
+    "contactName": "First name",
+    "contactSurname": "Last name",
+    "contactPhone": "Recipient's phone number",
+    "phoneCode": "Country code",
+    "phoneNumber": "Phone number",
+    "email": "Recipient's email address",
+    "taxNumber": "Citizen ID number",
+    "lines": "Address",
+    "postcode": "Postal code",
+    "district": "District",
+    "city": "City",
+    "state": "State",
+    "stateOptional": "State (Optional)",
+    "countryCode": "Country",
+    "viewMore": "View more",
+    "errors": {
+      "hasErrors": "The following fields have errors",
+      "minChars": "Please enter at least {minChars} characters."
+    },
+    "pageTitle": "Address Book",
+    "addAddress": "Add new address",
+    "addAddressSubmitButton": "Add address",
+    "addAddressSuccess": "Address added.",
+    "addAddressError": "A server error occured, please try again.",
+    "ok": "OK",
+    "goBack": "Go back",
+    "deleteTitle": "Delete?",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete",
+    "editTitle": "Edit address",
+    "editSaveButton": "Save changes",
+    "editSuccess": "Address changed.",
+    "editError": "A server error occured, please try again.",
+    "latinCharsOnly": "Please Use Only Latin Characters",
+    "taxNumberHelper": "How to get ID number (PINFL)?",
+    "pinflInfoTitle": "Why do we need your PINFL?",
+    "pinflInfoDescription": "To ensure smooth delivery of your order from Turkey to Uzbekistan, we require your PINFL for identity verification and customs clearance. Please provide the correct PINFL to avoid any delays or issues with customs processing."
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "body": "We are having trouble loading this page right now.\n\nYou can try again or contact us if the error persists.",
+    "tryAgain": "Try Again"
+  },
+  "notFoundPage": {
+    "title": "We couldn't find this page",
+    "body": "We looked really hard, but could not find this page.\n\nThis is a 404 error.",
+    "tryAgain": "Back to Home"
+  },
+  "accountPage": {
+    "authRequiredTitle": "You are not logged in",
+    "authRequiredBody": "You need to login to access this page.",
+    "loginButton": "Login"
+  },
+  "settings": {
+    "account": {
+      "cardTitle": "Account",
+      "logout": "Log Out",
+      "changePassword": "Change Password"
+    }
+  },
+  "noOptions": "No options found.",
+  "metadata": {
+    "description": "Find your style with 2dtocut."
+  },
+  "contactUs": "Contact Us",
+  "auth": {
+    "login": "Sign in",
+    "phoneNumberModal": {
+      "title": "Sign in",
+      "body": "Enter your phone number to sign in. We will send you an SMS message with a verification code.",
+      "submit": "Continue"
+    },
+    "verifModal": {
+      "back": "Back",
+      "title": "Verify code",
+      "body": "Enter the verification code we sent to:\n**{phoneCode} {phoneNumber}** ",
+      "resend": "Resend Code {seconds, select, 0 {} other {({seconds})} }",
+      "submit": "Continue",
+      "terms": "I have read and agree to 2dtocut’s <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy>"
+    },
+    "errors": {
+      "sms": "Error sending SMS message. Please try again.",
+      "invalidCode": "Please check that the code is correct.",
+      "generic": "An unexpected error occurred. Please try again."
+    },
+    "legacyLogin": "If you previously created an account using your email address, <loginUrl>log in here.</loginUrl>"
+  },
+  "viewInvoice": "View invoice"
+}

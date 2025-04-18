@@ -1,0 +1,3 @@
+files:
+  - source: /src/i18n/dictionaries/en/*.json
+    translation: /src/i18n/dictionaries/%two_letters_code%/%original_file_name%
