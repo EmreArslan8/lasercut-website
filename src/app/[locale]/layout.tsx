@@ -20,7 +20,7 @@ export default async function RootLayout({
         {isProduction && (
           <meta
             name="google-site-verification"
-            content="google2a69b8c58f8442de"
+            content="n6n2EfCF4_xpwn238Hwy0W5Vddi-Yq55wh052uDHDZk"
           />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
