@@ -7,6 +7,7 @@ import { DrawerProvider } from "@/context/DrawerContext";
 import { ShopProvider } from "@/context/ShopContext";
 import { Locale } from "@/i18n";
 import plusJakartaSans from "@/fonts/plusJakartaSans";
+import Script from "next/script";
 
 export const dynamicParams = true;
 
@@ -26,6 +27,22 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `,
+          }}
+        />
         <meta
           name="google-site-verification"
           content="OLVVNKCEZdG0rwG2NJL7Tpe-HaHDFGLwR2surVdG1QM"

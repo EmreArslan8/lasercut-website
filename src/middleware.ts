@@ -33,7 +33,7 @@ export default function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = `/${matchedLocale}${pathname}`;
 
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 308);
   }
 
   return createIntlMiddleware({
