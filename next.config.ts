@@ -10,8 +10,22 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   statsFilename: "webpack-stats.json", // JSON dosya adı
 });
 
+
+
+
 const nextConfig: NextConfig = withBundleAnalyzer({
   reactStrictMode: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: '2dtocut.com' }], // non-www gelen istekler
+        destination: 'https://www.2dtocut.com/:path*',
+        permanent: true, // 308 veya 301 kalıcı yönlendirme
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
