@@ -95,5 +95,12 @@
     "description": "2dtocut ile tarzınızı bulun."
   },
   "contactUs": "Bize Ulaşın",
-  "viewInvoice": "Faturayı görüntüle"
+  "viewInvoice": "Faturayı görüntüle",
+  "cartPage": {
+  "metadata": {
+    "title": "testt",
+    "description": "test açıklması"
+  }
+}
+
 }

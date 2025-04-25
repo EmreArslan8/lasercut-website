@@ -154,5 +154,11 @@
     },
     "legacyLogin": "If you previously created an account using your email address, <loginUrl>log in here.</loginUrl>"
   },
-  "viewInvoice": "View invoice"
+  "viewInvoice": "View invoice",
+"cartPage": {
+  "metadata": {
+    "title": "Deneme",
+    "description": "Find your style with 2dtocut."
+  }
+}
 }

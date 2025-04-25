@@ -19,10 +19,10 @@ const HomePage = ({
 
 export const metadata: Metadata = {
   title: 'Home',
-  description: 'Welcome to Bringist – your go-to online shop for curated products.',
+  description: 'Welcome to 2dtocut – your go-to online shop for curated products.',
   openGraph: {
-    title: 'Bringist | Home',
-    description: 'Discover top-quality items at Bringist.',
+    title: '2dtocut | Home',
+    description: 'Discover top-quality items at 2dtocut.',
     images: [{ url: '/static/images/ogBanner.webp', width: 1200, height: 630 }],
   },
   robots: {
