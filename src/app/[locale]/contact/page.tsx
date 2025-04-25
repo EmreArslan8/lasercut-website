@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export async function generateMetadata(props: any): Promise<Metadata> {
   const { locale } = props.params as { locale: Locale };
-  const base = 'https://www.2dtocut.com';
+  const base = 'https://2dtocut-v2.vercel.app';
   const slug = 'contact';
 
   return {

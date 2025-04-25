@@ -23,7 +23,7 @@ export const generateMetadata = async (props: any) => {
     };
   }
 
-  const base = 'https://www.2dtocut.com';
+  const base = 'https://2dtocut-v2.vercel.app';
   const path = `${base}/${locale}/blog/${slug}`;
 
   return {
