@@ -2,7 +2,7 @@ import { Locale } from "@/i18n";
 import FaqPageView from "./view";
 import { Metadata } from "next";
 
-export async function mtadata(props: any): Promise<Metadata> {
+export async function generateMetadata(props: any): Promise<Metadata> {
   const { locale } = props.params as { locale: Locale };
   const base = 'https://2dtocut-v2.vercel.app';
   const slug = 'faq';
