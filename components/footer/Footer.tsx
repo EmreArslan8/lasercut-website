@@ -151,15 +151,14 @@ const footerLinks: FooterLink[] = [
     title: "Languages",
     links: [
       { href: "/en", label: "English", useA: true },
-      { href: "/zh", label: "中文", useA: true },
-      { href: "/ja", label: "日本語", useA: true },
+      { href: "/tr", label: "Türkçe", useA: true },
     ],
   },
   {
     title: "Open Source",
     links: [
       {
-        href: "https://github.com/weijunext/nextjs-15-starter",
+        href: "",
         label: "Next Forge",
         rel: "noopener noreferrer nofollow",
         target: "_blank",

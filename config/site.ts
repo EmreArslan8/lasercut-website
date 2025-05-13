@@ -12,10 +12,10 @@ const EMAIL_URL = "mailto:weijunext@gmail.com";
 const GITHUB_URL = "https://github.com/weijunext";
 
 export const siteConfig: SiteConfig = {
-  name: "Next Forge",
-  tagLine: "Multilingual Next.js 15 Starter",
+  name: "2dtocut",
+  tagLine: "Cnc Cutting Solutions",
   description:
-    "A multilingual Next.js 15 starter with built-in i18n support. Launch your global-ready web application with a clean, efficient, and SEO-friendly foundation.",
+    "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality",
   url: BASE_URL,
   authors: [
     {

@@ -1,8 +1,8 @@
 {
   "LanguageDetection": {
     "title": "Language Suggestion",
-    "description": "We noticed your browser language differs from the current site language. You can switch languages anytime 👉",
-    "countdown": "Closing in {countdown} seconds"
+    "description": "Tarayıcı dilinizin mevcut site dilinden farklı olduğunu fark ettik. Dilinizi istediğiniz zaman değiştirebilirsiniz 👉",
+    "countdown": "{countdown} saniye içinde kapanıyor"
   },
   "Header": {
     "blogs": "Blogs",
@@ -25,9 +25,9 @@
     }
   },
   "Home": {
-    "title": "2dtocut",
-    "tagLine": "Cnc Cutting Solutions",
-    "description": "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..Get a free quote today!",
+    "title": " CNC Cutting Solutions",
+    "tagLine": "CNC Cutting Solutions",
+    "description": "Metal parçalar için hassas CNC lazer kesim. Hızlı teslimat, uzman hizmet ve güvenilir kalite...Bugün ücretsiz fiyat teklifi alın!",
     "whoIsUsing": "Who is Using This Starter"
   },
   "Blogs": {
