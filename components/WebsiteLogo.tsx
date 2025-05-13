@@ -1,6 +1,7 @@
 "use client";
 import { getDomain } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 interface IProps {
   url: string;
@@ -21,15 +22,30 @@ const WebsiteLogo = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const fallbackSources = [
-    `https://${domain}/logo.svg`,
-    `https://${domain}/logo.png`,
-    `https://${domain}/apple-touch-icon.png`,
-    `https://${domain}/apple-touch-icon-precomposed.png`,
-    `https://www.google.com/s2/favicons?domain=${domain}&sz=64`,
-    `https://icons.duckduckgo.com/ip3/${domain}.ico`,
-    `https://${domain}/favicon.ico`,
-  ];
+  const fallbackSources = useMemo(
+    () => [
+      `https://${domain}/logo.svg`,
+      `https://${domain}/logo.png`,
+      `https://${domain}/apple-touch-icon.png`,
+      `https://${domain}/apple-touch-icon-precomposed.png`,
+      `https://www.google.com/s2/favicons?domain=${domain}&sz=64`,
+      `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+      `https://${domain}/favicon.ico`,
+    ],
+    [domain]
+  );
+
+  const handleError = useCallback(() => {
+    const nextIndex = fallbackIndex + 1;
+    if (nextIndex < fallbackSources.length) {
+      setFallbackIndex(nextIndex);
+      setImgSrc(fallbackSources[nextIndex]);
+      setIsLoading(true);
+    } else {
+      setHasError(true);
+      setIsLoading(false);
+    }
+  }, [fallbackIndex, fallbackSources]);
 
   useEffect(() => {
     let timeoutId: any;
@@ -45,19 +61,7 @@ const WebsiteLogo = ({
         clearTimeout(timeoutId);
       }
     };
-  }, [imgSrc, isLoading]);
-
-  const handleError = () => {
-    const nextIndex = fallbackIndex + 1;
-    if (nextIndex < fallbackSources.length) {
-      setFallbackIndex(nextIndex);
-      setImgSrc(fallbackSources[nextIndex]);
-      setIsLoading(true);
-    } else {
-      setHasError(true);
-      setIsLoading(false);
-    }
-  };
+  }, [imgSrc, isLoading, timeout, handleError]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -76,7 +80,7 @@ const WebsiteLogo = ({
         </div>
       )}
 
-      <img
+      <Image
         src={imgSrc}
         alt={`${domain} logo`}
         width={size}
@@ -90,6 +94,7 @@ const WebsiteLogo = ({
           objectFit: "contain",
           display: hasError ? "none" : "inline-block",
         }}
+        unoptimized
       />
 
       {/* Fallback: Display first letter of domain when all image sources fail */}

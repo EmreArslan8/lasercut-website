@@ -1,6 +1,7 @@
 import { Aside } from "@/components/mdx/Aside";
 import { Callout } from "@/components/mdx/Callout";
 import { MdxCard } from "@/components/mdx/MdxCard";
+import Image from "next/image";
 import React, { ReactNode } from "react";
 
 interface HeadingProps {
@@ -92,8 +93,12 @@ const MDXComponents: MDXComponentsProps = {
       {...props}
     />
   ),
-  img: (props) => (
-    <img className="rounded-lg border-2 border-gray-200 my-6" {...props} />
+  img: ({ alt = "", ...props }) => (
+    <Image
+      alt={alt}
+      className="rounded-lg border-2 border-gray-200 my-6"
+      {...props}
+    />
   ),
   strong: (props) => <strong className="font-bold" {...props} />,
   table: (props) => (

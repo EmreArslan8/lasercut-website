@@ -1,11 +1,11 @@
-import { normalizeEmail, validateEmail } from '@/lib/email';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-import { headers } from 'next/headers';
-import { Resend } from 'resend';
+import { normalizeEmail, validateEmail } from "@/lib/email";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { headers } from "next/headers";
+import { Resend } from "resend";
 
 // initialize resend
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend("re_123456789example");
 
 // Resend Audience ID
 const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID!;
@@ -16,26 +16,28 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 });
 
-const REDIS_RATE_LIMIT_KEY = process.env.UPSTASH_REDIS_NEWSLETTER_RATE_LIMIT_KEY!;
-const DAY_MAX_SUBMISSIONS = parseInt(process.env.DAY_MAX_SUBMISSIONS || '10');
+const REDIS_RATE_LIMIT_KEY =
+  process.env.UPSTASH_REDIS_NEWSLETTER_RATE_LIMIT_KEY!;
+const DAY_MAX_SUBMISSIONS = parseInt(process.env.DAY_MAX_SUBMISSIONS || "10");
 
 // create rate limiter
 const limiter = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(DAY_MAX_SUBMISSIONS, '1d'),
+  limiter: Ratelimit.slidingWindow(DAY_MAX_SUBMISSIONS, "1d"),
   prefix: REDIS_RATE_LIMIT_KEY,
 });
 
 // Shared rate limit check
 async function checkRateLimit() {
   const headersList = await headers();
-  const ip = headersList.get('x-real-ip') ||
-    headersList.get('x-forwarded-for') ||
-    'unknown';
+  const ip =
+    headersList.get("x-real-ip") ||
+    headersList.get("x-forwarded-for") ||
+    "unknown";
 
   const { success } = await limiter.limit(ip);
   if (!success) {
-    throw new Error('Too many submissions, please try again later');
+    throw new Error("Too many submissions, please try again later");
   }
 }
 
@@ -47,7 +49,7 @@ export async function subscribeToNewsletter(email: string) {
     const { isValid, error } = validateEmail(normalizedEmail);
 
     if (!isValid) {
-      throw new Error(error || 'Invalid email address');
+      throw new Error(error || "Invalid email address");
     }
 
     // Check if already subscribed
@@ -64,13 +66,13 @@ export async function subscribeToNewsletter(email: string) {
     });
 
     // Send welcome email
-    const unsubscribeToken = Buffer.from(normalizedEmail).toString('base64');
+    const unsubscribeToken = Buffer.from(normalizedEmail).toString("base64");
     const unsubscribeLink = `${process.env.NEXT_PUBLIC_SITE_URL}/unsubscribe?token=${unsubscribeToken}`;
 
     await resend.emails.send({
-      from: 'NextForge <' + process.env.ADMIN_EMAIL! + '>',
+      from: "NextForge <" + process.env.ADMIN_EMAIL! + ">",
       to: normalizedEmail,
-      subject: 'Welcome to Next Forge',
+      subject: "Welcome to Next Forge",
       html: `
         <h2>Welcome to Next Forge</h2>
         <p>Thank you for subscribing to the newsletter. You will receive the latest updates and news.</p>
@@ -80,13 +82,13 @@ export async function subscribeToNewsletter(email: string) {
       `,
       headers: {
         "List-Unsubscribe": `<${unsubscribeLink}>`,
-        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click"
-      }
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Newsletter subscription failed:', error);
+    console.error("Newsletter subscription failed:", error);
     throw error;
   }
 }
@@ -95,12 +97,12 @@ export async function unsubscribeFromNewsletter(token: string) {
   try {
     await checkRateLimit();
 
-    const email = Buffer.from(token, 'base64').toString();
+    const email = Buffer.from(token, "base64").toString();
     const normalizedEmail = normalizeEmail(email);
     const { isValid, error } = validateEmail(normalizedEmail);
 
     if (!isValid) {
-      throw new Error(error || 'Invalid email address');
+      throw new Error(error || "Invalid email address");
     }
 
     // Check if subscribed
@@ -108,7 +110,7 @@ export async function unsubscribeFromNewsletter(token: string) {
     const user = list.data?.data.find((item) => item.email === normalizedEmail);
 
     if (!user) {
-      throw new Error('This email is not subscribed to our notifications');
+      throw new Error("This email is not subscribed to our notifications");
     }
 
     // Remove from audience
@@ -119,7 +121,7 @@ export async function unsubscribeFromNewsletter(token: string) {
 
     return { success: true, email: normalizedEmail };
   } catch (error) {
-    console.error('Newsletter unsubscribe failed:', error);
+    console.error("Newsletter unsubscribe failed:", error);
     throw error;
   }
-} 
+}

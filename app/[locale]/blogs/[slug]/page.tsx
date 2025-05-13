@@ -6,6 +6,7 @@ import { constructMetadata } from "@/lib/metadata";
 import { BlogPost } from "@/types/blog";
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 type Params = Promise<{
@@ -59,7 +60,7 @@ export default async function BlogPage({ params }: { params: Params }) {
     <div className="w-full md:w-3/5 px-2 md:px-12">
       <h1 className="break-words text-4xl font-bold mt-6 mb-4">{post.title}</h1>
       {post.image && (
-        <img src={post.image} alt={post.title} className="rounded-sm" />
+        <Image src={post.image} alt={post.title} className="rounded-sm" />
       )}
       {post.tags && post.tags.split(",").length ? (
         <div className="flex flex-wrap gap-2">

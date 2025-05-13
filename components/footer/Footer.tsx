@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Link as I18nLink } from "@/i18n/routing";
 import { GithubIcon, MailIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { SiBluesky } from "react-icons/si";
 
 export default function Footer() {
@@ -17,7 +18,7 @@ export default function Footer() {
             <div className="w-full flex flex-col sm:flex-row lg:flex-col gap-4 col-span-full md:col-span-2">
               <div className="space-y-4 flex-1">
                 <div className="items-center space-x-2 flex">
-                  <img src="/logo.svg" alt="Next Forge" className="w-8 h-8" />
+                  <Image src="/logo.svg" alt="Next Forge" className="w-8 h-8" />
 
                   <span className="text-white text-2xl font-bold">
                     {t("title")}
