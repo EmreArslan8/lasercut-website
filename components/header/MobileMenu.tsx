@@ -36,7 +36,7 @@ export default function MobileMenu() {
             >
               <Image
                 alt={siteConfig.name}
-                src="/logo.svg"
+                src="/logo.png"
                 className="w-6 h-6"
                 width={32}
                 height={32}

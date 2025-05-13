@@ -17,14 +17,13 @@ const WebsiteLogo = ({
   timeout = 1000, // 1 second
 }: IProps) => {
   const domain = getDomain(url);
-  const [imgSrc, setImgSrc] = useState(`https://${domain}/logo.svg`);
+  const [imgSrc, setImgSrc] = useState(`https://${domain}/logo.png`);
   const [fallbackIndex, setFallbackIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   const fallbackSources = useMemo(
     () => [
-      `https://${domain}/logo.svg`,
       `https://${domain}/logo.png`,
       `https://${domain}/apple-touch-icon.png`,
       `https://${domain}/apple-touch-icon-precomposed.png`,
