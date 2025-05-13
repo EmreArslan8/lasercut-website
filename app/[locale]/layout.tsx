@@ -64,7 +64,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale || DEFAULT_LOCALE} suppressHydrationWarning>
       <head>
-        <meta name="google-site-verification" content="..." />
+        <meta
+          name="google-site-verification"
+          content="n6n2EfCF4_xpwn238Hwy0W5Vddi-Yq55wh052uDHDZk"
+        />
       </head>
 
       <body
