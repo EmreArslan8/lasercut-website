@@ -159,7 +159,7 @@ const footerLinks: FooterLink[] = [
     links: [
       {
         href: "",
-        label: "Next Forge",
+        label: "2dtocut",
         rel: "noopener noreferrer nofollow",
         target: "_blank",
       },
