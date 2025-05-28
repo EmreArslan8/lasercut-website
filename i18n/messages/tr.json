@@ -1,49 +1,49 @@
 {
   "LanguageDetection": {
-    "title": "Language Suggestion",
-    "description": "Tarayıcı dilinizin mevcut site dilinden farklı olduğunu fark ettik. Dilinizi istediğiniz zaman değiştirebilirsiniz 👉",
-    "countdown": "{countdown} saniye içinde kapanıyor"
+    "title": "Dil Önerisi",
+    "description": "Tarayıcı diliniz mevcut dilimizden farklı görünüyor. İstediğiniz zaman değiştirebilirsiniz 👉",
+    "countdown": "{countdown} saniye içinde kapanacak"
   },
   "Header": {
-    "blogs": "Blogs",
-    "about": "About",
-    "sourceCode": "Source Code",
-    "proVersion": "Pro Version"
+    "blogs": "Bloglar",
+    "about": "Hakkımızda",
+    "sourceCode": "Kaynak Kodu",
+    "proVersion": "Pro Sürüm"
   },
   "Footer": {
-    "Copyright": "Copyright © {year} Next Forge. All rights reserved.",
+    "Copyright": "Telif Hakkı © {year} 2dtocut. Tüm hakları saklıdır.",
     "Newsletter": {
-      "title": "Subscribe to our newsletter",
-      "description": "Get the latest news and updates from Next Forge",
-      "defaultErrorMessage": "Please enter a valid email address",
-      "successMessage": "Subscription successful",
-      "errorMessage": "Subscription failed",
-      "errorMessage2": "Subscription failed. Please try again later.",
-      "subscribe": "Subscribe",
-      "subscribing": "Subscribing...",
-      "subscribed": "Subscription successful! Thank you for your attention."
+      "title": "Bültenimize abone olun",
+      "description": "2dtocut'dan haberleri ve yenilikleri ilk siz öğrenin. Hemen abone olun!",
+      "defaultErrorMessage": "Lütfen geçerli bir e-posta adresi girin",
+      "successMessage": "Abonelik başarılı",
+      "errorMessage": "Abonelik başarısız oldu",
+      "errorMessage2": "Abonelik başarısız. Lütfen daha sonra tekrar deneyin.",
+      "subscribe": "Abone Ol",
+      "subscribing": "Abone olunuyor...",
+      "subscribed": "Abonelik başarılı! İlginiz için teşekkür ederiz."
     }
   },
   "Home": {
-    "title": " CNC Cutting Solutions",
-    "tagLine": "CNC Cutting Solutions",
-    "description": "Metal parçalar için hassas CNC lazer kesim. Hızlı teslimat, uzman hizmet ve güvenilir kalite...Bugün ücretsiz fiyat teklifi alın!",
-    "whoIsUsing": "Who is Using This Starter"
+    "title": "CNC Lazer Kesim Hizmeti",
+    "tagLine": "CNC Kesimde Uzmanlık",
+    "description": "Hassas CNC lazer kesim ile metal parçalar için hızlı, kaliteli ve uygun fiyatlı çözümler sunuyoruz. Bugün ücretsiz teklif alın!",
+    "whoIsUsing": "Bu şablonu kimler kullanıyor?"
   },
   "Blogs": {
-    "title": "Blog Posts",
-    "description": "A list of blog posts"
+    "title": "CNC Blog Yazıları",
+    "description": "CNC teknolojisi, lazer kesim ve üretimle ilgili güncel blog içeriklerini buradan takip edebilirsiniz."
   },
   "About": {
-    "title": "About",
-    "description": "About the site"
+    "title": "Hakkımızda",
+    "description": "2dtocut’un vizyonu, uzman ekibi ve kalite odaklı CNC kesim çözümleri hakkında daha fazla bilgi edinin."
   },
   "TermsOfService": {
-    "title": "Terms of Service",
-    "description": "Terms of Service"
+    "title": "Hizmet Şartları",
+    "description": "Web sitemizi kullanmadan önce geçerli olan hizmet şartlarımızı ve kullanım koşullarımızı mutlaka okuyun."
   },
   "PrivacyPolicy": {
-    "title": "Privacy Policy",
-    "description": "Privacy Policy"
+    "title": "Gizlilik Politikası",
+    "description": "Veri gizliliğinize önem veriyoruz. Kişisel bilgilerinizin nasıl toplandığını ve korunduğunu öğrenin."
   }
 }

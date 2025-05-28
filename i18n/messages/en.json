@@ -1,7 +1,7 @@
 {
   "LanguageDetection": {
     "title": "Language Suggestion",
-    "description": "We noticed your browser language differs from the current site language. You can switch languages anytime 👉",
+    "description": "We noticed your browser language differs from the current site language. You can switch anytime 👉",
     "countdown": "Closing in {countdown} seconds"
   },
   "Header": {
@@ -11,10 +11,10 @@
     "proVersion": "Pro Version"
   },
   "Footer": {
-    "Copyright": "Copyright © {year} Next Forge. All rights reserved.",
+    "Copyright": "Copyright © {year} 2dtocut. All rights reserved.",
     "Newsletter": {
       "title": "Subscribe to our newsletter",
-      "description": "Get the latest news and updates from Next Forge",
+      "description": "Get the latest updates, product news, and offers from 2dtocut. Stay informed!",
       "defaultErrorMessage": "Please enter a valid email address",
       "successMessage": "Subscription successful",
       "errorMessage": "Subscription failed",
@@ -25,25 +25,24 @@
     }
   },
   "Home": {
-    "title": "2dtocut",
-    "tagLine": "Cnc Cutting Solutions",
-    "description": "Precision CNC laser cutting for metal parts. Fast delivery, expert service, and reliable quality..Get a free quote today!",
-    "whoIsUsing": "Who is Using This Starter"
+    "title": "CNC Laser Cutting Services",
+    "tagLine": "Precision Cutting, Fast Delivery",
+    "description": "We provide high-precision CNC laser cutting for metal parts with fast delivery and expert service. Request a free quote today!"
   },
   "Blogs": {
-    "title": "Blog Posts",
-    "description": "A list of blog posts"
+    "title": "CNC Blog Articles",
+    "description": "Explore our latest articles on CNC laser cutting, metal fabrication, and manufacturing innovations."
   },
   "About": {
-    "title": "About",
-    "description": "About the site"
+    "title": "About Us",
+    "description": "Learn more about 2dtocut, our mission, and how we deliver reliable CNC laser cutting solutions to clients worldwide."
   },
   "TermsOfService": {
     "title": "Terms of Service",
-    "description": "Terms of Service"
+    "description": "Please review our terms and conditions carefully before using our website or services."
   },
   "PrivacyPolicy": {
     "title": "Privacy Policy",
-    "description": "Privacy Policy"
+    "description": "Your privacy matters. Learn how we collect, use, and protect your personal information."
   }
 }
