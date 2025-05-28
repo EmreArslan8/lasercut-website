@@ -44,12 +44,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await Promise.all(
     LOCALES.map(async (locale) => {
       const { posts } = await getPosts(locale);
-      return posts.map((post) => ({
-        url: `${siteUrl}${locale === DEFAULT_LOCALE ? "" : `/${locale}`}/blogs/${post.slug}`,
-        lastModified: post.metadata.updatedAt || post.date,
-        changeFrequency: "daily" as const,
-        priority: 0.7,
-      }));
+      return posts.map((post) => {
+        const cleanSlug = post.slug.replace(/^\/+/, ""); // Baştaki slash'ı temizle
+        const path = `${locale === DEFAULT_LOCALE ? "" : `/${locale}`}/blogs/${cleanSlug}`;
+        return {
+          url: `${siteUrl}${path}`,
+          lastModified: post.metadata.updatedAt || post.date,
+          changeFrequency: "daily" as const,
+          priority: 0.7,
+        };
+      });
     })
   ).then((results) => results.flat());
 
