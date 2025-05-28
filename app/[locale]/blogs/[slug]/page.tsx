@@ -9,10 +9,10 @@ import { MDXRemote } from "next-mdx-remote-client/rsc";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-type Params = {
+type Params = Promise<{
   locale: string;
   slug: string;
-};
+}>;
 
 type MetadataProps = {
   params: Params;
@@ -21,7 +21,7 @@ type MetadataProps = {
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   let { posts }: { posts: BlogPost[] } = await getPosts(locale);
 
   // Slug karşılaştırmasını normalize ederek yap
@@ -44,11 +44,12 @@ export async function generateMetadata({
     images: post.image ? [post.image] : [],
     locale: locale as Locale,
     path: `/blogs/${slug}`,
+    // canonicalUrl: `/blogs/${slug}`,
   });
 }
 
 export default async function BlogPage({ params }: { params: Params }) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   let { posts }: { posts: BlogPost[] } = await getPosts(locale);
 
   // Slug karşılaştırmasını normalize ederek yap
@@ -66,16 +67,20 @@ export default async function BlogPage({ params }: { params: Params }) {
       )}
       {post.tags && post.tags.split(",").length ? (
         <div className="flex flex-wrap gap-2">
-          {post.tags.split(",").map((tag) => (
-            <div
-              key={tag}
-              className="rounded-md bg-gray-200 hover:!no-underline dark:bg-[#24272E] flex px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-black hover:dark:bg-[#15AFD04C] hover:dark:text-[#82E9FF] text-gray-500 dark:text-[#7F818C]"
-            >
-              {tag.trim()}
-            </div>
-          ))}
+          {post.tags.split(",").map((tag) => {
+            return (
+              <div
+                key={tag}
+                className={`rounded-md bg-gray-200 hover:!no-underline dark:bg-[#24272E] flex px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-black hover:dark:bg-[#15AFD04C] hover:dark:text-[#82E9FF] text-gray-500 dark:text-[#7F818C] outline-none focus-visible:ring transition`}
+              >
+                {tag.trim()}
+              </div>
+            );
+          })}
         </div>
-      ) : null}
+      ) : (
+        <></>
+      )}
       {post.description && <Callout>{post.description}</Callout>}
       <MDXRemote source={post?.content || ""} components={MDXComponents} />
     </div>
@@ -85,12 +90,12 @@ export default async function BlogPage({ params }: { params: Params }) {
 export async function generateStaticParams() {
   let posts = (await getPosts()).posts;
 
-  // Geçerli slug'lara sahip gönderileri filtrele
+  // Filter out posts without a slug
   posts = posts.filter((post) => post.slug);
 
   return LOCALES.flatMap((locale) =>
     posts.map((post) => {
-      const slugPart = post.slug.replace(/^\/+/, "").replace(/^blogs\//, "");
+      const slugPart = post.slug.replace(/^\//, "").replace(/^blogs\//, "");
 
       return {
         locale,
