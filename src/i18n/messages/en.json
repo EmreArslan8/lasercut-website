@@ -1,0 +1,317 @@
+{
+  "LanguageDetection": {
+    "title": "Language Suggestion",
+    "description": "We noticed your browser language differs from the current site language. You can switch anytime 👉",
+    "countdown": "Closing in {countdown} seconds"
+  },
+  "Header": {
+    "blogs": "Blogs",
+    "about": "About",
+    "sourceCode": "Source Code",
+    "proVersion": "Pro Version",
+    "logoAlt": "Company logo",
+    "adminPanelButton": "Admin Panel",
+    "about-us": "About",
+    "contact": "Contact",
+    "language": "English",
+    "aboutUs": "About",
+    "examples": "Examples",
+    "faq": "Faq",
+    "quickQuote": "get started",
+    "cartPageTitle": "Cart"
+  },
+  "Footer": {
+    "Copyright": "Copyright © {year} 2dtocut. All rights reserved.",
+    "Newsletter": {
+      "title": "Subscribe to our newsletter",
+      "description": "Get the latest updates, product news, and offers from 2dtocut. Stay informed!",
+      "defaultErrorMessage": "Please enter a valid email address",
+      "successMessage": "Subscription successful",
+      "errorMessage": "Subscription failed",
+      "errorMessage2": "Subscription failed. Please try again later.",
+      "subscribe": "Subscribe",
+      "subscribing": "Subscribing...",
+      "subscribed": "Subscription successful! Thank you for your attention."
+    }
+  },
+  "Home": {
+    "title": "CNC Laser Cutting Services",
+    "tagLine": "Precision Cutting, Fast Delivery",
+    "description": "We provide high-precision CNC laser cutting for metal parts with fast delivery and expert service. Request a free quote today!"
+  },
+  "Blogs": {
+    "title": "CNC Blog Articles",
+    "description": "Explore our latest articles on CNC laser cutting, metal fabrication, and manufacturing innovations."
+  },
+  "About": {
+    "title": "About Us",
+    "description": "Learn more about 2dtocut, our mission, and how we deliver reliable CNC laser cutting solutions to clients worldwide."
+  },
+  "TermsOfService": {
+    "title": "Terms of Service",
+    "description": "Please review our terms and conditions carefully before using our website or services."
+  },
+  "PrivacyPolicy": {
+    "title": "Privacy Policy",
+    "description": "Your privacy matters. Learn how we collect, use, and protect your personal information."
+  },
+  "FeatureSection": {
+    "badge": "Who We Are",
+    "desc": "We are a team of experts delivering high-quality laser cutting and engineering solutions with reliable support at every step.",
+    "heading": "We Specialize In Delivering Top-Notch  ",
+    "highlight": "Laser Cutting",
+    "headingContinuation": " and Engineering Services.",
+    "subheading": "What We Do",
+    "serviceTitle": "We Do Best Engineering Services For You"
+  },
+  "WpButton": {
+    "buttonText": "WhatsApp Support"
+  },
+  "ExampleWorks": {
+    "ourWork": "Our Work",
+    "workingGallery": "Working Gallery",
+    "workingGalleryDesc": "Discover our high-quality laser cutting works, crafted with precision to meet the unique needs of each project and industry.",
+    "goToGallery": "Go to Gallery",
+    "title": "Gallery"
+  },
+  "Services": {
+    "title": "What We Do",
+    "heading": "We Provide the Best Engineering Services for You",
+    "description": "Our expertise lies in precision engineering, offering high-quality services tailored to your needs. From laser cutting to custom fabrication, we ensure efficiency, accuracy, and reliability in every project.",
+    "laserCutting": {
+      "title": "Laser Cutting Service",
+      "description": "Experience high-precision laser cutting with fast turnaround times, ensuring clean and accurate cuts for various materials."
+    },
+
+    "cncMachining": {
+      "title": "CNC Machining Service",
+      "description": "Accurate CNC machining for complex parts."
+    },
+    "customFabrication": {
+      "title": "Custom Metal Fabrication",
+      "description": "Tailored metal fabrication to meet your needs."
+    }
+  },
+  "Banner": {
+    "titleStart": "Precision Laser Cutting",
+    "titleHighlight": "Engineering Solutions",
+    "titleEnd": "for Every Industry.",
+    "description": "Combine quality and precision with high-accuracy metal laser cutting solutions tailored to your needs.",
+    "counterSubtitle": "Engineering Solutions",
+    "counterTitle": "Satisfying Clients",
+    "quickQuote": "Get a quote"
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "description": "Get in touch with our team! Have questions or need help? You can reach us anytime."
+  },
+  "Examples": {
+    "title": "Examples",
+    "description": "Explore our examples of laser cutting and engineering services."
+  },
+  "Faq": {
+    "title": "Faq",
+    "description": "Explore our examples of laser cutting and engineering services."
+  },
+  "File": {
+    "title": "Upload your models",
+    "drawerTitle": "Uploading your CAD is the best way to get an instant quote",
+    "description": "You can easily upload image files (JPG, PNG, JPEG) as well as PDF, DXF, and STP formats.",
+    "drawerInfo": "Your design is safe! Any design uploaded to 2dtocut.com is secure, and you retain 100% of the intellectual property rights.",
+    "uploadFile": "Upload File",
+    "congratulations": "Congratulations!",
+    "submissionSuccess": "Your file and information have been successfully received. Our team will contact you as soon as possible.",
+    "returnToHome": "Return to Home Page",
+    "uploadPrompt": "Get an instant quote with STP | DXF | JPEG | JPG | PNG | PDF files",
+    "uploadDescription": "Drag and drop",
+    "uploadedFiles": "Uploaded Files",
+    "addFile": "Upload File",
+    "getQuote": "Get Quote",
+    "analyzing": "Analyzing...",
+    "loading": "Please wait for it",
+    "secureUploads": "All uploads are secure and confidential.",
+    "invalidFileFormat": "Invalid file format: {fileName}",
+    "steps": {
+      "dimensions": "Dimensions",
+      "materialSelection": "Product Details",
+      "additionalServices": "Additional Services"
+    }
+  },
+  "MaterialSection": {
+    "title": "LASER CUTTING",
+    "subtitle": "What materials can we cut with laser cutting?",
+    "description": "Laser cutting technology allows us to precisely cut a variety of metals.",
+    "materials": {
+      "0": "Mild Steel",
+      "1": "Aluminum",
+      "2": "Stainless Steel"
+    },
+    "button": "Contact Us"
+  },
+  "OrderDetails": {
+    "fileDetails": "Please fill in the file details:",
+    "materialSelection": "Material Selection",
+    "thickness": "Thickness",
+    "quantity": "Quantity",
+    "coating": "Coating",
+    "painted": "Painted",
+    "unpainted": "Unpainted",
+    "noteOptional": "Note (Optional)",
+    "addToCart": "Add to Cart",
+    "requiredField": "Required Field",
+    "enterColor": "Color..",
+    "bendingService": "I want bending service",
+    "width": "Width",
+    "height": "Height",
+    "uploadInProgress": "The system is uploading the file, please wait...",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Aluminum",
+        "description": "High softness and machinability make it ideal for decoration, kitchen utensils, and sheet coverings.",
+        "image": "/static/images/aluminyum.png"
+      },
+      {
+        "key": "DKP Steel",
+        "name": "DKP Steel",
+        "description": "Low-carbon steel suitable for deep drawing, with a smooth and bright surface for painting or coating.",
+        "image": "/static/images/galvaniz.png"
+      },
+      {
+        "key": "Black Sheet",
+        "name": "Black Sheet",
+        "description": "Raw steel type used in structural and industrial applications.",
+        "image": "/static/images/sac-karbon-celik.png"
+      },
+      {
+        "key": "ST37-K / S235JR",
+        "name": "ST37-K / S235JR",
+        "description": "Structural steel known for its weldability and cost-effectiveness.",
+        "image": "/static/images/st37.png"
+      },
+      {
+        "key": "Stainless Steel 304",
+        "name": "Stainless Steel 304",
+        "description": "Highly corrosion-resistant, ideal for kitchen equipment and medical tools.",
+        "image": "/static/images/paslanmaz-sac.png"
+      },
+      {
+        "key": "Stainless Steel 316L",
+        "name": "Stainless Steel 316L",
+        "description": "Marine-grade stainless steel with exceptional chemical resistance.",
+        "image": "/static/images/paslanmaz-sac.png"
+      }
+    ]
+  },
+  "Step1": {
+    "title": "Confirm Dimensions",
+    "description": "Please check the dimensions and correct them if they are incorrect.",
+    "width": "Width",
+    "height": "Height",
+    "unitSelect": "Select Measurement Unit",
+    "inch": "Inch",
+    "mm": "MM",
+    "next": "Next",
+    "confirmTitle": "Confirm the dimensions of your part",
+    "confirmMessage": "{width} {unit} of your part You have confirmed that it has the dimensions {height} x {height} {unit}.",
+    "cancel": "Cancel",
+    "confirmButton": "Confirm"
+  },
+  "Step2": {
+    "materialSelection": "Production Details: Material, Thickness, and Quantity Selection",
+    "materialSelectionDesc": "Please specify your production details: Choose the material type, thickness, and quantity to proceed.",
+    "selectedMaterial": "Selected Material: ",
+    "selectMaterial": "Select Material",
+    "selectedThickness": "Selected Thickness",
+    "selectThickness": "Select Thickness",
+    "selectedQuantity": "Quantity: ",
+    "selectQuantity": "Quantity",
+    "noteTitle": "If you have any additional details for your product, you can write them here.",
+    "additionalNotes": "Additional Notes (Optional)",
+    "back": "Back",
+    "next": "Next",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Aluminum",
+        "image": "/static/images/aluminum.jpg",
+        "description": "Light and durable"
+      },
+      {
+        "name": "DKP Steel",
+        "key": "DKP Steel",
+        "image": "/static/images/steel_dkp.jpg",
+        "description": "Suitable for shaping"
+      },
+      {
+        "name": "Black Sheet",
+        "key": "Black Sheet",
+        "image": "/static/images/black_steel.webp",
+        "description": "General-purpose steel with good strength"
+      },
+      {
+        "name": "ST37-K / S235JR",
+        "key": "ST37-K / S235JR",
+        "image": "/static/images/steel_st37.jpeg",
+        "description": "Structural steel"
+      },
+      {
+        "name": "Stainless Steel 304",
+        "key": "Stainless Steel 304",
+        "image": "/static/images/stainless_304.jpg",
+        "description": "Suitable for food and medical use"
+      },
+      {
+        "name": "Stainless Steel 316L",
+        "key": "Stainless Steel 316L",
+        "image": "/static/images/stainless_316.jpg",
+        "description": "Resistant to chemicals and saltwater"
+      }
+    ],
+    "materialNames": {
+      "Aluminum": "Aluminum",
+      "DKP Steel": "DKP Steel",
+      "Black Sheet": "Black Sheet",
+      "ST37-K / S235JR": "ST37-K / S235JR",
+      "Stainless Steel 304": "Stainless Steel 304",
+      "Stainless Steel 316L": "Stainless Steel 316L"
+    }
+  },
+
+  "Step3": {
+    "title": "Additional Services",
+    "description": "You can select additional services below. For painting, you can enter a custom color.",
+    "modalTitle": "Congratulations!",
+    "modalDescription": "Your product has been successfully added to the cart.",
+    "homeButton": "Home",
+    "cartButton": "Go to Cart",
+    "extraServices": [
+      {
+        "key": "bending",
+        "name": "Bending",
+        "description": "Bending of sheet or metal parts"
+      },
+      {
+        "key": "painting",
+        "name": "Painting",
+        "description": "Color coating process (Custom Color Option Available)"
+      }
+    ],
+    "colorSelection": "Select or Enter a Paint Color:",
+    "selectColor": "Select Paint Color",
+    "black": "Black",
+    "red": "Red",
+    "blue": "Blue",
+    "customColor": "Custom Color",
+    "buttons": {
+      "back": "Back",
+      "confirm": "Complete Order"
+    },
+    "modal": {
+      "title": "🎉 Congratulations!",
+      "description": "Your product has been successfully added to the cart",
+      "goHome": "Go to Home",
+      "goCart": "Go to Cart"
+    }
+  }
+}

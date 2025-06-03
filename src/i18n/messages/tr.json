@@ -1,0 +1,320 @@
+{
+  "LanguageDetection": {
+    "title": "Dil Önerisi",
+    "description": "Tarayıcı diliniz mevcut dilimizden farklı görünüyor. İstediğiniz zaman değiştirebilirsiniz 👉",
+    "countdown": "{countdown} saniye içinde kapanacak"
+  },
+  "Header": {
+    "blogs": "Bloglar",
+    "about": "Hakkımızda",
+    "sourceCode": "Kaynak Kodu",
+    "proVersion": "Pro Sürüm",
+    "logoAlt": "Şirket logosu",
+    "adminPanelButton": "Yönetici Paneli",
+    "about-us": "Hakkımızda",
+    "contact": "İletişim",
+    "language": "Türkçe",
+    "aboutUs": "Hakkımızda",
+    "examples": "Örnek Çalışmalar",
+    "faq": "SSS",
+    "quickQuote": "hızlı teklif",
+    "cartPageTitle": "Sepetim"
+  },
+  "Footer": {
+    "Copyright": "Telif Hakkı © {year} 2dtocut. Tüm hakları saklıdır.",
+    "Newsletter": {
+      "title": "Bültenimize abone olun",
+      "description": "2dtocut'dan haberleri ve yenilikleri ilk siz öğrenin. Hemen abone olun!",
+      "defaultErrorMessage": "Lütfen geçerli bir e-posta adresi girin",
+      "successMessage": "Abonelik başarılı",
+      "errorMessage": "Abonelik başarısız oldu",
+      "errorMessage2": "Abonelik başarısız. Lütfen daha sonra tekrar deneyin.",
+      "subscribe": "Abone Ol",
+      "subscribing": "Abone olunuyor...",
+      "subscribed": "Abonelik başarılı! İlginiz için teşekkür ederiz."
+    }
+  },
+  "Home": {
+    "title": "CNC Lazer Kesim Hizmeti",
+    "tagLine": "CNC Kesimde Uzmanlık",
+    "description": "Hassas CNC lazer kesim ile metal parçalar için hızlı, kaliteli ve uygun fiyatlı çözümler sunuyoruz. Bugün ücretsiz teklif alın!",
+    "whoIsUsing": "Bu şablonu kimler kullanıyor?"
+  },
+  "Blogs": {
+    "title": "CNC Blog Yazıları",
+    "description": "CNC teknolojisi, lazer kesim ve üretimle ilgili güncel blog içeriklerini buradan takip edebilirsiniz."
+  },
+  "About": {
+    "title": "Hakkımızda",
+    "description": "2dtocut’un vizyonu, uzman ekibi ve kalite odaklı CNC kesim çözümleri hakkında daha fazla bilgi edinin."
+  },
+  "TermsOfService": {
+    "title": "Hizmet Şartları",
+    "description": "Web sitemizi kullanmadan önce geçerli olan hizmet şartlarımızı ve kullanım koşullarımızı mutlaka okuyun."
+  },
+  "PrivacyPolicy": {
+    "title": "Gizlilik Politikası",
+    "description": "Veri gizliliğinize önem veriyoruz. Kişisel bilgilerinizin nasıl toplandığını ve korunduğunu öğrenin."
+  },
+  "FeatureSection": {
+    "badge": "Biz Kimiz",
+    "desc": "Yüksek kalite standartlarında lazer kesim ve mühendislik çözümleri sunan uzman bir ekibiz. Her adımda güvenilir destek sağlıyoruz.",
+    "heading": "Üst Düzey ",
+    "highlight": "Lazer Kesim",
+    "headingContinuation": " ve Mühendislik Hizmetlerinde Uzmanız."
+  },
+  "WpButton": {
+    "buttonText": "WhatsApp DesteK"
+  },
+  "ExampleWorks": {
+    "ourWork": "Çalışmalarımız",
+    "workingGallery": "Çalışma Galerisi",
+    "workingGalleryDesc": "Özel projeler ve sektörler için titizlikle hazırlanmış yüksek kaliteli lazer kesim çalışmalarımızı keşfedin.",
+    "goToGallery": "Galeriyi Gör",
+    "title": "Galeri"
+  },
+  "Services": {
+    "title": "Ne Yapıyoruz?",
+    "heading": "Size En İyi Mühendislik Hizmetlerini Sunuyoruz",
+    "description": "Uzmanlığımız hassas mühendisliktir. Lazer kesimden özel üretime kadar yüksek kalite, verimlilik ve doğruluk sağlayarak projelerinizi en iyi şekilde gerçekleştiriyoruz.",
+    "laserCutting": {
+      "title": "Lazer Kesim Hizmeti",
+      "description": "Çeşitli malzemeler için temiz ve hassas kesimler sunan, hızlı işlem süresiyle yüksek hassasiyetli lazer kesim hizmeti."
+    },
+    "cncMachining": {
+      "title": "CNC İşleme Hizmeti",
+      "description": "Karmaşık parçalar için hassas CNC işleme."
+    },
+    "customFabrication": {
+      "title": "Özel Metal İmalatı",
+      "description": "İhtiyaçlarınıza özel metal üretimi."
+    }
+  },
+  "Banner": {
+    "titleStart": "Talebe Özel",
+    "titleHighlight": "Metal Lazer Kesim ",
+    "titleEnd": "Hizmetleri",
+    "description": "İhtiyaçlarınıza özel yüksek hassasiyetli metal lazer kesim çözümleri ile kalite ve hassasiyeti bir araya getirin.",
+    "quickQuote": "Hızlı Teklif Al",
+    "counterTitle": "Memnun Müşteriler",
+    "counterSubtitle": "Mühendislik Çözümleri"
+  },
+  "Contact": {
+    "title": "İletişim",
+    "description": "Ekibimizle iletişime geçin! Sorunuz mu var, yardıma mı ihtiyacınız var?"
+  },
+  "Examples": {
+    "title": "Örnek Çalışmalar",
+    "description": "Örnek çalışmalarımızı keşfedin."
+  },
+  "Faq": {
+    "title": "SSS",
+    "description": "Sıkça Sorulan Sorular"
+  },
+  "File": {
+    "title": "Modelinizi Yükleyin",
+    "drawerTitle": "Tasarım dosyanızı yüklemek anlık teklif almanın en iyi yoludur",
+    "description": "Resim dosyaları (JPG, PNG, JPEG) yanı sıra PDF, DXF ve STP formatlarını da kolayca yükleyebilirsiniz.",
+    "drawerInfo": "Tasarımınız güvende! 2dtocut.com'a yüklenen tüm tasarımlar güvenlidir ve fikri mülkiyet haklarının %100'üne sahip olursunuz",
+    "uploadFile": "Dosya yükle",
+    "congratulations": "Tebrikler!",
+    "submissionSuccess": "Dosyanız ve bilgileriniz başarıyla alındı. Firmamız en kısa sürede sizinle iletişime geçecektir.",
+    "returnToHome": "Ana Sayfaya Dön",
+    "uploadPrompt": " STP | DXF | JPEG | JPG | PNG | PDF dosyalarıyla teklif alın ",
+    "uploadDescription": "Sürükle Bırak veya",
+    "uploadedFiles": "Yüklenen Dosyalar",
+    "addFile": "Dosya Yükle",
+    "getQuote": "Teklif Al",
+    "secureUploads": "Tüm yüklemeler güvenli ve gizlidir.",
+    "uploadedPrompt": "Dosyalarınızı yükleyin",
+    "dropFiles": "Yüklenen Dosyalar",
+    "uploadedDescription": "Dosyalarınızı buraya sürükleyebilir veya tıklayarak yükleyebilirsiniz.",
+    "dropFilesHere": "Dosyaları buraya bırakın",
+    "dragAndDropDescription": "Sürükle ve bırak ile hızlı yükleme yapabilirsiniz.",
+    "invalidFileFormat": "Geçersiz dosya formatı: {fileName}",
+    "analyzing": "Analiz Ediliyor...",
+    "loading": "Lütfen bekleyin",
+    "steps": {
+      "dimensions": "Ölçüler",
+      "materialSelection": "Malzeme Seçimi",
+      "additionalServices": "Ek Hizmetler"
+    }
+  },
+  "MaterialSection": {
+    "title": "LAZER KESİM",
+    "subtitle": "Lazer kesim ile hangi malzemeleri kesebiliriz?",
+    "description": "Lazer kesim teknolojisi, farklı metallerin temiz kenarlar ve yüksek hassasiyetle kesilmesini sağlar.",
+    "materials": {
+      "0": "Karbon Çelik",
+      "1": "Alüminyum",
+      "2": "Paslanmaz Çelik"
+    },
+    "button": "Bize Ulaşın"
+  },
+  "Step1": {
+    "title": "Ölçüleri Onaylayın",
+    "description": "Lütfen ölçüleri kontrol edin ve yanlışsa düzeltin.",
+    "width": "Genişlik",
+    "height": "Yükseklik",
+    "unitSelect": "Ölçü Birimi Seç",
+    "inch": "Inch",
+    "mm": "MM",
+    "next": "İleri",
+    "confirmTitle": "Parçanızın Boyutlarını Onaylayın",
+    "confirmMessage": "Parçanızın {width} {unit} x {height} {unit} boyutlarında olduğunu onayladınız.",
+    "cancel": "İptal",
+    "confirmButton": "Onaylıyorum"
+  },
+  "Step2": {
+    "materialSelection": "Üretim Detayları: Malzeme, Kalınlık ve Adet Seçimi",
+    "materialSelectionDesc": "Lütfen üretim detaylarınızı belirleyin: Malzeme türünü, kalınlığını ve adet sayısını seçerek devam edin.",
+    "selectedMaterial": "Malzeme Seçildi ",
+    "selectMaterial": "Malzeme Seçimi",
+    "selectedThickness": "Kalınlık Seçildi ",
+    "selectThickness": "Kalınlık Seçimi",
+    "selectedQuantity": "Seçilen Adet: ",
+    "selectQuantity": "Adet Seçimi",
+    "noteTitle": "Ürününüz için eklemek istediğiniz detaylar varsa buraya yazabilirsiniz.",
+    "additionalNotes": "Ek Notlar (Opsiyonel)",
+    "back": "Geri",
+    "next": "İleri",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Alüminyum",
+        "image": "/static/images/aluminum.jpg",
+        "description": "Hafif ve dayanıklı"
+      },
+      {
+        "name": "DKP Çelik",
+        "key": "DKP Steel",
+        "image": "/static/images/steel_dkp.jpg",
+        "description": "Şekillendirmeye uygun"
+      },
+      {
+        "name": "Siyah Saç",
+        "key": "Black Sheet",
+        "image": "/static/images/black_steel.webp",
+        "description": "İyi mukavemete sahip genel amaçlı çelik"
+      },
+      {
+        "name": "ST37-K / S235JR",
+        "key": "ST37-K / S235JR",
+        "image": "/static/images/steel_st37.jpeg",
+        "description": "Yapı çeliği"
+      },
+      {
+        "name": "Paslanmaz Çelik 304",
+        "key": "Stainless Steel 304",
+        "image": "/static/images/stainless_304.jpg",
+        "description": "Gıda ve medikal kullanım"
+      },
+      {
+        "name": "Paslanmaz Çelik 316L",
+        "key": "Stainless Steel 316L",
+        "image": "/static/images/stainless_316.jpg",
+        "description": "Kimyasal ve tuzlu suya dayanıklı"
+      }
+    ],
+    "materialNames": {
+      "Aluminum": "Alüminyum",
+      "DKP Steel": "DKP Çelik",
+      "Black Sheet": "Siyah Sac",
+      "ST37-K / S235JR": "ST37-K / S235JR",
+      "Stainless Steel 304": "Paslanmaz Sac 304",
+      "Stainless Steel 316L": "Paslanmaz Sac 316L"
+    }
+  },
+
+  "Step3": {
+    "title": "Ek Hizmetler",
+    "description": "Aşağıdan ek hizmetleri seçebilirsiniz. Boya için özel renk girişi yapabilirsiniz.",
+    "modalTitle": "Tebrikler!",
+    "modalDescription": "Ürününüz sepete eklendi",
+    "homeButton": "AnaSayfa",
+    "cartButton": "Sepet",
+    "extraServices": [
+      {
+        "key": "bending",
+        "name": "Büküm",
+        "description": "Sac veya metal parçaların bükülmesi"
+      },
+      {
+        "key": "painting",
+        "name": "Boya",
+        "description": "Renk kaplama işlemi (Özel Renk Girişi Yapılabilir)"
+      }
+    ],
+    "colorSelection": "Boya Rengi Seçin veya Girin:",
+    "selectColor": "Boya Rengi Seçin",
+    "black": "Siyah",
+    "red": "Kırmızı",
+    "blue": "Mavi",
+    "customColor": "Özel Renk",
+    "buttons": {
+      "back": "Geri",
+      "confirm": "Siparişi Tamamla"
+    },
+    "modal": {
+      "title": "Ürün Sepete Eklendi",
+      "description": "Alışverişe devam edebilir veya siparişinizi tamamlamak için sepete gidebilirsiniz.",
+      "goHome": "Ana Sayfaya Git",
+      "goCart": "Sepete Git"
+    }
+  },
+  "OrderDetails": {
+    "fileDetails": "Lütfen dosya detaylarını doldurun:",
+    "materialSelection": "Materyal Seçimi",
+    "thickness": "Kalınlık",
+    "quantity": "Adet",
+    "coating": "Boya",
+    "painted": "Boyalı",
+    "unpainted": "Boyasız",
+    "noteOptional": "Not (Opsiyonel)",
+    "addToCart": "Sepete Ekle",
+    "enterColor": "Renk..",
+    "requiredField": "Boş Bırakılamaz",
+    "bendingService": "Büküm hizmeti istiyorum",
+    "width": "Genişlik",
+    "height": "Uzunluk",
+    "uploadInProgress": "Sistem dosyayı yüklüyor, lütfen bekleyin...",
+    "materials": [
+      {
+        "key": "Aluminum",
+        "name": "Alüminyum",
+        "description": "Yüksek yumuşaklık ve işlenebilirlik sunar. Dekorasyon, mutfak ürünleri ve levha kaplamalarında kullanılır",
+        "image": "/static/images/aluminyum.png"
+      },
+      {
+        "key": "DKP Steel",
+        "name": "Çelik DC01 / 6112 / C (DKP)",
+        "description": "Derin çekme işlemlerine uygun, düşük karbonlu çelik. Yüzeyi düz ve parlaktır, boyama ve kaplama için idealdir.",
+        "image": "/static/images/galvaniz.png"
+      },
+      {
+        "key": "Black Sheet",
+        "name": "Çelik Siyah Sac",
+        "description": "Yapı ve endüstriyel uygulamalarda kullanılan ham çelik türüdür.",
+        "image": "/static/images/sac-karbon-celik.png"
+      },
+      {
+        "key": "ST37-K / S235JR",
+        "name": "Çelik ST37-K / S235JR / 1.0038",
+        "description": "İyi kaynaklanabilirlik ve dayanıklılık sunan ekonomik bir yapısal çelik türüdür.",
+        "image": "/static/images/st37.png"
+      },
+      {
+        "key": "Stainless Steel 304",
+        "name": "Paslanmaz Çelik 304 / 1.4301 / X5CrNi18.10 / V2A",
+        "description": "Yüksek korozyon direnci sunar ve mutfak ekipmanları ile medikal araçlarda kullanılır",
+        "image": "/static/images/paslanmaz-sac.png"
+      },
+      {
+        "key": "Stainless Steel 316L",
+        "name": "Paslanmaz Çelik 316L / 1.4404 / X2CrNiMo17-12-2 / V4A",
+        "description": "Deniz ortamlarında ve kimyasal dayanıklılık gerektiren alanlarda üstün korozyon direnci sunar.",
+        "image": "/static/images/paslanmaz-sac.png"
+      }
+    ]
+  }
+}

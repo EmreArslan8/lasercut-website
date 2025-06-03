@@ -1,0 +1,83 @@
+---
+title: Hakkında
+description: Next Forge Hakkında - Çok Dilli Next.js 15 Başlangıç Şablonu
+lastUpdated: 2025-02-19
+---
+
+> Güncelleme tarihi: 2025-02-19
+
+# Next Forge Hakkında
+
+Next Forge, geliştiricilerin küresel ölçekte hazır web siteleri hızlıca oluşturabilmesi için tasarlanmış, özelliklerle dolu bir Next.js 15 çok dilli başlangıç şablonudur. Yerleşik i18n desteği, modern UI tasarımı, karanlık/açık tema geçişi, duyarlı (responsive) yapı, MDX blog sistemi, SEO optimizasyonu ve entegre analiz araçları ile birlikte gelir.
+
+## ✨ Temel Özellikler
+
+- 🌐 **Yerleşik i18n Desteği**: İngilizce, Çince ve Japonca dillerini kutudan çıktığı gibi destekler. Çok dilli siteleri kolayca oluşturmanıza olanak tanır.
+- 🎨 **Modern UI Tasarımı**: Tailwind CSS ile güçlendirilmiş sade ve modern kullanıcı arayüzü.
+- 🌙 **Karanlık/Açık Tema Geçişi**: Kullanıcıların karanlık ve açık temalar arasında zahmetsizce geçiş yapmasını sağlar.
+- 📱 **Duyarlı Tasarım**: Hem mobil hem masaüstü cihazlarda mükemmel deneyim sunan tamamen duyarlı yapı.
+- 📝 **MDX Blog Sistemi**: Blog gönderilerini daha esnek ve güçlü şekilde yazmanıza olanak tanır.
+- 🔍 **SEO Optimizasyonu**: Otomatik sitemap.xml üretimi, robots.txt yapılandırması ve optimize edilmiş meta veriler dahil olmak üzere kapsamlı SEO özellikleri.
+- 📊 **Analiz Entegrasyonu**: Google Analytics, Baidu Analytics, Google Adsense ve Vercel Analytics ile entegredir; kolay takip ve içgörü sağlar.
+- 🌿 **Çevre Dostu Performans**: [Website Carbon](https://www.websitecarbon.com/website/nextforge-dev/) üzerinde A+ derecesi alarak en çevre dostu web sitelerinden biri olmuştur.
+
+## 🚀 Hızlı Başlangıç
+
+1. Depoyu klonlayın:
+
+   ```bash
+   git clone https://github.com/weijunext/nextjs-15-starter.git
+   ```
+
+2. Bağımlılıkları yükleyin:
+
+   ```bash
+   npm install
+   ```
+
+3. Ortam değişkenlerini kopyalayın:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Geliştirme sunucusunu başlatın:
+   ```bash
+   npm run dev
+   ```
+
+Uygulamanızı görüntülemek için [http://localhost:3000](http://localhost:3000) adresini ziyaret edin.
+
+## ⚙️ Yapılandırma
+
+1. **Temel Ayarlar**:
+
+   - `config/site.ts` dosyasını düzenleyerek site bilgilerini güncelleyin.
+   - `public/` klasöründeki ikonları ve logoyu değiştirin.
+   - `app/sitemap.ts` ve `app/robots.ts` dosyalarını yapılandırın.
+
+2. **i18n Ayarları**:
+   - `i18n/messages/` dizinine dil dosyaları ekleyin veya düzenleyin.
+   - `i18n/routing.ts` içinde desteklenen dilleri yapılandırın.
+   - `middleware.ts` dosyasında i18n yönlendirmelerini ayarlayın.
+
+## 📝 İçerik Yönetimi
+
+### Blog Gönderileri
+
+`blogs/[locale]` dizinine aşağıdaki formatta MDX dosyaları ekleyin:
+
+```md
+---
+title: Gönderi Başlığı
+description: Gönderi Açıklaması
+image: /image.png
+slug: /url-yolu
+tags: etiket1,etiket2
+date: 2025-02-20
+visible: published
+pin: true
+---
+
+Gönderi içeriği...
+```

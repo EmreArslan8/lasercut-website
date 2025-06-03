@@ -1,22 +1,22 @@
-import BaiDuAnalytics from "@/app/BaiDuAnalytics";
-import GoogleAdsense from "@/app/GoogleAdsense";
-import GoogleAnalytics from "@/app/GoogleAnalytics";
-import PlausibleAnalytics from "@/app/PlausibleAnalytics";
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
-import { LanguageDetectionAlert } from "@/components/LanguageDetectionAlert";
-import { TailwindIndicator } from "@/components/TailwindIndicator";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { siteConfig } from "@/config/site";
+import { DrawerProvider } from "@/context/DrawerContext";
+import { ShopProvider } from "@/context/ShopContext";
+import plusJakartaSans from "@/fonts/plusJakartaSans";
 import { DEFAULT_LOCALE, Locale, routing } from "@/i18n/routing";
 import { constructMetadata } from "@/lib/metadata";
-import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import "@/styles/loading.css";
+import ThemeRegistry from "@/theme/ThemeRegistery";
 import { Analytics } from "@vercel/analytics/next";
+import BaiDuAnalytics from "app/BaiDuAnalytics";
+import GoogleAdsense from "app/GoogleAdsense";
+import GoogleAnalytics from "app/GoogleAnalytics";
+import PlausibleAnalytics from "app/PlausibleAnalytics";
 import { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
-import { ThemeProvider } from "next-themes";
 import { notFound } from "next/navigation";
 
 type MetadataProps = {
@@ -71,33 +71,28 @@ export default async function LocaleLayout({
       </head>
 
       <body
-        className={cn(
-          "min-h-screen bg-background flex flex-col font-sans antialiased"
-        )}
+        className={plusJakartaSans.className}
+        style={{ overflowX: "hidden" }}
       >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme={siteConfig.defaultNextTheme}
-            enableSystem
-          >
-            {messages.LanguageDetection && <LanguageDetectionAlert />}
-            {messages.Header && <Header />}
-
-            <main className="flex-1 flex flex-col items-center">
-              {children}
-            </main>
-
-            {messages.Footer && <Footer />}
-          </ThemeProvider>
+          <ThemeRegistry>
+            <ShopProvider>
+              <DrawerProvider>
+                {messages.Header && <Header />}
+                <main className="flex-1 flex flex-col items-center">
+                  {children}
+                </main>
+                {messages.Footer && <Footer />}
+              </DrawerProvider>
+            </ShopProvider>
+          </ThemeRegistry>
         </NextIntlClientProvider>
-        <TailwindIndicator />
+
         {process.env.NODE_ENV === "development" ? (
           <></>
         ) : (
           <>
             <Analytics />
-
             <BaiDuAnalytics />
             <GoogleAnalytics />
             <GoogleAdsense />
